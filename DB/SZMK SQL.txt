@@ -1,0 +1,150 @@
+CREATE TABLE "User" (
+	"ID" serial NOT NULL,
+	"ID_Position" bigint NOT NULL,
+	"DateCreate" DATE NOT NULL,
+	"Name" character varying NOT NULL,
+	"MidName" character varying NOT NULL,
+	"SurName" character varying NOT NULL,
+	"DOB" DATE NOT NULL,
+	CONSTRAINT "User_pk" PRIMARY KEY ("ID")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "DataReg" (
+	"ID" bigint NOT NULL,
+	"DateUpd" DATE NOT NULL,
+	"Login" character varying NOT NULL,
+	"HashPass" character varying NOT NULL
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "Position" (
+	"ID" serial NOT NULL,
+	"Name" character varying NOT NULL,
+	CONSTRAINT "Position_pk" PRIMARY KEY ("ID")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "AddUser" (
+	"DateCreate" DATE NOT NULL,
+	"ID_Admin" bigint NOT NULL,
+	"ID_User" bigint NOT NULL
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "Admins" (
+	"ID" serial NOT NULL,
+	"DateCreate" DATE NOT NULL,
+	"Name" character varying NOT NULL,
+	"MidName" character varying NOT NULL,
+	"SurName" character varying NOT NULL,
+	"DOB" DATE NOT NULL,
+	CONSTRAINT "Admins_pk" PRIMARY KEY ("ID")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "Orders" (
+	"ID" serial NOT NULL,
+	"DateCreate" DATE NOT NULL,
+	"DataMatrix" character varying NOT NULL,
+	"Executor" character varying NOT NULL,
+	"Number" character varying NOT NULL,
+	"List" character varying NOT NULL,
+	"Mark" character varying NOT NULL,
+	"Lenght" character varying NOT NULL,
+	"Weight" character varying NOT NULL,
+	CONSTRAINT "Orders_pk" PRIMARY KEY ("ID")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "AddStatus" (
+	"DateCreate" DATE NOT NULL,
+	"ID_Status" bigint NOT NULL,
+	"ID_Order" bigint NOT NULL
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "Status" (
+	"ID" serial NOT NULL,
+	"ID_Position" bigint NOT NULL,
+	"Name" character varying NOT NULL,
+	CONSTRAINT "Status_pk" PRIMARY KEY ("ID")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "AddBlank" (
+	"DateCreate" DATE NOT NULL,
+	"ID_BlankOrder" bigint NOT NULL,
+	"ID_Order" bigint NOT NULL
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "AllMail" (
+	"ID" serial NOT NULL,
+	"DateCreate" DATE NOT NULL,
+	"Name" character varying NOT NULL,
+	"MidName" character varying NOT NULL,
+	"SurName" character varying NOT NULL,
+	"Mail" character varying NOT NULL,
+	CONSTRAINT "AllMail_pk" PRIMARY KEY ("ID")
+) WITH (
+  OIDS=FALSE
+);
+
+CREATE TABLE "AddUserMail" (
+	"DateCreate" DATE NOT NULL,
+	"ID_Mail" bigint NOT NULL,
+	"ID_User" bigint NOT NULL
+) WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE "BlankOrder" (
+	"ID" serial NOT NULL,
+	"DateCreate" DATE NOT NULL,
+	"QR" character varying NOT NULL,
+	CONSTRAINT "BlankOrder_pk" PRIMARY KEY ("ID")
+) WITH (
+  OIDS=FALSE
+);
+
+
+ALTER TABLE "User" ADD CONSTRAINT "User_fk0" FOREIGN KEY ("ID_Position") REFERENCES "Position"("ID") ON DELETE CASCADE;
+ALTER TABLE "DataReg" ADD CONSTRAINT "DataReg_fk0" FOREIGN KEY ("ID") REFERENCES "User"("ID") ON DELETE CASCADE;
+ALTER TABLE "AddUser" ADD CONSTRAINT "AddUser_fk0" FOREIGN KEY ("ID_Admin") REFERENCES "Admins"("ID") ON DELETE CASCADE;
+ALTER TABLE "AddUser" ADD CONSTRAINT "AddUser_fk1" FOREIGN KEY ("ID_User") REFERENCES "User"("ID") ON DELETE CASCADE;
+ALTER TABLE "AddStatus" ADD CONSTRAINT "AddStatus_fk0" FOREIGN KEY ("ID_Status") REFERENCES "Status"("ID") ON DELETE CASCADE;
+ALTER TABLE "AddStatus" ADD CONSTRAINT "AddStatus_fk1" FOREIGN KEY ("ID_Order") REFERENCES "Orders"("ID") ON DELETE CASCADE;
+ALTER TABLE "Status" ADD CONSTRAINT "Status_fk0" FOREIGN KEY ("ID_Position") REFERENCES "Position"("ID") ON DELETE CASCADE;
+ALTER TABLE "AddBlank" ADD CONSTRAINT "AddBlank_fk0" FOREIGN KEY ("ID_BlankOrder") REFERENCES "BlankOrder"("ID") ON DELETE CASCADE;
+ALTER TABLE "AddBlank" ADD CONSTRAINT "AddBlank_fk1" FOREIGN KEY ("ID_Order") REFERENCES "Orders"("ID") ON DELETE CASCADE;
+ALTER TABLE "AddUserMail" ADD CONSTRAINT "AddUserMail_fk0" FOREIGN KEY ("ID_Mail") REFERENCES "AllMail"("ID") ON DELETE CASCADE;
+ALTER TABLE "AddUserMail" ADD CONSTRAINT "AddUserMail_fk1" FOREIGN KEY ("ID_User") REFERENCES "User"("ID") ON DELETE CASCADE;
