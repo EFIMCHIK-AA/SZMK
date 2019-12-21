@@ -52,6 +52,18 @@
     <Compile Include="Admin_F.Designer.cs">
       <DependentUpon>Admin_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="KB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KB.Designer.cs">
+      <DependentUpon>KB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Archive.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Archive.Designer.cs">
+      <DependentUpon>Archive.cs</DependentUpon>
+    </Compile>
     <Compile Include="Autorization_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +76,7 @@
     <Compile Include="IPositionToUser.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Mail.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="BasePosition.cs" />
     <Compile Include="Position.cs" />
@@ -73,6 +86,12 @@
     <Compile Include="User.cs" />
     <EmbeddedResource Include="Admin_F.resx">
       <DependentUpon>Admin_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KB.resx">
+      <DependentUpon>KB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Archive.resx">
+      <DependentUpon>Archive.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Autorization_F.resx">
       <DependentUpon>Autorization_F.cs</DependentUpon>

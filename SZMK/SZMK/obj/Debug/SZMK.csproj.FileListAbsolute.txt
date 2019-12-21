@@ -8,3 +8,15 @@ C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.csproj.GenerateResource.cach
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.exe
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.pdb
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.Admin_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\SZMK.exe.config
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\SZMK.exe
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\SZMK.pdb
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.csprojAssemblyReference.cache
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.Admin_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.KB.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.Archive.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.Autorization_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.Properties.Resources.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.csproj.GenerateResource.cache
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.exe
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.pdb
