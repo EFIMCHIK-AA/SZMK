@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class Form1 : Form
+    public partial class Admin_F : Form
     {
-        public Form1()
+        public Admin_F()
         {
             InitializeComponent();
         }
