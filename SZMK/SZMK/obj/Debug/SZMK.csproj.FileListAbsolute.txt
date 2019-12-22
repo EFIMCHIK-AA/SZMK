@@ -7,7 +7,6 @@ C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.Properties.Resources.resourc
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.csproj.GenerateResource.cache
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.exe
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.pdb
-C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.Admin_F.resources
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\SZMK.exe.config
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\SZMK.exe
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\SZMK.pdb
@@ -22,3 +21,11 @@ C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.exe
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.pdb
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.KB_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.Archive_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.Adminstrator_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.ConfigDataBase_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.InfoMail.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.RegistrationMail.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.RegistrationUser_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsMails_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsMobileApp.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsProgram_F.resources

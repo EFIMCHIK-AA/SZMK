@@ -16,9 +16,13 @@ namespace SZMK
         private DateTime _DateOfBirth;
         private List<Mail> _Mails;
         private Position _Position;
+        private User _Admin;
+        private String _Login;
+        private String _HashPassword;
 
 
-        public User (Int64 ID, String Name, String MiddleName, String Surname, DateTime DateCreate, DateTime DateOfBirth, Int64 IDPosition, List<Int64> ListMails)
+        public User (Int64 ID, String Name, String MiddleName, String Surname, DateTime DateCreate, DateTime DateOfBirth, Int64 IDPosition,
+                    List<Int64> ListMails, User Admin, String Login, String HashPassword)
         {
             _ID = ID;
 
@@ -67,9 +71,36 @@ namespace SZMK
             {
                 throw new Exception("Получено пустое значение должности пользователя");
             }
+
+            if (!String.IsNullOrEmpty(Login))
+            {
+                _Login = Login;
+            }
+            else
+            {
+                throw new Exception("Получено пустое значение логина пользователя");
+            }
+
+            if (!String.IsNullOrEmpty(HashPassword))
+            {
+                _HashPassword = HashPassword;
+            }
+            else
+            {
+                throw new Exception("Получено пустое значение хэша пароля пользователя");
+            }
+
+            if(Admin != null)
+            {
+                _Admin = Admin;
+            }
+            else
+            {
+                throw new Exception("Получено пустое значение админа пользователя");
+            }
         }
 
-        public User() : this(-1,"Нет имени", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null) { }
+        public User() : this(-1,"Нет имени", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null, null, "Нет лоигна", "Нет хеша") { }
 
         public Position GetPosition()
         {
@@ -123,6 +154,54 @@ namespace SZMK
                 if (value >= 0)
                 {
                     _ID = value;
+                }
+            }
+        }
+
+        public String Login
+        {
+            get
+            {
+                return _Login;
+            }
+
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    _Login = value;
+                }
+            }
+        }
+
+        public String HashPassword
+        {
+            get
+            {
+                return _HashPassword;
+            }
+
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    _HashPassword = value;
+                }
+            }
+        }
+
+        public User Admin
+        {
+            get
+            {
+                return _Admin;
+            }
+
+            set
+            {
+                if (value != null)
+                {
+                    _Admin = value;
                 }
             }
         }

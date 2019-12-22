@@ -46,11 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin_F.cs">
+    <Compile Include="Adminstrator_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Admin_F.Designer.cs">
-      <DependentUpon>Admin_F.cs</DependentUpon>
+    <Compile Include="Adminstrator_F.Designer.cs">
+      <DependentUpon>Adminstrator_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigDataBase_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigDataBase_F.Designer.cs">
+      <DependentUpon>ConfigDataBase_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InfoMail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoMail.Designer.cs">
+      <DependentUpon>InfoMail.cs</DependentUpon>
     </Compile>
     <Compile Include="KB_F.cs">
       <SubType>Form</SubType>
@@ -82,10 +94,46 @@
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistrationMail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrationMail.Designer.cs">
+      <DependentUpon>RegistrationMail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrationUser_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrationUser_F.Designer.cs">
+      <DependentUpon>RegistrationUser_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsMails_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsMails_F.Designer.cs">
+      <DependentUpon>SettingsMails_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsMobileApp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsMobileApp.Designer.cs">
+      <DependentUpon>SettingsMobileApp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsProgram_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsProgram_F.Designer.cs">
+      <DependentUpon>SettingsProgram_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="SystemArgs.cs" />
     <Compile Include="User.cs" />
-    <EmbeddedResource Include="Admin_F.resx">
-      <DependentUpon>Admin_F.cs</DependentUpon>
+    <EmbeddedResource Include="Adminstrator_F.resx">
+      <DependentUpon>Adminstrator_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigDataBase_F.resx">
+      <DependentUpon>ConfigDataBase_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoMail.resx">
+      <DependentUpon>InfoMail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KB_F.resx">
       <DependentUpon>KB_F.cs</DependentUpon>
@@ -105,6 +153,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RegistrationMail.resx">
+      <DependentUpon>RegistrationMail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrationUser_F.resx">
+      <DependentUpon>RegistrationUser_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsMails_F.resx">
+      <DependentUpon>SettingsMails_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsMobileApp.resx">
+      <DependentUpon>SettingsMobileApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsProgram_F.resx">
+      <DependentUpon>SettingsProgram_F.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

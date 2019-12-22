@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class Admin_F : Form
+    public partial class InfoMail : Form
     {
-        public Admin_F()
+        public InfoMail()
         {
             InitializeComponent();
-        }
-
-        private void Add_B_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -9,11 +9,11 @@ namespace SZMK
 {
     public class DataBase
     {
-        private String _Name = String.Empty;
-        private String _Owner = String.Empty;
-        private String _Port = String.Empty;
-        private String _IP = String.Empty;
-        private String _Password = String.Empty;
+        private String _Name;
+        private String _Owner;
+        private String _Port;
+        private String _IP;
+        private String _Password;
 
         public DataBase()
         {
