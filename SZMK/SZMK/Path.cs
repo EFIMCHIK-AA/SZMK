@@ -8,11 +8,20 @@ namespace SZMK
 {
     public class Path
     {
-        private readonly String _ConnectDBPath = $@"Connect\DataBase\connect.conf";
-        private readonly String _ConnectApplicationPath = $@"Connect\Application\connect.conf";
-        private readonly String _ArchivePath = $@"Path\Archive.df";
-        private readonly String _RegistryPath = $@"Path\Registry.df";
-        private readonly String _LogPath = $@"Log";
+        private readonly String _ConnectDBPath;
+        private readonly String _ConnectApplicationPath;
+        private readonly String _ArchivePath;
+        private readonly String _RegistryPath;
+        private readonly String _LogPath;
+
+        public Path() 
+        {
+             _ConnectDBPath = $@"Connect\DataBase\connect.conf";
+             _ConnectApplicationPath = $@"Connect\Application\connect.conf";
+             _ArchivePath = $@"Path\Archive.df";
+             _RegistryPath = $@"Path\Registry.df";
+             _LogPath = $@"Log";
+        }
 
         public String ConnectDBPath
         {

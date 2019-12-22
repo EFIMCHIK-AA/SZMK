@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class KB : Form
+    public partial class Archive_F : Form
     {
-        public KB()
+        public Archive_F()
         {
             InitializeComponent();
         }

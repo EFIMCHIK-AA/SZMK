@@ -16,5 +16,10 @@ namespace SZMK
         {
             InitializeComponent();
         }
+
+        private void Add_B_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

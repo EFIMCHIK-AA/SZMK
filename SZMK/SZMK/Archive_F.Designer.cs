@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class Archive
+    partial class Archive_F
     {
         /// <summary>
         /// Required designer variable.

@@ -52,17 +52,17 @@
     <Compile Include="Admin_F.Designer.cs">
       <DependentUpon>Admin_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="KB.cs">
+    <Compile Include="KB_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KB.Designer.cs">
-      <DependentUpon>KB.cs</DependentUpon>
+    <Compile Include="KB_F.Designer.cs">
+      <DependentUpon>KB_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="Archive.cs">
+    <Compile Include="Archive_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Archive.Designer.cs">
-      <DependentUpon>Archive.cs</DependentUpon>
+    <Compile Include="Archive_F.Designer.cs">
+      <DependentUpon>Archive_F.cs</DependentUpon>
     </Compile>
     <Compile Include="Autorization_F.cs">
       <SubType>Form</SubType>
@@ -87,11 +87,11 @@
     <EmbeddedResource Include="Admin_F.resx">
       <DependentUpon>Admin_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KB.resx">
-      <DependentUpon>KB.cs</DependentUpon>
+    <EmbeddedResource Include="KB_F.resx">
+      <DependentUpon>KB_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Archive.resx">
-      <DependentUpon>Archive.cs</DependentUpon>
+    <EmbeddedResource Include="Archive_F.resx">
+      <DependentUpon>Archive_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Autorization_F.resx">
       <DependentUpon>Autorization_F.cs</DependentUpon>

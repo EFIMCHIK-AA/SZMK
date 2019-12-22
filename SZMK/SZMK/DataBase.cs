@@ -167,5 +167,10 @@ namespace SZMK
                 throw new Exception("Файл конфигурации подключения к базе данных не найден");
             }
         }
+
+        public override string ToString()
+        {
+            return $@"Server = {_IP}; Port = {_Port}; User Id = {_Owner}; Password = {_Password}; Database = {_Name};";
+        }
     }
 }

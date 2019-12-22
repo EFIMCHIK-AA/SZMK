@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class KB
+    partial class KB_F
     {
         /// <summary>
         /// Required designer variable.
@@ -64,6 +64,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(919, 24);
             this.menuStrip1.TabIndex = 11;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // добавлениеToolStripMenuItem
             // 
@@ -209,7 +210,7 @@
             this.Weight.HeaderText = "Вес";
             this.Weight.Name = "Weight";
             // 
-            // KB
+            // KB_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -218,7 +219,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "KB";
+            this.Name = "KB_F";
             this.Text = "Архивариус";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

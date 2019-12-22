@@ -24,6 +24,7 @@ namespace SZMK
             {
                 _ID = ID;
             }
+
             if (!String.IsNullOrEmpty(DataMatrix))
             {
                 _DataMatrix = DataMatrix;
@@ -32,6 +33,7 @@ namespace SZMK
             {
                 throw new Exception("Пустое значение DataMatrix");
             }
+
             if (DateCreate != null)
             {
                 _DateCreate = DateCreate;
@@ -40,6 +42,7 @@ namespace SZMK
             {
                 throw new Exception("Пустое значение Даты добавления");
             }
+
             if (!String.IsNullOrEmpty(Number))
             {
                 _Number = Number;
@@ -48,6 +51,7 @@ namespace SZMK
             {
                 throw new Exception("Пустое значение Номера заказа");
             }
+
             if (!String.IsNullOrEmpty(Executor))
             {
                 _Executor = Executor;
@@ -56,6 +60,7 @@ namespace SZMK
             {
                 throw new Exception("Пустое значение Исполнителя");
             }
+
             if (List >= 0)
             {
                 _List = List;
@@ -64,6 +69,7 @@ namespace SZMK
             {
                 throw new Exception("Значение листа меньше 0");
             }
+
             if (!String.IsNullOrEmpty(Mark))
             {
                 _Mark = Mark;
@@ -72,6 +78,7 @@ namespace SZMK
             {
                 throw new Exception("Пустое значение Марки");
             }
+
             if (Lenght >= 0)
             {
                 _Lenght = Lenght;
@@ -80,6 +87,7 @@ namespace SZMK
             {
                 throw new Exception("Значение длинны меньше 0");
             }
+
             if (Weight >= 0)
             {
                 _Weight = Weight;
@@ -89,7 +97,9 @@ namespace SZMK
                 throw new Exception("Значение веса меньше 0");
             }
         }
-        public Order() : this(0, null, DateTime.Now, null, null, 0, null, 0, 0) { }
+
+        public Order() : this(-1, null, DateTime.Now, null, null, -1, null, -1, -1) { }
+
         public Int64 ID
         {
             get
@@ -104,6 +114,7 @@ namespace SZMK
                 }
             }
         }
+
         public String DataMatrix
         {
             get
@@ -118,6 +129,7 @@ namespace SZMK
                 }
             }
         }
+
         public DateTime DateCreate
         {
             get
@@ -132,6 +144,7 @@ namespace SZMK
                 }
             }
         }
+
         public String Executor
         {
             get
@@ -146,6 +159,7 @@ namespace SZMK
                 }
             }
         }
+
         public String Number
         {
             get
@@ -160,6 +174,7 @@ namespace SZMK
                 }
             }
         }
+
         public Int64 List
         {
             get
@@ -174,6 +189,7 @@ namespace SZMK
                 }
             }
         }
+
         public String Mark
         {
             get
@@ -188,6 +204,7 @@ namespace SZMK
                 }
             }
         }
+
         public Double Lenght
         {
             get
@@ -202,6 +219,7 @@ namespace SZMK
                 }
             }
         }
+
         public Double Weight
         {
             get

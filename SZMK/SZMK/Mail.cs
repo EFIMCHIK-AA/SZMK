@@ -50,6 +50,10 @@ namespace SZMK
             {
                 _DateCreate = DateCreate;
             }
+            else
+            {
+                throw new Exception("Получено пустое значение даты создания пользователя");
+            }
 
             if (!String.IsNullOrEmpty(MailAddress))
             {
@@ -59,8 +63,6 @@ namespace SZMK
             {
                 throw new Exception("Получено пустое значение адреса почты пользователя");
             }
-
-
         }
 
         public Mail() : this(-1, "Нет имени", "Нет отчества", "Нет фамилии", DateTime.Now, "Нет почты") { }

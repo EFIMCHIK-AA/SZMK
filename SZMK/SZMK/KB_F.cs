@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class Archive : Form
+    public partial class KB_F : Form
     {
-        public Archive()
+        public KB_F()
         {
             InitializeComponent();
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
