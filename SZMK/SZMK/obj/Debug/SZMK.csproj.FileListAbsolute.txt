@@ -29,3 +29,5 @@ C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.RegistrationUser_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsMails_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsMobileApp.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsProgram_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\Equin.ApplicationFramework.BindingListView.dll
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.csproj.CopyComplete

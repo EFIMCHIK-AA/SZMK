@@ -36,7 +36,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.DataReg_TB = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.DOB_TB = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.MiddleName_TB = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -48,6 +47,7 @@
             this.Position_CB = new System.Windows.Forms.ComboBox();
             this.Cancel_B = new System.Windows.Forms.Button();
             this.OK_B = new System.Windows.Forms.Button();
+            this.DOB_MTB = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
             // label12
@@ -117,6 +117,7 @@
             this.DataReg_TB.Location = new System.Drawing.Point(161, 42);
             this.DataReg_TB.Margin = new System.Windows.Forms.Padding(2);
             this.DataReg_TB.Name = "DataReg_TB";
+            this.DataReg_TB.ReadOnly = true;
             this.DataReg_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.DataReg_TB.Size = new System.Drawing.Size(306, 20);
             this.DataReg_TB.TabIndex = 54;
@@ -131,15 +132,6 @@
             this.label7.Size = new System.Drawing.Size(107, 16);
             this.label7.TabIndex = 51;
             this.label7.Text = "Дата рождения";
-            // 
-            // DOB_TB
-            // 
-            this.DOB_TB.Location = new System.Drawing.Point(161, 138);
-            this.DOB_TB.Margin = new System.Windows.Forms.Padding(2);
-            this.DOB_TB.Name = "DOB_TB";
-            this.DOB_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.DOB_TB.Size = new System.Drawing.Size(306, 20);
-            this.DOB_TB.TabIndex = 52;
             // 
             // label6
             // 
@@ -220,7 +212,7 @@
             this.Generate_B.Name = "Generate_B";
             this.Generate_B.Size = new System.Drawing.Size(442, 25);
             this.Generate_B.TabIndex = 64;
-            this.Generate_B.Text = "Сгенерировать данные авторизации";
+            this.Generate_B.Text = "Сгенерировать  пароль";
             this.Generate_B.UseVisualStyleBackColor = true;
             // 
             // Position_CB
@@ -262,6 +254,15 @@
             this.OK_B.Text = "ОК";
             this.OK_B.UseVisualStyleBackColor = true;
             // 
+            // DOB_MTB
+            // 
+            this.DOB_MTB.Location = new System.Drawing.Point(161, 138);
+            this.DOB_MTB.Mask = "00/00/0000";
+            this.DOB_MTB.Name = "DOB_MTB";
+            this.DOB_MTB.Size = new System.Drawing.Size(306, 20);
+            this.DOB_MTB.TabIndex = 68;
+            this.DOB_MTB.ValidatingType = typeof(System.DateTime);
+            // 
             // RegistrationUser_F
             // 
             this.AcceptButton = this.OK_B;
@@ -269,6 +270,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.Cancel_B;
             this.ClientSize = new System.Drawing.Size(487, 356);
+            this.Controls.Add(this.DOB_MTB);
             this.Controls.Add(this.Cancel_B);
             this.Controls.Add(this.OK_B);
             this.Controls.Add(this.Position_CB);
@@ -281,7 +283,6 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.DataReg_TB);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.DOB_TB);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.MiddleName_TB);
             this.Controls.Add(this.label4);
@@ -306,7 +307,6 @@
         private System.Windows.Forms.Label label8;
         public System.Windows.Forms.TextBox DataReg_TB;
         private System.Windows.Forms.Label label7;
-        public System.Windows.Forms.TextBox DOB_TB;
         private System.Windows.Forms.Label label6;
         public System.Windows.Forms.TextBox MiddleName_TB;
         private System.Windows.Forms.Label label4;
@@ -318,5 +318,6 @@
         public System.Windows.Forms.ComboBox Position_CB;
         private System.Windows.Forms.Button Cancel_B;
         private System.Windows.Forms.Button OK_B;
+        public System.Windows.Forms.MaskedTextBox DOB_MTB;
     }
 }
