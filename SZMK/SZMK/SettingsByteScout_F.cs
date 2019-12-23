@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class SettingsMobileApp : Form
+    public partial class SettingsByteScout_F : Form
     {
-        public SettingsMobileApp()
+        public SettingsByteScout_F()
         {
             InitializeComponent();
         }

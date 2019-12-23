@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class SettingsMobileApp
+    partial class SettingsMobileApp_F
     {
         /// <summary>
         /// Required designer variable.

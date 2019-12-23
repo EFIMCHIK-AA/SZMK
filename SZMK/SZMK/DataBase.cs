@@ -168,6 +168,11 @@ namespace SZMK
             }
         }
 
+        private void CheckConnect()
+        {
+            //Описать подключение к базе данных
+        }
+
         public override string ToString()
         {
             return $@"Server = {_IP}; Port = {_Port}; User Id = {_Owner}; Password = {_Password}; Database = {_Name};";

@@ -22,7 +22,7 @@ namespace SZMK
 
 
         public User (Int64 ID, String Name, String MiddleName, String Surname, DateTime DateCreate, DateTime DateOfBirth, Int64 IDPosition,
-                    List<Int64> ListMails, User Admin, String Login, String HashPassword)
+                    List<Mail> ListMails, User Admin, String Login, String HashPassword)
         {
             _ID = ID;
 
@@ -63,9 +63,10 @@ namespace SZMK
                 _DateOfBirth = DateOfBirth;
             }
 
-            _Mails = new List<Mail>();
-
-            SetMails(ListMails);
+            if (ListMails != null)
+            {
+                _Mails = ListMails;
+            }
 
             if(!SetPosition(IDPosition))
             {
@@ -306,5 +307,15 @@ namespace SZMK
                 return _Mails.Count;
             }
         }
+
+        public List<Mail> Mails
+        {
+            get
+            {
+                return _Mails;
+            }
+        }
+
+        public String SearchString() => $"{_ID}_{_Name}_{_MiddleName}_{_Surname}_{_DateCreate.ToShortDateString()}_{_DateOfBirth.ToShortDateString()}_{_Position.Name}_{_Admin.Name}_{_Login}";
     }
 }

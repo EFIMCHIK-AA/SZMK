@@ -19,9 +19,12 @@ namespace SZMK
             InitializeComponent();
         }
 
+        BindingListView<User> View;
+
         private void Display(List<User> List)
         {
-            BindingListView<User> Display = new BindingListView<User>(List);
+            View = new BindingListView<User>(List);
+            Users_DGV.DataSource = View;
         }
 
         private void Add_B_Click(object sender, EventArgs e)
@@ -43,7 +46,7 @@ namespace SZMK
         {
             if(Users_DGV.CurrentCell != null)
             {
-                User Temp = SystemArgs.Users[Users_DGV.CurrentCell.RowIndex];
+                User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
 
                 Name_TB.Text = Temp.Name;
                 Surname_TB.Text = Temp.Surname;
@@ -61,23 +64,32 @@ namespace SZMK
 
         private bool AddUser()
         {
-            RegistrationUser_F Dialog = new RegistrationUser_F();
-            DateTime DateCreate = DateTime.Now;
-            Dialog.DataReg_TB.Text = DateCreate.ToShortDateString();
-            Dialog.Position_CB.DataSource = SystemArgs.Positions;
+            try
+            {
+                RegistrationUser_F Dialog = new RegistrationUser_F();
 
-            if(Dialog.ShowDialog() == DialogResult.OK)
-            {
-                Int64 Index = -1; //Получить уникальный индекс из базы данных
-                //Записать данные в базу данных
-                User Temp = new User(Index, Dialog.Name_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Surname_TB.Text, DateCreate,
-                                    Convert.ToDateTime(Dialog.DOB_MTB.Text, Dialog.DOB_MTB.Culture), SystemArgs.Positions[Dialog.Position_CB.SelectedIndex].ID,
-                                    new List<Int64>(), SystemArgs.User, Dialog.Login_TB.Text, Hash.GetSHA256(Dialog.HashPassword_TB.Text));
-                SystemArgs.Users.Add(Temp);
-                return true;
+                DateTime DateCreate = DateTime.Now;
+                Dialog.DataReg_TB.Text = DateCreate.ToShortDateString();
+                Dialog.Position_CB.DataSource = SystemArgs.Positions;
+
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+                    Int64 Index = -1; //Получить уникальный индекс из базы данных
+                                      //Записать данные в базу данных
+                    User Temp = new User(Index, Dialog.Name_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Surname_TB.Text, DateCreate,
+                                        Convert.ToDateTime(Dialog.DOB_MTB.Text, Dialog.DOB_MTB.Culture), SystemArgs.Positions[Dialog.Position_CB.SelectedIndex].ID,
+                                        new List<Mail>(), SystemArgs.User, Dialog.Login_TB.Text, Hash.GetSHA256(Dialog.HashPassword_TB.Text));
+                    SystemArgs.Users.Add(Temp);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception E)
             {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -87,6 +99,261 @@ namespace SZMK
             if(AddUser())
             {
                 Display(SystemArgs.Users);
+            }
+        }
+
+        private bool ChangeUser()
+        {
+            try
+            {
+                if(Users_DGV.CurrentCell.RowIndex >= 0)
+                {
+                    User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
+
+                    RegistrationUser_F Dialog = new RegistrationUser_F()
+                    {
+                        Text = "Измененте параметров пользователя",
+                    };
+
+                    Dialog.DataReg_TB.Text = Temp.DateCreate.ToShortDateString();
+                    Dialog.Name_TB.Text = Temp.Name;
+                    Dialog.MiddleName_TB.Text = Temp.MiddleName;
+                    Dialog.Surname_TB.Text = Temp.Surname;
+                    Dialog.DOB_MTB.Text = Temp.DateOfBirth.ToShortDateString();
+
+                    for(Int32 i = 0; i < SystemArgs.Positions.Count; i++)
+                    {
+                        if(Temp.GetPosition().ID == SystemArgs.Positions[i].ID)
+                        {
+                            Dialog.Position_CB.SelectedIndex = i;
+                        }
+                    }
+
+                    Dialog.label2.Text = "Укажите новые данные";
+                    Dialog.Login_TB.Text = Temp.Login;
+                    Dialog.HashPassword_TB.Text = String.Empty;
+
+                    if (Dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        //Обновить данные в базе данных по индексу
+                        User NewUser = new User(Temp.ID, Dialog.Name_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Surname_TB.Text, Temp.DateCreate,
+                                            Convert.ToDateTime(Dialog.DOB_MTB.Text, Dialog.DOB_MTB.Culture), SystemArgs.Positions[Dialog.Position_CB.SelectedIndex].ID,
+                                            Temp.Mails, SystemArgs.User, Dialog.Login_TB.Text, Hash.GetSHA256(Dialog.HashPassword_TB.Text));
+                        SystemArgs.Users.Remove(Temp);
+                        SystemArgs.Users.Add(NewUser);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    throw new Exception("Необходимо выбрать объект");
+                }
+            }
+            catch(Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        private void Change_TSB_Click(object sender, EventArgs e)
+        {
+            if(ChangeUser())
+            {
+                Display(SystemArgs.Users);
+            }
+        }
+
+        private bool DeleteUser()
+        {
+            try
+            {
+                if (Users_DGV.CurrentCell.RowIndex >= 0)
+                {
+                    User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
+
+                    if (MessageBox.Show("Вы действительно хотите удалить пользователя?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    {
+                        //Удалить данные в базе данных по индексу
+
+                        SystemArgs.Users.Remove(Temp);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    throw new Exception("Необходимо выбрать объект");
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        private void Delete_TSB_Click(object sender, EventArgs e)
+        {
+            if(DeleteUser())
+            {
+                Display(SystemArgs.Users);
+            }
+        }
+
+        private List<User> ResultSearch(String TextSearch)
+        {
+            List<User> Result = new List<User>();
+
+            if (!String.IsNullOrEmpty(TextSearch))
+            {
+                foreach (User Temp in SystemArgs.Users)
+                {
+                    if (Temp.SearchString().IndexOf(TextSearch) != -1)
+                    {
+                        Result.Add(Temp);
+                    }
+                }
+            }
+
+            SystemArgs.PrintLog("Перебор значений по заданным параметрам успешно завершен");
+
+            return Result;
+        }
+
+        List<User> Result;
+
+        private bool Search()
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(Search_TSTB.Text))
+                { 
+                    String SearchText = Search_TSTB.Text.Trim();
+
+                    Result = ResultSearch(SearchText);
+
+                    if (Result.Count <= 0)
+                    {
+                        Search_TSTB.Focus();
+                        MessageBox.Show("Поиск не дал результатов", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        SystemArgs.PrintLog("Количество объектов по параметрам поиска 0");
+                        return false;
+                    }
+
+                    return true;
+                }
+                else
+                {
+                    ResetSearch();
+                    SystemArgs.PrintLog("Получено пустое значение параметра поиска");
+                    return false;
+                }
+            }
+            catch(Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        private void ResetSearch()
+        {
+            Search_TSTB.Text = String.Empty;
+
+            Result.Clear();
+        }
+
+        private void Search_TSB_Click(object sender, EventArgs e)
+        {
+            if(Search())
+            {
+                if(Result != null)
+                {
+                    Display(Result);
+                }
+            }
+        }
+
+        private void Reset_TSB_Click(object sender, EventArgs e)
+        {
+            ResetSearch();
+            Display(SystemArgs.Users);
+        }
+
+        private bool SearchParam()
+        {
+            try
+            {
+                SearchParamUsers_F Dialog = new SearchParamUsers_F();
+
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+                    Result.Clear();
+
+                    Result = SystemArgs.Users;
+
+                    if (Dialog.Name_TB.Text.Trim() != String.Empty)
+                    {
+                        Result = Result.Where(p => p.Name == Dialog.Name_TB.Text.Trim()).ToList();
+                    }
+
+                    if (Dialog.MiddleName_TB.Text.Trim() != String.Empty)
+                    {
+                        Result = Result.Where(p => p.MiddleName == Dialog.MiddleName_TB.Text.Trim()).ToList();
+                    }
+
+                    if (Dialog.Surname_TB.Text.Trim() != String.Empty)
+                    {
+                        Result = Result.Where(p => p.Surname == Dialog.Surname_TB.Text.Trim()).ToList();
+                    }
+
+                    if (Dialog.Position_CB.SelectedIndex > 0)
+                    {
+                        Result = Result.Where(p => p.GetPosition() == (Position)Dialog.Position_CB.SelectedItem).ToList();
+                    }
+
+                    if (Dialog.ID_TB.Text.Trim() != String.Empty)
+                    {
+                        Result = Result.Where(p => p.ID == Convert.ToInt64(Dialog.ID_TB.Text.Trim())).ToList();
+                    }
+
+                    if (Dialog.Admins_CB.SelectedIndex > 0)
+                    {
+                        Result = Result.Where(p => p.Admin == (User)Dialog.Admins_CB.SelectedItem).ToList();
+                    }
+
+                    if (Dialog.Login_TB.Text.Trim() != String.Empty)
+                    {
+                        Result = Result.Where(p => p.Surname == Dialog.Login_TB.Text.Trim()).ToList();
+                    }
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch(Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        private void SearchParam_TSB_Click(object sender, EventArgs e)
+        {
+            if (Result != null)
+            {
+                Display(Result);
             }
         }
     }

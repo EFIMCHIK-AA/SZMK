@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class RegistrationMail : Form
+    public partial class InfoMail_F : Form
     {
-        public RegistrationMail()
+        public InfoMail_F()
         {
             InitializeComponent();
-        }
-
-        private void RegistrationMail_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

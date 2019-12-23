@@ -61,11 +61,11 @@
     <Compile Include="ConfigDataBase_F.Designer.cs">
       <DependentUpon>ConfigDataBase_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="InfoMail.cs">
+    <Compile Include="InfoMail_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InfoMail.Designer.cs">
-      <DependentUpon>InfoMail.cs</DependentUpon>
+    <Compile Include="InfoMail_F.Designer.cs">
+      <DependentUpon>InfoMail_F.cs</DependentUpon>
     </Compile>
     <Compile Include="KB_F.cs">
       <SubType>Form</SubType>
@@ -97,11 +97,11 @@
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistrationMail.cs">
+    <Compile Include="RegistrationMail_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistrationMail.Designer.cs">
-      <DependentUpon>RegistrationMail.cs</DependentUpon>
+    <Compile Include="RegistrationMail_F.Designer.cs">
+      <DependentUpon>RegistrationMail_F.cs</DependentUpon>
     </Compile>
     <Compile Include="RegistrationUser_F.cs">
       <SubType>Form</SubType>
@@ -109,17 +109,29 @@
     <Compile Include="RegistrationUser_F.Designer.cs">
       <DependentUpon>RegistrationUser_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="SearchParamUsers_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchParamUsers_F.Designer.cs">
+      <DependentUpon>SearchParamUsers_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsByteScout_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsByteScout_F.Designer.cs">
+      <DependentUpon>SettingsByteScout_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="SettingsMails_F.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SettingsMails_F.Designer.cs">
       <DependentUpon>SettingsMails_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="SettingsMobileApp.cs">
+    <Compile Include="SettingsMobileApp_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsMobileApp.Designer.cs">
-      <DependentUpon>SettingsMobileApp.cs</DependentUpon>
+    <Compile Include="SettingsMobileApp_F.Designer.cs">
+      <DependentUpon>SettingsMobileApp_F.cs</DependentUpon>
     </Compile>
     <Compile Include="SettingsProgram_F.cs">
       <SubType>Form</SubType>
@@ -135,8 +147,8 @@
     <EmbeddedResource Include="ConfigDataBase_F.resx">
       <DependentUpon>ConfigDataBase_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InfoMail.resx">
-      <DependentUpon>InfoMail.cs</DependentUpon>
+    <EmbeddedResource Include="InfoMail_F.resx">
+      <DependentUpon>InfoMail_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KB_F.resx">
       <DependentUpon>KB_F.cs</DependentUpon>
@@ -156,17 +168,23 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="RegistrationMail.resx">
-      <DependentUpon>RegistrationMail.cs</DependentUpon>
+    <EmbeddedResource Include="RegistrationMail_F.resx">
+      <DependentUpon>RegistrationMail_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RegistrationUser_F.resx">
       <DependentUpon>RegistrationUser_F.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SearchParamUsers_F.resx">
+      <DependentUpon>SearchParamUsers_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsByteScout_F.resx">
+      <DependentUpon>SettingsByteScout_F.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SettingsMails_F.resx">
       <DependentUpon>SettingsMails_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsMobileApp.resx">
-      <DependentUpon>SettingsMobileApp.cs</DependentUpon>
+    <EmbeddedResource Include="SettingsMobileApp_F.resx">
+      <DependentUpon>SettingsMobileApp_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsProgram_F.resx">
       <DependentUpon>SettingsProgram_F.cs</DependentUpon>

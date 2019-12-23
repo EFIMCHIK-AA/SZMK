@@ -13,14 +13,34 @@ namespace SZMK
         private readonly String _ArchivePath;
         private readonly String _RegistryPath;
         private readonly String _LogPath;
+        private readonly String _ProgramPath;
+        private readonly String _DirectoryProgramPath;
 
         public Path() 
         {
-             _ConnectDBPath = $@"Connect\DataBase\connect.conf";
-             _ConnectApplicationPath = $@"Connect\Application\connect.conf";
-             _ArchivePath = $@"Path\Archive.df";
-             _RegistryPath = $@"Path\Registry.df";
-             _LogPath = $@"Log";
+            _ConnectDBPath = $@"Connect\DataBase\connect.conf"; //Параметры подключения к базе данных
+            _ConnectApplicationPath = $@"Connect\Application\connect.conf"; //Параметры подключения к приложению
+            _ArchivePath = $@"Path\Archive.df";//Путь к архиву
+            _RegistryPath = $@"Path\Registry.df";//Путь к реестру
+            _ProgramPath = $@"Path\Program\Program.df";//Путь к программе распознавания
+            _LogPath = $@"Log";//Путь к директории хранения логов
+            _DirectoryProgramPath = $@"Path\Program\Directory.df";//Путь к директории темповых файлов для распознвания
+        }
+
+        public String DirectoryProgramPath
+        {
+            get
+            {
+                return _DirectoryProgramPath;
+            }
+        }
+
+        public String ProgramPath
+        {
+            get
+            {
+                return _ProgramPath;
+            }
         }
 
         public String ConnectDBPath
