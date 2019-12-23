@@ -33,3 +33,4 @@ C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.RegistrationMail_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SearchParamUsers_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsByteScout_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsMobileApp_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\Zen.Barcode.Core.dll

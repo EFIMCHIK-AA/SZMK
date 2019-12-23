@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
 
 namespace SZMK
 {
@@ -354,6 +355,27 @@ namespace SZMK
             if (Result != null)
             {
                 Display(Result);
+            }
+        }
+
+        private void MobileSettings_TSMB_Click(object sender, EventArgs e)
+        {
+            SettingsMobileApp_F Dialog = new SettingsMobileApp_F();
+
+            if(SystemArgs.MobileApplication.GetParametersConnect())
+            {
+                String MyIP = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
+
+                Dialog.IP_TB.Text = MyIP;
+                Dialog.Port_TB.Text = SystemArgs.MobileApplication.Port;
+
+                Zen.Barcode.CodeQrBarcodeDraw QrCode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
+                Dialog.QR_PB.Image = QrCode.Draw($"{SystemArgs.MobileApplication.IP}_{SystemArgs.MobileApplication.Port}", 100);
+            }
+
+            if(Dialog.ShowDialog() == DialogResult.OK)
+            {
+
             }
         }
     }

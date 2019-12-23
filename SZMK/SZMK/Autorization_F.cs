@@ -70,9 +70,9 @@ namespace SZMK
                         Adminstrator_F Administrator = new Adminstrator_F();
                         Administrator.Show();
                         break;
-                    case 2: //КБ
+                    case 2: //Архивариус
                         break;
-                    case 3: //Архивариус
+                    case 3: //КБ
                         break;
                     case 4:
                         break;

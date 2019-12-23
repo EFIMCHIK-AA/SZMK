@@ -9,8 +9,9 @@ namespace SZMK
     public static class SystemArgs
     {
         static public User User; // Пользователь, который зашел в систему
-        static public Path Path; //Системные пути
+        static public Path Path = new Path(); //Системные пути
         static public DataBase DataBase = new DataBase(); //Конфигурация базы данных
+        static public MobileApplication MobileApplication = new MobileApplication(); //Конфигурация мобильного приложения
 
         static public List<Mail> Mails = new List<Mail>(); //Общий список адресов почты
         static public List<Position> Positions = new List<Position>(); //Общий список должностей

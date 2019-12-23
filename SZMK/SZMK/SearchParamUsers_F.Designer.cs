@@ -61,11 +61,11 @@
             // 
             // Login_TB
             // 
-            this.Login_TB.Location = new System.Drawing.Point(151, 239);
+            this.Login_TB.Location = new System.Drawing.Point(95, 239);
             this.Login_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Login_TB.Name = "Login_TB";
             this.Login_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Login_TB.Size = new System.Drawing.Size(267, 20);
+            this.Login_TB.Size = new System.Drawing.Size(323, 20);
             this.Login_TB.TabIndex = 60;
             // 
             // label10
@@ -103,11 +103,11 @@
             // 
             // MiddleName_TB
             // 
-            this.MiddleName_TB.Location = new System.Drawing.Point(151, 142);
+            this.MiddleName_TB.Location = new System.Drawing.Point(95, 142);
             this.MiddleName_TB.Margin = new System.Windows.Forms.Padding(2);
             this.MiddleName_TB.Name = "MiddleName_TB";
             this.MiddleName_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.MiddleName_TB.Size = new System.Drawing.Size(267, 20);
+            this.MiddleName_TB.Size = new System.Drawing.Size(323, 20);
             this.MiddleName_TB.TabIndex = 50;
             // 
             // label4
@@ -123,11 +123,11 @@
             // 
             // Surname_TB
             // 
-            this.Surname_TB.Location = new System.Drawing.Point(151, 118);
+            this.Surname_TB.Location = new System.Drawing.Point(95, 118);
             this.Surname_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Surname_TB.Name = "Surname_TB";
             this.Surname_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Surname_TB.Size = new System.Drawing.Size(267, 20);
+            this.Surname_TB.Size = new System.Drawing.Size(323, 20);
             this.Surname_TB.TabIndex = 48;
             // 
             // label3
@@ -143,11 +143,11 @@
             // 
             // Name_TB
             // 
-            this.Name_TB.Location = new System.Drawing.Point(151, 94);
+            this.Name_TB.Location = new System.Drawing.Point(95, 94);
             this.Name_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Name_TB.Name = "Name_TB";
             this.Name_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Name_TB.Size = new System.Drawing.Size(267, 20);
+            this.Name_TB.Size = new System.Drawing.Size(323, 20);
             this.Name_TB.TabIndex = 46;
             // 
             // label5
@@ -163,11 +163,11 @@
             // 
             // ID_TB
             // 
-            this.ID_TB.Location = new System.Drawing.Point(151, 191);
+            this.ID_TB.Location = new System.Drawing.Point(95, 191);
             this.ID_TB.Margin = new System.Windows.Forms.Padding(2);
             this.ID_TB.Name = "ID_TB";
             this.ID_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.ID_TB.Size = new System.Drawing.Size(267, 20);
+            this.ID_TB.Size = new System.Drawing.Size(323, 20);
             this.ID_TB.TabIndex = 44;
             // 
             // label2
@@ -223,11 +223,11 @@
             "asdasd",
             "asdsad",
             "asdad"});
-            this.Position_CB.Location = new System.Drawing.Point(151, 166);
+            this.Position_CB.Location = new System.Drawing.Point(95, 166);
             this.Position_CB.Margin = new System.Windows.Forms.Padding(2);
             this.Position_CB.Name = "Position_CB";
             this.Position_CB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Position_CB.Size = new System.Drawing.Size(267, 21);
+            this.Position_CB.Size = new System.Drawing.Size(323, 21);
             this.Position_CB.TabIndex = 70;
             // 
             // Admins_CB
@@ -238,14 +238,14 @@
             "asdasd",
             "asdsad",
             "asdad"});
-            this.Admins_CB.Location = new System.Drawing.Point(151, 214);
+            this.Admins_CB.Location = new System.Drawing.Point(95, 214);
             this.Admins_CB.Margin = new System.Windows.Forms.Padding(2);
             this.Admins_CB.Name = "Admins_CB";
             this.Admins_CB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Admins_CB.Size = new System.Drawing.Size(267, 21);
+            this.Admins_CB.Size = new System.Drawing.Size(323, 21);
             this.Admins_CB.TabIndex = 71;
             // 
-            // SearchParamUsers
+            // SearchParamUsers_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,7 +272,7 @@
             this.Controls.Add(this.ID_TB);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.Name = "SearchParamUsers";
+            this.Name = "SearchParamUsers_F";
             this.Text = "Расширенный поиск";
             this.ResumeLayout(false);
             this.PerformLayout();

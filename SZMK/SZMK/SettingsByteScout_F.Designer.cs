@@ -168,7 +168,7 @@
             this.AcceptButton = this.SaveDirectoryProgPath_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 258);
+            this.ClientSize = new System.Drawing.Size(507, 227);
             this.Controls.Add(this.SaveDirectoryProgPath_B);
             this.Controls.Add(this.DirectoryProgPath_B);
             this.Controls.Add(this.label7);

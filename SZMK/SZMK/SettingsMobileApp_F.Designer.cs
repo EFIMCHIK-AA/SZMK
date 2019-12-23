@@ -60,6 +60,7 @@
             this.Generate_B.TabIndex = 65;
             this.Generate_B.Text = "Сохранить и обновить QR";
             this.Generate_B.UseVisualStyleBackColor = true;
+            this.Generate_B.Click += new System.EventHandler(this.Generate_B_Click);
             // 
             // label7
             // 
@@ -97,6 +98,7 @@
             this.IP_TB.Location = new System.Drawing.Point(88, 50);
             this.IP_TB.Margin = new System.Windows.Forms.Padding(2);
             this.IP_TB.Name = "IP_TB";
+            this.IP_TB.ReadOnly = true;
             this.IP_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.IP_TB.Size = new System.Drawing.Size(254, 20);
             this.IP_TB.TabIndex = 68;
@@ -137,7 +139,7 @@
             this.label4.Text = "Используйте QR сканер для определения\r\nпараметров подлючения на устройстве";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SettingsMobileApp
+            // SettingsMobileApp_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -153,7 +155,8 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.Generate_B);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "SettingsMobileApp";
+            this.MaximizeBox = false;
+            this.Name = "SettingsMobileApp_F";
             this.Text = "Настройки мобильного приложения";
             ((System.ComponentModel.ISupportInitialize)(this.QR_PB)).EndInit();
             this.ResumeLayout(false);
@@ -162,7 +165,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.PictureBox QR_PB;
         private System.Windows.Forms.Button Generate_B;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -171,5 +173,6 @@
         private System.Windows.Forms.Button OK_B;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.PictureBox QR_PB;
     }
 }
