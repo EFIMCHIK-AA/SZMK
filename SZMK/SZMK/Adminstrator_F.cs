@@ -230,7 +230,7 @@ namespace SZMK
             return Result;
         }
 
-        List<User> Result;
+
 
         private bool Search()
         {
@@ -266,6 +266,8 @@ namespace SZMK
             }
         }
 
+        List<User> Result;
+
         private void ResetSearch()
         {
             Search_TSTB.Text = String.Empty;
@@ -295,6 +297,27 @@ namespace SZMK
             try
             {
                 SearchParamUsers_F Dialog = new SearchParamUsers_F();
+
+                List<User> Admins = new List<User>();
+                List<Position> Positions = new List<Position>();
+
+                Admins.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null, null, "Нет лоигна", "Нет хеша"));
+
+                for(Int32 i = 0; i < SystemArgs.Users.Count(); i++)
+                {
+                    if(SystemArgs.Users[i].GetPosition().ID == 1)
+                    {
+                        Admins.Add(SystemArgs.Users[i]);
+                    }
+                }
+
+                Dialog.Admins_CB.DataSource = Admins;
+
+                Positions.Add(new Position(-1, "Не выбрано"));
+                Positions.AddRange(SystemArgs.Positions);
+                Dialog.Position_CB.DataSource = Positions;
+
+                Dialog.Position_CB.DataSource = SystemArgs.Positions;
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
@@ -353,7 +376,7 @@ namespace SZMK
 
         private void SearchParam_TSB_Click(object sender, EventArgs e)
         {
-            if (Result != null)
+            if (SearchParam())
             {
                 Display(Result);
             }

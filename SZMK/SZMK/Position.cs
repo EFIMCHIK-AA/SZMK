@@ -52,5 +52,10 @@ namespace SZMK
                 }
             }
         }
+
+        public override String ToString()
+        {
+            return _Name;
+        }
     }
 }

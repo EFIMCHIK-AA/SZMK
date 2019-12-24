@@ -59,6 +59,7 @@
             this.DataReg_TB.Location = new System.Drawing.Point(153, 56);
             this.DataReg_TB.Margin = new System.Windows.Forms.Padding(2);
             this.DataReg_TB.Name = "DataReg_TB";
+            this.DataReg_TB.ReadOnly = true;
             this.DataReg_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.DataReg_TB.Size = new System.Drawing.Size(306, 20);
             this.DataReg_TB.TabIndex = 64;
@@ -178,7 +179,7 @@
             this.OK_B.Text = "ОК";
             this.OK_B.UseVisualStyleBackColor = true;
             // 
-            // RegistrationMail
+            // RegistrationMail_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,8 +200,10 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Name_TB);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "RegistrationMail";
+            this.MaximizeBox = false;
+            this.Name = "RegistrationMail_F";
             this.Text = "Почтовый адрес";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegistrationMail_F_FormClosing);
             this.Load += new System.EventHandler(this.RegistrationMail_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -219,8 +222,8 @@
         public System.Windows.Forms.TextBox Surname_TB;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox Name_TB;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Cancel_B;
         private System.Windows.Forms.Button OK_B;
+        public System.Windows.Forms.Label label1;
     }
 }

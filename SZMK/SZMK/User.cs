@@ -68,7 +68,7 @@ namespace SZMK
                 _Mails = ListMails;
             }
 
-            if(!SetPosition(IDPosition))
+            if (!SetPosition(IDPosition))
             {
                 throw new Exception("Получено пустое значение должности пользователя");
             }
@@ -91,7 +91,7 @@ namespace SZMK
                 throw new Exception("Получено пустое значение хэша пароля пользователя");
             }
 
-            if(Admin != null)
+            if (Admin != null)
             {
                 _Admin = Admin;
             }
@@ -271,6 +271,14 @@ namespace SZMK
             }
         }
 
+        public String DateCreateView
+        {
+            get
+            {
+                return _DateCreate.ToShortDateString();
+            }
+        }
+
         public DateTime DateOfBirth
         {
             get
@@ -314,6 +322,11 @@ namespace SZMK
             {
                 return _Mails;
             }
+        }
+
+        public override String ToString()
+        {
+            return _Name;
         }
 
         public String SearchString() => $"{_ID}_{_Name}_{_MiddleName}_{_Surname}_{_DateCreate.ToShortDateString()}_{_DateOfBirth.ToShortDateString()}_{_Position.Name}_{_Admin.Name}_{_Login}";

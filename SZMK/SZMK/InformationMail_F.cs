@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class InfoMail_F : Form
+    public partial class InformationMail_F : Form
     {
-        public InfoMail_F()
+        public InformationMail_F()
         {
             InitializeComponent();
         }

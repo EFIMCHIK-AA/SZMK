@@ -171,7 +171,7 @@ namespace SZMK
             }
         }
 
-
+         
 
         public bool SetParametersConnect()
         {

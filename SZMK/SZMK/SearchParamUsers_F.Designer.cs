@@ -274,6 +274,7 @@
             this.MaximizeBox = false;
             this.Name = "SearchParamUsers_F";
             this.Text = "Расширенный поиск";
+            this.Load += new System.EventHandler(this.SearchParamUsers_F_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

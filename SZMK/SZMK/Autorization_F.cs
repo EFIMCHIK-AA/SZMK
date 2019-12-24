@@ -118,7 +118,20 @@ namespace SZMK
 
         private void Autorization_F_Load(object sender, EventArgs e)
         {
-            Password_TB.UseSystemPasswordChar = true;
+            try
+            {
+                Password_TB.UseSystemPasswordChar = true;
+
+                List<User> Admins = new List<User>();
+
+                //Admins.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null, null, "Нет лоигна", "Нет хеша"));
+                //Admins.AddRange(SystemArgs.Users);
+                //Login_CB.DataSource = Admins;
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CheckPass_CB_CheckedChanged(object sender, EventArgs e)

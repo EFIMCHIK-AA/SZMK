@@ -66,11 +66,11 @@
     <Compile Include="SettingsDataBase_F.Designer.cs">
       <DependentUpon>SettingsDataBase_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="InfoMail_F.cs">
+    <Compile Include="InformationMail_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InfoMail_F.Designer.cs">
-      <DependentUpon>InfoMail_F.cs</DependentUpon>
+    <Compile Include="InformationMail_F.Designer.cs">
+      <DependentUpon>InformationMail_F.cs</DependentUpon>
     </Compile>
     <Compile Include="KB_F.cs">
       <SubType>Form</SubType>
@@ -153,8 +153,8 @@
     <EmbeddedResource Include="SettingsDataBase_F.resx">
       <DependentUpon>SettingsDataBase_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InfoMail_F.resx">
-      <DependentUpon>InfoMail_F.cs</DependentUpon>
+    <EmbeddedResource Include="InformationMail_F.resx">
+      <DependentUpon>InformationMail_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KB_F.resx">
       <DependentUpon>KB_F.cs</DependentUpon>

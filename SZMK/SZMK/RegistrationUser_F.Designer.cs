@@ -292,8 +292,11 @@
             this.Controls.Add(this.Name_TB);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "RegistrationUser_F";
             this.Text = "Регистрация пользователя";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegistrationUser_F_FormClosing);
+            this.Load += new System.EventHandler(this.RegistrationUser_F_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

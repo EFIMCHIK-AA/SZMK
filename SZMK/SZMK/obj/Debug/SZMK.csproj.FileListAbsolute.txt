@@ -27,10 +27,10 @@ C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsMails_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsProgram_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\Equin.ApplicationFramework.BindingListView.dll
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.csproj.CopyComplete
-C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.InfoMail_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.RegistrationMail_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SearchParamUsers_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsByteScout_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsMobileApp_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\Zen.Barcode.Core.dll
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsDataBase_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.InformationMail_F.resources

@@ -16,5 +16,10 @@ namespace SZMK
         {
             InitializeComponent();
         }
+
+        private void SearchParamUsers_F_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

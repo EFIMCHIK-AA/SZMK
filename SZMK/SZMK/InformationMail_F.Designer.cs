@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class InfoMail_F
+    partial class InformationMail_F
     {
         /// <summary>
         /// Required designer variable.
@@ -83,6 +83,7 @@
             this.DataReg_TB.Location = new System.Drawing.Point(152, 51);
             this.DataReg_TB.Margin = new System.Windows.Forms.Padding(2);
             this.DataReg_TB.Name = "DataReg_TB";
+            this.DataReg_TB.ReadOnly = true;
             this.DataReg_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.DataReg_TB.Size = new System.Drawing.Size(306, 20);
             this.DataReg_TB.TabIndex = 96;
@@ -103,6 +104,7 @@
             this.AddressMail_TB.Location = new System.Drawing.Point(152, 171);
             this.AddressMail_TB.Margin = new System.Windows.Forms.Padding(2);
             this.AddressMail_TB.Name = "AddressMail_TB";
+            this.AddressMail_TB.ReadOnly = true;
             this.AddressMail_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.AddressMail_TB.Size = new System.Drawing.Size(306, 20);
             this.AddressMail_TB.TabIndex = 94;
@@ -123,6 +125,7 @@
             this.MiddleName_TB.Location = new System.Drawing.Point(152, 147);
             this.MiddleName_TB.Margin = new System.Windows.Forms.Padding(2);
             this.MiddleName_TB.Name = "MiddleName_TB";
+            this.MiddleName_TB.ReadOnly = true;
             this.MiddleName_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.MiddleName_TB.Size = new System.Drawing.Size(306, 20);
             this.MiddleName_TB.TabIndex = 92;
@@ -143,6 +146,7 @@
             this.Surname_TB.Location = new System.Drawing.Point(152, 123);
             this.Surname_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Surname_TB.Name = "Surname_TB";
+            this.Surname_TB.ReadOnly = true;
             this.Surname_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Surname_TB.Size = new System.Drawing.Size(306, 20);
             this.Surname_TB.TabIndex = 90;
@@ -163,6 +167,7 @@
             this.Name_TB.Location = new System.Drawing.Point(152, 99);
             this.Name_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Name_TB.Name = "Name_TB";
+            this.Name_TB.ReadOnly = true;
             this.Name_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Name_TB.Size = new System.Drawing.Size(306, 20);
             this.Name_TB.TabIndex = 88;
@@ -183,11 +188,12 @@
             this.ID_TB.Location = new System.Drawing.Point(152, 75);
             this.ID_TB.Margin = new System.Windows.Forms.Padding(2);
             this.ID_TB.Name = "ID_TB";
+            this.ID_TB.ReadOnly = true;
             this.ID_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ID_TB.Size = new System.Drawing.Size(306, 20);
             this.ID_TB.TabIndex = 99;
             // 
-            // InfoMail
+            // InformationMail_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -208,7 +214,8 @@
             this.Controls.Add(this.Name_TB);
             this.Controls.Add(this.OK_B);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "InfoMail";
+            this.MaximizeBox = false;
+            this.Name = "InformationMail_F";
             this.Text = "Почтовый адрес";
             this.ResumeLayout(false);
             this.PerformLayout();

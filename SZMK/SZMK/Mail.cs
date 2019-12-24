@@ -15,7 +15,7 @@ namespace SZMK
         private String _MailAddress;
         private DateTime _DateCreate;
 
-        public Mail(Int64 IDOwner, String Name, String MiddleName, String Surname, DateTime DateCreate, String MailAddress)
+        public Mail(Int64 ID, String Name, String MiddleName, String Surname, DateTime DateCreate, String MailAddress)
         {
             _ID = ID;
 
@@ -147,6 +147,14 @@ namespace SZMK
             }
         }
 
+        public String DateCreateView
+        {
+            get
+            {
+                return _DateCreate.ToShortDateString();
+            }
+        }
+
         public String MailAddress
         {
             get
@@ -162,5 +170,7 @@ namespace SZMK
                 }
             }
         }
+
+        public String SearchString() => $"{_ID}_{_Name}_{_MiddleName}_{_Surname}_{_DateCreate.ToShortDateString()}_{_MailAddress}";
     }
 }
