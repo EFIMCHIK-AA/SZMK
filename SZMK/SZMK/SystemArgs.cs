@@ -12,6 +12,8 @@ namespace SZMK
         static public Path Path = new Path(); //Системные пути
         static public DataBase DataBase = new DataBase(); //Конфигурация базы данных
         static public MobileApplication MobileApplication = new MobileApplication(); //Конфигурация мобильного приложения
+        static public ClientProgram ClientProgram = new ClientProgram(); // Конфигурация клиентского программного обеспечения
+        static public ByteScout ByteScout = new ByteScout(); // Конфигурация программы распознавания
 
         static public List<Mail> Mails = new List<Mail>(); //Общий список адресов почты
         static public List<Position> Positions = new List<Position>(); //Общий список должностей

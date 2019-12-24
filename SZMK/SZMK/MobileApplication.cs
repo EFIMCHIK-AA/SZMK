@@ -43,24 +43,11 @@ namespace SZMK
             }
         }
 
-        private String GetDirectory(String Path)
-        {
-            String[] Temp = SystemArgs.Path.ConnectApplicationPath.Split('\\');
-            String Directory = String.Empty;
-
-            for (Int32 i = 0; i < Temp.Length - 1; i++)
-            {
-                Directory += Temp[i];
-            }
-
-            return Directory;
-        }
-
         public bool SetParametersConnect()
         {
             try
             {
-                String Dir = GetDirectory(SystemArgs.Path.ConnectApplicationPath);
+                String Dir = SystemArgs.Path.GetDirectory(SystemArgs.Path.ConnectApplicationPath);
 
                 if (!Directory.Exists(Dir))
                 {

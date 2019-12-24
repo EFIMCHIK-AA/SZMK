@@ -22,7 +22,6 @@ C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.pdb
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.KB_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.Archive_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.Adminstrator_F.resources
-C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.ConfigDataBase_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.RegistrationUser_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsMails_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsProgram_F.resources
@@ -34,3 +33,4 @@ C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SearchParamUsers_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsByteScout_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsMobileApp_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\Zen.Barcode.Core.dll
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsDataBase_F.resources

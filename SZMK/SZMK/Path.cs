@@ -23,8 +23,8 @@ namespace SZMK
             _ArchivePath = $@"Path\Archive.df";//Путь к архиву
             _RegistryPath = $@"Path\Registry.df";//Путь к реестру
             _ProgramPath = $@"Path\Program\Program.df";//Путь к программе распознавания
-            _LogPath = $@"Log";//Путь к директории хранения логов
             _DirectoryProgramPath = $@"Path\Program\Directory.df";//Путь к директории темповых файлов для распознвания
+            _LogPath = $@"Log";//Путь к директории хранения логов
         }
 
         public String DirectoryProgramPath
@@ -33,6 +33,19 @@ namespace SZMK
             {
                 return _DirectoryProgramPath;
             }
+        }
+
+        public String GetDirectory(String Path)
+        {
+            String[] Temp = Path.Split('\\');
+            String Directory = String.Empty;
+
+            for (Int32 i = 0; i < Temp.Length - 1; i++)
+            {
+                Directory += Temp[i];
+            }
+
+            return Directory;
         }
 
         public String ProgramPath

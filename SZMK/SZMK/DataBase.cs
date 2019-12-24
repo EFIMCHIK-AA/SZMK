@@ -17,23 +17,19 @@ namespace SZMK
 
         public DataBase()
         {
-            if (File.Exists(SystemArgs.Path.ConnectDBPath))
+            if (CheckFile())
             {
-                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ConnectDBPath, FileMode.Open)))
+                if(!GetParametersConnect())
                 {
-                    _Name = sr.ReadLine();
-                    _Owner = sr.ReadLine();
-                    _IP = sr.ReadLine();
-                    _Port = sr.ReadLine();
-                    _Password = Encryption.DecryptRSA(sr.ReadLine());
+                    throw new Exception("Ошибка при получении параметров подключения к базе данных");
                 }
             }
             else
             {
-                throw new Exception("Файл конфигурации подключения к базе данных не найден");
+                throw new Exception("Файл подключения к базе данных не найден");
             }
 
-            CheckParam();
+            CheckParameters();
         }
 
         public String Name
@@ -48,7 +44,7 @@ namespace SZMK
                 if(!String.IsNullOrEmpty(value))
                 {
                     _Name = value;
-                    SetParamDB();
+                    SetParametersConnect();
                 }
             }
         }
@@ -65,7 +61,7 @@ namespace SZMK
                 if (!String.IsNullOrEmpty(value))
                 {
                     _Owner = value;
-                    SetParamDB();
+                    SetParametersConnect();
                 }
             }
         }
@@ -82,7 +78,7 @@ namespace SZMK
                 if (!String.IsNullOrEmpty(value))
                 {
                     _Port = value;
-                    SetParamDB();
+                    SetParametersConnect();
                 }
             }
         }
@@ -99,7 +95,7 @@ namespace SZMK
                 if (!String.IsNullOrEmpty(value))
                 {
                     _IP = value;
-                    SetParamDB();
+                    SetParametersConnect();
                 }
             }
         }
@@ -116,12 +112,12 @@ namespace SZMK
                 if (!String.IsNullOrEmpty(value))
                 {
                     _Password = value;
-                    SetParamDB();
+                    SetParametersConnect();
                 }
             }
         }
 
-        public void CheckParam()
+        public void CheckParameters()
         {
             if(String.IsNullOrEmpty(_Name) || _Name.Trim() != "SZMK")
             {
@@ -149,10 +145,45 @@ namespace SZMK
             }
         }
 
-        private void SetParamDB()
+        public bool GetParametersConnect()
         {
-            if (File.Exists(SystemArgs.Path.ConnectDBPath))
+            try
             {
+                if (!File.Exists(SystemArgs.Path.ConnectDBPath))
+                {
+                    throw new Exception();
+                }
+
+                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ConnectDBPath, FileMode.Open)))
+                {
+                    _Name = sr.ReadLine();
+                    _Owner = sr.ReadLine();
+                    _IP = sr.ReadLine();
+                    _Port = sr.ReadLine();
+                    _Password = Encryption.DecryptRSA(sr.ReadLine());
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
+
+        public bool SetParametersConnect()
+        {
+            try
+            {
+                String Dir = SystemArgs.Path.GetDirectory(SystemArgs.Path.ConnectDBPath);
+
+                if (!Directory.Exists(Dir))
+                {
+                    Directory.CreateDirectory(Dir);
+                }
+
                 using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ConnectDBPath, FileMode.Create)))
                 {
                     sw.WriteLine(_Name);
@@ -161,16 +192,32 @@ namespace SZMK
                     sw.WriteLine(_Port);
                     sw.WriteLine(Encryption.EncryptRSA(_Password));
                 }
+
+                return true;
             }
-            else
+            catch (Exception)
             {
-                throw new Exception("Файл конфигурации подключения к базе данных не найден");
+                return false;
             }
         }
 
-        private void CheckConnect()
+        public bool CheckFile()
         {
+            if (!File.Exists(SystemArgs.Path.ConnectDBPath))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool CheckConnect(String ConnectString)
+        {
+            bool flag = false;
+
             //Описать подключение к базе данных
+
+            return flag;
         }
 
         public override string ToString()

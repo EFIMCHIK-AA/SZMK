@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
+using System.IO;
 
 namespace SZMK
 {
@@ -45,7 +46,7 @@ namespace SZMK
 
         private void Users_DGV_SelectionChanged(object sender, EventArgs e)
         {
-            if(Users_DGV.CurrentCell != null)
+            if (Users_DGV.CurrentCell != null)
             {
                 User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
 
@@ -97,7 +98,7 @@ namespace SZMK
 
         private void Add_TSB_Click(object sender, EventArgs e)
         {
-            if(AddUser())
+            if (AddUser())
             {
                 Display(SystemArgs.Users);
             }
@@ -107,7 +108,7 @@ namespace SZMK
         {
             try
             {
-                if(Users_DGV.CurrentCell.RowIndex >= 0)
+                if (Users_DGV.CurrentCell.RowIndex >= 0)
                 {
                     User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
 
@@ -122,9 +123,9 @@ namespace SZMK
                     Dialog.Surname_TB.Text = Temp.Surname;
                     Dialog.DOB_MTB.Text = Temp.DateOfBirth.ToShortDateString();
 
-                    for(Int32 i = 0; i < SystemArgs.Positions.Count; i++)
+                    for (Int32 i = 0; i < SystemArgs.Positions.Count; i++)
                     {
-                        if(Temp.GetPosition().ID == SystemArgs.Positions[i].ID)
+                        if (Temp.GetPosition().ID == SystemArgs.Positions[i].ID)
                         {
                             Dialog.Position_CB.SelectedIndex = i;
                         }
@@ -154,7 +155,7 @@ namespace SZMK
                     throw new Exception("Необходимо выбрать объект");
                 }
             }
-            catch(Exception E)
+            catch (Exception E)
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -163,7 +164,7 @@ namespace SZMK
 
         private void Change_TSB_Click(object sender, EventArgs e)
         {
-            if(ChangeUser())
+            if (ChangeUser())
             {
                 Display(SystemArgs.Users);
             }
@@ -203,7 +204,7 @@ namespace SZMK
 
         private void Delete_TSB_Click(object sender, EventArgs e)
         {
-            if(DeleteUser())
+            if (DeleteUser())
             {
                 Display(SystemArgs.Users);
             }
@@ -236,7 +237,7 @@ namespace SZMK
             try
             {
                 if (!String.IsNullOrEmpty(Search_TSTB.Text))
-                { 
+                {
                     String SearchText = Search_TSTB.Text.Trim();
 
                     Result = ResultSearch(SearchText);
@@ -258,7 +259,7 @@ namespace SZMK
                     return false;
                 }
             }
-            catch(Exception E)
+            catch (Exception E)
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -274,9 +275,9 @@ namespace SZMK
 
         private void Search_TSB_Click(object sender, EventArgs e)
         {
-            if(Search())
+            if (Search())
             {
-                if(Result != null)
+                if (Result != null)
                 {
                     Display(Result);
                 }
@@ -343,7 +344,7 @@ namespace SZMK
                     return false;
                 }
             }
-            catch(Exception E)
+            catch (Exception E)
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -360,22 +361,139 @@ namespace SZMK
 
         private void MobileSettings_TSMB_Click(object sender, EventArgs e)
         {
-            SettingsMobileApp_F Dialog = new SettingsMobileApp_F();
-
-            if(SystemArgs.MobileApplication.GetParametersConnect())
+            try
             {
-                String MyIP = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
+                SettingsMobileApp_F Dialog = new SettingsMobileApp_F();
 
-                Dialog.IP_TB.Text = MyIP;
-                Dialog.Port_TB.Text = SystemArgs.MobileApplication.Port;
+                if (SystemArgs.MobileApplication.GetParametersConnect())
+                {
+                    String MyIP = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
 
-                Zen.Barcode.CodeQrBarcodeDraw QrCode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
-                Dialog.QR_PB.Image = QrCode.Draw($"{SystemArgs.MobileApplication.IP}_{SystemArgs.MobileApplication.Port}", 100);
+                    Dialog.IP_TB.Text = MyIP;
+                    Dialog.Port_TB.Text = SystemArgs.MobileApplication.Port;
+
+                    Zen.Barcode.CodeQrBarcodeDraw QrCode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
+                    Dialog.QR_PB.Image = QrCode.Draw($"{MyIP}_{SystemArgs.MobileApplication.Port}", 100);
+                }
+
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
             }
-
-            if(Dialog.ShowDialog() == DialogResult.OK)
+            catch (Exception E)
             {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        private void DataBase_TSMB_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SettingsDataBase_F Dialog = new SettingsDataBase_F();
+
+                if (SystemArgs.DataBase.GetParametersConnect())
+                {
+                    Dialog.Server_TB.Text = SystemArgs.DataBase.IP;
+                    Dialog.Owner_TB.Text = SystemArgs.DataBase.Owner;
+                    Dialog.Port_TB.Text = SystemArgs.DataBase.Port;
+                    Dialog.Name_TB.Text = SystemArgs.DataBase.Name;
+                    Dialog.Password_TB.Text = SystemArgs.DataBase.Password;
+                }
+
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void настройкиToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SettingsProgram_F Dialog = new SettingsProgram_F();
+
+                if (SystemArgs.ClientProgram.GetParametersConnect())
+                {
+                    Dialog.RegistryPath_TB.Text = SystemArgs.ClientProgram.RegistryPath;
+                    Dialog.ArchivePath_TB.Text = SystemArgs.ClientProgram.ArchivePath;
+                }
+
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SettingsByteScout_F Dialog = new SettingsByteScout_F();
+
+                if (SystemArgs.ByteScout.GetParametersConnect())
+                {
+                    Dialog.DirectoryProgPath_TB.Text = SystemArgs.ByteScout.DirectoryProgramPath;
+                    Dialog.PrpgramPath_TB.Text = SystemArgs.ByteScout.ProgramPath;
+                }
+
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void быстрыйЗапускToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if(File.Exists(SystemArgs.ByteScout.ProgramPath))
+                {
+                    System.Diagnostics.Process.Start(SystemArgs.ByteScout.ProgramPath);
+                }
+                else
+                {
+                    throw new Exception("Файл запуска программы распознавания не найден");
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Mail_TSMB_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SettingsMails_F Dialog = new SettingsMails_F();
+
+                Dialog.Mails_DGV.DataSource = SystemArgs.Mails;
+
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

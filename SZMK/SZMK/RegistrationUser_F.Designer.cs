@@ -214,6 +214,7 @@
             this.Generate_B.TabIndex = 64;
             this.Generate_B.Text = "Сгенерировать  пароль";
             this.Generate_B.UseVisualStyleBackColor = true;
+            this.Generate_B.Click += new System.EventHandler(this.Generate_B_Click);
             // 
             // Position_CB
             // 

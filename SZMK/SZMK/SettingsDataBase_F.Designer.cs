@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class ConfigDataBase_F
+    partial class SettingsDataBase_F
     {
         /// <summary>
         /// Required designer variable.
@@ -94,6 +94,7 @@
             this.Save_B.TabIndex = 70;
             this.Save_B.Text = "Проверить подключение и сохранить";
             this.Save_B.UseVisualStyleBackColor = true;
+            this.Save_B.Click += new System.EventHandler(this.Save_B_Click);
             // 
             // Owner_TB
             // 
@@ -178,7 +179,7 @@
             this.label4.TabIndex = 82;
             this.label4.Text = "Настройки базы данных";
             // 
-            // ConfigDataBase_F
+            // SettingsDataBase_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -198,7 +199,8 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.Save_B);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "ConfigDataBase_F";
+            this.MaximizeBox = false;
+            this.Name = "SettingsDataBase_F";
             this.Text = "Настройки базы данных";
             this.ResumeLayout(false);
             this.PerformLayout();

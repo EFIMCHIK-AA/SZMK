@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Menu_MS = new System.Windows.Forms.MenuStrip();
             this.мобильноеПриложениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MobileSettings_TSMB = new System.Windows.Forms.ToolStripMenuItem();
@@ -125,18 +125,21 @@
             this.DataBase_TSMB.Name = "DataBase_TSMB";
             this.DataBase_TSMB.Size = new System.Drawing.Size(182, 22);
             this.DataBase_TSMB.Text = "База данных";
+            this.DataBase_TSMB.Click += new System.EventHandler(this.DataBase_TSMB_Click);
             // 
             // Mail_TSMB
             // 
             this.Mail_TSMB.Name = "Mail_TSMB";
             this.Mail_TSMB.Size = new System.Drawing.Size(182, 22);
             this.Mail_TSMB.Text = "Почтовые адреса";
+            this.Mail_TSMB.Click += new System.EventHandler(this.Mail_TSMB_Click);
             // 
             // настройкиToolStripMenuItem1
             // 
             this.настройкиToolStripMenuItem1.Name = "настройкиToolStripMenuItem1";
             this.настройкиToolStripMenuItem1.Size = new System.Drawing.Size(182, 22);
             this.настройкиToolStripMenuItem1.Text = "Настройки";
+            this.настройкиToolStripMenuItem1.Click += new System.EventHandler(this.настройкиToolStripMenuItem1_Click);
             // 
             // распознаваниеToolStripMenuItem
             // 
@@ -150,14 +153,16 @@
             // настройкиToolStripMenuItem
             // 
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.настройкиToolStripMenuItem.Text = "Настройки";
+            this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
             // 
             // быстрыйЗапускToolStripMenuItem
             // 
             this.быстрыйЗапускToolStripMenuItem.Name = "быстрыйЗапускToolStripMenuItem";
-            this.быстрыйЗапускToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.быстрыйЗапускToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.быстрыйЗапускToolStripMenuItem.Text = "Быстрый запуск";
+            this.быстрыйЗапускToolStripMenuItem.Click += new System.EventHandler(this.быстрыйЗапускToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -200,8 +205,8 @@
             // 
             this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column2.DataPropertyName = "Name";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle13;
             this.Column2.FillWeight = 119.2894F;
             this.Column2.HeaderText = "Имя";
             this.Column2.MinimumWidth = 65;
@@ -213,8 +218,8 @@
             // 
             this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column3.DataPropertyName = "Surname";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle14;
             this.Column3.FillWeight = 95.17767F;
             this.Column3.HeaderText = "Фамилия";
             this.Column3.MinimumWidth = 65;
@@ -226,8 +231,8 @@
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.DataPropertyName = "MiddleName";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle15;
             this.Column1.HeaderText = "Отчество";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;

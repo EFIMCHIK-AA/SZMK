@@ -58,11 +58,13 @@
     <Compile Include="Adminstrator_F.Designer.cs">
       <DependentUpon>Adminstrator_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConfigDataBase_F.cs">
+    <Compile Include="ByteScout.cs" />
+    <Compile Include="ClientProgram.cs" />
+    <Compile Include="SettingsDataBase_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConfigDataBase_F.Designer.cs">
-      <DependentUpon>ConfigDataBase_F.cs</DependentUpon>
+    <Compile Include="SettingsDataBase_F.Designer.cs">
+      <DependentUpon>SettingsDataBase_F.cs</DependentUpon>
     </Compile>
     <Compile Include="InfoMail_F.cs">
       <SubType>Form</SubType>
@@ -148,8 +150,8 @@
     <EmbeddedResource Include="Adminstrator_F.resx">
       <DependentUpon>Adminstrator_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConfigDataBase_F.resx">
-      <DependentUpon>ConfigDataBase_F.cs</DependentUpon>
+    <EmbeddedResource Include="SettingsDataBase_F.resx">
+      <DependentUpon>SettingsDataBase_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InfoMail_F.resx">
       <DependentUpon>InfoMail_F.cs</DependentUpon>
