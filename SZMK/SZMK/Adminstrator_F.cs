@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using System.Threading;
 
 namespace SZMK
 {
@@ -41,26 +42,77 @@ namespace SZMK
 
         private void Adminstrator_F_Load(object sender, EventArgs e)
         {
+            try
+            {
+                Load_F Dialog = new Load_F();
 
+                Dialog.Show();
+
+                //SystemArgs.Path = new Path(); //Системные пути
+                //SystemArgs.DataBase = new DataBase(); //Конфигурация базы данных
+                //SystemArgs.MobileApplication = new MobileApplication(); //Конфигурация мобильного приложения
+                //SystemArgs.ClientProgram = new ClientProgram(); // Конфигурация клиентского программного обеспечения
+                //SystemArgs.ByteScout = new ByteScout(); // Конфигурация программы распознавания
+                //SystemArgs.Mails = new List<Mail>(); //Общий список адресов почты
+                //SystemArgs.Positions = new List<Position>(); //Общий список должностей
+
+                //Thread.Sleep(2000);
+
+                Dialog.Close();
+
+                //if (SystemArgs.Users.Count() <= 0)
+                //{
+                //    Change_TSB.Enabled = false;
+                //    Delete_TSB.Enabled = false;
+                //}
+
+                //Display(SystemArgs.Users);
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Users_DGV_SelectionChanged(object sender, EventArgs e)
         {
             if (Users_DGV.CurrentCell != null)
             {
-                User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
+                if(View[Users_DGV.CurrentCell.RowIndex] != null)
+                {
+                    Change_TSB.Enabled = true;
+                    Delete_TSB.Enabled = true;
 
-                Name_TB.Text = Temp.Name;
-                Surname_TB.Text = Temp.Surname;
-                MiddleName_TB.Text = Temp.MiddleName;
-                DOB_TB.Text = Temp.DateOfBirth.ToShortDateString();
-                Position_TB.Text = Temp.GetPosition().Name;
+                    User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
 
-                ID_TB.Text = Temp.ID.ToString();
-                DataReg_TB.Text = Temp.DateCreate.ToShortDateString();
-                Admin_TB.Text = Temp.Admin.Name;
-                Login_TB.Text = Temp.Login;
-                HashPassword_TB.Text = Temp.HashPassword;
+                    Name_TB.Text = Temp.Name;
+                    Surname_TB.Text = Temp.Surname;
+                    MiddleName_TB.Text = Temp.MiddleName;
+                    DOB_TB.Text = Temp.DateOfBirth.ToShortDateString();
+                    Position_TB.Text = Temp.GetPosition().Name;
+                    ID_TB.Text = Temp.ID.ToString();
+                    DataReg_TB.Text = Temp.DateCreate.ToShortDateString();
+                    Admin_TB.Text = Temp.Admin.Name;
+                    Login_TB.Text = Temp.Login;
+                    HashPassword_TB.Text = Temp.HashPassword;
+                }
+            }
+            else
+            {
+
+                Change_TSB.Enabled = false;
+                Delete_TSB.Enabled = false;
+
+                Name_TB.Text = String.Empty;
+                Surname_TB.Text = String.Empty;
+                MiddleName_TB.Text = String.Empty;
+                DOB_TB.Text = String.Empty;
+                Position_TB.Text = String.Empty;
+                ID_TB.Text = String.Empty;
+                DataReg_TB.Text = String.Empty;
+                Admin_TB.Text = String.Empty;
+                Login_TB.Text = String.Empty;
+                HashPassword_TB.Text = String.Empty;
             }
         }
 
@@ -207,6 +259,12 @@ namespace SZMK
             if (DeleteUser())
             {
                 Display(SystemArgs.Users);
+
+                if(SystemArgs.Users.Count <= 0)
+                {
+                    Delete_TSB.Enabled = false;
+                    Change_TSB.Enabled = false;
+                }
             }
         }
 

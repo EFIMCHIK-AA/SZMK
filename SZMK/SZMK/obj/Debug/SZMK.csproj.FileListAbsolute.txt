@@ -34,3 +34,4 @@ C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsMobileApp_F.resource
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\Zen.Barcode.Core.dll
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.SettingsDataBase_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.InformationMail_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.Load_F.resources

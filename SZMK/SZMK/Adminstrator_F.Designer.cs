@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Menu_MS = new System.Windows.Forms.MenuStrip();
             this.мобильноеПриложениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MobileSettings_TSMB = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +44,10 @@
             this.быстрыйЗапускToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.Users_DGV = new System.Windows.Forms.DataGridView();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tool_TS = new System.Windows.Forms.ToolStrip();
             this.Add_TSB = new System.Windows.Forms.ToolStripButton();
             this.Change_TSB = new System.Windows.Forms.ToolStripButton();
@@ -75,10 +79,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.HashPassword_TB = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Menu_MS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Users_DGV)).BeginInit();
             this.Tool_TS.SuspendLayout();
@@ -108,7 +108,7 @@
             // MobileSettings_TSMB
             // 
             this.MobileSettings_TSMB.Name = "MobileSettings_TSMB";
-            this.MobileSettings_TSMB.Size = new System.Drawing.Size(180, 22);
+            this.MobileSettings_TSMB.Size = new System.Drawing.Size(139, 22);
             this.MobileSettings_TSMB.Text = "Настройки";
             this.MobileSettings_TSMB.Click += new System.EventHandler(this.MobileSettings_TSMB_Click);
             // 
@@ -204,6 +204,52 @@
             this.Users_DGV.TabIndex = 18;
             this.Users_DGV.SelectionChanged += new System.EventHandler(this.Users_DGV_SelectionChanged);
             // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "DateCreateView";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Column4.HeaderText = "Дата создания";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column2.DataPropertyName = "Name";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle6;
+            this.Column2.FillWeight = 119.2894F;
+            this.Column2.HeaderText = "Имя";
+            this.Column2.MinimumWidth = 65;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.DataPropertyName = "Surname";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Column3.FillWeight = 95.17767F;
+            this.Column3.HeaderText = "Фамилия";
+            this.Column3.MinimumWidth = 65;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.DataPropertyName = "MiddleName";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle8;
+            this.Column1.HeaderText = "Отчество";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
             // Tool_TS
             // 
             this.Tool_TS.AutoSize = false;
@@ -234,7 +280,7 @@
             this.Add_TSB.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.Add_TSB.Name = "Add_TSB";
             this.Add_TSB.Size = new System.Drawing.Size(150, 35);
-            this.Add_TSB.Text = "Регистрация";
+            this.Add_TSB.Text = "Добавить";
             this.Add_TSB.ToolTipText = "Регистрация";
             this.Add_TSB.Click += new System.EventHandler(this.Add_TSB_Click);
             // 
@@ -329,6 +375,7 @@
             this.ID_TB.Location = new System.Drawing.Point(623, 350);
             this.ID_TB.Margin = new System.Windows.Forms.Padding(2);
             this.ID_TB.Name = "ID_TB";
+            this.ID_TB.ReadOnly = true;
             this.ID_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ID_TB.Size = new System.Drawing.Size(200, 20);
             this.ID_TB.TabIndex = 22;
@@ -349,6 +396,7 @@
             this.Name_TB.Location = new System.Drawing.Point(623, 164);
             this.Name_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Name_TB.Name = "Name_TB";
+            this.Name_TB.ReadOnly = true;
             this.Name_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Name_TB.Size = new System.Drawing.Size(200, 20);
             this.Name_TB.TabIndex = 24;
@@ -369,6 +417,7 @@
             this.Surname_TB.Location = new System.Drawing.Point(623, 188);
             this.Surname_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Surname_TB.Name = "Surname_TB";
+            this.Surname_TB.ReadOnly = true;
             this.Surname_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Surname_TB.Size = new System.Drawing.Size(200, 20);
             this.Surname_TB.TabIndex = 26;
@@ -389,6 +438,7 @@
             this.MiddleName_TB.Location = new System.Drawing.Point(623, 212);
             this.MiddleName_TB.Margin = new System.Windows.Forms.Padding(2);
             this.MiddleName_TB.Name = "MiddleName_TB";
+            this.MiddleName_TB.ReadOnly = true;
             this.MiddleName_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.MiddleName_TB.Size = new System.Drawing.Size(200, 20);
             this.MiddleName_TB.TabIndex = 28;
@@ -409,6 +459,7 @@
             this.DOB_TB.Location = new System.Drawing.Point(623, 236);
             this.DOB_TB.Margin = new System.Windows.Forms.Padding(2);
             this.DOB_TB.Name = "DOB_TB";
+            this.DOB_TB.ReadOnly = true;
             this.DOB_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.DOB_TB.Size = new System.Drawing.Size(200, 20);
             this.DOB_TB.TabIndex = 30;
@@ -429,6 +480,7 @@
             this.DataReg_TB.Location = new System.Drawing.Point(623, 374);
             this.DataReg_TB.Margin = new System.Windows.Forms.Padding(2);
             this.DataReg_TB.Name = "DataReg_TB";
+            this.DataReg_TB.ReadOnly = true;
             this.DataReg_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.DataReg_TB.Size = new System.Drawing.Size(200, 20);
             this.DataReg_TB.TabIndex = 32;
@@ -449,6 +501,7 @@
             this.Position_TB.Location = new System.Drawing.Point(623, 260);
             this.Position_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Position_TB.Name = "Position_TB";
+            this.Position_TB.ReadOnly = true;
             this.Position_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Position_TB.Size = new System.Drawing.Size(200, 20);
             this.Position_TB.TabIndex = 34;
@@ -469,6 +522,7 @@
             this.Admin_TB.Location = new System.Drawing.Point(623, 398);
             this.Admin_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Admin_TB.Name = "Admin_TB";
+            this.Admin_TB.ReadOnly = true;
             this.Admin_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Admin_TB.Size = new System.Drawing.Size(200, 20);
             this.Admin_TB.TabIndex = 36;
@@ -489,6 +543,7 @@
             this.Login_TB.Location = new System.Drawing.Point(623, 422);
             this.Login_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Login_TB.Name = "Login_TB";
+            this.Login_TB.ReadOnly = true;
             this.Login_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Login_TB.Size = new System.Drawing.Size(200, 20);
             this.Login_TB.TabIndex = 38;
@@ -509,6 +564,7 @@
             this.HashPassword_TB.Location = new System.Drawing.Point(623, 446);
             this.HashPassword_TB.Margin = new System.Windows.Forms.Padding(2);
             this.HashPassword_TB.Name = "HashPassword_TB";
+            this.HashPassword_TB.ReadOnly = true;
             this.HashPassword_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.HashPassword_TB.Size = new System.Drawing.Size(200, 20);
             this.HashPassword_TB.TabIndex = 40;
@@ -522,52 +578,6 @@
             this.label13.Size = new System.Drawing.Size(191, 16);
             this.label13.TabIndex = 41;
             this.label13.Text = "Информация о регистрации";
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "DateCreateView";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Column4.HeaderText = "Дата создания";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column2.DataPropertyName = "Name";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Column2.FillWeight = 119.2894F;
-            this.Column2.HeaderText = "Имя";
-            this.Column2.MinimumWidth = 65;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.DataPropertyName = "Surname";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Column3.FillWeight = 95.17767F;
-            this.Column3.HeaderText = "Фамилия";
-            this.Column3.MinimumWidth = 65;
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column1.DataPropertyName = "MiddleName";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Column1.HeaderText = "Отчество";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
             // 
             // Adminstrator_F
             // 

@@ -122,15 +122,19 @@ namespace SZMK
             {
                 Password_TB.UseSystemPasswordChar = true;
 
-                List<User> Admins = new List<User>();
+                List<User> Users = new List<User>();
+                SystemArgs.Users = new List<User>();
 
-                //Admins.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null, null, "Нет лоигна", "Нет хеша"));
-                //Admins.AddRange(SystemArgs.Users);
-                //Login_CB.DataSource = Admins;
+                //Получить всех пользователей в систем аргс юзерс
+
+                //Users.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null, null, "Нет лоигна", "Нет хеша"));
+                //Users.AddRange(SystemArgs.Users);
+                //Login_CB.DataSource = Users;
             }
             catch (Exception E)
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
         }
 

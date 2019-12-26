@@ -76,7 +76,7 @@ namespace SZMK
             }
             catch (Exception E)
             {
-                MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(E.Message + ". Сохранение не выполнено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
