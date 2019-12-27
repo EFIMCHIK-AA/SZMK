@@ -262,5 +262,10 @@ namespace SZMK
             ResetSearch();
             Display(SystemArgs.Mails);
         }
+
+        private void SettingsMails_F_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -72,8 +72,6 @@
             this.DataReg_TB = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.Position_TB = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.Admin_TB = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.Login_TB = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -96,6 +94,7 @@
             this.Menu_MS.Size = new System.Drawing.Size(834, 25);
             this.Menu_MS.TabIndex = 9;
             this.Menu_MS.Text = "Menu_MS";
+            this.Menu_MS.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Menu_MS_ItemClicked);
             // 
             // мобильноеПриложениеToolStripMenuItem
             // 
@@ -506,32 +505,11 @@
             this.Position_TB.Size = new System.Drawing.Size(200, 20);
             this.Position_TB.TabIndex = 34;
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(484, 399);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(50, 16);
-            this.label10.TabIndex = 35;
-            this.label10.Text = "Админ";
-            // 
-            // Admin_TB
-            // 
-            this.Admin_TB.Location = new System.Drawing.Point(623, 398);
-            this.Admin_TB.Margin = new System.Windows.Forms.Padding(2);
-            this.Admin_TB.Name = "Admin_TB";
-            this.Admin_TB.ReadOnly = true;
-            this.Admin_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Admin_TB.Size = new System.Drawing.Size(200, 20);
-            this.Admin_TB.TabIndex = 36;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(484, 423);
+            this.label11.Location = new System.Drawing.Point(484, 399);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(47, 16);
@@ -540,7 +518,7 @@
             // 
             // Login_TB
             // 
-            this.Login_TB.Location = new System.Drawing.Point(623, 422);
+            this.Login_TB.Location = new System.Drawing.Point(623, 398);
             this.Login_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Login_TB.Name = "Login_TB";
             this.Login_TB.ReadOnly = true;
@@ -552,7 +530,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(484, 447);
+            this.label12.Location = new System.Drawing.Point(484, 423);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(83, 16);
@@ -561,7 +539,7 @@
             // 
             // HashPassword_TB
             // 
-            this.HashPassword_TB.Location = new System.Drawing.Point(623, 446);
+            this.HashPassword_TB.Location = new System.Drawing.Point(623, 422);
             this.HashPassword_TB.Margin = new System.Windows.Forms.Padding(2);
             this.HashPassword_TB.Name = "HashPassword_TB";
             this.HashPassword_TB.ReadOnly = true;
@@ -589,8 +567,6 @@
             this.Controls.Add(this.HashPassword_TB);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.Login_TB);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.Admin_TB);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.Position_TB);
             this.Controls.Add(this.label8);
@@ -660,8 +636,6 @@
         public System.Windows.Forms.TextBox DataReg_TB;
         private System.Windows.Forms.Label label9;
         public System.Windows.Forms.TextBox Position_TB;
-        private System.Windows.Forms.Label label10;
-        public System.Windows.Forms.TextBox Admin_TB;
         private System.Windows.Forms.Label label11;
         public System.Windows.Forms.TextBox Login_TB;
         private System.Windows.Forms.Label label12;

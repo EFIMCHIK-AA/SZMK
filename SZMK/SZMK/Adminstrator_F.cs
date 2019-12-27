@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.Threading;
+using Npgsql;
 
 namespace SZMK
 {
@@ -44,29 +45,27 @@ namespace SZMK
         {
             try
             {
+                Users_DGV.AutoGenerateColumns = false;
+
                 Load_F Dialog = new Load_F();
 
                 Dialog.Show();
 
-                //SystemArgs.Path = new Path(); //Системные пути
-                //SystemArgs.DataBase = new DataBase(); //Конфигурация базы данных
-                //SystemArgs.MobileApplication = new MobileApplication(); //Конфигурация мобильного приложения
-                //SystemArgs.ClientProgram = new ClientProgram(); // Конфигурация клиентского программного обеспечения
-                //SystemArgs.ByteScout = new ByteScout(); // Конфигурация программы распознавания
-                //SystemArgs.Mails = new List<Mail>(); //Общий список адресов почты
-                //SystemArgs.Positions = new List<Position>(); //Общий список должностей
+                SystemArgs.MobileApplication = new MobileApplication(); //Конфигурация мобильного приложения
+                SystemArgs.ClientProgram = new ClientProgram(); // Конфигурация клиентского программного обеспечения
+                SystemArgs.ByteScout = new ByteScout(); // Конфигурация программы распознавания
 
-                //Thread.Sleep(2000);
+                Thread.Sleep(2000);
 
                 Dialog.Close();
 
-                //if (SystemArgs.Users.Count() <= 0)
-                //{
-                //    Change_TSB.Enabled = false;
-                //    Delete_TSB.Enabled = false;
-                //}
+                if (SystemArgs.Users.Count() <= 0)
+                {
+                    Change_TSB.Enabled = false;
+                    Delete_TSB.Enabled = false;
+                }
 
-                //Display(SystemArgs.Users);
+                Display(SystemArgs.Users);
             }
             catch (Exception E)
             {
@@ -76,26 +75,22 @@ namespace SZMK
 
         private void Users_DGV_SelectionChanged(object sender, EventArgs e)
         {
-            if (Users_DGV.CurrentCell != null)
+            if (Users_DGV.CurrentCell != null && Users_DGV.CurrentCell.RowIndex < View.Count())
             {
-                if(View[Users_DGV.CurrentCell.RowIndex] != null)
-                {
-                    Change_TSB.Enabled = true;
-                    Delete_TSB.Enabled = true;
+                Change_TSB.Enabled = true;
+                Delete_TSB.Enabled = true;
 
-                    User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
+                User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
 
-                    Name_TB.Text = Temp.Name;
-                    Surname_TB.Text = Temp.Surname;
-                    MiddleName_TB.Text = Temp.MiddleName;
-                    DOB_TB.Text = Temp.DateOfBirth.ToShortDateString();
-                    Position_TB.Text = Temp.GetPosition().Name;
-                    ID_TB.Text = Temp.ID.ToString();
-                    DataReg_TB.Text = Temp.DateCreate.ToShortDateString();
-                    Admin_TB.Text = Temp.Admin.Name;
-                    Login_TB.Text = Temp.Login;
-                    HashPassword_TB.Text = Temp.HashPassword;
-                }
+                Name_TB.Text = Temp.Name;
+                Surname_TB.Text = Temp.Surname;
+                MiddleName_TB.Text = Temp.MiddleName;
+                DOB_TB.Text = Temp.DateOfBirth.ToShortDateString();
+                Position_TB.Text = Temp.GetPosition().Name;
+                ID_TB.Text = Temp.ID.ToString();
+                DataReg_TB.Text = Temp.DateCreate.ToShortDateString();
+                Login_TB.Text = Temp.Login;
+                HashPassword_TB.Text = Temp.HashPassword;
             }
             else
             {
@@ -110,7 +105,6 @@ namespace SZMK
                 Position_TB.Text = String.Empty;
                 ID_TB.Text = String.Empty;
                 DataReg_TB.Text = String.Empty;
-                Admin_TB.Text = String.Empty;
                 Login_TB.Text = String.Empty;
                 HashPassword_TB.Text = String.Empty;
             }
@@ -129,12 +123,36 @@ namespace SZMK
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
                     Int64 Index = -1; //Получить уникальный индекс из базы данных
-                                      //Записать данные в базу данных
-                    User Temp = new User(Index, Dialog.Name_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Surname_TB.Text, DateCreate,
+
+                    using (var Connect = new NpgsqlConnection(SystemArgs.DataBase.ToString()))
+                    {
+                        Connect.Open();
+
+                        using (var Command = new NpgsqlCommand($"SELECT last_value FROM \"User_ID_seq\"", Connect))
+                        {
+                            using (var Reader = Command.ExecuteReader())
+                            {
+                                while (Reader.Read())
+                                {
+                                    Index = Reader.GetInt64(0);
+                                }
+                            }
+                        }
+                    }
+
+                    User Temp = new User(Index + 1, Dialog.Name_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Surname_TB.Text, DateCreate,
                                         Convert.ToDateTime(Dialog.DOB_MTB.Text, Dialog.DOB_MTB.Culture), SystemArgs.Positions[Dialog.Position_CB.SelectedIndex].ID,
-                                        new List<Mail>(), SystemArgs.User, Dialog.Login_TB.Text, Hash.GetSHA256(Dialog.HashPassword_TB.Text));
-                    SystemArgs.Users.Add(Temp);
-                    return true;
+                                        new List<Mail>(), Dialog.Login_TB.Text, Hash.GetSHA256(Dialog.HashPassword_TB.Text));
+
+                    if(SystemArgs.Request.AddUser(Temp))
+                    {
+                        SystemArgs.Users.Add(Temp);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -174,6 +192,7 @@ namespace SZMK
                     Dialog.MiddleName_TB.Text = Temp.MiddleName;
                     Dialog.Surname_TB.Text = Temp.Surname;
                     Dialog.DOB_MTB.Text = Temp.DateOfBirth.ToShortDateString();
+                    Dialog.Position_CB.DataSource = SystemArgs.Positions;
 
                     for (Int32 i = 0; i < SystemArgs.Positions.Count; i++)
                     {
@@ -189,13 +208,21 @@ namespace SZMK
 
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
-                        //Обновить данные в базе данных по индексу
                         User NewUser = new User(Temp.ID, Dialog.Name_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Surname_TB.Text, Temp.DateCreate,
                                             Convert.ToDateTime(Dialog.DOB_MTB.Text, Dialog.DOB_MTB.Culture), SystemArgs.Positions[Dialog.Position_CB.SelectedIndex].ID,
-                                            Temp.Mails, SystemArgs.User, Dialog.Login_TB.Text, Hash.GetSHA256(Dialog.HashPassword_TB.Text));
-                        SystemArgs.Users.Remove(Temp);
-                        SystemArgs.Users.Add(NewUser);
-                        return true;
+                                            Temp.Mails, Dialog.Login_TB.Text, Hash.GetSHA256(Dialog.HashPassword_TB.Text.Trim()));
+
+                        if(SystemArgs.Request.ChangeUser(NewUser))
+                        {
+                            SystemArgs.Users.Remove(Temp);
+                            SystemArgs.Users.Add(NewUser);
+
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
@@ -232,10 +259,15 @@ namespace SZMK
 
                     if (MessageBox.Show("Вы действительно хотите удалить пользователя?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
-                        //Удалить данные в базе данных по индексу
-
-                        SystemArgs.Users.Remove(Temp);
-                        return true;
+                        if(SystemArgs.Request.DeleteUser(Temp))
+                        {
+                            SystemArgs.Users.Remove(Temp);
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
@@ -328,9 +360,12 @@ namespace SZMK
 
         private void ResetSearch()
         {
-            Search_TSTB.Text = String.Empty;
+            if(Result != null)
+            {
+                Search_TSTB.Text = String.Empty;
 
-            Result.Clear();
+                Result.Clear();
+            }
         }
 
         private void Search_TSB_Click(object sender, EventArgs e)
@@ -356,20 +391,7 @@ namespace SZMK
             {
                 SearchParamUsers_F Dialog = new SearchParamUsers_F();
 
-                List<User> Admins = new List<User>();
                 List<Position> Positions = new List<Position>();
-
-                Admins.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null, null, "Нет лоигна", "Нет хеша"));
-
-                for(Int32 i = 0; i < SystemArgs.Users.Count(); i++)
-                {
-                    if(SystemArgs.Users[i].GetPosition().ID == 1)
-                    {
-                        Admins.Add(SystemArgs.Users[i]);
-                    }
-                }
-
-                Dialog.Admins_CB.DataSource = Admins;
 
                 Positions.Add(new Position(-1, "Не выбрано"));
                 Positions.AddRange(SystemArgs.Positions);
@@ -406,11 +428,6 @@ namespace SZMK
                     if (Dialog.ID_TB.Text.Trim() != String.Empty)
                     {
                         Result = Result.Where(p => p.ID == Convert.ToInt64(Dialog.ID_TB.Text.Trim())).ToList();
-                    }
-
-                    if (Dialog.Admins_CB.SelectedIndex > 0)
-                    {
-                        Result = Result.Where(p => p.Admin == (User)Dialog.Admins_CB.SelectedItem).ToList();
                     }
 
                     if (Dialog.Login_TB.Text.Trim() != String.Empty)
@@ -565,6 +582,7 @@ namespace SZMK
             {
                 SettingsMails_F Dialog = new SettingsMails_F();
 
+                Dialog.Mails_DGV.AutoGenerateColumns = false;
                 Dialog.Mails_DGV.DataSource = SystemArgs.Mails;
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
@@ -576,6 +594,11 @@ namespace SZMK
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void Menu_MS_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

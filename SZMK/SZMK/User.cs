@@ -16,13 +16,12 @@ namespace SZMK
         private DateTime _DateOfBirth;
         private List<Mail> _Mails;
         private Position _Position;
-        private User _Admin;
         private String _Login;
         private String _HashPassword;
 
 
         public User (Int64 ID, String Name, String MiddleName, String Surname, DateTime DateCreate, DateTime DateOfBirth, Int64 IDPosition,
-                    List<Mail> ListMails, User Admin, String Login, String HashPassword)
+                    List<Mail> ListMails, String Login, String HashPassword)
         {
             _ID = ID;
 
@@ -90,18 +89,9 @@ namespace SZMK
             {
                 throw new Exception("Получено пустое значение хэша пароля пользователя");
             }
-
-            if (Admin != null)
-            {
-                _Admin = Admin;
-            }
-            else
-            {
-                throw new Exception("Получено пустое значение админа пользователя");
-            }
         }
 
-        public User() : this(-1,"Нет имени", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null, null, "Нет лоигна", "Нет хеша") { }
+        public User() : this(-1,"Нет имени", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null, "Нет лоигна", "Нет хеша") { }
 
         public Position GetPosition()
         {
@@ -127,20 +117,6 @@ namespace SZMK
             }
 
             return false;
-        }
-
-        private void SetMails(List<Int64> ListMails)
-        {
-            for(Int32 i = 0; i < SystemArgs.Mails.Count; i++)
-            {
-                for(Int32 j = 0; j < ListMails.Count; j++)
-                {
-                    if(SystemArgs.Mails[i].ID == ListMails[j])
-                    {
-                        _Mails.Add(SystemArgs.Mails[i]);
-                    }
-                }
-            }
         }
 
         public Int64 ID
@@ -187,22 +163,6 @@ namespace SZMK
                 if (!String.IsNullOrEmpty(value))
                 {
                     _HashPassword = value;
-                }
-            }
-        }
-
-        public User Admin
-        {
-            get
-            {
-                return _Admin;
-            }
-
-            set
-            {
-                if (value != null)
-                {
-                    _Admin = value;
                 }
             }
         }
@@ -329,6 +289,6 @@ namespace SZMK
             return _Name;
         }
 
-        public String SearchString() => $"{_ID}_{_Name}_{_MiddleName}_{_Surname}_{_DateCreate.ToShortDateString()}_{_DateOfBirth.ToShortDateString()}_{_Position.Name}_{_Admin.Name}_{_Login}";
+        public String SearchString() => $"{_ID}_{_Name}_{_MiddleName}_{_Surname}_{_DateCreate.ToShortDateString()}_{_DateOfBirth.ToShortDateString()}_{_Position.Name}_{_Login}";
     }
 }

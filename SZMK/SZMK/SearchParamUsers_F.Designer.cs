@@ -30,7 +30,6 @@
         {
             this.label11 = new System.Windows.Forms.Label();
             this.Login_TB = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.MiddleName_TB = new System.Windows.Forms.TextBox();
@@ -45,14 +44,13 @@
             this.Cancel_B = new System.Windows.Forms.Button();
             this.OK_B = new System.Windows.Forms.Button();
             this.Position_CB = new System.Windows.Forms.ComboBox();
-            this.Admins_CB = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(12, 240);
+            this.label11.Location = new System.Drawing.Point(12, 216);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(47, 16);
@@ -61,23 +59,12 @@
             // 
             // Login_TB
             // 
-            this.Login_TB.Location = new System.Drawing.Point(95, 239);
+            this.Login_TB.Location = new System.Drawing.Point(95, 215);
             this.Login_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Login_TB.Name = "Login_TB";
             this.Login_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Login_TB.Size = new System.Drawing.Size(323, 20);
             this.Login_TB.TabIndex = 60;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(12, 216);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(50, 16);
-            this.label10.TabIndex = 57;
-            this.label10.Text = "Админ";
             // 
             // label9
             // 
@@ -195,7 +182,7 @@
             // 
             this.Cancel_B.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Cancel_B.Location = new System.Drawing.Point(15, 304);
+            this.Cancel_B.Location = new System.Drawing.Point(15, 278);
             this.Cancel_B.Margin = new System.Windows.Forms.Padding(2);
             this.Cancel_B.Name = "Cancel_B";
             this.Cancel_B.Size = new System.Drawing.Size(403, 25);
@@ -207,7 +194,7 @@
             // 
             this.OK_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OK_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.OK_B.Location = new System.Drawing.Point(15, 275);
+            this.OK_B.Location = new System.Drawing.Point(15, 249);
             this.OK_B.Margin = new System.Windows.Forms.Padding(2);
             this.OK_B.Name = "OK_B";
             this.OK_B.Size = new System.Drawing.Size(403, 25);
@@ -230,29 +217,13 @@
             this.Position_CB.Size = new System.Drawing.Size(323, 21);
             this.Position_CB.TabIndex = 70;
             // 
-            // Admins_CB
-            // 
-            this.Admins_CB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Admins_CB.FormattingEnabled = true;
-            this.Admins_CB.Items.AddRange(new object[] {
-            "asdasd",
-            "asdsad",
-            "asdad"});
-            this.Admins_CB.Location = new System.Drawing.Point(95, 214);
-            this.Admins_CB.Margin = new System.Windows.Forms.Padding(2);
-            this.Admins_CB.Name = "Admins_CB";
-            this.Admins_CB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Admins_CB.Size = new System.Drawing.Size(323, 21);
-            this.Admins_CB.TabIndex = 71;
-            // 
             // SearchParamUsers_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.Cancel_B;
-            this.ClientSize = new System.Drawing.Size(433, 345);
-            this.Controls.Add(this.Admins_CB);
+            this.ClientSize = new System.Drawing.Size(433, 321);
             this.Controls.Add(this.Position_CB);
             this.Controls.Add(this.Cancel_B);
             this.Controls.Add(this.OK_B);
@@ -260,7 +231,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.Login_TB);
-            this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.MiddleName_TB);
@@ -283,7 +253,6 @@
         #endregion
         private System.Windows.Forms.Label label11;
         public System.Windows.Forms.TextBox Login_TB;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label6;
         public System.Windows.Forms.TextBox MiddleName_TB;
@@ -298,6 +267,5 @@
         private System.Windows.Forms.Button Cancel_B;
         private System.Windows.Forms.Button OK_B;
         public System.Windows.Forms.ComboBox Position_CB;
-        public System.Windows.Forms.ComboBox Admins_CB;
     }
 }

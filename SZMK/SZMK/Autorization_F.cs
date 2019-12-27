@@ -106,7 +106,7 @@ namespace SZMK
 
         private bool ComparePassword(User User, String Password)
         {
-            if(User.HashPassword == Hash.GetSHA256(Password))
+            if (User.HashPassword == Hash.GetSHA256(Password))
             {
                 return true;
             }
@@ -123,13 +123,21 @@ namespace SZMK
                 Password_TB.UseSystemPasswordChar = true;
 
                 List<User> Users = new List<User>();
-                SystemArgs.Users = new List<User>();
+                SystemArgs.Users = new List<User>(); //Список всех пользователей в программе
+                SystemArgs.Path = new Path(); //Системные пути
+                SystemArgs.DataBase = new DataBase(); //Конфигурация базы данных
+                SystemArgs.Request = new Request(); //Слой запросов к базе данных
 
-                //Получить всех пользователей в систем аргс юзерс
+                SystemArgs.Positions = new List<Position>(); //Общий список должностей
+                SystemArgs.Request.GetAllPositions();
+                SystemArgs.Mails = new List<Mail>(); //Общий список адресов почты
+                SystemArgs.Request.GetAllMails();
 
-                //Users.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null, null, "Нет лоигна", "Нет хеша"));
-                //Users.AddRange(SystemArgs.Users);
-                //Login_CB.DataSource = Users;
+                SystemArgs.Request.GetAllUsers();
+
+                Users.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, 1, new List<Mail>(), "Нет лоигна", "Нет хеша"));
+                Users.AddRange(SystemArgs.Users);
+                Login_CB.DataSource = Users;
             }
             catch (Exception E)
             {

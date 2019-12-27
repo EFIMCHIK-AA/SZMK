@@ -8,9 +8,9 @@ namespace SZMK
 {
     public abstract class BasePosition
     {
-        abstract public Int32 ID { get; set; }
+        abstract public Int64 ID { get; set; }
 
-        public BasePosition(Int32 ID)
+        public BasePosition(Int64 ID)
         {
             this.ID = ID;
         }

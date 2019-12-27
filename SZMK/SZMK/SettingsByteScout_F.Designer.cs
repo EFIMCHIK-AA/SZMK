@@ -54,7 +54,6 @@
             // 
             // DirectoryProgPath_B
             // 
-            this.DirectoryProgPath_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.DirectoryProgPath_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DirectoryProgPath_B.Location = new System.Drawing.Point(342, 86);
             this.DirectoryProgPath_B.Margin = new System.Windows.Forms.Padding(2);
@@ -98,7 +97,6 @@
             // 
             // ReviewProgram_B
             // 
-            this.ReviewProgram_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.ReviewProgram_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ReviewProgram_B.Location = new System.Drawing.Point(342, 32);
             this.ReviewProgram_B.Margin = new System.Windows.Forms.Padding(2);

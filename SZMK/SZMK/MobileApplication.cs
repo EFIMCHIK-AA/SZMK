@@ -10,7 +10,6 @@ namespace SZMK
     public class MobileApplication
     {
         String _Port;
-        String _IP;
 
         public MobileApplication()
         {
@@ -32,7 +31,6 @@ namespace SZMK
                 using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ConnectApplicationPath, FileMode.Open)))
                 {
                     _Port = sr.ReadLine();
-                    _IP = sr.ReadLine();
                 }
 
                 return true;
@@ -57,7 +55,6 @@ namespace SZMK
                 using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ConnectApplicationPath, FileMode.Create)))
                 {
                     sw.WriteLine(_Port);
-                    sw.WriteLine(_IP);
                 }
 
                 return true;
@@ -76,22 +73,6 @@ namespace SZMK
             }
 
             return true;
-        }
-
-        public String IP
-        {
-            get
-            {
-                return _IP;
-            }
-
-            set
-            {
-                if (!String.IsNullOrEmpty(value))
-                {
-                    _IP = value;
-                }
-            }
         }
 
         public String Port

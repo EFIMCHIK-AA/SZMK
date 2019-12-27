@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Mails_DGV = new System.Windows.Forms.DataGridView();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.Add_B = new System.Windows.Forms.Button();
             this.Change_B = new System.Windows.Forms.Button();
@@ -42,8 +44,6 @@
             this.Search_B = new System.Windows.Forms.Button();
             this.ResetSearch_B = new System.Windows.Forms.Button();
             this.MoreInfo_B = new System.Windows.Forms.Button();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.Mails_DGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,6 +71,25 @@
             this.Mails_DGV.RowHeadersWidth = 51;
             this.Mails_DGV.Size = new System.Drawing.Size(325, 341);
             this.Mails_DGV.TabIndex = 19;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "DateCreateView";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Column2.HeaderText = "Дата создания";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.DataPropertyName = "MailAddress";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Column1.HeaderText = "Адрес электронной почты";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
             // 
             // label4
             // 
@@ -204,25 +223,6 @@
             this.MoreInfo_B.UseVisualStyleBackColor = true;
             this.MoreInfo_B.Click += new System.EventHandler(this.MoreInfo_B_Click);
             // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "DateCreateView";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle7;
-            this.Column2.HeaderText = "Дата создания";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column1.DataPropertyName = "MailAddress";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle8;
-            this.Column1.HeaderText = "Адрес электронной почты";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
             // SettingsMails_F
             // 
             this.AcceptButton = this.OK_B;
@@ -244,6 +244,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "SettingsMails_F";
             this.Text = "Настройка почтовых адресов";
+            this.Load += new System.EventHandler(this.SettingsMails_F_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Mails_DGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

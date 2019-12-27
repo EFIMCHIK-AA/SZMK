@@ -41,13 +41,12 @@ namespace SZMK
                     throw new Exception("Необходимо использовать порты в диапазоне [48654..48999] или [49152..65535]");
                 }
 
-                SystemArgs.MobileApplication.IP = IP_TB.Text.Trim();
                 SystemArgs.MobileApplication.Port = Port_TB.Text.Trim();
 
                 if (SystemArgs.MobileApplication.SetParametersConnect())
                 {
                     Zen.Barcode.CodeQrBarcodeDraw QrCode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
-                    QR_PB.Image = QrCode.Draw($"{SystemArgs.MobileApplication.IP}_{SystemArgs.MobileApplication.Port}", 100);
+                    QR_PB.Image = QrCode.Draw($"{IP_TB.Text.Trim()}_{SystemArgs.MobileApplication.Port}", 100);
                 }
             }
             catch (FormatException)

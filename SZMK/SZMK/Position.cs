@@ -9,9 +9,9 @@ namespace SZMK
     public class Position : BasePosition
     {
         private String _Name;
-        private Int32 _ID;
+        private Int64 _ID;
 
-        public Position(Int32 ID, String Name) : base(ID)
+        public Position(Int64 ID, String Name) : base(ID)
         {
             if (!String.IsNullOrEmpty(Name))
             {
@@ -21,7 +21,7 @@ namespace SZMK
 
         public Position() : this(0, "Без наименования позиции") { }
 
-        public override Int32 ID
+        public override Int64 ID
         {
             get
             {

@@ -18,7 +18,7 @@ namespace SZMK
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Adminstrator_F());
+            Application.Run(new Autorization_F());
         }
     }
 }

@@ -124,7 +124,7 @@ namespace SZMK
                 throw new Exception("Недействительное наименование базы данных");
             }
 
-            if (String.IsNullOrEmpty(_Owner) || _Name.Trim() != "postgres")
+            if (String.IsNullOrEmpty(_Owner) || _Owner.Trim() != "postgres")
             {
                 throw new Exception("Недействительный владелец базы данных");
             }
