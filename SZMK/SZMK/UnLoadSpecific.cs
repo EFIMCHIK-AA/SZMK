@@ -12,11 +12,11 @@ namespace SZMK
     {
         public struct Specific
         {
-            String _Number;
-            Int64 _List;
-            String _Executor;
-            Int64 _NumberSpecific;
-            Boolean _Finded;
+            private String _Number;
+            private Int64 _List;
+            private String _Executor;
+            private Int64 _NumberSpecific;
+            private Boolean _Finded;
             public Specific(String Number,Int64 List,String Executor,Int64 NumberSpecific,Boolean Finded)
             {
                 if (!String.IsNullOrEmpty(Number))
@@ -53,6 +53,73 @@ namespace SZMK
                 }
                 _Finded = Finded;
             }
+            public String Number
+            {
+                get
+                {
+                    return _Number;
+                }
+                set
+                {
+                    if (!String.IsNullOrEmpty(Number))
+                    {
+                        _Number = value;
+                    }
+                }
+            }
+            public Int64 List
+            {
+                get
+                {
+                    return _List;
+                }
+                set
+                {
+                    if (value>=0)
+                    {
+                        _List = value;
+                    }
+                }
+            }
+            public String Executor
+            {
+                get
+                {
+                    return _Executor;
+                }
+                set
+                {
+                    if (!String.IsNullOrEmpty(Executor))
+                    {
+                        _Executor = value;
+                    }
+                }
+            }
+            public Int64 NumberSpecific
+            {
+                get
+                {
+                    return _NumberSpecific;
+                }
+                set
+                {
+                    if (value >= 0)
+                    {
+                        _NumberSpecific = value;
+                    }
+                }
+            }
+            public Boolean Finded
+            {
+                get
+                {
+                    return _Finded;
+                }
+                set
+                {
+                    _Finded = value;
+                }
+            }
         }
         public List<Specific> Specifics;
         public UnLoadSpecific()
@@ -79,6 +146,7 @@ namespace SZMK
                 }
                 if (File.Exists(pathSpecific + @"\Отчеты\#Для выгрузки.xls"))
                 {
+                    Boolean flag = false;
                     ExcelPackage WBChecked = new ExcelPackage(new System.IO.FileInfo(pathSpecific + @"\Отчеты\#Для выгрузки.xls"));
                     ExcelWorksheet WSChecked = WBChecked.Workbook.Worksheets[1];
                     for (int j = 0; j < WSChecked.Dimension.End.Row; i++)
@@ -94,9 +162,14 @@ namespace SZMK
                                 else
                                 {
                                     Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[1], Convert.ToInt64(SplitDataMatrix[3]), false));
+                                    flag = true;
                                 }
                             }
                         }
+                    }
+                    if (flag)
+                    {
+                        SystemArgs.ServerMail.SendMail();
                     }
                 }
                 else

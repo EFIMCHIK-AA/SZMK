@@ -63,7 +63,7 @@ namespace SZMK
                     SystemArgs.DataBase.Password = Password_TB.Text.Trim();
                     SystemArgs.DataBase.Name = Name_TB.Text.Trim();
 
-                    if (!SystemArgs.DataBase.SetParametersConnect())
+                    if (SystemArgs.DataBase.SetParametersConnect())
                     {
                         MessageBox.Show("Параметры подключения к базе данных успешно записаны", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }

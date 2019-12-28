@@ -24,15 +24,15 @@ namespace SZMK
         {
             if (!File.Exists(SystemArgs.Path.TemplateActUniquePath))
             {
-                throw new Exception("Не найден шаблон акта не уникальный чертежей");
+                throw new Exception("Не найден шаблон акта уникальных чертежей");
             }
             if (!File.Exists(SystemArgs.Path.TemplateActNoUniquePath))
             {
-                throw new Exception("Не найден шаблон акта не уникальный чертежей");
+                throw new Exception("Не найден шаблон акта не уникальных чертежей");
             }
             if (!File.Exists(SystemArgs.Path.TemplateRegistry))
             {
-                throw new Exception("Не найден шаблон акта не уникальный чертежей");
+                throw new Exception("Не найден шаблон реестра чертежей");
             }
         }
     }

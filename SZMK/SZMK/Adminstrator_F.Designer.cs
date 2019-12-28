@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Menu_MS = new System.Windows.Forms.MenuStrip();
             this.мобильноеПриложениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MobileSettings_TSMB = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,23 +78,23 @@
             this.HashPassword_TB = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.Connect_TB = new System.Windows.Forms.TextBox();
             this.Count_TB = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             this.StatusMobile_TB = new System.Windows.Forms.TextBox();
             this.StatusConf_TB = new System.Windows.Forms.TextBox();
             this.StatusByteScout_TB = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
             this.StatusMail_TB = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.Menu_MS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Users_DGV)).BeginInit();
             this.Tool_TS.SuspendLayout();
@@ -130,7 +130,7 @@
             // MobileSettings_TSMB
             // 
             this.MobileSettings_TSMB.Name = "MobileSettings_TSMB";
-            this.MobileSettings_TSMB.Size = new System.Drawing.Size(180, 22);
+            this.MobileSettings_TSMB.Size = new System.Drawing.Size(139, 22);
             this.MobileSettings_TSMB.Text = "Настройки";
             this.MobileSettings_TSMB.Click += new System.EventHandler(this.MobileSettings_TSMB_Click);
             // 
@@ -177,14 +177,14 @@
             // настройкиToolStripMenuItem
             // 
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.настройкиToolStripMenuItem.Text = "Настройки";
             this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
             // 
             // быстрыйЗапускToolStripMenuItem
             // 
             this.быстрыйЗапускToolStripMenuItem.Name = "быстрыйЗапускToolStripMenuItem";
-            this.быстрыйЗапускToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.быстрыйЗапускToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.быстрыйЗапускToolStripMenuItem.Text = "Быстрый запуск";
             this.быстрыйЗапускToolStripMenuItem.Click += new System.EventHandler(this.быстрыйЗапускToolStripMenuItem_Click);
             // 
@@ -238,8 +238,8 @@
             // Column4
             // 
             this.Column4.DataPropertyName = "DateCreateView";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle1;
             this.Column4.HeaderText = "Дата создания";
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
@@ -249,8 +249,8 @@
             // 
             this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column2.DataPropertyName = "Name";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle2;
             this.Column2.FillWeight = 119.2894F;
             this.Column2.HeaderText = "Имя";
             this.Column2.MinimumWidth = 65;
@@ -262,8 +262,8 @@
             // 
             this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column3.DataPropertyName = "Surname";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle3;
             this.Column3.FillWeight = 95.17767F;
             this.Column3.HeaderText = "Фамилия";
             this.Column3.MinimumWidth = 65;
@@ -275,8 +275,8 @@
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.DataPropertyName = "MiddleName";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle4;
             this.Column1.HeaderText = "Отчество";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
@@ -701,38 +701,57 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(465, 631);
             this.tableLayoutPanel1.TabIndex = 42;
             // 
-            // tableLayoutPanel2
+            // label20
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.Users_DGV, 0, 1);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(664, 631);
-            this.tableLayoutPanel2.TabIndex = 43;
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label20.Location = new System.Drawing.Point(3, 556);
+            this.label20.Margin = new System.Windows.Forms.Padding(3, 0, 2, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(49, 16);
+            this.label20.TabIndex = 54;
+            this.label20.Text = "Почта";
             // 
-            // panel1
+            // label19
             // 
-            this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(664, 63);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(465, 631);
-            this.panel1.TabIndex = 44;
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label19.Location = new System.Drawing.Point(3, 532);
+            this.label19.Margin = new System.Windows.Forms.Padding(3, 0, 2, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(112, 16);
+            this.label19.TabIndex = 50;
+            this.label19.Text = "Распознавание";
             // 
-            // panel2
+            // label16
             // 
-            this.panel2.Controls.Add(this.tableLayoutPanel2);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 63);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(664, 631);
-            this.panel2.TabIndex = 45;
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
+            this.label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tableLayoutPanel1.SetColumnSpan(this.label16, 2);
+            this.label16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label16.Location = new System.Drawing.Point(3, 439);
+            this.label16.Margin = new System.Windows.Forms.Padding(3, 10, 5, 10);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(457, 35);
+            this.label16.TabIndex = 47;
+            this.label16.Text = "Состояние файловой системы";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label15.Location = new System.Drawing.Point(3, 405);
+            this.label15.Margin = new System.Windows.Forms.Padding(3, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(112, 16);
+            this.label15.TabIndex = 44;
+            this.label15.Text = "Пользователей";
             // 
             // label10
             // 
@@ -764,17 +783,6 @@
             this.label14.TabIndex = 43;
             this.label14.Text = "Подключение";
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label15.Location = new System.Drawing.Point(3, 405);
-            this.label15.Margin = new System.Windows.Forms.Padding(3, 0, 2, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(112, 16);
-            this.label15.TabIndex = 44;
-            this.label15.Text = "Пользователей";
-            // 
             // Connect_TB
             // 
             this.Connect_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
@@ -799,25 +807,6 @@
             this.Count_TB.TabIndex = 46;
             this.Count_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label16
-            // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
-            this.label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel1.SetColumnSpan(this.label16, 2);
-            this.label16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label16.Location = new System.Drawing.Point(3, 439);
-            this.label16.Margin = new System.Windows.Forms.Padding(3, 10, 5, 10);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(457, 35);
-            this.label16.TabIndex = 47;
-            this.label16.Text = "Состояние файловой системы";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -839,17 +828,6 @@
             this.label18.Size = new System.Drawing.Size(104, 16);
             this.label18.TabIndex = 49;
             this.label18.Text = "Конфигурация";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label19.Location = new System.Drawing.Point(3, 532);
-            this.label19.Margin = new System.Windows.Forms.Padding(3, 0, 2, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(112, 16);
-            this.label19.TabIndex = 50;
-            this.label19.Text = "Распознавание";
             // 
             // StatusMobile_TB
             // 
@@ -884,17 +862,6 @@
             this.StatusByteScout_TB.TabIndex = 53;
             this.StatusByteScout_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label20.Location = new System.Drawing.Point(3, 556);
-            this.label20.Margin = new System.Windows.Forms.Padding(3, 0, 2, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(49, 16);
-            this.label20.TabIndex = 54;
-            this.label20.Text = "Почта";
-            // 
             // StatusMail_TB
             // 
             this.StatusMail_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
@@ -905,6 +872,39 @@
             this.StatusMail_TB.Size = new System.Drawing.Size(326, 20);
             this.StatusMail_TB.TabIndex = 55;
             this.StatusMail_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.Users_DGV, 0, 1);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(664, 631);
+            this.tableLayoutPanel2.TabIndex = 43;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel1.Location = new System.Drawing.Point(664, 63);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(465, 631);
+            this.panel1.TabIndex = 44;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.tableLayoutPanel2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 63);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(664, 631);
+            this.panel2.TabIndex = 45;
             // 
             // Adminstrator_F
             // 

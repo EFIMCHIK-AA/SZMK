@@ -281,17 +281,5 @@ namespace SZMK
                 }
             }
         }
-        //public void SplitData(String DataMatrix)
-        //{
-        //    Temp.DataMatrix = DataMatrix;
-        //    Temp.DateCreate = DateTime.Now;
-        //    String[] SplitDataMatrix = DataMatrix.Split('_');
-        //    Temp.Number = SplitDataMatrix[0];
-        //    Temp.Executor = SplitDataMatrix[3];
-        //    Temp.List = Convert.ToInt64(SplitDataMatrix[1]);
-        //    Temp.Mark = SplitDataMatrix[2];
-        //    Temp.Lenght = Convert.ToDouble(SplitDataMatrix[4]);
-        //    Temp.Weight = Convert.ToDouble(SplitDataMatrix[5]);
-        //}
     }
 }

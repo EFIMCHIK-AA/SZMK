@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Mail;
+using System.Net;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -145,12 +147,12 @@ namespace SZMK
         {
             try
             {
-                if (!File.Exists(SystemArgs.Path.ConnectServreMails))
+                if (!File.Exists(SystemArgs.Path.ConnectServerMails))
                 {
                     throw new Exception();
                 }
 
-                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ConnectServreMails, FileMode.Open)))
+                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ConnectServerMails, FileMode.Open)))
                 {
                     _NameWho = sr.ReadLine();
                     _SMTP = sr.ReadLine();
@@ -183,14 +185,14 @@ namespace SZMK
         {
             try
             {
-                String Dir = SystemArgs.Path.GetDirectory(SystemArgs.Path.ConnectServreMails);
+                String Dir = SystemArgs.Path.GetDirectory(SystemArgs.Path.ConnectServerMails);
 
                 if (!Directory.Exists(Dir))
                 {
                     Directory.CreateDirectory(Dir);
                 }
 
-                using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ConnectServreMails, FileMode.Create)))
+                using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ConnectServerMails, FileMode.Create)))
                 {
                     sw.WriteLine(_NameWho);
                     sw.WriteLine(_SMTP);
@@ -220,7 +222,7 @@ namespace SZMK
 
         public bool CheckFile()
         {
-            if (!File.Exists(SystemArgs.Path.ConnectServreMails))
+            if (!File.Exists(SystemArgs.Path.ConnectServerMails))
             {
                 return false;
             }
@@ -228,9 +230,87 @@ namespace SZMK
             return true;
         }
 
-        public bool CheckConnect(String ConnectString)
+        public bool CheckConnect(String Email,String Name,String Server,Int32 Port,String Login,String Password)
         {
-            return false; // Проверку подключения к севреру
+            try
+            {
+                MailAddress from = new MailAddress(Email, Name);
+                MailAddress to = new MailAddress("rakrachok99@mail.ru");
+                MailMessage m = new MailMessage(from, to);
+                m.Subject = "Тест";
+                m.Body = "<h2>Письмо-тест работы smtp-клиента</h2>";
+                m.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient(Server, Port);
+                smtp.Credentials = new NetworkCredential(Login, Password);
+                smtp.EnableSsl = true;
+                smtp.Send(m);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public void SendMail()
+        {
+            try
+            {
+                MailMessage m = new MailMessage();
+                m.From = new MailAddress(NameWho,Name);
+                if (SystemArgs.Mails.Count != 0)
+                {
+                    for(int i=0;i<SystemArgs.Mails.Count;i++)
+                    {
+                        m.To.Add(new MailAddress(SystemArgs.Mails[i].MailAddress));
+                    }
+                }
+                else
+                {
+                    throw new Exception("Отсутсвуют адреса для отправки"); 
+                }
+                m.Subject = "Деталировка отсутствует от " + DateTime.Now.ToString();
+                m.Body = CreateMessage();
+                m.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient(SMTP, Convert.ToInt32(Port));
+                smtp.Credentials = new NetworkCredential(Login, Password);
+                smtp.EnableSsl = true;
+                smtp.Send(m);
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public String CreateMessage()
+        {
+            try
+            {
+                String Message = $"<table border=\"1\">" +
+                                    $"<tr>" +
+                                    $"<td> № заказа</td>" +
+                                    $"<td> № листа</td>" +
+                                    $"<td> Фамилия разработчика</td>" +
+                                    $"<td> № детали</td>" +
+                                    $"</tr>";
+                for (int i = 0; i < SystemArgs.UnLoadSpecific.Specifics.Count; i++)
+                {
+                    if (!SystemArgs.UnLoadSpecific.Specifics[i].Finded)
+                    {
+                        Message += $"<tr>" +
+                                    $"<td> {SystemArgs.UnLoadSpecific.Specifics[i].Number}</td>" +
+                                    $"<td> {SystemArgs.UnLoadSpecific.Specifics[i].List.ToString()}</td>" +
+                                    $"<td> {SystemArgs.UnLoadSpecific.Specifics[i].Executor}</td>" +
+                                    $"<td> {SystemArgs.UnLoadSpecific.Specifics[i].NumberSpecific.ToString()}</td>" +
+                                    $"</tr>";
+                    }
+                }
+                Message += $"</table>";
+                return Message;
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace SZMK
         private readonly String _ProgramPath;
         private readonly String _DirectoryProgramPath;
         private readonly String _DirectoryModelsPath;
-        private readonly String _ConnectServreMails;
+        private readonly String _ConnectServerMails;
         private readonly String _TemplateActUniquePath;
         private readonly String _TemplateActNoUniquePath;
         private readonly String _TemplateRegistryPath;
@@ -31,10 +31,10 @@ namespace SZMK
             _DirectoryProgramPath = $@"Path\Program\Directory.df";//Путь к директории темповых файлов для распознвания
             _LogPath = $@"Log"; //Путь к директории хранения логов
             _DirectoryModelsPath = $@"Path\Models.df"; //Директория выгрузки
-            _ConnectServreMails = $@"Connect\Mails\connect.conf"; //Конфигурация почтового сервера
-            _TemplateActUniquePath = $@"Template\ActTemplateUnique.xlsx";//Путь до шаблона акта уникальных чертежей
-            _TemplateActNoUniquePath = $@"Template\ActTemplateNoUnique.xlsx";//Путь до шаблона акта не уникальных чертежей
-            _TemplateRegistryPath = $@"Template\RegistryTemplate.xlsx";//Путь до шаблона реестра
+            _ConnectServerMails = $@"Connect\Mails\connect.conf"; //Конфигурация почтового сервера
+            _TemplateActUniquePath = $@"Templates\ActTemplateUnique.xlsx";//Путь до шаблона акта уникальных чертежей
+            _TemplateActNoUniquePath = $@"Templates\ActTemplateNoUnique.xlsx";//Путь до шаблона акта не уникальных чертежей
+            _TemplateRegistryPath = $@"Templates\RegistryTemplate.xlsx";//Путь до шаблона реестра
         }
 
         public String DirectoryProgramPath
@@ -45,11 +45,11 @@ namespace SZMK
             }
         }
 
-        public String ConnectServreMails
+        public String ConnectServerMails
         {
             get
             {
-                return _ConnectServreMails;
+                return _ConnectServerMails;
             }
         }
 

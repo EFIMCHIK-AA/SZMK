@@ -37,7 +37,7 @@ namespace SZMK
                         }
                         else
                         {
-                            throw new Exception("Обнаружена ошибка при вооде пароля");
+                            throw new Exception("Обнаружена ошибка при вводе пароля");
                         }
                     }
                     else
@@ -71,11 +71,13 @@ namespace SZMK
                         this.Hide();
                         Administrator.Show();
                         break;
-                    case 2: //Архивариус
+                    case 2: //КБ
+                        KB_F KB = new KB_F();
+                        KB.Show();
                         break;
-                    case 3: //КБ
+                    case 3: //Архивариус
                         break;
-                    case 4:
+                    case 4://Сотрудник ПДО
                         break;
                     case 5:
                         break;

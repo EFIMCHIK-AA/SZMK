@@ -61,7 +61,7 @@ namespace SZMK
 
                 //String ConnectString = $@"Server = {Server_TB.Text.Trim()}; Port = {Port_TB.Text.Trim()}; User Id = {Owner_TB.Text.Trim()}; Password = {Password_TB.Text.Trim()}; Database = {Name_TB.Text.Trim()};";
 
-                if (SystemArgs.ServerMail.CheckConnect(null))
+                if (SystemArgs.ServerMail.CheckConnect(NameWho_TB.Text.Trim(),Name_TB.Text.Trim(), SMTP_TB.Text.Trim(), Convert.ToInt32(Port_TB.Text.Trim()),Login_TB.Text.Trim(), Password_TB.Text.Trim()))
                 {
                     SystemArgs.ServerMail.Name = Name_TB.Text.Trim();
                     SystemArgs.ServerMail.Port = Port_TB.Text.Trim();
@@ -71,7 +71,7 @@ namespace SZMK
                     SystemArgs.ServerMail.Password = Password_TB.Text.Trim();
                     SystemArgs.ServerMail.SSL = SSL_CB.Checked;
 
-                    if (!SystemArgs.ServerMail.SetParametersConnect())
+                    if (SystemArgs.ServerMail.SetParametersConnect())
                     {
                         MessageBox.Show("Параметры подключения к почтовому серверу успешно записаны", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
