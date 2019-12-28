@@ -356,6 +356,92 @@ namespace SZMK
                 return false;
             }
         }
+        public bool InsertOrderDB(Order Order)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"INSERT INTO public.\"Orders\"(" +
+
+                                                            "\"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\")" +
+
+                                                            $"VALUES({Order.DateCreate}, {Order.DataMatrix}, {Order.Executor}, {Order.Number}, {Order.List}, {Order.Mark}, {Order.Lenght}, {Order.Weight}); ", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        //public bool SetStatusOrder()
+        //{
+        //    try
+        //    {
+        //        using (var Connect = new NpgsqlConnection(_ConnectString))
+        //        {
+        //            Connect.Open();
+
+        //            using (var Command = new NpgsqlCommand($"INSERT INTO public.\"Orders\"(" +
+
+        //                                                    "\"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\")" +
+
+        //                                                    $"VALUES({Order.DateCreate}, {Order.DataMatrix}, {Order.Executor}, {Order.Number}, {Order.List}, {Order.Mark}, {Order.Lenght}, {Order.Weight}); ", Connect))
+        //            {
+        //                Command.ExecuteNonQuery();
+        //            }
+
+        //            Connect.Close();
+        //        }
+
+        //        return true;
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
+        public bool CheckedUniqueOrderDB(String DataMatrix)
+        {
+            Boolean flag = false;
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT Count(\"Orders\".\"DataMatrix\") FROM \"Orders\" WHERE \"DataMatrix\" = '{DataMatrix}'", Connect))
+                    {
+                        using (var reader = Command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.GetInt64(0) == 0)
+                                {
+                                    flag = true;
+                                }
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return flag;
+            }
+            catch
+            {
+                return flag;
+            }
+        }
 
 
     } 

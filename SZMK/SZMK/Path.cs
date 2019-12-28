@@ -17,6 +17,9 @@ namespace SZMK
         private readonly String _DirectoryProgramPath;
         private readonly String _DirectoryModelsPath;
         private readonly String _ConnectServreMails;
+        private readonly String _TemplateActUniquePath;
+        private readonly String _TemplateActNoUniquePath;
+        private readonly String _TemplateRegistryPath;
 
         public Path() 
         {
@@ -29,6 +32,9 @@ namespace SZMK
             _LogPath = $@"Log"; //Путь к директории хранения логов
             _DirectoryModelsPath = $@"Path\Models.df"; //Директория выгрузки
             _ConnectServreMails = $@"Connect\Mails\connect.conf"; //Конфигурация почтового сервера
+            _TemplateActUniquePath = $@"Template\ActTemplateUnique.xlsx";//Путь до шаблона акта уникальных чертежей
+            _TemplateActNoUniquePath = $@"Template\ActTemplateNoUnique.xlsx";//Путь до шаблона акта не уникальных чертежей
+            _TemplateRegistryPath = $@"Template\RegistryTemplate.xlsx";//Путь до шаблона реестра
         }
 
         public String DirectoryProgramPath
@@ -113,6 +119,27 @@ namespace SZMK
             get
             {
                 return _RegistryPath;
+            }
+        }
+        public String TemplateActUniquePath
+        {
+            get
+            {
+                return _TemplateActUniquePath;
+            }
+        }
+        public String TemplateActNoUniquePath
+        {
+            get
+            {
+                return _TemplateActNoUniquePath;
+            }
+        }
+        public String TemplateRegistry
+        {
+            get
+            {
+                return _TemplateRegistryPath;
             }
         }
     }

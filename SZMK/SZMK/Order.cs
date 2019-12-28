@@ -17,8 +17,11 @@ namespace SZMK
         private String _Mark;
         private Double _Lenght;
         private Double _Weight;
+        private String _Status;
+        private String _BlankOrder;
 
-        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor, Int64 List, String Mark, Double Lenght, Double Weight)
+
+        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor, Int64 List, String Mark, Double Lenght, Double Weight, String Status, String BlankOrder)
         {
             if (ID >= 0)
             {
@@ -96,9 +99,25 @@ namespace SZMK
             {
                 throw new Exception("Значение веса меньше 0");
             }
+            if (!String.IsNullOrEmpty(Status))
+            {
+                _Status = Status;
+            }
+            else
+            {
+                throw new Exception("Пустое значение статуса");
+            }
+            if (!String.IsNullOrEmpty(BlankOrder))
+            {
+                _BlankOrder = BlankOrder;
+            }
+            else
+            {
+                throw new Exception("Пустое значение бланка заказа");
+            }
         }
 
-        public Order() : this(-1, null, DateTime.Now, null, null, -1, null, -1, -1) { }
+        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя", -1, "Нет марки", -1, -1, "Нет статуса", "Нет бланка заказа") { }
 
         public Int64 ID
         {
@@ -234,5 +253,45 @@ namespace SZMK
                 }
             }
         }
+        public String Status
+        {
+            get
+            {
+                return _Status;
+            }
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    _Status = value;
+                }
+            }
+        }
+        public String BlankOrder
+        {
+            get
+            {
+                return _BlankOrder;
+            }
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    _BlankOrder = value;
+                }
+            }
+        }
+        //public void SplitData(String DataMatrix)
+        //{
+        //    Temp.DataMatrix = DataMatrix;
+        //    Temp.DateCreate = DateTime.Now;
+        //    String[] SplitDataMatrix = DataMatrix.Split('_');
+        //    Temp.Number = SplitDataMatrix[0];
+        //    Temp.Executor = SplitDataMatrix[3];
+        //    Temp.List = Convert.ToInt64(SplitDataMatrix[1]);
+        //    Temp.Mark = SplitDataMatrix[2];
+        //    Temp.Lenght = Convert.ToDouble(SplitDataMatrix[4]);
+        //    Temp.Weight = Convert.ToDouble(SplitDataMatrix[5]);
+        //}
     }
 }

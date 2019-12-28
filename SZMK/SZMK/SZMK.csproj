@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.2\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Equin.ApplicationFramework.BindingListView, Version=1.4.5222.35545, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Equin.ApplicationFramework.BindingListView.1.4.5222.35545\lib\net40-Client\Equin.ApplicationFramework.BindingListView.dll</HintPath>
     </Reference>
@@ -42,10 +45,15 @@
     <Reference Include="Npgsql, Version=4.1.2.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.4.1.2\lib\net461\Npgsql.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="SimpleTCP, Version=1.0.24.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleTCP.1.0.24\lib\net45\SimpleTCP.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
@@ -57,6 +65,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Text.Encodings.Web, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -91,13 +100,34 @@
     </Compile>
     <Compile Include="ByteScout.cs" />
     <Compile Include="ClientProgram.cs" />
+    <Compile Include="Excel.cs" />
+    <Compile Include="KBScanUnloadSpecific.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KBScanUnloadSpecific.designer.cs">
+      <DependentUpon>KBScanUnloadSpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KBScan_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KBScan_F.designer.cs">
+      <DependentUpon>KBScan_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KB_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KB_F.designer.cs">
+      <DependentUpon>KB_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="Load_F.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Load_F.Designer.cs">
       <DependentUpon>Load_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="Order.cs" />
     <Compile Include="Request.cs" />
+    <Compile Include="ScanSession.cs" />
     <Compile Include="ServerMail.cs" />
     <Compile Include="ServerMail_F.cs">
       <SubType>Form</SubType>
@@ -105,6 +135,7 @@
     <Compile Include="ServerMail_F.Designer.cs">
       <DependentUpon>ServerMail_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="ServerMobileApp.cs" />
     <Compile Include="SettingsDataBase_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,12 +147,6 @@
     </Compile>
     <Compile Include="InformationMail_F.Designer.cs">
       <DependentUpon>InformationMail_F.cs</DependentUpon>
-    </Compile>
-    <Compile Include="KB_F.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="KB_F.Designer.cs">
-      <DependentUpon>KB_F.cs</DependentUpon>
     </Compile>
     <Compile Include="Archive_F.cs">
       <SubType>Form</SubType>
@@ -142,7 +167,6 @@
     <Compile Include="Log.cs" />
     <Compile Include="Mail.cs" />
     <Compile Include="MobileApplication.cs" />
-    <Compile Include="Order.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="BasePosition.cs" />
     <Compile Include="Position.cs" />
@@ -191,9 +215,20 @@
       <DependentUpon>SettingsProgram_F.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemArgs.cs" />
+    <Compile Include="Template.cs" />
+    <Compile Include="UnLoadSpecific.cs" />
     <Compile Include="User.cs" />
     <EmbeddedResource Include="Adminstrator_F.resx">
       <DependentUpon>Adminstrator_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KBScanUnloadSpecific.resx">
+      <DependentUpon>KBScanUnloadSpecific.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KBScan_F.resx">
+      <DependentUpon>KBScan_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KB_F.resx">
+      <DependentUpon>KB_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Load_F.resx">
       <DependentUpon>Load_F.cs</DependentUpon>
@@ -206,9 +241,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InformationMail_F.resx">
       <DependentUpon>InformationMail_F.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="KB_F.resx">
-      <DependentUpon>KB_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Archive_F.resx">
       <DependentUpon>Archive_F.cs</DependentUpon>
