@@ -33,31 +33,6 @@ CREATE TABLE "Position" (
 );
 
 
-
-CREATE TABLE "AddUser" (
-	"DateCreate" DATE NOT NULL,
-	"ID_Admin" bigint NOT NULL,
-	"ID_User" bigint NOT NULL
-) WITH (
-  OIDS=FALSE
-);
-
-
-
-CREATE TABLE "Admins" (
-	"ID" serial NOT NULL,
-	"DateCreate" DATE NOT NULL,
-	"Name" character varying NOT NULL,
-	"MidName" character varying NOT NULL,
-	"SurName" character varying NOT NULL,
-	"DOB" DATE NOT NULL,
-	CONSTRAINT "Admins_pk" PRIMARY KEY ("ID")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
 CREATE TABLE "Orders" (
 	"ID" serial NOT NULL,
 	"DateCreate" DATE NOT NULL,
@@ -78,7 +53,8 @@ CREATE TABLE "Orders" (
 CREATE TABLE "AddStatus" (
 	"DateCreate" DATE NOT NULL,
 	"ID_Status" bigint NOT NULL,
-	"ID_Order" bigint NOT NULL
+	"ID_Order" bigint NOT NULL,
+        "ID_User" bigint NOT NULL
 ) WITH (
   OIDS=FALSE
 );
@@ -139,10 +115,9 @@ CREATE TABLE "BlankOrder" (
 
 ALTER TABLE "User" ADD CONSTRAINT "User_fk0" FOREIGN KEY ("ID_Position") REFERENCES "Position"("ID") ON DELETE CASCADE;
 ALTER TABLE "DataReg" ADD CONSTRAINT "DataReg_fk0" FOREIGN KEY ("ID") REFERENCES "User"("ID") ON DELETE CASCADE;
-ALTER TABLE "AddUser" ADD CONSTRAINT "AddUser_fk0" FOREIGN KEY ("ID_Admin") REFERENCES "Admins"("ID") ON DELETE CASCADE;
-ALTER TABLE "AddUser" ADD CONSTRAINT "AddUser_fk1" FOREIGN KEY ("ID_User") REFERENCES "User"("ID") ON DELETE CASCADE;
 ALTER TABLE "AddStatus" ADD CONSTRAINT "AddStatus_fk0" FOREIGN KEY ("ID_Status") REFERENCES "Status"("ID") ON DELETE CASCADE;
 ALTER TABLE "AddStatus" ADD CONSTRAINT "AddStatus_fk1" FOREIGN KEY ("ID_Order") REFERENCES "Orders"("ID") ON DELETE CASCADE;
+ALTER TABLE "AddStatus" ADD CONSTRAINT "AddStatus_fk2" FOREIGN KEY ("ID_User") REFERENCES "User"("ID") ON DELETE CASCADE;
 ALTER TABLE "Status" ADD CONSTRAINT "Status_fk0" FOREIGN KEY ("ID_Position") REFERENCES "Position"("ID") ON DELETE CASCADE;
 ALTER TABLE "AddBlank" ADD CONSTRAINT "AddBlank_fk0" FOREIGN KEY ("ID_BlankOrder") REFERENCES "BlankOrder"("ID") ON DELETE CASCADE;
 ALTER TABLE "AddBlank" ADD CONSTRAINT "AddBlank_fk1" FOREIGN KEY ("ID_Order") REFERENCES "Orders"("ID") ON DELETE CASCADE;
