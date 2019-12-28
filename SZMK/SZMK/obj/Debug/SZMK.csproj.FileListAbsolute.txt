@@ -56,3 +56,4 @@ C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\System.Text.Encodings.Web.xml
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\System.Text.Json.xml
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\System.ValueTuple.xml
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.ServerMail_F.resources

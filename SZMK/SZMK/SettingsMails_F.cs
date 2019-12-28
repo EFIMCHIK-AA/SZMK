@@ -316,6 +316,7 @@ namespace SZMK
         private void SettingsMails_F_Load(object sender, EventArgs e)
         {
             Display(SystemArgs.Mails);
+            Mails_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             Change_B.Enabled = false;
             Delete_B.Enabled = false;
@@ -326,6 +327,8 @@ namespace SZMK
         {
             if (Mails_DGV.CurrentCell != null && Mails_DGV.CurrentCell.RowIndex < View.Count())
             {
+                Mails_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect; //Выделение строки
+
                 Change_B.Enabled = true;
                 Delete_B.Enabled = true;
                 MoreInfo_B.Enabled = true;
@@ -336,6 +339,24 @@ namespace SZMK
                 Change_B.Enabled = false;
                 Delete_B.Enabled = false;
                 MoreInfo_B.Enabled = false;
+            }
+        }
+
+        private void Server_B_Click(object sender, EventArgs e)
+        {
+            ServerMail_F Dialog = new ServerMail_F();
+
+            Dialog.Login_TB.Text = SystemArgs.ServerMail.Login;
+            Dialog.Name_TB.Text = SystemArgs.ServerMail.Name;
+            Dialog.NameWho_TB.Text = SystemArgs.ServerMail.NameWho;
+            Dialog.Password_TB.Text = SystemArgs.ServerMail.Password;
+            Dialog.Port_TB.Text = SystemArgs.ServerMail.Port;
+            Dialog.SMTP_TB.Text = SystemArgs.ServerMail.SMTP;
+            Dialog.SSL_CB.Checked = SystemArgs.ServerMail.SSL;
+
+            if (Dialog.ShowDialog() == DialogResult.OK)
+            {
+
             }
         }
     }

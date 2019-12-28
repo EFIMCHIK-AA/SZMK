@@ -90,12 +90,12 @@ namespace SZMK
 
         public bool CheckFile()
         {
-            if (!File.Exists(_ProgramPath))
+            if (!Directory.Exists(_DirectoryProgramPath))
             {
                 return false;
             }
 
-            if (!File.Exists(_DirectoryProgramPath))
+            if (!File.Exists(_ProgramPath))
             {
                 return false;
             }

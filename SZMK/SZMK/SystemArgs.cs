@@ -15,6 +15,7 @@ namespace SZMK
         static public ByteScout ByteScout; // Конфигурация программы распознавания
         static public Request Request; //Слой запросов к базе данных
         static public DataBase DataBase; //Конфигурация базы данных
+        static public ServerMail ServerMail; //Конфигурация почтового сервера
         static public List<Mail> Mails; //Общий список адресов почты
         static public List<Position> Positions; //Общий список должностей
         static public List<User> Users; //общий список пользователей в системе

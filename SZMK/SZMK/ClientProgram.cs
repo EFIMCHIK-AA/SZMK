@@ -11,6 +11,7 @@ namespace SZMK
     {
         private String _RegistryPath;
         private String _ArchivePath;
+        private String _ModelsPath;
 
         public ClientProgram()
         {
@@ -34,6 +35,11 @@ namespace SZMK
                     throw new Exception();
                 }
 
+                if (!File.Exists(SystemArgs.Path.DirectoryModelsPath))
+                {
+                    throw new Exception();
+                }
+
                 using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ArchivePath, FileMode.Open)))
                 {
                     _ArchivePath = sr.ReadLine();
@@ -42,6 +48,11 @@ namespace SZMK
                 using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.RegistryPath, FileMode.Open)))
                 {
                     _RegistryPath = sr.ReadLine();
+                }
+
+                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.DirectoryModelsPath, FileMode.Open)))
+                {
+                    _ModelsPath = sr.ReadLine();
                 }
 
                 return true;
@@ -70,6 +81,13 @@ namespace SZMK
                     Directory.CreateDirectory(DirRegistry);
                 }
 
+                String DirModels = SystemArgs.Path.GetDirectory(SystemArgs.Path.DirectoryModelsPath);
+
+                if (!Directory.Exists(DirModels))
+                {
+                    Directory.CreateDirectory(DirModels);
+                }
+
                 using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ArchivePath, FileMode.Create)))
                 {
                     sw.WriteLine(_ArchivePath);
@@ -78,6 +96,11 @@ namespace SZMK
                 using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.RegistryPath, FileMode.Create)))
                 {
                     sw.WriteLine(_RegistryPath);
+                }
+
+                using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.DirectoryModelsPath, FileMode.Create)))
+                {
+                    sw.WriteLine(_ModelsPath);
                 }
 
                 return true;
@@ -90,12 +113,17 @@ namespace SZMK
 
         public bool CheckFile()
         {
-            if (!File.Exists(_ArchivePath))
+            if (!Directory.Exists(_ArchivePath))
             {
                 return false;
             }
 
-            if (!File.Exists(_RegistryPath))
+            if (!Directory.Exists(_RegistryPath))
+            {
+                return false;
+            }
+
+            if (!Directory.Exists(_ModelsPath))
             {
                 return false;
             }
@@ -115,6 +143,22 @@ namespace SZMK
                 if (!String.IsNullOrEmpty(value))
                 {
                     _ArchivePath = value;
+                }
+            }
+        }
+
+        public String ModelsPath
+        {
+            get
+            {
+                return _ModelsPath;
+            }
+
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    _ModelsPath = value;
                 }
             }
         }

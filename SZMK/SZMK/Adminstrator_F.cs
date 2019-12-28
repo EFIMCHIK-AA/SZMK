@@ -29,6 +29,7 @@ namespace SZMK
         {
             View = new BindingListView<User>(List);
             Users_DGV.DataSource = View;
+            Count_TB.Text = View.Count.ToString();
         }
 
         private void Add_B_Click(object sender, EventArgs e)
@@ -46,6 +47,7 @@ namespace SZMK
             try
             {
                 Users_DGV.AutoGenerateColumns = false;
+                Users_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                 Load_F Dialog = new Load_F();
 
@@ -54,6 +56,62 @@ namespace SZMK
                 SystemArgs.MobileApplication = new MobileApplication(); //Конфигурация мобильного приложения
                 SystemArgs.ClientProgram = new ClientProgram(); // Конфигурация клиентского программного обеспечения
                 SystemArgs.ByteScout = new ByteScout(); // Конфигурация программы распознавания
+                SystemArgs.ServerMail = new ServerMail(); // Конфигурация почтового сервера
+
+                if(SystemArgs.DataBase.CheckConnect(SystemArgs.DataBase.ToString()))
+                {
+                    Connect_TB.Text = $"Успешно установлено <{DateTime.Now}>";
+                    Connect_TB.BackColor = Color.Lime;
+                }
+                else
+                {
+                    Connect_TB.Text = $"Не установлено <{DateTime.Now}>";
+                    Connect_TB.BackColor = Color.Red;
+                }
+
+                if(SystemArgs.MobileApplication.CheckFile())
+                {
+                    StatusMobile_TB.Text = $"Целостность установлена <{DateTime.Now}>";
+                    StatusMobile_TB.BackColor = Color.Lime;
+                }
+                else
+                {
+                    StatusMobile_TB.Text = $"Целостность нарушена <{DateTime.Now}>";
+                    StatusMobile_TB.BackColor = Color.Red;
+                }
+
+                if (SystemArgs.ClientProgram.CheckFile())
+                {
+                    StatusConf_TB.Text = $"Целостность установлена <{DateTime.Now}>";
+                    StatusConf_TB.BackColor = Color.Lime;
+                }
+                else
+                {
+                    StatusConf_TB.Text = $"Целостность нарушена <{DateTime.Now}>";
+                    StatusConf_TB.BackColor = Color.Red;
+                }
+
+                if (SystemArgs.ByteScout.CheckFile())
+                {
+                    StatusByteScout_TB.Text = $"Целостность установлена <{DateTime.Now}>";
+                    StatusByteScout_TB.BackColor = Color.Lime;
+                }
+                else
+                {
+                    StatusByteScout_TB.Text = $"Целостность нарушена <{DateTime.Now}>";
+                    StatusByteScout_TB.BackColor = Color.Red;
+                }
+
+                if (SystemArgs.ServerMail.CheckFile())
+                {
+                    StatusMail_TB.Text = $"Целостность установлена <{DateTime.Now}>";
+                    StatusMail_TB.BackColor = Color.Lime;
+                }
+                else
+                {
+                    StatusMail_TB.Text = $"Целостность нарушена <{DateTime.Now}>";
+                    StatusMail_TB.BackColor = Color.Red;
+                }
 
                 Thread.Sleep(2000);
 
@@ -77,6 +135,7 @@ namespace SZMK
         {
             if (Users_DGV.CurrentCell != null && Users_DGV.CurrentCell.RowIndex < View.Count())
             {
+                Users_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect; //Выделение строки
                 Change_TSB.Enabled = true;
                 Delete_TSB.Enabled = true;
 
@@ -525,6 +584,7 @@ namespace SZMK
                 {
                     Dialog.RegistryPath_TB.Text = SystemArgs.ClientProgram.RegistryPath;
                     Dialog.ArchivePath_TB.Text = SystemArgs.ClientProgram.ArchivePath;
+                    Dialog.ModelsPath_TB.Text = SystemArgs.ClientProgram.ModelsPath;
                 }
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
@@ -607,6 +667,12 @@ namespace SZMK
         private void Adminstrator_F_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void Users_DGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            e.CellStyle.SelectionBackColor = Color.FromArgb(112, 238, 226);
+            e.CellStyle.SelectionForeColor = Color.Black;
         }
     }
 }

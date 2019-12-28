@@ -38,6 +38,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.SaveArchive_B = new System.Windows.Forms.Button();
             this.OK_B = new System.Windows.Forms.Button();
+            this.ReviewModels_B = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ModelsPath_TB = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // RegistryPath_TB
@@ -129,7 +133,7 @@
             // SaveArchive_B
             // 
             this.SaveArchive_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SaveArchive_B.Location = new System.Drawing.Point(13, 117);
+            this.SaveArchive_B.Location = new System.Drawing.Point(14, 165);
             this.SaveArchive_B.Margin = new System.Windows.Forms.Padding(2);
             this.SaveArchive_B.Name = "SaveArchive_B";
             this.SaveArchive_B.Size = new System.Drawing.Size(480, 25);
@@ -142,7 +146,7 @@
             // 
             this.OK_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OK_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.OK_B.Location = new System.Drawing.Point(14, 165);
+            this.OK_B.Location = new System.Drawing.Point(15, 217);
             this.OK_B.Margin = new System.Windows.Forms.Padding(2);
             this.OK_B.Name = "OK_B";
             this.OK_B.Size = new System.Drawing.Size(479, 25);
@@ -150,12 +154,59 @@
             this.OK_B.Text = "Завершить редактирование";
             this.OK_B.UseVisualStyleBackColor = true;
             // 
+            // ReviewModels_B
+            // 
+            this.ReviewModels_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ReviewModels_B.Location = new System.Drawing.Point(341, 136);
+            this.ReviewModels_B.Margin = new System.Windows.Forms.Padding(2);
+            this.ReviewModels_B.Name = "ReviewModels_B";
+            this.ReviewModels_B.Size = new System.Drawing.Size(152, 25);
+            this.ReviewModels_B.TabIndex = 95;
+            this.ReviewModels_B.Text = "Обзор";
+            this.ReviewModels_B.UseVisualStyleBackColor = true;
+            this.ReviewModels_B.Click += new System.EventHandler(this.ReviewModels_B_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(114, 118);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(251, 16);
+            this.label3.TabIndex = 94;
+            this.label3.Text = "Расположение директории выгрузки";
+            // 
+            // ModelsPath_TB
+            // 
+            this.ModelsPath_TB.Location = new System.Drawing.Point(55, 139);
+            this.ModelsPath_TB.Margin = new System.Windows.Forms.Padding(2);
+            this.ModelsPath_TB.Name = "ModelsPath_TB";
+            this.ModelsPath_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ModelsPath_TB.Size = new System.Drawing.Size(282, 20);
+            this.ModelsPath_TB.TabIndex = 93;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(10, 140);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 16);
+            this.label5.TabIndex = 92;
+            this.label5.Text = "Путь";
+            // 
             // SettingsProgram_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(510, 210);
+            this.ClientSize = new System.Drawing.Size(510, 257);
+            this.Controls.Add(this.ReviewModels_B);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.ModelsPath_TB);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.OK_B);
             this.Controls.Add(this.SaveArchive_B);
             this.Controls.Add(this.ReviewArchive_B);
@@ -187,5 +238,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button SaveArchive_B;
         private System.Windows.Forms.Button OK_B;
+        private System.Windows.Forms.Button ReviewModels_B;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.TextBox ModelsPath_TB;
+        private System.Windows.Forms.Label label5;
     }
 }

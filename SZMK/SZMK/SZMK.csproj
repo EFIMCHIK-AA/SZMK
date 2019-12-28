@@ -98,6 +98,13 @@
       <DependentUpon>Load_F.cs</DependentUpon>
     </Compile>
     <Compile Include="Request.cs" />
+    <Compile Include="ServerMail.cs" />
+    <Compile Include="ServerMail_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ServerMail_F.Designer.cs">
+      <DependentUpon>ServerMail_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="SettingsDataBase_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Load_F.resx">
       <DependentUpon>Load_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServerMail_F.resx">
+      <DependentUpon>ServerMail_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsDataBase_F.resx">
       <DependentUpon>SettingsDataBase_F.cs</DependentUpon>

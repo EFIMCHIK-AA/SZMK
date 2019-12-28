@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Mails_DGV = new System.Windows.Forms.DataGridView();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,6 +44,8 @@
             this.Search_B = new System.Windows.Forms.Button();
             this.ResetSearch_B = new System.Windows.Forms.Button();
             this.MoreInfo_B = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Server_B = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Mails_DGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,15 +71,15 @@
             this.Mails_DGV.ReadOnly = true;
             this.Mails_DGV.RowHeadersVisible = false;
             this.Mails_DGV.RowHeadersWidth = 51;
-            this.Mails_DGV.Size = new System.Drawing.Size(325, 341);
+            this.Mails_DGV.Size = new System.Drawing.Size(325, 387);
             this.Mails_DGV.TabIndex = 19;
             this.Mails_DGV.SelectionChanged += new System.EventHandler(this.Mails_DGV_SelectionChanged);
             // 
             // Column2
             // 
             this.Column2.DataPropertyName = "DateCreateView";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle3;
             this.Column2.HeaderText = "Дата создания";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
@@ -86,8 +88,8 @@
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.DataPropertyName = "MailAddress";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle4;
             this.Column1.HeaderText = "Адрес электронной почты";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
@@ -154,7 +156,7 @@
             // 
             this.OK_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OK_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.OK_B.Location = new System.Drawing.Point(348, 358);
+            this.OK_B.Location = new System.Drawing.Point(348, 404);
             this.OK_B.Margin = new System.Windows.Forms.Padding(2);
             this.OK_B.Name = "OK_B";
             this.OK_B.Size = new System.Drawing.Size(212, 25);
@@ -164,7 +166,7 @@
             // 
             // Search_TB
             // 
-            this.Search_TB.Location = new System.Drawing.Point(348, 206);
+            this.Search_TB.Location = new System.Drawing.Point(347, 188);
             this.Search_TB.Margin = new System.Windows.Forms.Padding(2);
             this.Search_TB.Name = "Search_TB";
             this.Search_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -175,7 +177,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(428, 185);
+            this.label2.Location = new System.Drawing.Point(427, 167);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 16);
@@ -185,7 +187,7 @@
             // Search_B
             // 
             this.Search_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Search_B.Location = new System.Drawing.Point(348, 230);
+            this.Search_B.Location = new System.Drawing.Point(347, 212);
             this.Search_B.Margin = new System.Windows.Forms.Padding(2);
             this.Search_B.Name = "Search_B";
             this.Search_B.Size = new System.Drawing.Size(212, 25);
@@ -197,7 +199,7 @@
             // ResetSearch_B
             // 
             this.ResetSearch_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ResetSearch_B.Location = new System.Drawing.Point(348, 259);
+            this.ResetSearch_B.Location = new System.Drawing.Point(347, 241);
             this.ResetSearch_B.Margin = new System.Windows.Forms.Padding(2);
             this.ResetSearch_B.Name = "ResetSearch_B";
             this.ResetSearch_B.Size = new System.Drawing.Size(212, 25);
@@ -218,12 +220,37 @@
             this.MoreInfo_B.UseVisualStyleBackColor = true;
             this.MoreInfo_B.Click += new System.EventHandler(this.MoreInfo_B_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(393, 280);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(124, 16);
+            this.label3.TabIndex = 96;
+            this.label3.Text = "Почтовый сервер";
+            // 
+            // Server_B
+            // 
+            this.Server_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Server_B.Location = new System.Drawing.Point(347, 298);
+            this.Server_B.Margin = new System.Windows.Forms.Padding(2);
+            this.Server_B.Name = "Server_B";
+            this.Server_B.Size = new System.Drawing.Size(212, 25);
+            this.Server_B.TabIndex = 95;
+            this.Server_B.Text = "Настройки";
+            this.Server_B.UseVisualStyleBackColor = true;
+            this.Server_B.Click += new System.EventHandler(this.Server_B_Click);
+            // 
             // SettingsMails_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 399);
+            this.ClientSize = new System.Drawing.Size(576, 445);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.Server_B);
             this.Controls.Add(this.MoreInfo_B);
             this.Controls.Add(this.ResetSearch_B);
             this.Controls.Add(this.Search_B);
@@ -264,5 +291,7 @@
         private System.Windows.Forms.Button MoreInfo_B;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.Button Server_B;
     }
 }

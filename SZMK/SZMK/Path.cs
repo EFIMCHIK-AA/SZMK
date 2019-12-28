@@ -15,6 +15,8 @@ namespace SZMK
         private readonly String _LogPath;
         private readonly String _ProgramPath;
         private readonly String _DirectoryProgramPath;
+        private readonly String _DirectoryModelsPath;
+        private readonly String _ConnectServreMails;
 
         public Path() 
         {
@@ -24,7 +26,9 @@ namespace SZMK
             _RegistryPath = $@"Path\Registry.df";//Путь к реестру
             _ProgramPath = $@"Path\Program\Program.df";//Путь к программе распознавания
             _DirectoryProgramPath = $@"Path\Program\Directory.df";//Путь к директории темповых файлов для распознвания
-            _LogPath = $@"Log";//Путь к директории хранения логов
+            _LogPath = $@"Log"; //Путь к директории хранения логов
+            _DirectoryModelsPath = $@"Path\Models.df"; //Директория выгрузки
+            _ConnectServreMails = $@"Connect\Mails\connect.conf"; //Конфигурация почтового сервера
         }
 
         public String DirectoryProgramPath
@@ -32,6 +36,22 @@ namespace SZMK
             get
             {
                 return _DirectoryProgramPath;
+            }
+        }
+
+        public String ConnectServreMails
+        {
+            get
+            {
+                return _ConnectServreMails;
+            }
+        }
+
+        public String DirectoryModelsPath
+        {
+            get
+            {
+                return _DirectoryModelsPath;
             }
         }
 

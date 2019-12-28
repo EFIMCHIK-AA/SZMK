@@ -54,7 +54,13 @@ namespace SZMK
                     throw new Exception("Необходимо указать директорию архива");
                 }
 
-                if(!Directory.Exists(RegistryPath_TB.Text.Trim()))
+                if (String.IsNullOrEmpty(ModelsPath_TB.Text))
+                {
+                    ModelsPath_TB.Focus();
+                    throw new Exception("Необходимо указать директорию выгрузки");
+                }
+
+                if (!Directory.Exists(RegistryPath_TB.Text.Trim()))
                 {
                     RegistryPath_TB.Focus();
                     throw new Exception("Указанная дирекория реестра не существует");
@@ -66,8 +72,15 @@ namespace SZMK
                     throw new Exception("Указанная дирекория архива не существует");
                 }
 
+                if (!Directory.Exists(ModelsPath_TB.Text.Trim()))
+                {
+                    ModelsPath_TB.Focus();
+                    throw new Exception("Указанная дирекория выгрузки не существует");
+                }
+
                 SystemArgs.ClientProgram.ArchivePath = ArchivePath_TB.Text.Trim();
                 SystemArgs.ClientProgram.RegistryPath = RegistryPath_TB.Text.Trim();
+                SystemArgs.ClientProgram.ModelsPath = ModelsPath_TB.Text.Trim();
 
                 if (SystemArgs.ClientProgram.SetParametersConnect())
                 {
@@ -81,6 +94,16 @@ namespace SZMK
             catch (Exception E)
             {
                 MessageBox.Show(E.Message + ". Запись не выполнена", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void ReviewModels_B_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog Ofd = new FolderBrowserDialog();
+
+            if (Ofd.ShowDialog() == DialogResult.OK)
+            {
+                ModelsPath_TB.Text = Ofd.SelectedPath;
             }
         }
     }
