@@ -120,9 +120,11 @@ namespace SZMK
                 Dialog.DataReg_TB.Text = DateCreate.ToShortDateString();
                 Dialog.Position_CB.DataSource = SystemArgs.Positions;
 
+                SystemArgs.ChangeMode = false;
+
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Int64 Index = -1; //Получить уникальный индекс из базы данных
+                    Int64 Index = -1;
 
                     using (var Connect = new NpgsqlConnection(SystemArgs.DataBase.ToString()))
                     {
@@ -205,6 +207,8 @@ namespace SZMK
                     Dialog.label2.Text = "Укажите новые данные";
                     Dialog.Login_TB.Text = Temp.Login;
                     Dialog.HashPassword_TB.Text = String.Empty;
+
+                    SystemArgs.ChangeMode = true;
 
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
@@ -583,7 +587,6 @@ namespace SZMK
                 SettingsMails_F Dialog = new SettingsMails_F();
 
                 Dialog.Mails_DGV.AutoGenerateColumns = false;
-                Dialog.Mails_DGV.DataSource = SystemArgs.Mails;
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
@@ -599,6 +602,11 @@ namespace SZMK
         private void Menu_MS_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void Adminstrator_F_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

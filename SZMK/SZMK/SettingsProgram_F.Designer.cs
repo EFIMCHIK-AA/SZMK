@@ -73,7 +73,6 @@
             // 
             // ReviewRegistry_B
             // 
-            this.ReviewRegistry_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.ReviewRegistry_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ReviewRegistry_B.Location = new System.Drawing.Point(342, 39);
             this.ReviewRegistry_B.Margin = new System.Windows.Forms.Padding(2);
@@ -86,7 +85,6 @@
             // 
             // ReviewArchive_B
             // 
-            this.ReviewArchive_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.ReviewArchive_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ReviewArchive_B.Location = new System.Drawing.Point(341, 88);
             this.ReviewArchive_B.Margin = new System.Windows.Forms.Padding(2);
@@ -130,7 +128,6 @@
             // 
             // SaveArchive_B
             // 
-            this.SaveArchive_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.SaveArchive_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.SaveArchive_B.Location = new System.Drawing.Point(13, 117);
             this.SaveArchive_B.Margin = new System.Windows.Forms.Padding(2);
@@ -172,6 +169,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "SettingsProgram_F";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Конфигурация программного обеспечения";
             this.ResumeLayout(false);
             this.PerformLayout();

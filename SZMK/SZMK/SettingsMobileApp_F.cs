@@ -47,6 +47,7 @@ namespace SZMK
                 {
                     Zen.Barcode.CodeQrBarcodeDraw QrCode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
                     QR_PB.Image = QrCode.Draw($"{IP_TB.Text.Trim()}_{SystemArgs.MobileApplication.Port}", 100);
+                    MessageBox.Show("Параметры подключения успешно обновлены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (FormatException)

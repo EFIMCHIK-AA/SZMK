@@ -202,6 +202,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "RegistrationMail_F";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Почтовый адрес";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegistrationMail_F_FormClosing);
             this.Load += new System.EventHandler(this.RegistrationMail_Load);

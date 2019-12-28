@@ -85,7 +85,6 @@
             // 
             // Save_B
             // 
-            this.Save_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Save_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Save_B.Location = new System.Drawing.Point(18, 196);
             this.Save_B.Margin = new System.Windows.Forms.Padding(2);
@@ -201,6 +200,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "SettingsDataBase_F";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки базы данных";
             this.ResumeLayout(false);
             this.PerformLayout();

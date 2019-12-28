@@ -48,6 +48,7 @@
             this.Cancel_B = new System.Windows.Forms.Button();
             this.OK_B = new System.Windows.Forms.Button();
             this.DOB_MTB = new System.Windows.Forms.MaskedTextBox();
+            this.CheckPass_CB = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label12
@@ -207,7 +208,7 @@
             // 
             this.Generate_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Generate_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Generate_B.Location = new System.Drawing.Point(25, 234);
+            this.Generate_B.Location = new System.Drawing.Point(25, 258);
             this.Generate_B.Margin = new System.Windows.Forms.Padding(2);
             this.Generate_B.Name = "Generate_B";
             this.Generate_B.Size = new System.Drawing.Size(442, 25);
@@ -235,7 +236,7 @@
             // 
             this.Cancel_B.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Cancel_B.Location = new System.Drawing.Point(25, 313);
+            this.Cancel_B.Location = new System.Drawing.Point(25, 328);
             this.Cancel_B.Margin = new System.Windows.Forms.Padding(2);
             this.Cancel_B.Name = "Cancel_B";
             this.Cancel_B.Size = new System.Drawing.Size(442, 25);
@@ -247,7 +248,7 @@
             // 
             this.OK_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OK_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.OK_B.Location = new System.Drawing.Point(25, 284);
+            this.OK_B.Location = new System.Drawing.Point(25, 299);
             this.OK_B.Margin = new System.Windows.Forms.Padding(2);
             this.OK_B.Name = "OK_B";
             this.OK_B.Size = new System.Drawing.Size(442, 25);
@@ -264,13 +265,28 @@
             this.DOB_MTB.TabIndex = 68;
             this.DOB_MTB.ValidatingType = typeof(System.DateTime);
             // 
+            // CheckPass_CB
+            // 
+            this.CheckPass_CB.AutoSize = true;
+            this.CheckPass_CB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CheckPass_CB.Location = new System.Drawing.Point(161, 234);
+            this.CheckPass_CB.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckPass_CB.Name = "CheckPass_CB";
+            this.CheckPass_CB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.CheckPass_CB.Size = new System.Drawing.Size(140, 20);
+            this.CheckPass_CB.TabIndex = 69;
+            this.CheckPass_CB.Text = "&Показать пароль";
+            this.CheckPass_CB.UseVisualStyleBackColor = true;
+            this.CheckPass_CB.CheckedChanged += new System.EventHandler(this.CheckPass_CB_CheckedChanged);
+            // 
             // RegistrationUser_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.Cancel_B;
-            this.ClientSize = new System.Drawing.Size(487, 356);
+            this.ClientSize = new System.Drawing.Size(487, 375);
+            this.Controls.Add(this.CheckPass_CB);
             this.Controls.Add(this.DOB_MTB);
             this.Controls.Add(this.Cancel_B);
             this.Controls.Add(this.OK_B);
@@ -294,6 +310,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "RegistrationUser_F";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Регистрация пользователя";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegistrationUser_F_FormClosing);
             this.Load += new System.EventHandler(this.RegistrationUser_F_Load);
@@ -323,5 +340,6 @@
         private System.Windows.Forms.Button OK_B;
         public System.Windows.Forms.MaskedTextBox DOB_MTB;
         public System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox CheckPass_CB;
     }
 }

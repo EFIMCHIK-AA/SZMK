@@ -69,14 +69,18 @@ namespace SZMK
                 SystemArgs.ClientProgram.ArchivePath = ArchivePath_TB.Text.Trim();
                 SystemArgs.ClientProgram.RegistryPath = RegistryPath_TB.Text.Trim();
 
-                if (!SystemArgs.ClientProgram.SetParametersConnect())
+                if (SystemArgs.ClientProgram.SetParametersConnect())
                 {
-                    throw new Exception("Ошибка при записи директорий");
+                    MessageBox.Show("Параметры успешно записаны", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    throw new Exception("Ошибка при записи параметров");
                 }
             }
             catch (Exception E)
             {
-                MessageBox.Show(E.Message + ". Сохранение не выполнено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(E.Message + ". Запись не выполнена", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

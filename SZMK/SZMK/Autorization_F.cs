@@ -68,6 +68,7 @@ namespace SZMK
                 {
                     case 1: //Администратор
                         Adminstrator_F Administrator = new Adminstrator_F();
+                        this.Hide();
                         Administrator.Show();
                         break;
                     case 2: //Архивариус
@@ -83,8 +84,6 @@ namespace SZMK
                     default:
                         throw new Exception("Должности пользователя не существует");
                 }
-
-                this.Hide();
             }
         }
 
@@ -135,7 +134,7 @@ namespace SZMK
 
                 SystemArgs.Request.GetAllUsers();
 
-                Users.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, 1, new List<Mail>(), "Нет лоигна", "Нет хеша"));
+                Users.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, 1, new List<Mail>(), "Не выбрано", "Нет хеша"));
                 Users.AddRange(SystemArgs.Users);
                 Login_CB.DataSource = Users;
             }

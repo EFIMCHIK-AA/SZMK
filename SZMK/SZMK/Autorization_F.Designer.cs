@@ -41,10 +41,6 @@
             // 
             this.Login_CB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Login_CB.FormattingEnabled = true;
-            this.Login_CB.Items.AddRange(new object[] {
-            "asdasd",
-            "asdsad",
-            "asdad"});
             this.Login_CB.Location = new System.Drawing.Point(18, 316);
             this.Login_CB.Margin = new System.Windows.Forms.Padding(2);
             this.Login_CB.Name = "Login_CB";
@@ -138,6 +134,7 @@
             this.Controls.Add(this.Enter_B);
             this.MaximizeBox = false;
             this.Name = "Autorization_F";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Авторизация ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Autorization_F_FormClosing);
             this.Load += new System.EventHandler(this.Autorization_F_Load);

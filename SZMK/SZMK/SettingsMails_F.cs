@@ -1,4 +1,5 @@
 ﻿using Equin.ApplicationFramework;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,11 +38,34 @@ namespace SZMK
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Int64 Index = -1; //Получить уникальный индекс из базы данных
-                                      //Записать данные в базу данных
-                    Mail Temp = new Mail(Index,Dialog.Name_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Surname_TB.Text, DateCreate, Dialog.AddressMail_TB.Text);
-                    SystemArgs.Mails.Add(Temp);
-                    return true;
+                    Int64 Index = -1;
+
+                    using (var Connect = new NpgsqlConnection(SystemArgs.DataBase.ToString()))
+                    {
+                        Connect.Open();
+
+                        using (var Command = new NpgsqlCommand($"SELECT last_value FROM \"AllMail_ID_seq\"", Connect))
+                        {
+                            using (var Reader = Command.ExecuteReader())
+                            {
+                                while (Reader.Read())
+                                {
+                                    Index = Reader.GetInt64(0);
+                                }
+                            }
+                        }
+                    }
+
+                    Mail Temp = new Mail(Index + 1,Dialog.Name_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Surname_TB.Text, DateCreate, Dialog.AddressMail_TB.Text);
+
+                    if (SystemArgs.Request.AddMail(Temp))
+                    {
+                        SystemArgs.Mails.Add(Temp); return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -83,12 +107,19 @@ namespace SZMK
 
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
-                        //Обновить данные в базе данных по индексу
                         Mail NewMail = new Mail(Temp.ID, Dialog.Name_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Surname_TB.Text, Temp.DateCreate, Dialog.AddressMail_TB.Text);
 
-                        SystemArgs.Mails.Remove(Temp);
-                        SystemArgs.Mails.Add(NewMail);
-                        return true;
+                        if (SystemArgs.Request.ChangeMail(NewMail))
+                        {
+                            SystemArgs.Mails.Remove(Temp);
+                            SystemArgs.Mails.Add(NewMail);
+
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
@@ -125,10 +156,15 @@ namespace SZMK
 
                     if (MessageBox.Show("Вы действительно хотите удалить адрес электронной почты?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
-                        //Удалить данные в базе данных по индексу
-
-                        SystemArgs.Mails.Remove(Temp);
-                        return true;
+                        if (SystemArgs.Request.DeleteMail(Temp))
+                        {
+                            SystemArgs.Mails.Remove(Temp);
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
@@ -152,6 +188,12 @@ namespace SZMK
             if (DeleteMail())
             {
                 Display(SystemArgs.Mails);
+
+                if (SystemArgs.Mails.Count <= 0)
+                {
+                    Delete_B.Enabled = false;
+                    Change_B.Enabled = false;
+                }
             }
         }
 
@@ -171,6 +213,11 @@ namespace SZMK
                     Dialog.MiddleName_TB.Text = Temp.MiddleName;
                     Dialog.ID_TB.Text = Temp.ID.ToString();
                     Dialog.AddressMail_TB.Text = Temp.MailAddress;
+
+                    if(Dialog.ShowDialog() == DialogResult.OK)
+                    {
+
+                    }
                 }
                 else
                 {
@@ -187,9 +234,12 @@ namespace SZMK
 
         private void ResetSearch()
         {
-            Search_TB.Text = String.Empty;
+            if(Result != null)
+            {
+                Search_TB.Text = String.Empty;
 
-            Result.Clear();
+                Result.Clear();
+            }
         }
 
         private List<Mail> ResultSearch(String TextSearch)
@@ -265,7 +315,28 @@ namespace SZMK
 
         private void SettingsMails_F_Load(object sender, EventArgs e)
         {
+            Display(SystemArgs.Mails);
 
+            Change_B.Enabled = false;
+            Delete_B.Enabled = false;
+            MoreInfo_B.Enabled = false;
+        }
+
+        private void Mails_DGV_SelectionChanged(object sender, EventArgs e)
+        {
+            if (Mails_DGV.CurrentCell != null && Mails_DGV.CurrentCell.RowIndex < View.Count())
+            {
+                Change_B.Enabled = true;
+                Delete_B.Enabled = true;
+                MoreInfo_B.Enabled = true;
+            }
+            else
+            {
+
+                Change_B.Enabled = false;
+                Delete_B.Enabled = false;
+                MoreInfo_B.Enabled = false;
+            }
         }
     }
 }

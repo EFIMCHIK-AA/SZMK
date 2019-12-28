@@ -82,12 +82,15 @@ namespace SZMK
                         throw new Exception("Необходимо указать логин пользователя");
                     }
 
-                    for(Int32 i = 0; i < SystemArgs.Users.Count(); i++)
+                    if(!SystemArgs.ChangeMode)
                     {
-                        if (SystemArgs.Users[i].Login == Login_TB.Text.Trim())
+                        for (Int32 i = 0; i < SystemArgs.Users.Count(); i++)
                         {
-                            Login_TB.Focus();
-                            throw new Exception("Пользователь с указанным логином уже существует");
+                            if (SystemArgs.Users[i].Login == Login_TB.Text.Trim())
+                            {
+                                Login_TB.Focus();
+                                throw new Exception("Пользователь с указанным логином уже существует");
+                            }
                         }
                     }
 
@@ -118,7 +121,12 @@ namespace SZMK
 
         private void RegistrationUser_F_Load(object sender, EventArgs e)
         {
+            HashPassword_TB.UseSystemPasswordChar = true;
+        }
 
+        private void CheckPass_CB_CheckedChanged(object sender, EventArgs e)
+        {
+            HashPassword_TB.UseSystemPasswordChar = !HashPassword_TB.UseSystemPasswordChar;
         }
     }
 }

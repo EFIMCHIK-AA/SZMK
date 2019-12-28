@@ -107,7 +107,7 @@
             // MobileSettings_TSMB
             // 
             this.MobileSettings_TSMB.Name = "MobileSettings_TSMB";
-            this.MobileSettings_TSMB.Size = new System.Drawing.Size(139, 22);
+            this.MobileSettings_TSMB.Size = new System.Drawing.Size(180, 22);
             this.MobileSettings_TSMB.Text = "Настройки";
             this.MobileSettings_TSMB.Click += new System.EventHandler(this.MobileSettings_TSMB_Click);
             // 
@@ -154,14 +154,14 @@
             // настройкиToolStripMenuItem
             // 
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.настройкиToolStripMenuItem.Text = "Настройки";
             this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
             // 
             // быстрыйЗапускToolStripMenuItem
             // 
             this.быстрыйЗапускToolStripMenuItem.Name = "быстрыйЗапускToolStripMenuItem";
-            this.быстрыйЗапускToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.быстрыйЗапускToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.быстрыйЗапускToolStripMenuItem.Text = "Быстрый запуск";
             this.быстрыйЗапускToolStripMenuItem.Click += new System.EventHandler(this.быстрыйЗапускToolStripMenuItem_Click);
             // 
@@ -588,7 +588,9 @@
             this.Controls.Add(this.Menu_MS);
             this.MainMenuStrip = this.Menu_MS;
             this.Name = "Adminstrator_F";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Администратор";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Adminstrator_F_FormClosing);
             this.Load += new System.EventHandler(this.Adminstrator_F_Load);
             this.Menu_MS.ResumeLayout(false);
             this.Menu_MS.PerformLayout();

@@ -70,7 +70,11 @@ namespace SZMK
                 SystemArgs.ByteScout.ProgramPath = PrpgramPath_TB.Text.Trim();
                 SystemArgs.ByteScout.DirectoryProgramPath = DirectoryProgPath_TB.Text.Trim();
 
-                if (!SystemArgs.ByteScout.SetParametersConnect())
+                if (SystemArgs.ByteScout.SetParametersConnect())
+                {
+                    MessageBox.Show("Параметры успешно записаны", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
                 {
                     throw new Exception("Ошибка при записи директорий");
                 }

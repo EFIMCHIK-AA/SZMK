@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Mails_DGV = new System.Windows.Forms.DataGridView();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,12 +71,13 @@
             this.Mails_DGV.RowHeadersWidth = 51;
             this.Mails_DGV.Size = new System.Drawing.Size(325, 341);
             this.Mails_DGV.TabIndex = 19;
+            this.Mails_DGV.SelectionChanged += new System.EventHandler(this.Mails_DGV_SelectionChanged);
             // 
             // Column2
             // 
             this.Column2.DataPropertyName = "DateCreateView";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle7;
             this.Column2.HeaderText = "Дата создания";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
@@ -85,8 +86,8 @@
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.DataPropertyName = "MailAddress";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle8;
             this.Column1.HeaderText = "Адрес электронной почты";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
@@ -104,7 +105,6 @@
             // 
             // Add_B
             // 
-            this.Add_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Add_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Add_B.Location = new System.Drawing.Point(348, 42);
             this.Add_B.Margin = new System.Windows.Forms.Padding(2);
@@ -117,7 +117,6 @@
             // 
             // Change_B
             // 
-            this.Change_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Change_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Change_B.Location = new System.Drawing.Point(348, 71);
             this.Change_B.Margin = new System.Windows.Forms.Padding(2);
@@ -130,7 +129,6 @@
             // 
             // Delete_B
             // 
-            this.Delete_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Delete_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Delete_B.Location = new System.Drawing.Point(348, 100);
             this.Delete_B.Margin = new System.Windows.Forms.Padding(2);
@@ -186,7 +184,6 @@
             // 
             // Search_B
             // 
-            this.Search_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Search_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Search_B.Location = new System.Drawing.Point(348, 230);
             this.Search_B.Margin = new System.Windows.Forms.Padding(2);
@@ -199,7 +196,6 @@
             // 
             // ResetSearch_B
             // 
-            this.ResetSearch_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.ResetSearch_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ResetSearch_B.Location = new System.Drawing.Point(348, 259);
             this.ResetSearch_B.Margin = new System.Windows.Forms.Padding(2);
@@ -212,7 +208,6 @@
             // 
             // MoreInfo_B
             // 
-            this.MoreInfo_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.MoreInfo_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MoreInfo_B.Location = new System.Drawing.Point(348, 129);
             this.MoreInfo_B.Margin = new System.Windows.Forms.Padding(2);
@@ -242,7 +237,9 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.Mails_DGV);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "SettingsMails_F";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройка почтовых адресов";
             this.Load += new System.EventHandler(this.SettingsMails_F_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Mails_DGV)).EndInit();

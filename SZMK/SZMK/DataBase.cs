@@ -213,11 +213,7 @@ namespace SZMK
 
         public bool CheckConnect(String ConnectString)
         {
-            bool flag = false;
-
-            //Описать подключение к базе данных
-
-            return flag;
+            return SystemArgs.Request.CheckConnect(ConnectString);
         }
 
         public override string ToString()

@@ -51,7 +51,6 @@
             // 
             // Generate_B
             // 
-            this.Generate_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Generate_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Generate_B.Location = new System.Drawing.Point(18, 98);
             this.Generate_B.Margin = new System.Windows.Forms.Padding(2);
@@ -157,6 +156,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "SettingsMobileApp_F";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки мобильного приложения";
             ((System.ComponentModel.ISupportInitialize)(this.QR_PB)).EndInit();
             this.ResumeLayout(false);

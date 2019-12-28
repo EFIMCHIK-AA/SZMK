@@ -19,6 +19,7 @@ namespace SZMK
         static public List<Position> Positions; //Общий список должностей
         static public List<User> Users; //общий список пользователей в системе
         static public List<Order> Orders; // Общий список заказов
+        static public bool ChangeMode = false;
 
         public static void PrintLog(String Message)
         {

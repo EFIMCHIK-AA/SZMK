@@ -65,8 +65,16 @@ namespace SZMK
 
                     if (!SystemArgs.DataBase.SetParametersConnect())
                     {
+                        MessageBox.Show("Параметры подключения к базе данных успешно записаны", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
                         throw new Exception("Ошибка при записи параметров подключения к базе данных");
                     }
+                }
+                else
+                {
+                    throw new Exception("Ошибка при попытке подключения к базе данных. Отмена записи параметров");
                 }
             }
             catch (FormatException)

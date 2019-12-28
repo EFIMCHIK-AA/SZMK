@@ -286,7 +286,7 @@ namespace SZMK
 
         public override String ToString()
         {
-            return _Name;
+            return _Login;
         }
 
         public String SearchString() => $"{_ID}_{_Name}_{_MiddleName}_{_Surname}_{_DateCreate.ToShortDateString()}_{_DateOfBirth.ToShortDateString()}_{_Position.Name}_{_Login}";
