@@ -133,6 +133,16 @@ namespace SZMK.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_создать_новый_40 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-создать-новый-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_фильтр_40 {
             get {
                 object obj = ResourceManager.GetObject("icons8-фильтр-40", resourceCulture);

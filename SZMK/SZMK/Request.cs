@@ -365,10 +365,8 @@ namespace SZMK
                     Connect.Open();
 
                     using (var Command = new NpgsqlCommand($"INSERT INTO public.\"Orders\"(" +
-
                                                             "\"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\")" +
-
-                                                            $"VALUES({Order.DateCreate}, {Order.DataMatrix}, {Order.Executor}, {Order.Number}, {Order.List}, {Order.Mark}, {Order.Lenght}, {Order.Weight}); ", Connect))
+                                                            $"VALUES('{Order.DateCreate}', '{Order.DataMatrix}', '{Order.Executor}', '{Order.Number}', '{Order.List}', '{Order.Mark}', '{Order.Lenght}', '{Order.Weight}');", Connect))
                     {
                         Command.ExecuteNonQuery();
                     }
@@ -441,6 +439,37 @@ namespace SZMK
             catch
             {
                 return flag;
+            }
+        }
+        public bool GetAllOrders()
+        {
+            try
+            {
+
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\" FROM public.\"Orders\";", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                Int64 ID = Reader.GetInt64(0);
+                                SystemArgs.Orders.Add(new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(4), Reader.GetString(3), Reader.GetInt64(5), Reader.GetString(6), Reader.GetInt64(7), Reader.GetInt64(8), "", ""));
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 

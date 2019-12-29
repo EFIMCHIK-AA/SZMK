@@ -25,7 +25,7 @@ namespace SZMK
                 Dialog.Show();
 
                 SystemArgs.MobileApplication = new MobileApplication(); //Конфигурация мобильного приложения
-                SystemArgs.ServerMobileApp = new ServerMobileApp();//Сервер мобильного приложения
+                SystemArgs.Orders = new List<Order>();
 
                 Thread.Sleep(2000);
 
@@ -95,12 +95,13 @@ namespace SZMK
         {
             try
             {
+                SystemArgs.ServerMobileApp = new ServerMobileApp();//Сервер мобильного приложения
                 Int64 Index = -1;
                 KBScan_F Dialog = new KBScan_F();
                 if (SystemArgs.ServerMobileApp.Start())
                 {
                     Dialog.ServerStatus_TB.Text = "Запущен";
-                    Dialog.ServerStatus_TB.BackColor = Color.MediumTurquoise;
+                    Dialog.ServerStatus_TB.BackColor = Color.FromArgb(233, 245, 255);
                     Dialog.Status_TB.AppendText($"Ожидание QR" + Environment.NewLine);
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
@@ -124,13 +125,14 @@ namespace SZMK
                                     }
                                 }
                                 String[] SplitDataMatrix = SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix.Split('_');
-                                Order Temp = new Order(Index+1, SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), "Добавлен начальником групп КБ", "");
+                                Order Temp = new Order(Index+1, SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), "Добавлен начальником групп КБ", "Нет номера бланка заказа");
                                 if (SystemArgs.Request.InsertOrderDB(Temp)) 
                                 {
                                     SystemArgs.Orders.Add(Temp);
                                 }
                                 else
                                 {
+                                    MessageBox.Show("Ошибка при добавлении в базу данных DataMatrix: "+SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return false;
                                 }
 
@@ -146,7 +148,7 @@ namespace SZMK
                 else
                 {
                     Dialog.ServerStatus_TB.Text = "Остановлен";
-                    Dialog.ServerStatus_TB.BackColor = Color.Tomato;
+                    Dialog.ServerStatus_TB.BackColor = Color.Red;
                     return false;
                 }
             }
@@ -173,6 +175,16 @@ namespace SZMK
         private void Order_DGV_SelectionChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Order_DGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void KB_F_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

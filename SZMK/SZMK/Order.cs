@@ -17,11 +17,12 @@ namespace SZMK
         private String _Mark;
         private Double _Lenght;
         private Double _Weight;
-        private String _Status;
-        private String _BlankOrder;
+        private Status _Status;
+        private User _User;
+        private BlankOrder _BlankOrder;
 
 
-        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor, Int64 List, String Mark, Double Lenght, Double Weight, String Status, String BlankOrder)
+        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor, Int64 List, String Mark, Double Lenght, Double Weight, Status Status,User User, BlankOrder BlankOrder)
         {
             if (ID >= 0)
             {
@@ -99,7 +100,7 @@ namespace SZMK
             {
                 throw new Exception("Значение веса меньше 0");
             }
-            if (!String.IsNullOrEmpty(Status))
+            if (Status!=null)
             {
                 _Status = Status;
             }
@@ -107,7 +108,15 @@ namespace SZMK
             {
                 throw new Exception("Пустое значение статуса");
             }
-            if (!String.IsNullOrEmpty(BlankOrder))
+            if (User != null)
+            {
+                _User = User;
+            }
+            else
+            {
+                throw new Exception("Пустое значение бланка заказа");
+            }
+            if (BlankOrder!=null)
             {
                 _BlankOrder = BlankOrder;
             }
@@ -117,7 +126,7 @@ namespace SZMK
             }
         }
 
-        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя", -1, "Нет марки", -1, -1, "Нет статуса", "Нет бланка заказа") { }
+        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя", -1, "Нет марки", -1, -1, null,null,null) { }
 
         public Int64 ID
         {
@@ -253,7 +262,7 @@ namespace SZMK
                 }
             }
         }
-        public String Status
+        public Status Status
         {
             get
             {
@@ -261,13 +270,27 @@ namespace SZMK
             }
             set
             {
-                if (!String.IsNullOrEmpty(value))
+                if (value!=null)
                 {
                     _Status = value;
                 }
             }
         }
-        public String BlankOrder
+        public User User
+        {
+            get
+            {
+                return _User;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _User = value;
+                }
+            }
+        }
+        public BlankOrder BlankOrder
         {
             get
             {
@@ -275,7 +298,7 @@ namespace SZMK
             }
             set
             {
-                if (!String.IsNullOrEmpty(value))
+                if (value != null)
                 {
                     _BlankOrder = value;
                 }

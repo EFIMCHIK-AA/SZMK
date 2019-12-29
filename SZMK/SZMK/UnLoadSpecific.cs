@@ -132,13 +132,13 @@ namespace SZMK
             {
                 String[] SplitDataMatrix = ScanSession[i].DataMatrix.Split('_');
                 String pathSpecific = "";
-                if (Directory.Exists(@"C:\Users\thedr\Desktop\" + SplitDataMatrix[0]))
+                if (Directory.Exists(SystemArgs.Path.DirectoryModelsPath + SplitDataMatrix[0]))
                 {
-                    pathSpecific = @"C:\Users\thedr\Desktop\" + SplitDataMatrix[0];
+                    pathSpecific = SystemArgs.Path.DirectoryModelsPath + SplitDataMatrix[0];
                 }
-                else if (Directory.Exists(@"\\10.0.7.249\Models\" + SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('(')) + @"\" + SplitDataMatrix[0]))
+                else if (Directory.Exists(SystemArgs.Path.DirectoryModelsPath + SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('(')) + @"\" + SplitDataMatrix[0]))
                 {
-                    pathSpecific = @"\\10.0.7.249\Models\" + SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('(')) + @"\" + SplitDataMatrix[0];
+                    pathSpecific = SystemArgs.Path.DirectoryModelsPath + SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('(')) + @"\" + SplitDataMatrix[0];
                 }
                 else
                 {

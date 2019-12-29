@@ -22,6 +22,8 @@ namespace SZMK
         }
         private void Scan_F_Load(object sender, EventArgs e)
         {
+            Scan_DGV.AutoGenerateColumns = false;
+            Scan_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             SystemArgs.Template = new Template();
             SystemArgs.ActExcel = new Excel();
             SystemArgs.UnLoadSpecific = new UnLoadSpecific();
@@ -92,25 +94,35 @@ namespace SZMK
         {
             Scan_DGV.Invoke((MethodInvoker)delegate ()
             {
-                Scan_DGV.DataSource = null;
-                Scan_DGV.DataSource = ScanSessions;
                 LoadStatusOperation(ScanSessions[ScanSessions.Count - 1].DataMatrix);
-                for (int i = 0; i < Scan_DGV.Rows.Count; i++)
+                Scan_DGV.Rows.Add();
+                Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = ScanSessions[ScanSessions.Count - 1].DataMatrix;
+                if (ScanSessions[ScanSessions.Count - 1].Unique)
                 {
-                    if (Convert.ToBoolean(Scan_DGV[1, i].Value))
-                    {
-                        Scan_DGV[1, i].Style.BackColor = Color.Lime;
-                    }
-                    else
-                    {
-                        Scan_DGV[1, i].Style.BackColor = Color.Red;
-                    }
+                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Уникален";
+                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
+                }
+                else
+                {
+                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Не уникален";
+                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Red;
                 }
             });
         }
         private void LoadStatusOperation(String DataMatrix)
         {
-            Status_TB.AppendText($"Отсканирован чертеж: " + DataMatrix + Environment.NewLine);
+            Status_TB.AppendText(DataMatrix + Environment.NewLine);
+        }
+
+        private void Scan_DGV_SelectionChanged(object sender, EventArgs e)
+        {
+            Scan_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
+        private void Scan_DGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            e.CellStyle.SelectionBackColor = Color.FromArgb(112, 238, 226);
+            e.CellStyle.SelectionForeColor = Color.Black;
         }
     }
 }
