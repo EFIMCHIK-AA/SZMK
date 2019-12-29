@@ -381,34 +381,29 @@ namespace SZMK
                 return false;
             }
         }
+        public bool InsertBlankOrder(Int64 IDOrder,Int64 IDBlankOrder)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
 
-        //public bool SetStatusOrder()
-        //{
-        //    try
-        //    {
-        //        using (var Connect = new NpgsqlConnection(_ConnectString))
-        //        {
-        //            Connect.Open();
+                    using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddBlank\"(\"DateCreate\", \"ID_BlankOrder\", \"ID_Order\") VALUES('{DateTime.Now}', '{IDBlankOrder}', '{IDOrder}'); ", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
 
-        //            using (var Command = new NpgsqlCommand($"INSERT INTO public.\"Orders\"(" +
+                    Connect.Close();
+                }
 
-        //                                                    "\"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\")" +
-
-        //                                                    $"VALUES({Order.DateCreate}, {Order.DataMatrix}, {Order.Executor}, {Order.Number}, {Order.List}, {Order.Mark}, {Order.Lenght}, {Order.Weight}); ", Connect))
-        //            {
-        //                Command.ExecuteNonQuery();
-        //            }
-
-        //            Connect.Close();
-        //        }
-
-        //        return true;
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //}
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public bool CheckedUniqueOrderDB(String DataMatrix)
         {
             Boolean flag = false;
@@ -441,7 +436,7 @@ namespace SZMK
                 return flag;
             }
         }
-        public bool GetAllOrders()
+        public bool GetAllStatus()
         {
             try
             {
@@ -450,6 +445,180 @@ namespace SZMK
                 {
                     Connect.Open();
 
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"ID_Position\", \"Name\" FROM public.\"Status\";", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                SystemArgs.Statuses.Add(new Status(Reader.GetInt64(0),Reader.GetInt64(1), Reader.GetString(2)));
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool GetAllBlankOrder()
+        {
+            try
+            {
+
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"QR\" FROM public.\"BlankOrder\";", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                SystemArgs.BlankOrders.Add(new BlankOrder(Reader.GetInt64(0), Reader.GetDateTime(1), Reader.GetString(2)));
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool AddOrGetOrUpdateBlankOrder(BlankOrder BlankOrder,Int64 IDOrder)
+        {
+            try
+            {
+                Boolean flag = false;
+                Int64 ID = -1;
+                String TempQR = "";
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"QR\" FROM public.\"BlankOrder\" WHERE \"BlankOrder\".\"QR\"='{BlankOrder.QR}';", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                BlankOrder = new BlankOrder(Reader.GetInt64(0), Reader.GetDateTime(1), Reader.GetString(2));
+                                TempQR = Reader.GetString(2);
+                            }
+                        }
+                    }
+                    if (TempQR != BlankOrder.QR)
+                    {
+                        using (var Command = new NpgsqlCommand($"SELECT \"ID_BlankOrder\" FROM public.\"AddBlank\" WHERE \"AddBlank\".\"ID_Order\"='{IDOrder}';", Connect))
+                        {
+                            using (var Reader = Command.ExecuteReader())
+                            {
+                                while (Reader.Read())
+                                {
+                                    flag = true;
+                                    ID = Reader.GetInt64(0);
+                                }
+                            }
+                        }
+                        if (!flag)
+                        {
+                            using (var Command = new NpgsqlCommand($"INSERT INTO public.\"BlankOrder\"(\"DateCreate\", \"QR\") VALUES('{DateTime.Now}', '{BlankOrder.QR}'); ", Connect))
+                            {
+                                Command.ExecuteNonQuery();
+                            }
+                        }
+                        else
+                        {
+                            using (var Command = new NpgsqlCommand($"UPDATE public.\"BlankOrder\" SET \"DateCreate\" = '{BlankOrder.DateCreate}', \"QR\" = '{BlankOrder.QR}' WHERE \"BlankOrder\".\"ID\" = '{ID}'; ", Connect))
+                            {
+                                Command.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        struct StatusOfUser
+        {
+            public DateTime _DateCreate;
+            public Int64 _IDStatus;
+            public Int64 _IDOrder;
+            public Int64 _IDUser;
+
+            public StatusOfUser(DateTime DateCreate, Int64 IDStatus, Int64 IDOrder, Int64 IDUser)
+            {
+                _DateCreate = DateCreate;
+                _IDStatus = IDStatus;
+                _IDOrder = IDOrder;
+                _IDUser = IDUser;
+            }
+        }
+        struct BlankOrderofOrders
+        {
+            public DateTime _DateCreate;
+            public Int64 _IDBlankOrder;
+            public Int64 _IDOrder;
+
+            public BlankOrderofOrders(DateTime DateCreate, Int64 IDBlankOrder, Int64 IDOrder)
+            {
+                _DateCreate = DateCreate;
+                _IDBlankOrder = IDBlankOrder;
+                _IDOrder = IDOrder;
+            }
+        }
+        public bool GetAllOrders()
+        {
+            try
+            {
+
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    List<StatusOfUser> StatusOfUsers = new List<StatusOfUser>();
+
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"DateCreate\", \"ID_Status\", \"ID_Order\", \"ID_User\" FROM public.\"AddStatus\";", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                StatusOfUsers.Add(new StatusOfUser(Reader.GetDateTime(0), Reader.GetInt64(1),Reader.GetInt64(2), Reader.GetInt64(3)));
+                            }
+                        }
+                    }
+                    List<BlankOrderofOrders> BlankOrderofOrders = new List<BlankOrderofOrders>();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"DateCreate\", \"ID_BlankOrder\", \"ID_Order\" FROM public.\"AddBlank\";", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                BlankOrderofOrders.Add(new BlankOrderofOrders(Reader.GetDateTime(0), Reader.GetInt64(1), Reader.GetInt64(2)));
+                            }
+                        }
+                    }
+
                     using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\" FROM public.\"Orders\";", Connect))
                     {
                         using (var Reader = Command.ExecuteReader())
@@ -457,7 +626,38 @@ namespace SZMK
                             while (Reader.Read())
                             {
                                 Int64 ID = Reader.GetInt64(0);
-                                SystemArgs.Orders.Add(new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(4), Reader.GetString(3), Reader.GetInt64(5), Reader.GetString(6), Reader.GetInt64(7), Reader.GetInt64(8), "", ""));
+
+                                List<StatusOfUser> StatusID = (from p in StatusOfUsers
+                                                where p._IDOrder == ID
+                                                             select p).ToList();
+                                BlankOrderofOrders BlankOrderID = (from p in BlankOrderofOrders
+                                                    where p._IDOrder == ID
+                                                    select p).Single();
+                                Int64 UserID = -1;
+                                Int64 MaxIDStatus = -1;
+                                foreach (Status item in SystemArgs.Statuses)
+                                {
+                                    foreach(StatusOfUser StatusOfUser in StatusID)
+                                    {
+                                        if (item.ID == StatusOfUser._IDStatus&&StatusOfUser._IDStatus>MaxIDStatus)
+                                        {
+                                            SystemArgs.Status = item;
+                                            MaxIDStatus = StatusOfUser._IDStatus;
+                                            UserID = StatusOfUser._IDUser;
+                                        }
+                                    }
+                                }
+                                User User = (from p in SystemArgs.Users
+                                              where p.ID == UserID
+                                              select p).Single();
+                                foreach (BlankOrder item in SystemArgs.BlankOrders)
+                                {
+                                        if (BlankOrderID._IDBlankOrder == item.ID)
+                                        {
+                                            SystemArgs.BlankOrder = item;
+                                        }
+                                }
+                                SystemArgs.Orders.Add(new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(4), Reader.GetString(3), Reader.GetInt64(5), Reader.GetString(6), Reader.GetInt64(7), Reader.GetInt64(8),SystemArgs.Status,User,SystemArgs.BlankOrder));
                             }
                         }
                     }

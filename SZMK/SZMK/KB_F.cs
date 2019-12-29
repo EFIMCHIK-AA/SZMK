@@ -26,6 +26,22 @@ namespace SZMK
 
                 SystemArgs.MobileApplication = new MobileApplication(); //Конфигурация мобильного приложения
                 SystemArgs.Orders = new List<Order>();
+                SystemArgs.BlankOrders = new List<BlankOrder>();
+                SystemArgs.Statuses = new List<Status>();
+                if (SystemArgs.Request.GetAllBlankOrder())
+                {
+                    if (SystemArgs.Request.GetAllStatus())
+                    {
+                        if (SystemArgs.Request.GetAllOrders())
+                        {
+                            Display(SystemArgs.Orders) ;
+                        }
+                        else
+                        {
+                            throw new Exception("Ошибка загрузки данных из базы");
+                        }
+                    }
+                }
 
                 Thread.Sleep(2000);
 
@@ -96,7 +112,8 @@ namespace SZMK
             try
             {
                 SystemArgs.ServerMobileApp = new ServerMobileApp();//Сервер мобильного приложения
-                Int64 Index = -1;
+                Int64 IndexOrder = -1;
+                Int64 IndexBlank = -1;
                 KBScan_F Dialog = new KBScan_F();
                 if (SystemArgs.ServerMobileApp.Start())
                 {
@@ -119,16 +136,32 @@ namespace SZMK
                                         {
                                             while (Reader.Read())
                                             {
-                                                Index = Reader.GetInt64(0);
+                                                IndexOrder = Reader.GetInt64(0);
+                                            }
+                                        }
+                                    }
+                                    using (var Command = new NpgsqlCommand($"SELECT last_value FROM \"BlankOrder_ID_seq\"", Connect))
+                                    {
+                                        using (var Reader = Command.ExecuteReader())
+                                        {
+                                            while (Reader.Read())
+                                            {
+                                                IndexBlank = Reader.GetInt64(0);
                                             }
                                         }
                                     }
                                 }
                                 String[] SplitDataMatrix = SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix.Split('_');
-                                Order Temp = new Order(Index+1, SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), "Добавлен начальником групп КБ", "Нет номера бланка заказа");
-                                if (SystemArgs.Request.InsertOrderDB(Temp)) 
+                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]),SystemArgs.Status,SystemArgs.User,SystemArgs.BlankOrder);
+                                BlankOrder TempBlank = new BlankOrder(IndexBlank + 1,DateTime.Now,"Бланк заказа не задан");
+                                if (SystemArgs.Request.InsertOrderDB(TempOrder))
                                 {
-                                    SystemArgs.Orders.Add(Temp);
+                                    SystemArgs.Orders.Add(TempOrder);
+                                    if(SystemArgs.Request.AddOrGetOrUpdateBlankOrder(TempBlank,IndexOrder+1))
+                                    {
+                                        SystemArgs.Request.InsertBlankOrder(IndexOrder + 1,TempBlank.ID);
+                                        SystemArgs.BlankOrders.Add(TempBlank);
+                                    }
                                 }
                                 else
                                 {

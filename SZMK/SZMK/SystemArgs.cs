@@ -10,6 +10,8 @@ namespace SZMK
     {
         static public User User; // Пользователь, который зашел в систему
         static public Path Path; //Системные пути
+        static public BlankOrder BlankOrder;//Бланк заказа конкретного загружмого чертежа
+        static public Status Status;//Статус конкретного загружмого чертежа
         static public MobileApplication MobileApplication; //Конфигурация мобильного приложения
         static public ClientProgram ClientProgram; // Конфигурация клиентского программного обеспечения
         static public ByteScout ByteScout; // Конфигурация программы распознавания
@@ -24,6 +26,8 @@ namespace SZMK
         static public ServerMobileApp ServerMobileApp; //Сервер для получения данных с мобильного ПО
         static public Excel ActExcel;//Формирование Актов при добавлении чертежей
         static public UnLoadSpecific UnLoadSpecific;//Проверка выгрузки деталей
+        static public List<Status> Statuses;//Общий список возможных статусов
+        static public List<BlankOrder> BlankOrders;//Общий список возможных бланков заказа
 
         public static void PrintLog(String Message)
         {

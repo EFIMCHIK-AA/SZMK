@@ -52,14 +52,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.Order_DGV = new System.Windows.Forms.DataGridView();
-            this.DateCreate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.List = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Mark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Lenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label12 = new System.Windows.Forms.Label();
@@ -83,6 +75,14 @@
             this.label10 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.DateCreate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.List = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Mark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Lenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -347,62 +347,6 @@
             this.Order_DGV.RowHeadersVisible = false;
             this.Order_DGV.Size = new System.Drawing.Size(862, 559);
             this.Order_DGV.TabIndex = 1;
-            // 
-            // DateCreate
-            // 
-            this.DateCreate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DateCreate.FillWeight = 15F;
-            this.DateCreate.HeaderText = "Дата создания";
-            this.DateCreate.Name = "DateCreate";
-            // 
-            // Executor
-            // 
-            this.Executor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Executor.FillWeight = 17F;
-            this.Executor.HeaderText = "Исполнитель";
-            this.Executor.Name = "Executor";
-            // 
-            // Number
-            // 
-            this.Number.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Number.FillWeight = 13F;
-            this.Number.HeaderText = "Номер заказа";
-            this.Number.Name = "Number";
-            // 
-            // List
-            // 
-            this.List.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.List.FillWeight = 10F;
-            this.List.HeaderText = "Лист";
-            this.List.Name = "List";
-            // 
-            // Mark
-            // 
-            this.Mark.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Mark.FillWeight = 10F;
-            this.Mark.HeaderText = "Марка";
-            this.Mark.Name = "Mark";
-            // 
-            // Lenght
-            // 
-            this.Lenght.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Lenght.FillWeight = 10F;
-            this.Lenght.HeaderText = "Длина";
-            this.Lenght.Name = "Lenght";
-            // 
-            // Weight
-            // 
-            this.Weight.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Weight.FillWeight = 10F;
-            this.Weight.HeaderText = "Вес";
-            this.Weight.Name = "Weight";
-            // 
-            // Status
-            // 
-            this.Status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Status.FillWeight = 15F;
-            this.Status.HeaderText = "Статус";
-            this.Status.Name = "Status";
             // 
             // panel2
             // 
@@ -717,6 +661,70 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "Статус чертежа";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // DateCreate
+            // 
+            this.DateCreate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DateCreate.DataPropertyName = "DateCreate";
+            this.DateCreate.FillWeight = 15F;
+            this.DateCreate.HeaderText = "Дата создания";
+            this.DateCreate.Name = "DateCreate";
+            // 
+            // Executor
+            // 
+            this.Executor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Executor.DataPropertyName = "Executor";
+            this.Executor.FillWeight = 17F;
+            this.Executor.HeaderText = "Исполнитель";
+            this.Executor.Name = "Executor";
+            // 
+            // Number
+            // 
+            this.Number.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Number.DataPropertyName = "Number";
+            this.Number.FillWeight = 13F;
+            this.Number.HeaderText = "Номер заказа";
+            this.Number.Name = "Number";
+            // 
+            // List
+            // 
+            this.List.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.List.DataPropertyName = "List";
+            this.List.FillWeight = 10F;
+            this.List.HeaderText = "Лист";
+            this.List.Name = "List";
+            // 
+            // Mark
+            // 
+            this.Mark.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Mark.DataPropertyName = "Mark";
+            this.Mark.FillWeight = 10F;
+            this.Mark.HeaderText = "Марка";
+            this.Mark.Name = "Mark";
+            // 
+            // Lenght
+            // 
+            this.Lenght.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Lenght.DataPropertyName = "Lenght";
+            this.Lenght.FillWeight = 10F;
+            this.Lenght.HeaderText = "Длина";
+            this.Lenght.Name = "Lenght";
+            // 
+            // Weight
+            // 
+            this.Weight.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Weight.DataPropertyName = "Weight";
+            this.Weight.FillWeight = 10F;
+            this.Weight.HeaderText = "Вес";
+            this.Weight.Name = "Weight";
+            // 
+            // Status
+            // 
+            this.Status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Status.DataPropertyName = "Status";
+            this.Status.FillWeight = 15F;
+            this.Status.HeaderText = "Статус";
+            this.Status.Name = "Status";
             // 
             // KB_F
             // 
