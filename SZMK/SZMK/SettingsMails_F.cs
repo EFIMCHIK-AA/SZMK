@@ -315,12 +315,14 @@ namespace SZMK
 
         private void SettingsMails_F_Load(object sender, EventArgs e)
         {
-            Display(SystemArgs.Mails);
-            Mails_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             Change_B.Enabled = false;
             Delete_B.Enabled = false;
             MoreInfo_B.Enabled = false;
+
+            Display(SystemArgs.Mails);
+            Mails_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
         }
 
         private void Mails_DGV_SelectionChanged(object sender, EventArgs e)
@@ -357,6 +359,20 @@ namespace SZMK
             if (Dialog.ShowDialog() == DialogResult.OK)
             {
 
+            }
+        }
+
+        private void Mails_DGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            e.CellStyle.SelectionBackColor = Color.FromArgb(112, 238, 226);
+            e.CellStyle.SelectionForeColor = Color.Black;
+        }
+
+        private void SettingsMails_F_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && ActiveControl == Search_TB)
+            {
+                Search_B.PerformClick();
             }
         }
     }

@@ -29,7 +29,7 @@ namespace SZMK
 
             for(Int32 i = 0; i < 8; i++)
             {
-                Password += Alfabet[Generate.Next(0, Alfabet.Length + 1)];
+                Password += Alfabet[Generate.Next(0, Alfabet.Length)];
             }
 
             HashPassword_TB.Text = Password;

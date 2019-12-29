@@ -468,8 +468,6 @@ namespace SZMK
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Result.Clear();
-
                     Result = SystemArgs.Users;
 
                     if (Dialog.Name_TB.Text.Trim() != String.Empty)
@@ -652,7 +650,7 @@ namespace SZMK
 
                 Dialog.Mails_DGV.AutoGenerateColumns = false;
 
-                if (Dialog.ShowDialog() == DialogResult.OK)
+                if(Dialog.ShowDialog() == DialogResult.OK)
                 {
 
                 }
