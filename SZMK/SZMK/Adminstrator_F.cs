@@ -42,6 +42,67 @@ namespace SZMK
 
         }
 
+        private void SetStatus(TextBox Textbox, Color Color, Boolean Flag)
+        {
+            if(Flag)
+            {
+                Textbox.Text = $"Успешно установлено <{DateTime.Now}>";
+                Textbox.BackColor = Color;
+            }
+            else
+            {
+                Textbox.Text = $"Не установлено <{DateTime.Now}>";
+                Textbox.BackColor = Color;
+            }
+        }
+        private void GetStatus()
+        {
+            if (SystemArgs.DataBase.CheckConnect(SystemArgs.DataBase.ToString()))
+            {
+                SetStatus(Connect_TB, Color.Lime, true);
+            }
+            else
+            {
+                SetStatus(Connect_TB, Color.Red, false);
+            }
+
+            if (SystemArgs.MobileApplication.CheckFile())
+            {
+                SetStatus(StatusMobile_TB, Color.Lime, true);
+            }
+            else
+            {
+                SetStatus(StatusMobile_TB, Color.Red, false);
+            }
+
+            if (SystemArgs.ClientProgram.CheckFile())
+            {
+                SetStatus(StatusConf_TB, Color.Lime, true);
+            }
+            else
+            {
+                SetStatus(StatusConf_TB, Color.Red, false);
+            }
+
+            if (SystemArgs.ByteScout.CheckFile())
+            {
+                SetStatus(StatusByteScout_TB, Color.Lime, true);
+            }
+            else
+            {
+                SetStatus(StatusByteScout_TB, Color.Red, false);
+            }
+
+            if (SystemArgs.ServerMail.CheckFile())
+            {
+                SetStatus(StatusMail_TB, Color.Lime, true);
+            }
+            else
+            {
+                SetStatus(StatusMail_TB, Color.Red, false);
+            }
+        }
+
         private void Adminstrator_F_Load(object sender, EventArgs e)
         {
             try
@@ -58,60 +119,7 @@ namespace SZMK
                 SystemArgs.ByteScout = new ByteScout(); // Конфигурация программы распознавания
                 SystemArgs.ServerMail = new ServerMail(); // Конфигурация почтового сервера
 
-                if(SystemArgs.DataBase.CheckConnect(SystemArgs.DataBase.ToString()))
-                {
-                    Connect_TB.Text = $"Успешно установлено <{DateTime.Now}>";
-                    Connect_TB.BackColor = Color.Lime;
-                }
-                else
-                {
-                    Connect_TB.Text = $"Не установлено <{DateTime.Now}>";
-                    Connect_TB.BackColor = Color.Red;
-                }
-
-                if(SystemArgs.MobileApplication.CheckFile())
-                {
-                    StatusMobile_TB.Text = $"Целостность установлена <{DateTime.Now}>";
-                    StatusMobile_TB.BackColor = Color.Lime;
-                }
-                else
-                {
-                    StatusMobile_TB.Text = $"Целостность нарушена <{DateTime.Now}>";
-                    StatusMobile_TB.BackColor = Color.Red;
-                }
-
-                if (SystemArgs.ClientProgram.CheckFile())
-                {
-                    StatusConf_TB.Text = $"Целостность установлена <{DateTime.Now}>";
-                    StatusConf_TB.BackColor = Color.Lime;
-                }
-                else
-                {
-                    StatusConf_TB.Text = $"Целостность нарушена <{DateTime.Now}>";
-                    StatusConf_TB.BackColor = Color.Red;
-                }
-
-                if (SystemArgs.ByteScout.CheckFile())
-                {
-                    StatusByteScout_TB.Text = $"Целостность установлена <{DateTime.Now}>";
-                    StatusByteScout_TB.BackColor = Color.Lime;
-                }
-                else
-                {
-                    StatusByteScout_TB.Text = $"Целостность нарушена <{DateTime.Now}>";
-                    StatusByteScout_TB.BackColor = Color.Red;
-                }
-
-                if (SystemArgs.ServerMail.CheckFile())
-                {
-                    StatusMail_TB.Text = $"Целостность установлена <{DateTime.Now}>";
-                    StatusMail_TB.BackColor = Color.Lime;
-                }
-                else
-                {
-                    StatusMail_TB.Text = $"Целостность нарушена <{DateTime.Now}>";
-                    StatusMail_TB.BackColor = Color.Red;
-                }
+                GetStatus();
 
                 Thread.Sleep(2000);
 
@@ -173,13 +181,11 @@ namespace SZMK
         {
             try
             {
-                RegistrationUser_F Dialog = new RegistrationUser_F();
+                RegistrationUser_F Dialog = new RegistrationUser_F(null);
 
                 DateTime DateCreate = DateTime.Now;
                 Dialog.DataReg_TB.Text = DateCreate.ToShortDateString();
                 Dialog.Position_CB.DataSource = SystemArgs.Positions;
-
-                SystemArgs.ChangeMode = false;
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
@@ -243,7 +249,7 @@ namespace SZMK
                 {
                     User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
 
-                    RegistrationUser_F Dialog = new RegistrationUser_F()
+                    RegistrationUser_F Dialog = new RegistrationUser_F(Temp)
                     {
                         Text = "Измененте параметров пользователя",
                     };
@@ -266,8 +272,6 @@ namespace SZMK
                     Dialog.label2.Text = "Укажите новые данные";
                     Dialog.Login_TB.Text = Temp.Login;
                     Dialog.HashPassword_TB.Text = String.Empty;
-
-                    SystemArgs.ChangeMode = true;
 
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
@@ -673,6 +677,26 @@ namespace SZMK
         {
             e.CellStyle.SelectionBackColor = Color.FromArgb(112, 238, 226);
             e.CellStyle.SelectionForeColor = Color.Black;
+        }
+
+        private void RefreshStatus_B_Click(object sender, EventArgs e)
+        {
+            GetStatus();
+        }
+
+        private void Adminstrator_F_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && ActiveControl == Search_TSTB.Control)
+            {
+                Search_TSB.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                if (MessageBox.Show("Вы дейстивтельно хотите выйти?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                {
+                    Application.Exit();
+                }
+            }
         }
     }
 }

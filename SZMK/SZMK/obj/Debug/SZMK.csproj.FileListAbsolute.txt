@@ -97,3 +97,8 @@ C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\System.Text.Json.xml
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\System.ValueTuple.xml
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.csproj.CopyComplete
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\EPPlus.dll
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\SimpleTCP.dll
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\EPPlus.xml
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.KBScanUnloadSpecific.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.KBScan_F.resources

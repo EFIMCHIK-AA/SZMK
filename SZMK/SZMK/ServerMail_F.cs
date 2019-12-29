@@ -59,8 +59,6 @@ namespace SZMK
                     throw new Exception("Необходимо ввести пароль");
                 }
 
-                //String ConnectString = $@"Server = {Server_TB.Text.Trim()}; Port = {Port_TB.Text.Trim()}; User Id = {Owner_TB.Text.Trim()}; Password = {Password_TB.Text.Trim()}; Database = {Name_TB.Text.Trim()};";
-
                 if (SystemArgs.ServerMail.CheckConnect(NameWho_TB.Text.Trim(),Name_TB.Text.Trim(), SMTP_TB.Text.Trim(), Convert.ToInt32(Port_TB.Text.Trim()),Login_TB.Text.Trim(), Password_TB.Text.Trim()))
                 {
                     SystemArgs.ServerMail.Name = Name_TB.Text.Trim();

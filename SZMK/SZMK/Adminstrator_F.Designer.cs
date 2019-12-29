@@ -32,6 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Adminstrator_F));
             this.Menu_MS = new System.Windows.Forms.MenuStrip();
             this.мобильноеПриложениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MobileSettings_TSMB = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,12 +50,6 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tool_TS = new System.Windows.Forms.ToolStrip();
-            this.Add_TSB = new System.Windows.Forms.ToolStripButton();
-            this.Change_TSB = new System.Windows.Forms.ToolStripButton();
-            this.Delete_TSB = new System.Windows.Forms.ToolStripButton();
-            this.SearchParam_TSB = new System.Windows.Forms.ToolStripButton();
-            this.Reset_TSB = new System.Windows.Forms.ToolStripButton();
-            this.Search_TSB = new System.Windows.Forms.ToolStripButton();
             this.Search_TSTB = new System.Windows.Forms.ToolStripTextBox();
             this.Search_TSL = new System.Windows.Forms.ToolStripLabel();
             this.label2 = new System.Windows.Forms.Label();
@@ -92,9 +87,16 @@
             this.StatusConf_TB = new System.Windows.Forms.TextBox();
             this.StatusByteScout_TB = new System.Windows.Forms.TextBox();
             this.StatusMail_TB = new System.Windows.Forms.TextBox();
+            this.RefreshStatus_B = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.Add_TSB = new System.Windows.Forms.ToolStripButton();
+            this.Change_TSB = new System.Windows.Forms.ToolStripButton();
+            this.Delete_TSB = new System.Windows.Forms.ToolStripButton();
+            this.SearchParam_TSB = new System.Windows.Forms.ToolStripButton();
+            this.Reset_TSB = new System.Windows.Forms.ToolStripButton();
+            this.Search_TSB = new System.Windows.Forms.ToolStripButton();
             this.Menu_MS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Users_DGV)).BeginInit();
             this.Tool_TS.SuspendLayout();
@@ -230,7 +232,7 @@
             this.Users_DGV.ReadOnly = true;
             this.Users_DGV.RowHeadersVisible = false;
             this.Users_DGV.RowHeadersWidth = 51;
-            this.Users_DGV.Size = new System.Drawing.Size(656, 566);
+            this.Users_DGV.Size = new System.Drawing.Size(656, 563);
             this.Users_DGV.TabIndex = 18;
             this.Users_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Users_DGV_CellFormatting);
             this.Users_DGV.SelectionChanged += new System.EventHandler(this.Users_DGV_SelectionChanged);
@@ -298,71 +300,11 @@
             this.Search_TSTB,
             this.Search_TSL});
             this.Tool_TS.Location = new System.Drawing.Point(0, 25);
-            this.Tool_TS.Margin = new System.Windows.Forms.Padding(5);
+            this.Tool_TS.Margin = new System.Windows.Forms.Padding(5, 5, 0, 5);
             this.Tool_TS.Name = "Tool_TS";
             this.Tool_TS.Size = new System.Drawing.Size(1129, 38);
             this.Tool_TS.TabIndex = 19;
             this.Tool_TS.Text = "toolStrip1";
-            // 
-            // Add_TSB
-            // 
-            this.Add_TSB.AutoSize = false;
-            this.Add_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Add_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.Add_TSB.Name = "Add_TSB";
-            this.Add_TSB.Size = new System.Drawing.Size(150, 35);
-            this.Add_TSB.Text = "Добавить";
-            this.Add_TSB.ToolTipText = "Регистрация";
-            this.Add_TSB.Click += new System.EventHandler(this.Add_TSB_Click);
-            // 
-            // Change_TSB
-            // 
-            this.Change_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Change_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.Change_TSB.Name = "Change_TSB";
-            this.Change_TSB.Size = new System.Drawing.Size(65, 34);
-            this.Change_TSB.Text = "Изменить";
-            this.Change_TSB.Click += new System.EventHandler(this.Change_TSB_Click);
-            // 
-            // Delete_TSB
-            // 
-            this.Delete_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Delete_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.Delete_TSB.Name = "Delete_TSB";
-            this.Delete_TSB.Size = new System.Drawing.Size(55, 34);
-            this.Delete_TSB.Text = "Удалить";
-            this.Delete_TSB.Click += new System.EventHandler(this.Delete_TSB_Click);
-            // 
-            // SearchParam_TSB
-            // 
-            this.SearchParam_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.SearchParam_TSB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
-            this.SearchParam_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SearchParam_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
-            this.SearchParam_TSB.Name = "SearchParam_TSB";
-            this.SearchParam_TSB.Size = new System.Drawing.Size(127, 34);
-            this.SearchParam_TSB.Text = "Расширенный поиск";
-            this.SearchParam_TSB.Click += new System.EventHandler(this.SearchParam_TSB_Click);
-            // 
-            // Reset_TSB
-            // 
-            this.Reset_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.Reset_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Reset_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
-            this.Reset_TSB.Name = "Reset_TSB";
-            this.Reset_TSB.Size = new System.Drawing.Size(64, 34);
-            this.Reset_TSB.Text = "Сбросить";
-            this.Reset_TSB.Click += new System.EventHandler(this.Reset_TSB_Click);
-            // 
-            // Search_TSB
-            // 
-            this.Search_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.Search_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Search_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
-            this.Search_TSB.Name = "Search_TSB";
-            this.Search_TSB.Size = new System.Drawing.Size(45, 34);
-            this.Search_TSB.Text = "Найти";
-            this.Search_TSB.Click += new System.EventHandler(this.Search_TSB_Click);
             // 
             // Search_TSTB
             // 
@@ -675,10 +617,11 @@
             this.tableLayoutPanel1.Controls.Add(this.StatusConf_TB, 1, 16);
             this.tableLayoutPanel1.Controls.Add(this.StatusByteScout_TB, 1, 17);
             this.tableLayoutPanel1.Controls.Add(this.StatusMail_TB, 1, 18);
+            this.tableLayoutPanel1.Controls.Add(this.RefreshStatus_B, 0, 19);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 19;
+            this.tableLayoutPanel1.RowCount = 21;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -698,7 +641,9 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(465, 631);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(465, 628);
             this.tableLayoutPanel1.TabIndex = 42;
             // 
             // label20
@@ -873,6 +818,25 @@
             this.StatusMail_TB.TabIndex = 55;
             this.StatusMail_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // RefreshStatus_B
+            // 
+            this.RefreshStatus_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.RefreshStatus_B, 2);
+            this.RefreshStatus_B.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.RefreshStatus_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
+            this.RefreshStatus_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
+            this.RefreshStatus_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
+            this.RefreshStatus_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RefreshStatus_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.RefreshStatus_B.Location = new System.Drawing.Point(3, 587);
+            this.RefreshStatus_B.Margin = new System.Windows.Forms.Padding(3, 7, 5, 3);
+            this.RefreshStatus_B.Name = "RefreshStatus_B";
+            this.RefreshStatus_B.Size = new System.Drawing.Size(457, 35);
+            this.RefreshStatus_B.TabIndex = 56;
+            this.RefreshStatus_B.Text = "Обновить информацию";
+            this.RefreshStatus_B.UseVisualStyleBackColor = false;
+            this.RefreshStatus_B.Click += new System.EventHandler(this.RefreshStatus_B_Click);
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
@@ -885,7 +849,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(664, 631);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(664, 628);
             this.tableLayoutPanel2.TabIndex = 43;
             // 
             // panel1
@@ -894,7 +858,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(664, 63);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(465, 631);
+            this.panel1.Size = new System.Drawing.Size(465, 628);
             this.panel1.TabIndex = 44;
             // 
             // panel2
@@ -903,25 +867,94 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 63);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(664, 631);
+            this.panel2.Size = new System.Drawing.Size(664, 628);
             this.panel2.TabIndex = 45;
+            // 
+            // Add_TSB
+            // 
+            this.Add_TSB.Image = global::SZMK.Properties.Resources.icons8_редактировать_мужчину_пользователя_40;
+            this.Add_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Add_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.Add_TSB.Name = "Add_TSB";
+            this.Add_TSB.Size = new System.Drawing.Size(93, 34);
+            this.Add_TSB.Text = "Добавить";
+            this.Add_TSB.ToolTipText = "Регистрация";
+            this.Add_TSB.Click += new System.EventHandler(this.Add_TSB_Click);
+            // 
+            // Change_TSB
+            // 
+            this.Change_TSB.Image = global::SZMK.Properties.Resources.icons8_переименовывать_40;
+            this.Change_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Change_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.Change_TSB.Name = "Change_TSB";
+            this.Change_TSB.Size = new System.Drawing.Size(95, 34);
+            this.Change_TSB.Text = "Изменить";
+            this.Change_TSB.Click += new System.EventHandler(this.Change_TSB_Click);
+            // 
+            // Delete_TSB
+            // 
+            this.Delete_TSB.Image = global::SZMK.Properties.Resources.icons8_мусор_40;
+            this.Delete_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Delete_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.Delete_TSB.Name = "Delete_TSB";
+            this.Delete_TSB.Size = new System.Drawing.Size(85, 34);
+            this.Delete_TSB.Text = "Удалить";
+            this.Delete_TSB.Click += new System.EventHandler(this.Delete_TSB_Click);
+            // 
+            // SearchParam_TSB
+            // 
+            this.SearchParam_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.SearchParam_TSB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
+            this.SearchParam_TSB.Image = global::SZMK.Properties.Resources.icons8_фильтр_40;
+            this.SearchParam_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SearchParam_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
+            this.SearchParam_TSB.Name = "SearchParam_TSB";
+            this.SearchParam_TSB.Size = new System.Drawing.Size(157, 34);
+            this.SearchParam_TSB.Text = "Расширенный поиск";
+            this.SearchParam_TSB.Click += new System.EventHandler(this.SearchParam_TSB_Click);
+            // 
+            // Reset_TSB
+            // 
+            this.Reset_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Reset_TSB.Image = global::SZMK.Properties.Resources.icons8_перезапуск_40;
+            this.Reset_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Reset_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
+            this.Reset_TSB.Name = "Reset_TSB";
+            this.Reset_TSB.Size = new System.Drawing.Size(94, 34);
+            this.Reset_TSB.Text = "Сбросить";
+            this.Reset_TSB.Click += new System.EventHandler(this.Reset_TSB_Click);
+            // 
+            // Search_TSB
+            // 
+            this.Search_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Search_TSB.Image = global::SZMK.Properties.Resources.icons8_поиск_40;
+            this.Search_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Search_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
+            this.Search_TSB.Name = "Search_TSB";
+            this.Search_TSB.Size = new System.Drawing.Size(75, 34);
+            this.Search_TSB.Text = "Найти";
+            this.Search_TSB.Click += new System.EventHandler(this.Search_TSB_Click);
             // 
             // Adminstrator_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1129, 694);
+            this.ClientSize = new System.Drawing.Size(1129, 691);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Tool_TS);
             this.Controls.Add(this.Menu_MS);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MainMenuStrip = this.Menu_MS;
+            this.MinimumSize = new System.Drawing.Size(1145, 730);
             this.Name = "Adminstrator_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Администратор";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Adminstrator_F_FormClosing);
             this.Load += new System.EventHandler(this.Adminstrator_F_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Adminstrator_F_KeyDown);
             this.Menu_MS.ResumeLayout(false);
             this.Menu_MS.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Users_DGV)).EndInit();
@@ -1002,5 +1035,6 @@
         private System.Windows.Forms.TextBox StatusByteScout_TB;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox StatusMail_TB;
+        public System.Windows.Forms.Button RefreshStatus_B;
     }
 }

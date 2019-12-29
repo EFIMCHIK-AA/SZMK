@@ -12,10 +12,13 @@ namespace SZMK
 {
     public partial class RegistrationUser_F : Form
     {
-        public RegistrationUser_F()
+        public RegistrationUser_F(User TempUser)
         {
+            this.TempUser = TempUser;
             InitializeComponent();
         }
+
+        private User TempUser;
 
         private void Generate_B_Click(object sender, EventArgs e)
         {
@@ -82,15 +85,19 @@ namespace SZMK
                         throw new Exception("Необходимо указать логин пользователя");
                     }
 
-                    if(!SystemArgs.ChangeMode)
+                    List<User> TempList = SystemArgs.Users;
+
+                    if(TempUser != null)
                     {
-                        for (Int32 i = 0; i < SystemArgs.Users.Count(); i++)
+                        TempList.Remove(TempUser);
+                    }
+
+                    for (Int32 i = 0; i < TempList.Count(); i++)
+                    {
+                        if (TempList[i].Login == Login_TB.Text.Trim())
                         {
-                            if (SystemArgs.Users[i].Login == Login_TB.Text.Trim())
-                            {
-                                Login_TB.Focus();
-                                throw new Exception("Пользователь с указанным логином уже существует");
-                            }
+                            Login_TB.Focus();
+                            throw new Exception("Пользователь с указанным логином уже существует");
                         }
                     }
 

@@ -21,11 +21,11 @@ namespace SZMK
         {
             try
             {
-                if (Login_CB.SelectedIndex > 0)
+                if (!String.IsNullOrEmpty(Login_CB.Text.Trim()))
                 {
-                    User User = Login_CB.SelectedItem as User;
+                    User User = SearchUser(Login_CB.Text.Trim());
 
-                    if (SearchUser(User))
+                    if (User != null)
                     {
                         String Password = Password_TB.Text.Trim();
 
@@ -37,7 +37,7 @@ namespace SZMK
                         }
                         else
                         {
-                            throw new Exception("Обнаружена ошибка при вводе пароля");
+                            throw new Exception("Обнаружена ошибка при вводе логина или пароля");
                         }
                     }
                     else
@@ -89,20 +89,17 @@ namespace SZMK
             }
         }
 
-        private bool SearchUser(User User)
+        private User SearchUser(String Login)
         {
-            if(User != null)
+            foreach (User Temp in SystemArgs.Users)
             {
-                foreach (User Temp in SystemArgs.Users)
+                if (Temp.Login == Login)
                 {
-                    if (Temp == User)
-                    {
-                        return true;
-                    }
+                    return Temp;
                 }
             }
 
-            return false;
+            return null;
         }
 
         private bool ComparePassword(User User, String Password)
@@ -162,6 +159,18 @@ namespace SZMK
             if (MessageBox.Show("Вы действительно хотите выйти?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
                 Application.Exit();
+            }
+        }
+
+        private void Autorization_F_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Enter_B.PerformClick();
+            }
+            else if(e.KeyCode == Keys.Escape)
+            {
+                Cancel_B.PerformClick();
             }
         }
     }

@@ -256,6 +256,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="RegistrationMail_F.resx">
       <DependentUpon>RegistrationMail_F.cs</DependentUpon>
@@ -291,6 +292,39 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-фильтр-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-добавить-строку-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-добавить-свойство-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-переименовывать-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-мусор-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-перезапуск-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-поиск-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-редактировать-мужчину-пользователя-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Авторизация ЛОГО.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LOAD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LOAD1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

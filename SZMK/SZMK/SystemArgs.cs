@@ -24,7 +24,6 @@ namespace SZMK
         static public ServerMobileApp ServerMobileApp; //Сервер для получения данных с мобильного ПО
         static public Excel ActExcel;//Формирование Актов при добавлении чертежей
         static public UnLoadSpecific UnLoadSpecific;//Проверка выгрузки деталей
-        static public bool ChangeMode = false;
 
         public static void PrintLog(String Message)
         {
