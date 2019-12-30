@@ -118,24 +118,36 @@ namespace SZMK
         {
             try
             {
-                Password_TB.UseSystemPasswordChar = true;
-
-                List<User> Users = new List<User>();
-                SystemArgs.Users = new List<User>(); //Список всех пользователей в программе
                 SystemArgs.Path = new Path(); //Системные пути
                 SystemArgs.DataBase = new DataBase(); //Конфигурация базы данных
                 SystemArgs.Request = new Request(); //Слой запросов к базе данных
 
-                SystemArgs.Positions = new List<Position>(); //Общий список должностей
-                SystemArgs.Request.GetAllPositions();
-                SystemArgs.Mails = new List<Mail>(); //Общий список адресов почты
-                SystemArgs.Request.GetAllMails();
+                if (SystemArgs.DataBase.CheckConnect(SystemArgs.DataBase.ToString()))
+                {
+                    Password_TB.UseSystemPasswordChar = true;
 
-                SystemArgs.Request.GetAllUsers();
+                    List<User> Users = new List<User>();
+                    SystemArgs.Users = new List<User>(); //Список всех пользователей в программе
+                    SystemArgs.Positions = new List<Position>(); //Общий список должностей
+                    SystemArgs.Request.GetAllPositions();
+                    SystemArgs.Mails = new List<Mail>(); //Общий список адресов почты
+                    SystemArgs.Request.GetAllMails();
 
-                Users.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, 1, new List<Mail>(), "Не выбрано", "Нет хеша"));
-                Users.AddRange(SystemArgs.Users);
-                Login_CB.DataSource = Users;
+                    SystemArgs.Request.GetAllUsers();
+
+                    Users.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, 1, new List<Mail>(), "Не выбрано", "Нет хеша"));
+                    Users.AddRange(SystemArgs.Users);
+                    Login_CB.DataSource = Users;
+                }
+                else
+                {
+                    if (MessageBox.Show("Отсутствует соединение с базой данных. Работа программного обеспечения приостановлена", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
+                    {
+
+                    }
+
+                    Application.Exit();
+                }      
             }
             catch (Exception E)
             {
