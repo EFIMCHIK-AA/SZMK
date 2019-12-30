@@ -6,36 +6,36 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
-    public class BlankOrder
+    public class Status
     {
         private Int64 _ID;
-        private DateTime _DateCreate;
-        private String _QR;
-        public BlankOrder(Int64 ID, DateTime DateCreate, String QR)
+        private Int64 _IDPosition;
+        private String _Name;
+        public Status(Int64 ID,Int64 IDPosition, String Name)
         {
             if (ID >= 0)
             {
                 _ID = ID;
             }
-            if (DateCreate != null)
+            if (IDPosition >= 0)
             {
-                _DateCreate = DateCreate;
+                _IDPosition = IDPosition;
             }
             else
             {
-                throw new Exception("Пустое значение даты создания");
+                throw new Exception("Значение id позиции меньше 0");
             }
 
-            if (!String.IsNullOrEmpty(QR))
+            if (!String.IsNullOrEmpty(Name))
             {
-                _QR = QR;
+                _Name = Name;
             }
             else
             {
-                throw new Exception("Пустое значение QR бланка заказа");
+                throw new Exception("Пустое значение наименования статуса");
             }
         }
-        public BlankOrder() : this(-1, DateTime.Now, "Нет QR бланка заказа") { }
+        public Status() : this(0,0,"Нет наименования статуса") { }
         public Int64 ID
         {
             get
@@ -50,33 +50,38 @@ namespace SZMK
                 }
             }
         }
-        public DateTime DateCreate
+        public Int64 IDPosition
         {
             get
             {
-                return _DateCreate;
+                return _IDPosition;
             }
             set
             {
-                if (value != null)
+                if (value >= 0)
                 {
-                    _DateCreate = value;
+                    _IDPosition = value;
                 }
             }
         }
-        public String QR
+        public String Name
         {
             get
             {
-                return _QR;
+                return _Name;
             }
             set
             {
                 if (!String.IsNullOrEmpty(value))
                 {
-                    _QR = value;
+                    _Name = value;
                 }
             }
+
+        }
+        public override string ToString()
+        {
+            return _Name;
         }
     }
 }

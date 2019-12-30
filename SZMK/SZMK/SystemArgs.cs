@@ -10,8 +10,6 @@ namespace SZMK
     {
         static public User User; // Пользователь, который зашел в систему
         static public Path Path; //Системные пути
-        static public BlankOrder BlankOrder;//Бланк заказа конкретного загружмого чертежа
-        static public Status Status;//Статус конкретного загружмого чертежа
         static public MobileApplication MobileApplication; //Конфигурация мобильного приложения
         static public ClientProgram ClientProgram; // Конфигурация клиентского программного обеспечения
         static public ByteScout ByteScout; // Конфигурация программы распознавания

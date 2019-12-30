@@ -276,6 +276,13 @@ namespace SZMK
                 }
             }
         }
+        public String StatusView
+        {
+            get
+            {
+                return _Status.ToString();
+            }
+        }
         public User User
         {
             get

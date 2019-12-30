@@ -5,6 +5,7 @@ using Npgsql;
 using Equin.ApplicationFramework;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SZMK
 {
@@ -19,7 +20,8 @@ namespace SZMK
         {
             try
             {
-
+                Order_DGV.AutoGenerateColumns = false;
+                Order_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 Load_F Dialog = new Load_F();
 
                 Dialog.Show();
@@ -113,7 +115,6 @@ namespace SZMK
             {
                 SystemArgs.ServerMobileApp = new ServerMobileApp();//Сервер мобильного приложения
                 Int64 IndexOrder = -1;
-                Int64 IndexBlank = -1;
                 KBScan_F Dialog = new KBScan_F();
                 if (SystemArgs.ServerMobileApp.Start())
                 {
@@ -140,28 +141,18 @@ namespace SZMK
                                             }
                                         }
                                     }
-                                    using (var Command = new NpgsqlCommand($"SELECT last_value FROM \"BlankOrder_ID_seq\"", Connect))
-                                    {
-                                        using (var Reader = Command.ExecuteReader())
-                                        {
-                                            while (Reader.Read())
-                                            {
-                                                IndexBlank = Reader.GetInt64(0);
-                                            }
-                                        }
-                                    }
                                 }
                                 String[] SplitDataMatrix = SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix.Split('_');
-                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]),SystemArgs.Status,SystemArgs.User,SystemArgs.BlankOrder);
-                                BlankOrder TempBlank = new BlankOrder(IndexBlank + 1,DateTime.Now,"Бланк заказа не задан");
+                                BlankOrder TempBlank = new BlankOrder();
+                                Int64 PositionID = SystemArgs.User.GetPosition().ID;
+                                Status TempStatus = (from p in SystemArgs.Statuses
+                                                    where p.IDPosition==PositionID
+                                                    select p).Single();
+                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, SystemArgs.User, TempBlank);
                                 if (SystemArgs.Request.InsertOrderDB(TempOrder))
                                 {
                                     SystemArgs.Orders.Add(TempOrder);
-                                    if(SystemArgs.Request.AddOrGetOrUpdateBlankOrder(TempBlank,IndexOrder+1))
-                                    {
-                                        SystemArgs.Request.InsertBlankOrder(IndexOrder + 1,TempBlank.ID);
-                                        SystemArgs.BlankOrders.Add(TempBlank);
-                                    }
+                                    SystemArgs.Request.InsertStatus(TempOrder);
                                 }
                                 else
                                 {
@@ -210,14 +201,20 @@ namespace SZMK
 
         }
 
-        private void Order_DGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void KB_F_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void Order_DGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            e.CellStyle.SelectionBackColor = Color.FromArgb(112, 238, 226);
+            e.CellStyle.SelectionForeColor = Color.Black;
+        }
+
+        private void Order_DGV_SelectionChanged_1(object sender, EventArgs e)
+        {
+            Order_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
     }
 }

@@ -6,36 +6,36 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
-    public class Status
+    public class BlankOrder
     {
         private Int64 _ID;
-        private Int64 _IDPosition;
-        private String _Name;
-        public Status(Int64 ID,Int64 IDPosition, String Name)
+        private DateTime _DateCreate;
+        private String _QR;
+        public BlankOrder(Int64 ID, DateTime DateCreate, String QR)
         {
             if (ID >= 0)
             {
                 _ID = ID;
             }
-            if (IDPosition >= 0)
+            if (DateCreate != null)
             {
-                _IDPosition = IDPosition;
+                _DateCreate = DateCreate;
             }
             else
             {
-                throw new Exception("Значение id позиции меньше 0");
+                throw new Exception("Пустое значение даты создания");
             }
 
-            if (!String.IsNullOrEmpty(Name))
+            if (!String.IsNullOrEmpty(QR))
             {
-                _Name = Name;
+                _QR = QR;
             }
             else
             {
-                throw new Exception("Пустое значение наименования статуса");
+                throw new Exception("Пустое значение QR бланка заказа");
             }
         }
-        public Status() : this(-1,-1,"Нет наименования статуса") { }
+        public BlankOrder() : this(0, DateTime.Now, "Нет QR бланка заказа") { }
         public Int64 ID
         {
             get
@@ -50,31 +50,31 @@ namespace SZMK
                 }
             }
         }
-        public Int64 IDPosition
+        public DateTime DateCreate
         {
             get
             {
-                return _IDPosition;
+                return _DateCreate;
             }
             set
             {
-                if (value >= 0)
+                if (value != null)
                 {
-                    _IDPosition = value;
+                    _DateCreate = value;
                 }
             }
         }
-        public String Name
+        public String QR
         {
             get
             {
-                return _Name;
+                return _QR;
             }
             set
             {
                 if (!String.IsNullOrEmpty(value))
                 {
-                    _Name = value;
+                    _QR = value;
                 }
             }
         }

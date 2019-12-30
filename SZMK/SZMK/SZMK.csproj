@@ -127,8 +127,8 @@
     </Compile>
     <Compile Include="Order.cs" />
     <Compile Include="Request.cs" />
-    <Compile Include="Resources\BlankOrder.cs" />
-    <Compile Include="Resources\Status.cs" />
+    <Compile Include="BlankOrder.cs" />
+    <Compile Include="Status.cs" />
     <Compile Include="ScanSession.cs" />
     <Compile Include="ServerMail.cs" />
     <Compile Include="ServerMail_F.cs">
