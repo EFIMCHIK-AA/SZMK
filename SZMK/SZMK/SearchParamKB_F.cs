@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class SearchParamUsers_F : Form
+    public partial class SearchParamKB_F : Form
     {
-        public SearchParamUsers_F()
+        public SearchParamKB_F()
         {
             InitializeComponent();
         }

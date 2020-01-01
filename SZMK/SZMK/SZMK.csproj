@@ -99,6 +99,12 @@
       <DependentUpon>Adminstrator_F.cs</DependentUpon>
     </Compile>
     <Compile Include="ByteScout.cs" />
+    <Compile Include="ChangeOrderKB_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeOrderKB_F.Designer.cs">
+      <DependentUpon>ChangeOrderKB_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClientProgram.cs" />
     <Compile Include="Excel.cs" />
     <Compile Include="KBScanUnloadSpecific.cs">
@@ -128,6 +134,12 @@
     <Compile Include="Order.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="BlankOrder.cs" />
+    <Compile Include="SearchParamKB_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchParamKB_F.Designer.cs">
+      <DependentUpon>SearchParamKB_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="Status.cs" />
     <Compile Include="ScanSession.cs" />
     <Compile Include="ServerMail.cs" />
@@ -223,6 +235,9 @@
     <EmbeddedResource Include="Adminstrator_F.resx">
       <DependentUpon>Adminstrator_F.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChangeOrderKB_F.resx">
+      <DependentUpon>ChangeOrderKB_F.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="KBScanUnloadSpecific.resx">
       <DependentUpon>KBScanUnloadSpecific.cs</DependentUpon>
     </EmbeddedResource>
@@ -234,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Load_F.resx">
       <DependentUpon>Load_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchParamKB_F.resx">
+      <DependentUpon>SearchParamKB_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ServerMail_F.resx">
       <DependentUpon>ServerMail_F.cs</DependentUpon>

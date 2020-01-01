@@ -13,10 +13,7 @@ namespace SZMK
         private String _Name;
         public Status(Int64 ID,Int64 IDPosition, String Name)
         {
-            if (ID >= 0)
-            {
                 _ID = ID;
-            }
             if (IDPosition >= 0)
             {
                 _IDPosition = IDPosition;
@@ -44,10 +41,7 @@ namespace SZMK
             }
             set
             {
-                if (value >= 0)
-                {
                     _ID = value;
-                }
             }
         }
         public Int64 IDPosition

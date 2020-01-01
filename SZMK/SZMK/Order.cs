@@ -172,6 +172,13 @@ namespace SZMK
                 }
             }
         }
+        public String DateCreateView
+        {
+            get
+            {
+                return _DateCreate.ToShortDateString();
+            }
+        }
 
         public String Executor
         {
@@ -311,5 +318,6 @@ namespace SZMK
                 }
             }
         }
+        public String SearchString() => $"{_ID}_{_DataMatrix}_{_Status.Name}_{_BlankOrder}_{_DateCreate.ToShortDateString()}_{_User.Name}_{_User.MiddleName}_{_User.Surname}";
     }
 }

@@ -102,3 +102,5 @@ C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\SimpleTCP.dll
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\bin\Debug\EPPlus.xml
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.KBScanUnloadSpecific.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.KBScan_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.ChangeOrderKB_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.SearchParamKB_F.resources

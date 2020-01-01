@@ -419,31 +419,6 @@ namespace SZMK
                 return false;
             }
         }
-        public bool InsertOrderDB(Order Order)
-        {
-            try
-            {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
-
-                    using (var Command = new NpgsqlCommand($"INSERT INTO public.\"Orders\"(" +
-                                                            "\"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\")" +
-                                                            $"VALUES('{Order.DateCreate}', '{Order.DataMatrix}', '{Order.Executor}', '{Order.Number}', '{Order.List}', '{Order.Mark}', '{Order.Lenght}', '{Order.Weight}');", Connect))
-                    {
-                        Command.ExecuteNonQuery();
-                    }
-
-                    Connect.Close();
-                }
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
         public bool InsertStatus(Order Order)
         {
             try
@@ -467,38 +442,6 @@ namespace SZMK
                 return false;
             }
         }
-        public bool CheckedUniqueOrderDB(String DataMatrix)
-        {
-            Boolean flag = false;
-            try
-            {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
-
-                    using (var Command = new NpgsqlCommand($"SELECT Count(\"Orders\".\"DataMatrix\") FROM \"Orders\" WHERE \"DataMatrix\" = '{DataMatrix}'", Connect))
-                    {
-                        using (var reader = Command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                if (reader.GetInt64(0) == 0)
-                                {
-                                    flag = true;
-                                }
-                            }
-                        }
-                    }
-
-                    Connect.Close();
-                }
-                return flag;
-            }
-            catch
-            {
-                return flag;
-            }
-        }
         public bool GetAllStatus()
         {
             try
@@ -517,6 +460,29 @@ namespace SZMK
                                 SystemArgs.Statuses.Add(new Status(Reader.GetInt64(0),Reader.GetInt64(1), Reader.GetString(2)));
                             }
                         }
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool DeleteStatus(Order Order)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"DELETE FROM public.\"AddStatus\" WHERE \"ID_Status\" = '{Order.Status.ID}' AND \"ID_Order\" = '{Order.ID}'; ", Connect))
+                    {
+                        Command.ExecuteNonQuery();
                     }
 
                     Connect.Close();
@@ -733,6 +699,77 @@ namespace SZMK
                 return false;
             }
         }
+        public bool InsertOrder(Order Order)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"INSERT INTO public.\"Orders\"(" +
+                                                            "\"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\")" +
+                                                            $"VALUES('{Order.DateCreate}', '{Order.DataMatrix}', '{Order.Executor}', '{Order.Number}', '{Order.List}', '{Order.Mark}', '{Order.Lenght}', '{Order.Weight}');", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool DeleteOrder(Order Order)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"DELETE FROM public.\"Orders\" WHERE \"ID\" = '{Order.ID}'; ", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool UpdateOrder(Order Order)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"UPDATE public.\"Orders\" SET \"DataMatrix\" = '{Order.DataMatrix}', \"Executor\" = '{Order.Executor}', \"Number\" = '{Order.Number}', \"List\" = '{Order.List}', \"Mark\" = '{Order.Mark}', \"Lenght\" = '{Order.Lenght}', \"Weight\" = '{Order.Weight}' WHERE \"ID\" = '{Order.ID}'; ", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         struct StatusOfUser
         {
             public DateTime _DateCreate;
@@ -900,6 +937,38 @@ namespace SZMK
             catch
             {
                 return false;
+            }
+        }
+        public bool CheckedUniqueOrderDB(String DataMatrix)
+        {
+            Boolean flag = false;
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT Count(\"Orders\".\"DataMatrix\") FROM \"Orders\" WHERE \"DataMatrix\" = '{DataMatrix}'", Connect))
+                    {
+                        using (var reader = Command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.GetInt64(0) == 0)
+                                {
+                                    flag = true;
+                                }
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return flag;
+            }
+            catch
+            {
+                return flag;
             }
         }
 

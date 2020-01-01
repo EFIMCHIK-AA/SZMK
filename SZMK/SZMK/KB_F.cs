@@ -23,20 +23,24 @@ namespace SZMK
                 Order_DGV.AutoGenerateColumns = false;
                 Order_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 Load_F Dialog = new Load_F();
-
                 Dialog.Show();
-
                 SystemArgs.MobileApplication = new MobileApplication(); //Конфигурация мобильного приложения
                 SystemArgs.Orders = new List<Order>();
                 SystemArgs.BlankOrders = new List<BlankOrder>();
                 SystemArgs.Statuses = new List<Status>();
+                ItemsFilter();
                 if (SystemArgs.Request.GetAllBlankOrder())
                 {
                     if (SystemArgs.Request.GetAllStatus())
                     {
                         if (SystemArgs.Request.GetAllOrders())
                         {
-                            Display(SystemArgs.Orders) ;
+                            if (SystemArgs.Orders.Count() <= 0)
+                            {
+                                ChangeOrder_TSB.Enabled = false;
+                                DeleteOrder_TSB.Enabled = false;
+                            }
+                            Display(SystemArgs.Orders);
                         }
                         else
                         {
@@ -52,21 +56,31 @@ namespace SZMK
             catch (Exception E)
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 
         private void AddOrder_TSB_Click(object sender, EventArgs e)
         {
-            AddOrder();
+            if (AddOrder())
+            {
+                Display(SystemArgs.Orders);
+            }
         }
 
         private void ChangeOrder_TSB_Click(object sender, EventArgs e)
         {
-            ChangeOrder();
+            if (ChangeOrder())
+            {
+                Display(SystemArgs.Orders);
+            }
         }
         private void DeleteOrder_TSB_Click(object sender, EventArgs e)
         {
-            DeleteOrder();
+            if (DeleteOrder())
+            {
+                Display(SystemArgs.Orders);
+            }
         }
 
         private void AddOrder_TSM_Click(object sender, EventArgs e)
@@ -78,12 +92,18 @@ namespace SZMK
         }
         private void ChangeOrder_TSM_Click(object sender, EventArgs e)
         {
-            ChangeOrder();
+            if (ChangeOrder())
+            {
+                Display(SystemArgs.Orders);
+            }
         }
 
         private void DeleteOrder_TSM_Click(object sender, EventArgs e)
         {
-            DeleteOrder();
+            if (DeleteOrder())
+            {
+                Display(SystemArgs.Orders);
+            }
         }
 
         private void ReportDate_TSM_Click(object sender, EventArgs e)
@@ -97,17 +117,27 @@ namespace SZMK
 
         private void Search_TSB_Click(object sender, EventArgs e)
         {
-                                        
+            if (Search())
+            {
+                if (Result != null)
+                {
+                    Display(Result);
+                }
+            }
         }
 
         private void Reset_TSB_Click(object sender, EventArgs e)
         {
-
+            ResetSearch();
+            Display(SystemArgs.Orders);
         }
 
         private void AdvancedSearch_TSB_Click(object sender, EventArgs e)
         {
-
+            if (SearchParam())
+            {
+                Display(Result);
+            }
         }
         private Boolean AddOrder()
         {
@@ -149,7 +179,7 @@ namespace SZMK
                                                     where p.IDPosition==PositionID
                                                     select p).Single();
                                 Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, SystemArgs.User, TempBlank);
-                                if (SystemArgs.Request.InsertOrderDB(TempOrder))
+                                if (SystemArgs.Request.InsertOrder(TempOrder))
                                 {
                                     SystemArgs.Orders.Add(TempOrder);
                                     SystemArgs.Request.InsertStatus(TempOrder);
@@ -182,23 +212,140 @@ namespace SZMK
                 return false;
             }
         }
-        private void ChangeOrder()
+        private bool ChangeOrder()
         {
+            try
+            {
+                if (Order_DGV.CurrentCell.RowIndex >= 0)
+                {
+                    Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
+                    ChangeOrderKB_F Dialog = new ChangeOrderKB_F(Temp);
 
+                    Dialog.Executor_TB.Text = Temp.Executor;
+                    Dialog.Number_TB.Text = Temp.Number;
+                    Dialog.List_TB.Text = Temp.List.ToString();
+                    Dialog.Mark_TB.Text = Temp.Mark;
+                    Dialog.Lenght_TB.Text = Temp.Lenght.ToString();
+                    Dialog.Weight_TB.Text = Temp.Weight.ToString();
+
+                    if (Dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        String NewDataMatrix = Dialog.Number_TB.Text + "_" + Dialog.List_TB.Text + "_" + Dialog.Mark_TB.Text + "_" + Dialog.Executor_TB.Text + "_" + Dialog.Lenght_TB.Text + "_" + Dialog.Weight_TB.Text;
+                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Convert.ToInt64(Dialog.List_TB.Text), Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), Temp.Status, Temp.User, Temp.BlankOrder);
+                        if (SystemArgs.Request.UpdateOrder(NewOrder))
+                        {
+                            SystemArgs.Orders.Remove(Temp);
+                            SystemArgs.Orders.Add(NewOrder);
+
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    throw new Exception("Необходимо выбрать объект");
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
         }
-        private void DeleteOrder()
+        private bool DeleteOrder()
         {
+            try
+            {
+                if (Order_DGV.CurrentCell.RowIndex >= 0)
+                {
+                    Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
 
+                    if (MessageBox.Show("Вы действительно хотите удалить пользователя?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    {
+                        if (SystemArgs.Request.DeleteOrder(Temp))
+                        {
+                            SystemArgs.Orders.Remove(Temp);
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    throw new Exception("Необходимо выбрать объект");
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
         private void Display(List<Order> List)
         {
-            View = new BindingListView<Order>(List);
-            Order_DGV.DataSource = View;
+            if (Filter())
+            {
+                View = new BindingListView<Order>(List.Where(p=>p.Status.IDPosition==SystemArgs.User.GetPosition().ID).ToList());
+                Order_DGV.DataSource = View;
+            }
+            else
+            {
+                View = new BindingListView<Order>(List);
+                Order_DGV.DataSource = View;
+            }
         }
 
         private void Order_DGV_SelectionChanged(object sender, EventArgs e)
         {
+            if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex < View.Count())
+            {
+                Order_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                ChangeOrder_TSB.Enabled = true;
+                DeleteOrder_TSB.Enabled = true;
 
+                Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
+
+                DateCreate_TB.Text = Temp.DateCreate.ToShortDateString();
+                Executor_TB.Text = Temp.Executor;
+                Number_TB.Text = Temp.Number;
+                List_TB.Text = Temp.List.ToString();
+                Mark_TB.Text = Temp.Mark;
+                Lenght_TB.Text = Temp.Lenght.ToString();
+                Weight_TB.Text = Temp.Weight.ToString();
+                BlankOrder_TB.Text = Temp.BlankOrder.QR;
+                Status_TB.Text = Temp.Status.Name;
+            }
+            else
+            {
+
+                ChangeOrder_TSB.Enabled = false;
+                DeleteOrder_TSB.Enabled = false;
+
+                DateCreate_TB.Text = String.Empty;
+                Executor_TB.Text = String.Empty;
+                Number_TB.Text = String.Empty;
+                List_TB.Text = String.Empty;
+                Mark_TB.Text = String.Empty;
+                Lenght_TB.Text = String.Empty;
+                Weight_TB.Text = String.Empty;
+                BlankOrder_TB.Text = String.Empty;
+                Status_TB.Text = String.Empty;
+            }
         }
 
         private void KB_F_FormClosing(object sender, FormClosingEventArgs e)
@@ -212,9 +359,135 @@ namespace SZMK
             e.CellStyle.SelectionForeColor = Color.Black;
         }
 
-        private void Order_DGV_SelectionChanged_1(object sender, EventArgs e)
+        private void FilterCB_TSB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Order_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            Display(SystemArgs.Orders);
+        }
+        private void ItemsFilter()
+        {
+            FilterCB_TSB.Items.Add("Текущий статус");
+            FilterCB_TSB.Items.Add("Все статусы");
+            FilterCB_TSB.SelectedIndex = 0;
+        }
+        private bool Filter()
+        {
+            if (FilterCB_TSB.SelectedIndex == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private List<Order> ResultSearch(String TextSearch)
+        {
+            List<Order> Result = new List<Order>();
+
+            if (!String.IsNullOrEmpty(TextSearch))
+            {
+                foreach (Order Temp in SystemArgs.Orders)
+                {
+                    if (Temp.SearchString().IndexOf(TextSearch) != -1)
+                    {
+                        Result.Add(Temp);
+                    }
+                }
+            }
+
+            SystemArgs.PrintLog("Перебор значений по заданным параметрам успешно завершен");
+
+            return Result;
+        }
+
+
+
+        private bool Search()
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(Search_TSTB.Text))
+                {
+                    String SearchText = Search_TSTB.Text.Trim();
+
+                    Result = ResultSearch(SearchText);
+
+                    if (Result.Count <= 0)
+                    {
+                        Search_TSTB.Focus();
+                        MessageBox.Show("Поиск не дал результатов", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        SystemArgs.PrintLog("Количество объектов по параметрам поиска 0");
+                        return false;
+                    }
+
+                    return true;
+                }
+                else
+                {
+                    ResetSearch();
+                    SystemArgs.PrintLog("Получено пустое значение параметра поиска");
+                    return false;
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        List<Order> Result;
+
+        private void ResetSearch()
+        {
+            if (Result != null)
+            {
+                Search_TSTB.Text = String.Empty;
+
+                Result.Clear();
+            }
+        }
+        private bool SearchParam()
+        {
+            try
+            {
+                SearchParamKB_F Dialog = new SearchParamKB_F();
+
+                List<BlankOrder> BlankOrders = new List<BlankOrder>();
+
+                BlankOrders.Add(new BlankOrder());
+                BlankOrders.AddRange(SystemArgs.BlankOrders);
+                Dialog.BlankOrder_CB.DataSource = BlankOrders;
+                Dialog.BlankOrder_CB.DataSource = SystemArgs.BlankOrders;
+
+                List<Status> Statuses = new List<Status>();
+
+                Statuses.Add(new Status(-1, 0,"Не задан"));
+                Statuses.AddRange(SystemArgs.Statuses);
+                Dialog.Status_CB.DataSource = Statuses;
+                Dialog.Status_CB.DataSource = SystemArgs.Statuses;
+
+                List<User> Users = new List<User>();
+
+                Users.Add(new User(0, "Нет имени", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null, "Нет лоигна", "Нет хеша"));
+                Users.AddRange(SystemArgs.Users);
+                Dialog.User_CB.DataSource = Users;
+                Dialog.User_CB.DataSource = SystemArgs.Users;
+
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
     }
 }

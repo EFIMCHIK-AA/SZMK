@@ -46,29 +46,30 @@
             this.системаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Exit_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.AddOrder_TSB = new System.Windows.Forms.ToolStripButton();
-            this.ChangeOrder_TSB = new System.Windows.Forms.ToolStripButton();
-            this.DeleteOrder_TSB = new System.Windows.Forms.ToolStripButton();
-            this.AdvancedSearch_TSB = new System.Windows.Forms.ToolStripButton();
-            this.Reset_TSB = new System.Windows.Forms.ToolStripButton();
-            this.Search_TSB = new System.Windows.Forms.ToolStripButton();
             this.Search_TSTB = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.FilterCB_TSB = new System.Windows.Forms.ToolStripComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.Order_DGV = new System.Windows.Forms.DataGridView();
+            this.DateCreate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.List = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Mark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Lenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.CountOrder_TB = new System.Windows.Forms.TextBox();
+            this.Lenght_TB = new System.Windows.Forms.TextBox();
+            this.Mark_TB = new System.Windows.Forms.TextBox();
+            this.List_TB = new System.Windows.Forms.TextBox();
+            this.Number_TB = new System.Windows.Forms.TextBox();
+            this.Executor_TB = new System.Windows.Forms.TextBox();
+            this.DateCreate_TB = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -77,18 +78,18 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Status_TB = new System.Windows.Forms.TextBox();
+            this.Weight_TB = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.BlankOrder_TB = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.DateCreate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.List = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Mark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Lenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.AddOrder_TSB = new System.Windows.Forms.ToolStripButton();
+            this.ChangeOrder_TSB = new System.Windows.Forms.ToolStripButton();
+            this.DeleteOrder_TSB = new System.Windows.Forms.ToolStripButton();
+            this.AdvancedSearch_TSB = new System.Windows.Forms.ToolStripButton();
+            this.Reset_TSB = new System.Windows.Forms.ToolStripButton();
+            this.Search_TSB = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -188,7 +189,8 @@
             this.Search_TSB,
             this.Search_TSTB,
             this.toolStripLabel1,
-            this.toolStripComboBox1});
+            this.FilterCB_TSB,
+            this.toolStripLabel2});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 5);
@@ -196,70 +198,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(1264, 38);
             this.toolStrip1.TabIndex = 19;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // AddOrder_TSB
-            // 
-            this.AddOrder_TSB.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AddOrder_TSB.Image = global::SZMK.Properties.Resources.icons8_создать_новый_40;
-            this.AddOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AddOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.AddOrder_TSB.Name = "AddOrder_TSB";
-            this.AddOrder_TSB.Size = new System.Drawing.Size(112, 34);
-            this.AddOrder_TSB.Text = "Сканировать";
-            this.AddOrder_TSB.Click += new System.EventHandler(this.AddOrder_TSB_Click);
-            // 
-            // ChangeOrder_TSB
-            // 
-            this.ChangeOrder_TSB.Image = global::SZMK.Properties.Resources.icons8_переименовывать_40;
-            this.ChangeOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ChangeOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.ChangeOrder_TSB.Name = "ChangeOrder_TSB";
-            this.ChangeOrder_TSB.Size = new System.Drawing.Size(95, 34);
-            this.ChangeOrder_TSB.Text = "Изменить";
-            this.ChangeOrder_TSB.Click += new System.EventHandler(this.ChangeOrder_TSB_Click);
-            // 
-            // DeleteOrder_TSB
-            // 
-            this.DeleteOrder_TSB.Image = global::SZMK.Properties.Resources.icons8_мусор_40;
-            this.DeleteOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DeleteOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.DeleteOrder_TSB.Name = "DeleteOrder_TSB";
-            this.DeleteOrder_TSB.Size = new System.Drawing.Size(85, 34);
-            this.DeleteOrder_TSB.Text = "Удалить";
-            this.DeleteOrder_TSB.Click += new System.EventHandler(this.DeleteOrder_TSB_Click);
-            // 
-            // AdvancedSearch_TSB
-            // 
-            this.AdvancedSearch_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.AdvancedSearch_TSB.Image = global::SZMK.Properties.Resources.icons8_фильтр_40;
-            this.AdvancedSearch_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AdvancedSearch_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
-            this.AdvancedSearch_TSB.Name = "AdvancedSearch_TSB";
-            this.AdvancedSearch_TSB.Size = new System.Drawing.Size(157, 34);
-            this.AdvancedSearch_TSB.Text = "Расширенный поиск";
-            this.AdvancedSearch_TSB.Click += new System.EventHandler(this.AdvancedSearch_TSB_Click);
-            // 
-            // Reset_TSB
-            // 
-            this.Reset_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.Reset_TSB.Image = global::SZMK.Properties.Resources.icons8_перезапуск_40;
-            this.Reset_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Reset_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
-            this.Reset_TSB.Name = "Reset_TSB";
-            this.Reset_TSB.Size = new System.Drawing.Size(94, 34);
-            this.Reset_TSB.Text = "Сбросить";
-            this.Reset_TSB.Click += new System.EventHandler(this.Reset_TSB_Click);
-            // 
-            // Search_TSB
-            // 
-            this.Search_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.Search_TSB.Image = global::SZMK.Properties.Resources.icons8_поиск_40;
-            this.Search_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Search_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
-            this.Search_TSB.Name = "Search_TSB";
-            this.Search_TSB.Size = new System.Drawing.Size(75, 34);
-            this.Search_TSB.Text = "Найти";
-            this.Search_TSB.Click += new System.EventHandler(this.Search_TSB_Click);
             // 
             // Search_TSTB
             // 
@@ -279,14 +217,16 @@
             this.toolStripLabel1.Size = new System.Drawing.Size(42, 34);
             this.toolStripLabel1.Text = "Поиск";
             // 
-            // toolStripComboBox1
+            // FilterCB_TSB
             // 
-            this.toolStripComboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.toolStripComboBox1.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 34);
+            this.FilterCB_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.FilterCB_TSB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.FilterCB_TSB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FilterCB_TSB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FilterCB_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.FilterCB_TSB.Name = "FilterCB_TSB";
+            this.FilterCB_TSB.Size = new System.Drawing.Size(121, 34);
+            this.FilterCB_TSB.SelectedIndexChanged += new System.EventHandler(this.FilterCB_TSB_SelectedIndexChanged);
             // 
             // panel1
             // 
@@ -348,13 +288,91 @@
             this.Order_DGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Order_DGV.Location = new System.Drawing.Point(5, 55);
             this.Order_DGV.Margin = new System.Windows.Forms.Padding(5, 0, 3, 5);
+            this.Order_DGV.MultiSelect = false;
             this.Order_DGV.Name = "Order_DGV";
             this.Order_DGV.ReadOnly = true;
             this.Order_DGV.RowHeadersVisible = false;
             this.Order_DGV.Size = new System.Drawing.Size(862, 559);
             this.Order_DGV.TabIndex = 1;
             this.Order_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Order_DGV_CellFormatting);
-            this.Order_DGV.SelectionChanged += new System.EventHandler(this.Order_DGV_SelectionChanged_1);
+            this.Order_DGV.SelectionChanged += new System.EventHandler(this.Order_DGV_SelectionChanged);
+            // 
+            // DateCreate
+            // 
+            this.DateCreate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DateCreate.DataPropertyName = "DateCreateView";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DateCreate.DefaultCellStyle = dataGridViewCellStyle1;
+            this.DateCreate.FillWeight = 15F;
+            this.DateCreate.HeaderText = "Дата создания";
+            this.DateCreate.Name = "DateCreate";
+            this.DateCreate.ReadOnly = true;
+            // 
+            // Executor
+            // 
+            this.Executor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Executor.DataPropertyName = "Executor";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Executor.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Executor.FillWeight = 17F;
+            this.Executor.HeaderText = "Исполнитель";
+            this.Executor.Name = "Executor";
+            this.Executor.ReadOnly = true;
+            // 
+            // Number
+            // 
+            this.Number.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Number.DataPropertyName = "Number";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Number.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Number.FillWeight = 13F;
+            this.Number.HeaderText = "Номер заказа";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            // 
+            // List
+            // 
+            this.List.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.List.DataPropertyName = "List";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.List.DefaultCellStyle = dataGridViewCellStyle4;
+            this.List.FillWeight = 10F;
+            this.List.HeaderText = "Лист";
+            this.List.Name = "List";
+            this.List.ReadOnly = true;
+            // 
+            // Mark
+            // 
+            this.Mark.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Mark.DataPropertyName = "Mark";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Mark.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Mark.FillWeight = 10F;
+            this.Mark.HeaderText = "Марка";
+            this.Mark.Name = "Mark";
+            this.Mark.ReadOnly = true;
+            // 
+            // Lenght
+            // 
+            this.Lenght.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Lenght.DataPropertyName = "Lenght";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Lenght.DefaultCellStyle = dataGridViewCellStyle6;
+            this.Lenght.FillWeight = 10F;
+            this.Lenght.HeaderText = "Длина";
+            this.Lenght.Name = "Lenght";
+            this.Lenght.ReadOnly = true;
+            // 
+            // Weight
+            // 
+            this.Weight.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Weight.DataPropertyName = "Weight";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Weight.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Weight.FillWeight = 10F;
+            this.Weight.HeaderText = "Вес";
+            this.Weight.Name = "Weight";
+            this.Weight.ReadOnly = true;
             // 
             // panel2
             // 
@@ -371,13 +389,13 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.label12, 0, 12);
-            this.tableLayoutPanel2.Controls.Add(this.textBox9, 0, 13);
-            this.tableLayoutPanel2.Controls.Add(this.textBox7, 1, 6);
-            this.tableLayoutPanel2.Controls.Add(this.textBox6, 1, 5);
-            this.tableLayoutPanel2.Controls.Add(this.textBox5, 1, 4);
-            this.tableLayoutPanel2.Controls.Add(this.textBox4, 1, 3);
-            this.tableLayoutPanel2.Controls.Add(this.textBox3, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.textBox2, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.CountOrder_TB, 0, 13);
+            this.tableLayoutPanel2.Controls.Add(this.Lenght_TB, 1, 6);
+            this.tableLayoutPanel2.Controls.Add(this.Mark_TB, 1, 5);
+            this.tableLayoutPanel2.Controls.Add(this.List_TB, 1, 4);
+            this.tableLayoutPanel2.Controls.Add(this.Number_TB, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.Executor_TB, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.DateCreate_TB, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label3, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 2);
@@ -386,12 +404,12 @@
             this.tableLayoutPanel2.Controls.Add(this.label7, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.label8, 0, 6);
             this.tableLayoutPanel2.Controls.Add(this.label9, 0, 7);
-            this.tableLayoutPanel2.Controls.Add(this.textBox11, 1, 10);
-            this.tableLayoutPanel2.Controls.Add(this.textBox1, 1, 7);
+            this.tableLayoutPanel2.Controls.Add(this.Status_TB, 1, 10);
+            this.tableLayoutPanel2.Controls.Add(this.Weight_TB, 1, 7);
             this.tableLayoutPanel2.Controls.Add(this.label10, 0, 8);
-            this.tableLayoutPanel2.Controls.Add(this.textBox8, 0, 9);
+            this.tableLayoutPanel2.Controls.Add(this.BlankOrder_TB, 0, 9);
             this.tableLayoutPanel2.Controls.Add(this.label11, 0, 10);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 14;
@@ -409,6 +427,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(394, 619);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
@@ -429,83 +448,90 @@
             this.label12.Text = "Количество чертежей";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox9
+            // CountOrder_TB
             // 
-            this.textBox9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel2.SetColumnSpan(this.textBox9, 2);
-            this.textBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox9.Location = new System.Drawing.Point(3, 438);
-            this.textBox9.Margin = new System.Windows.Forms.Padding(3, 2, 5, 2);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.ReadOnly = true;
-            this.textBox9.Size = new System.Drawing.Size(386, 20);
-            this.textBox9.TabIndex = 25;
+            this.CountOrder_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel2.SetColumnSpan(this.CountOrder_TB, 2);
+            this.CountOrder_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CountOrder_TB.Location = new System.Drawing.Point(3, 438);
+            this.CountOrder_TB.Margin = new System.Windows.Forms.Padding(3, 2, 5, 2);
+            this.CountOrder_TB.Name = "CountOrder_TB";
+            this.CountOrder_TB.ReadOnly = true;
+            this.CountOrder_TB.Size = new System.Drawing.Size(386, 20);
+            this.CountOrder_TB.TabIndex = 25;
+            this.CountOrder_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox7
+            // Lenght_TB
             // 
-            this.textBox7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.textBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox7.Location = new System.Drawing.Point(91, 177);
-            this.textBox7.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(298, 20);
-            this.textBox7.TabIndex = 16;
+            this.Lenght_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Lenght_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Lenght_TB.Location = new System.Drawing.Point(91, 177);
+            this.Lenght_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.Lenght_TB.Name = "Lenght_TB";
+            this.Lenght_TB.ReadOnly = true;
+            this.Lenght_TB.Size = new System.Drawing.Size(298, 20);
+            this.Lenght_TB.TabIndex = 16;
+            this.Lenght_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox6
+            // Mark_TB
             // 
-            this.textBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.textBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox6.Location = new System.Drawing.Point(91, 153);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(298, 20);
-            this.textBox6.TabIndex = 15;
+            this.Mark_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Mark_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Mark_TB.Location = new System.Drawing.Point(91, 153);
+            this.Mark_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.Mark_TB.Name = "Mark_TB";
+            this.Mark_TB.ReadOnly = true;
+            this.Mark_TB.Size = new System.Drawing.Size(298, 20);
+            this.Mark_TB.TabIndex = 15;
+            this.Mark_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox5
+            // List_TB
             // 
-            this.textBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.textBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox5.Location = new System.Drawing.Point(91, 129);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(298, 20);
-            this.textBox5.TabIndex = 14;
+            this.List_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.List_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.List_TB.Location = new System.Drawing.Point(91, 129);
+            this.List_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.List_TB.Name = "List_TB";
+            this.List_TB.ReadOnly = true;
+            this.List_TB.Size = new System.Drawing.Size(298, 20);
+            this.List_TB.TabIndex = 14;
+            this.List_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox4
+            // Number_TB
             // 
-            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox4.Location = new System.Drawing.Point(91, 105);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(298, 20);
-            this.textBox4.TabIndex = 13;
+            this.Number_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Number_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Number_TB.Location = new System.Drawing.Point(91, 105);
+            this.Number_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.Number_TB.Name = "Number_TB";
+            this.Number_TB.ReadOnly = true;
+            this.Number_TB.Size = new System.Drawing.Size(298, 20);
+            this.Number_TB.TabIndex = 13;
+            this.Number_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox3
+            // Executor_TB
             // 
-            this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Location = new System.Drawing.Point(91, 81);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(298, 20);
-            this.textBox3.TabIndex = 12;
+            this.Executor_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Executor_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Executor_TB.Location = new System.Drawing.Point(91, 81);
+            this.Executor_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.Executor_TB.Name = "Executor_TB";
+            this.Executor_TB.ReadOnly = true;
+            this.Executor_TB.Size = new System.Drawing.Size(298, 20);
+            this.Executor_TB.TabIndex = 12;
+            this.Executor_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox2
+            // DateCreate_TB
             // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Location = new System.Drawing.Point(91, 57);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(298, 20);
-            this.textBox2.TabIndex = 11;
+            this.DateCreate_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.DateCreate_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DateCreate_TB.Location = new System.Drawing.Point(91, 57);
+            this.DateCreate_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.DateCreate_TB.Name = "DateCreate_TB";
+            this.DateCreate_TB.ReadOnly = true;
+            this.DateCreate_TB.Size = new System.Drawing.Size(298, 20);
+            this.DateCreate_TB.TabIndex = 11;
+            this.DateCreate_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label2
             // 
@@ -601,28 +627,30 @@
             this.label9.TabIndex = 7;
             this.label9.Text = "Вес";
             // 
-            // textBox11
+            // Status_TB
             // 
-            this.textBox11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel2.SetColumnSpan(this.textBox11, 2);
-            this.textBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox11.Location = new System.Drawing.Point(3, 359);
-            this.textBox11.Margin = new System.Windows.Forms.Padding(3, 2, 5, 2);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(386, 20);
-            this.textBox11.TabIndex = 20;
+            this.Status_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel2.SetColumnSpan(this.Status_TB, 2);
+            this.Status_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Status_TB.Location = new System.Drawing.Point(3, 359);
+            this.Status_TB.Margin = new System.Windows.Forms.Padding(3, 2, 5, 2);
+            this.Status_TB.Name = "Status_TB";
+            this.Status_TB.ReadOnly = true;
+            this.Status_TB.Size = new System.Drawing.Size(386, 20);
+            this.Status_TB.TabIndex = 20;
+            this.Status_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox1
+            // Weight_TB
             // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(91, 201);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(298, 20);
-            this.textBox1.TabIndex = 22;
+            this.Weight_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Weight_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Weight_TB.Location = new System.Drawing.Point(91, 201);
+            this.Weight_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.Weight_TB.Name = "Weight_TB";
+            this.Weight_TB.ReadOnly = true;
+            this.Weight_TB.Size = new System.Drawing.Size(298, 20);
+            this.Weight_TB.TabIndex = 22;
+            this.Weight_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label10
             // 
@@ -641,17 +669,18 @@
             this.label10.Text = "Бланк заказа";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox8
+            // BlankOrder_TB
             // 
-            this.textBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel2.SetColumnSpan(this.textBox8, 2);
-            this.textBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox8.Location = new System.Drawing.Point(3, 280);
-            this.textBox8.Margin = new System.Windows.Forms.Padding(3, 2, 5, 2);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.ReadOnly = true;
-            this.textBox8.Size = new System.Drawing.Size(386, 20);
-            this.textBox8.TabIndex = 17;
+            this.BlankOrder_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel2.SetColumnSpan(this.BlankOrder_TB, 2);
+            this.BlankOrder_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BlankOrder_TB.Location = new System.Drawing.Point(3, 280);
+            this.BlankOrder_TB.Margin = new System.Windows.Forms.Padding(3, 2, 5, 2);
+            this.BlankOrder_TB.Name = "BlankOrder_TB";
+            this.BlankOrder_TB.ReadOnly = true;
+            this.BlankOrder_TB.Size = new System.Drawing.Size(386, 20);
+            this.BlankOrder_TB.TabIndex = 17;
+            this.BlankOrder_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label11
             // 
@@ -670,82 +699,76 @@
             this.label11.Text = "Статус чертежа";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // DateCreate
+            // toolStripLabel2
             // 
-            this.DateCreate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DateCreate.DataPropertyName = "DateCreate";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DateCreate.DefaultCellStyle = dataGridViewCellStyle1;
-            this.DateCreate.FillWeight = 15F;
-            this.DateCreate.HeaderText = "Дата создания";
-            this.DateCreate.Name = "DateCreate";
-            this.DateCreate.ReadOnly = true;
+            this.toolStripLabel2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(57, 35);
+            this.toolStripLabel2.Text = "Показать";
             // 
-            // Executor
+            // AddOrder_TSB
             // 
-            this.Executor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Executor.DataPropertyName = "Executor";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Executor.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Executor.FillWeight = 17F;
-            this.Executor.HeaderText = "Исполнитель";
-            this.Executor.Name = "Executor";
-            this.Executor.ReadOnly = true;
+            this.AddOrder_TSB.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddOrder_TSB.Image = global::SZMK.Properties.Resources.icons8_создать_новый_40;
+            this.AddOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AddOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.AddOrder_TSB.Name = "AddOrder_TSB";
+            this.AddOrder_TSB.Size = new System.Drawing.Size(112, 34);
+            this.AddOrder_TSB.Text = "Сканировать";
+            this.AddOrder_TSB.Click += new System.EventHandler(this.AddOrder_TSB_Click);
             // 
-            // Number
+            // ChangeOrder_TSB
             // 
-            this.Number.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Number.DataPropertyName = "Number";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Number.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Number.FillWeight = 13F;
-            this.Number.HeaderText = "Номер заказа";
-            this.Number.Name = "Number";
-            this.Number.ReadOnly = true;
+            this.ChangeOrder_TSB.Image = global::SZMK.Properties.Resources.icons8_переименовывать_40;
+            this.ChangeOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ChangeOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.ChangeOrder_TSB.Name = "ChangeOrder_TSB";
+            this.ChangeOrder_TSB.Size = new System.Drawing.Size(95, 34);
+            this.ChangeOrder_TSB.Text = "Изменить";
+            this.ChangeOrder_TSB.Click += new System.EventHandler(this.ChangeOrder_TSB_Click);
             // 
-            // List
+            // DeleteOrder_TSB
             // 
-            this.List.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.List.DataPropertyName = "List";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.List.DefaultCellStyle = dataGridViewCellStyle4;
-            this.List.FillWeight = 10F;
-            this.List.HeaderText = "Лист";
-            this.List.Name = "List";
-            this.List.ReadOnly = true;
+            this.DeleteOrder_TSB.Image = global::SZMK.Properties.Resources.icons8_мусор_40;
+            this.DeleteOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DeleteOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.DeleteOrder_TSB.Name = "DeleteOrder_TSB";
+            this.DeleteOrder_TSB.Size = new System.Drawing.Size(85, 34);
+            this.DeleteOrder_TSB.Text = "Удалить";
+            this.DeleteOrder_TSB.Click += new System.EventHandler(this.DeleteOrder_TSB_Click);
             // 
-            // Mark
+            // AdvancedSearch_TSB
             // 
-            this.Mark.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Mark.DataPropertyName = "Mark";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Mark.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Mark.FillWeight = 10F;
-            this.Mark.HeaderText = "Марка";
-            this.Mark.Name = "Mark";
-            this.Mark.ReadOnly = true;
+            this.AdvancedSearch_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.AdvancedSearch_TSB.Image = global::SZMK.Properties.Resources.icons8_фильтр_40;
+            this.AdvancedSearch_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AdvancedSearch_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
+            this.AdvancedSearch_TSB.Name = "AdvancedSearch_TSB";
+            this.AdvancedSearch_TSB.Size = new System.Drawing.Size(157, 34);
+            this.AdvancedSearch_TSB.Text = "Расширенный поиск";
+            this.AdvancedSearch_TSB.Click += new System.EventHandler(this.AdvancedSearch_TSB_Click);
             // 
-            // Lenght
+            // Reset_TSB
             // 
-            this.Lenght.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Lenght.DataPropertyName = "Lenght";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Lenght.DefaultCellStyle = dataGridViewCellStyle6;
-            this.Lenght.FillWeight = 10F;
-            this.Lenght.HeaderText = "Длина";
-            this.Lenght.Name = "Lenght";
-            this.Lenght.ReadOnly = true;
+            this.Reset_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Reset_TSB.Image = global::SZMK.Properties.Resources.icons8_перезапуск_40;
+            this.Reset_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Reset_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
+            this.Reset_TSB.Name = "Reset_TSB";
+            this.Reset_TSB.Size = new System.Drawing.Size(94, 34);
+            this.Reset_TSB.Text = "Сбросить";
+            this.Reset_TSB.Click += new System.EventHandler(this.Reset_TSB_Click);
             // 
-            // Weight
+            // Search_TSB
             // 
-            this.Weight.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Weight.DataPropertyName = "Weight";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Weight.DefaultCellStyle = dataGridViewCellStyle7;
-            this.Weight.FillWeight = 10F;
-            this.Weight.HeaderText = "Вес";
-            this.Weight.Name = "Weight";
-            this.Weight.ReadOnly = true;
+            this.Search_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Search_TSB.Image = global::SZMK.Properties.Resources.icons8_поиск_40;
+            this.Search_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Search_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
+            this.Search_TSB.Name = "Search_TSB";
+            this.Search_TSB.Size = new System.Drawing.Size(75, 34);
+            this.Search_TSB.Text = "Найти";
+            this.Search_TSB.Click += new System.EventHandler(this.Search_TSB_Click);
             // 
             // KB_F
             // 
@@ -803,12 +826,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView Order_DGV;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox Lenght_TB;
+        private System.Windows.Forms.TextBox Mark_TB;
+        private System.Windows.Forms.TextBox List_TB;
+        private System.Windows.Forms.TextBox Number_TB;
+        private System.Windows.Forms.TextBox Executor_TB;
+        private System.Windows.Forms.TextBox DateCreate_TB;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -817,14 +840,14 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox Status_TB;
+        private System.Windows.Forms.TextBox Weight_TB;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox BlankOrder_TB;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.TextBox CountOrder_TB;
+        private System.Windows.Forms.ToolStripComboBox FilterCB_TSB;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateCreate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Executor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
@@ -832,5 +855,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Mark;
         private System.Windows.Forms.DataGridViewTextBoxColumn Lenght;
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
     }
 }
