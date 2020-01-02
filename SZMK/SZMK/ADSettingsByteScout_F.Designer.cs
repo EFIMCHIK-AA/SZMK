@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class SettingsByteScout_F
+    partial class ADSettingsByteScout_F
     {
         /// <summary>
         /// Required designer variable.

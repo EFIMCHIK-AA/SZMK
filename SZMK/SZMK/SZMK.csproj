@@ -92,21 +92,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adminstrator_F.cs">
+    <Compile Include="ADAdminstrator_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Adminstrator_F.Designer.cs">
-      <DependentUpon>Adminstrator_F.cs</DependentUpon>
+    <Compile Include="ADAdminstrator_F.Designer.cs">
+      <DependentUpon>ADAdminstrator_F.cs</DependentUpon>
     </Compile>
     <Compile Include="ByteScout.cs" />
-    <Compile Include="ChangeOrderKB_F.cs">
+    <Compile Include="KBChangeOrder_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChangeOrderKB_F.Designer.cs">
-      <DependentUpon>ChangeOrderKB_F.cs</DependentUpon>
+    <Compile Include="KBChangeOrder_F.Designer.cs">
+      <DependentUpon>KBChangeOrder_F.cs</DependentUpon>
     </Compile>
     <Compile Include="ClientProgram.cs" />
     <Compile Include="Excel.cs" />
+    <Compile Include="KBReportOrderOfDate_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KBReportOrderOfDate_F.Designer.cs">
+      <DependentUpon>KBReportOrderOfDate_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="KBScanUnloadSpecific.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,39 +140,33 @@
     <Compile Include="Order.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="BlankOrder.cs" />
-    <Compile Include="SearchParamKB_F.cs">
+    <Compile Include="KBSearchParam_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SearchParamKB_F.Designer.cs">
-      <DependentUpon>SearchParamKB_F.cs</DependentUpon>
+    <Compile Include="KBSearchParam_F.Designer.cs">
+      <DependentUpon>KBSearchParam_F.cs</DependentUpon>
     </Compile>
     <Compile Include="Status.cs" />
     <Compile Include="ScanSession.cs" />
     <Compile Include="ServerMail.cs" />
-    <Compile Include="ServerMail_F.cs">
+    <Compile Include="ADServerMail_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ServerMail_F.Designer.cs">
-      <DependentUpon>ServerMail_F.cs</DependentUpon>
+    <Compile Include="ADServerMail_F.Designer.cs">
+      <DependentUpon>ADServerMail_F.cs</DependentUpon>
     </Compile>
     <Compile Include="ServerMobileApp.cs" />
-    <Compile Include="SettingsDataBase_F.cs">
+    <Compile Include="ADSettingsDataBase_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsDataBase_F.Designer.cs">
-      <DependentUpon>SettingsDataBase_F.cs</DependentUpon>
+    <Compile Include="ADSettingsDataBase_F.Designer.cs">
+      <DependentUpon>ADSettingsDataBase_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="InformationMail_F.cs">
+    <Compile Include="ADInformationMail_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InformationMail_F.Designer.cs">
-      <DependentUpon>InformationMail_F.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Archive_F.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Archive_F.Designer.cs">
-      <DependentUpon>Archive_F.cs</DependentUpon>
+    <Compile Include="ADInformationMail_F.Designer.cs">
+      <DependentUpon>ADInformationMail_F.cs</DependentUpon>
     </Compile>
     <Compile Include="Autorization_F.cs">
       <SubType>Form</SubType>
@@ -186,57 +186,60 @@
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistrationMail_F.cs">
+    <Compile Include="ADRegistrationMail_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistrationMail_F.Designer.cs">
-      <DependentUpon>RegistrationMail_F.cs</DependentUpon>
+    <Compile Include="ADRegistrationMail_F.Designer.cs">
+      <DependentUpon>ADRegistrationMail_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="RegistrationUser_F.cs">
+    <Compile Include="ADRegistrationUser_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistrationUser_F.Designer.cs">
-      <DependentUpon>RegistrationUser_F.cs</DependentUpon>
+    <Compile Include="ADRegistrationUser_F.Designer.cs">
+      <DependentUpon>ADRegistrationUser_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="SearchParamUsers_F.cs">
+    <Compile Include="ADSearchParamUsers_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SearchParamUsers_F.Designer.cs">
-      <DependentUpon>SearchParamUsers_F.cs</DependentUpon>
+    <Compile Include="ADSearchParamUsers_F.Designer.cs">
+      <DependentUpon>ADSearchParamUsers_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="SettingsByteScout_F.cs">
+    <Compile Include="ADSettingsByteScout_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsByteScout_F.Designer.cs">
-      <DependentUpon>SettingsByteScout_F.cs</DependentUpon>
+    <Compile Include="ADSettingsByteScout_F.Designer.cs">
+      <DependentUpon>ADSettingsByteScout_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="SettingsMails_F.cs">
+    <Compile Include="ADSettingsMails_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsMails_F.Designer.cs">
-      <DependentUpon>SettingsMails_F.cs</DependentUpon>
+    <Compile Include="ADSettingsMails_F.Designer.cs">
+      <DependentUpon>ADSettingsMails_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="SettingsMobileApp_F.cs">
+    <Compile Include="ADSettingsMobileApp_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsMobileApp_F.Designer.cs">
-      <DependentUpon>SettingsMobileApp_F.cs</DependentUpon>
+    <Compile Include="ADSettingsMobileApp_F.Designer.cs">
+      <DependentUpon>ADSettingsMobileApp_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="SettingsProgram_F.cs">
+    <Compile Include="ADSettingsProgram_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsProgram_F.Designer.cs">
-      <DependentUpon>SettingsProgram_F.cs</DependentUpon>
+    <Compile Include="ADSettingsProgram_F.Designer.cs">
+      <DependentUpon>ADSettingsProgram_F.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemArgs.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="UnLoadSpecific.cs" />
     <Compile Include="User.cs" />
-    <EmbeddedResource Include="Adminstrator_F.resx">
-      <DependentUpon>Adminstrator_F.cs</DependentUpon>
+    <EmbeddedResource Include="ADAdminstrator_F.resx">
+      <DependentUpon>ADAdminstrator_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChangeOrderKB_F.resx">
-      <DependentUpon>ChangeOrderKB_F.cs</DependentUpon>
+    <EmbeddedResource Include="KBChangeOrder_F.resx">
+      <DependentUpon>KBChangeOrder_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KBReportOrderOfDate_F.resx">
+      <DependentUpon>KBReportOrderOfDate_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KBScanUnloadSpecific.resx">
       <DependentUpon>KBScanUnloadSpecific.cs</DependentUpon>
@@ -250,20 +253,17 @@
     <EmbeddedResource Include="Load_F.resx">
       <DependentUpon>Load_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SearchParamKB_F.resx">
-      <DependentUpon>SearchParamKB_F.cs</DependentUpon>
+    <EmbeddedResource Include="KBSearchParam_F.resx">
+      <DependentUpon>KBSearchParam_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ServerMail_F.resx">
-      <DependentUpon>ServerMail_F.cs</DependentUpon>
+    <EmbeddedResource Include="ADServerMail_F.resx">
+      <DependentUpon>ADServerMail_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsDataBase_F.resx">
-      <DependentUpon>SettingsDataBase_F.cs</DependentUpon>
+    <EmbeddedResource Include="ADSettingsDataBase_F.resx">
+      <DependentUpon>ADSettingsDataBase_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InformationMail_F.resx">
-      <DependentUpon>InformationMail_F.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Archive_F.resx">
-      <DependentUpon>Archive_F.cs</DependentUpon>
+    <EmbeddedResource Include="ADInformationMail_F.resx">
+      <DependentUpon>ADInformationMail_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Autorization_F.resx">
       <DependentUpon>Autorization_F.cs</DependentUpon>
@@ -278,26 +278,26 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="RegistrationMail_F.resx">
-      <DependentUpon>RegistrationMail_F.cs</DependentUpon>
+    <EmbeddedResource Include="ADRegistrationMail_F.resx">
+      <DependentUpon>ADRegistrationMail_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegistrationUser_F.resx">
-      <DependentUpon>RegistrationUser_F.cs</DependentUpon>
+    <EmbeddedResource Include="ADRegistrationUser_F.resx">
+      <DependentUpon>ADRegistrationUser_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SearchParamUsers_F.resx">
-      <DependentUpon>SearchParamUsers_F.cs</DependentUpon>
+    <EmbeddedResource Include="ADSearchParamUsers_F.resx">
+      <DependentUpon>ADSearchParamUsers_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsByteScout_F.resx">
-      <DependentUpon>SettingsByteScout_F.cs</DependentUpon>
+    <EmbeddedResource Include="ADSettingsByteScout_F.resx">
+      <DependentUpon>ADSettingsByteScout_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsMails_F.resx">
-      <DependentUpon>SettingsMails_F.cs</DependentUpon>
+    <EmbeddedResource Include="ADSettingsMails_F.resx">
+      <DependentUpon>ADSettingsMails_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsMobileApp_F.resx">
-      <DependentUpon>SettingsMobileApp_F.cs</DependentUpon>
+    <EmbeddedResource Include="ADSettingsMobileApp_F.resx">
+      <DependentUpon>ADSettingsMobileApp_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsProgram_F.resx">
-      <DependentUpon>SettingsProgram_F.cs</DependentUpon>
+    <EmbeddedResource Include="ADSettingsProgram_F.resx">
+      <DependentUpon>ADSettingsProgram_F.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

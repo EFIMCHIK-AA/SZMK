@@ -19,7 +19,9 @@ namespace SZMK
         private readonly String _ConnectServerMails;
         private readonly String _TemplateActUniquePath;
         private readonly String _TemplateActNoUniquePath;
+        private readonly String _TemplateReportOrderOfDatePath;
         private readonly String _TemplateRegistryPath;
+
 
         public Path() 
         {
@@ -34,6 +36,7 @@ namespace SZMK
             _ConnectServerMails = $@"Connect\Mails\connect.conf"; //Конфигурация почтового сервера
             _TemplateActUniquePath = $@"Templates\ActTemplateUnique.xlsx";//Путь до шаблона акта уникальных чертежей
             _TemplateActNoUniquePath = $@"Templates\ActTemplateNoUnique.xlsx";//Путь до шаблона акта не уникальных чертежей
+            _TemplateReportOrderOfDatePath = $@"Templates\ReportOrderOfDateTemplate.xlsx";//Путь до шаблона реестра
             _TemplateRegistryPath = $@"Templates\RegistryTemplate.xlsx";//Путь до шаблона реестра
         }
 
@@ -133,6 +136,13 @@ namespace SZMK
             get
             {
                 return _TemplateActNoUniquePath;
+            }
+        }
+        public String TemplateReportOrderOfDatePath
+        {
+            get
+            {
+                return _TemplateReportOrderOfDatePath;
             }
         }
         public String TemplateRegistry

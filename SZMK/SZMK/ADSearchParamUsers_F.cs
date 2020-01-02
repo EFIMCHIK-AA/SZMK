@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class Archive_F : Form
+    public partial class ADSearchParamUsers_F : Form
     {
-        public Archive_F()
+        public ADSearchParamUsers_F()
         {
             InitializeComponent();
         }

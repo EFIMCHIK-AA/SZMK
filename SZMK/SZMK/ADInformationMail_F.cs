@@ -10,17 +10,11 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class ChangeOrderKB_F : Form
+    public partial class ADInformationMail_F : Form
     {
-        public ChangeOrderKB_F(Order TempOrder)
+        public ADInformationMail_F()
         {
-            this.TempOrder = TempOrder;
             InitializeComponent();
-        }
-        private Order TempOrder;
-        private void ChangeOrderKB_F_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -16,9 +16,9 @@ using Npgsql;
 
 namespace SZMK
 {
-    public partial class Adminstrator_F : Form
+    public partial class ADAdminstrator_F : Form
     {
-        public Adminstrator_F()
+        public ADAdminstrator_F()
         {
             InitializeComponent();
         }
@@ -181,7 +181,7 @@ namespace SZMK
         {
             try
             {
-                RegistrationUser_F Dialog = new RegistrationUser_F(null);
+                ADRegistrationUser_F Dialog = new ADRegistrationUser_F(null);
 
                 DateTime DateCreate = DateTime.Now;
                 Dialog.DataReg_TB.Text = DateCreate.ToShortDateString();
@@ -249,7 +249,7 @@ namespace SZMK
                 {
                     User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
 
-                    RegistrationUser_F Dialog = new RegistrationUser_F(Temp)
+                    ADRegistrationUser_F Dialog = new ADRegistrationUser_F(Temp)
                     {
                         Text = "Измененте параметров пользователя",
                     };
@@ -456,15 +456,13 @@ namespace SZMK
         {
             try
             {
-                SearchParamUsers_F Dialog = new SearchParamUsers_F();
+                ADSearchParamUsers_F Dialog = new ADSearchParamUsers_F();
 
                 List<Position> Positions = new List<Position>();
 
                 Positions.Add(new Position(-1, "Не выбрано"));
                 Positions.AddRange(SystemArgs.Positions);
                 Dialog.Position_CB.DataSource = Positions;
-
-                Dialog.Position_CB.DataSource = SystemArgs.Positions;
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
@@ -526,7 +524,7 @@ namespace SZMK
         {
             try
             {
-                SettingsMobileApp_F Dialog = new SettingsMobileApp_F();
+                ADSettingsMobileApp_F Dialog = new ADSettingsMobileApp_F();
 
                 if (SystemArgs.MobileApplication.GetParametersConnect())
                 {
@@ -554,7 +552,7 @@ namespace SZMK
         {
             try
             {
-                SettingsDataBase_F Dialog = new SettingsDataBase_F();
+                ADSettingsDataBase_F Dialog = new ADSettingsDataBase_F();
 
                 if (SystemArgs.DataBase.GetParametersConnect())
                 {
@@ -580,7 +578,7 @@ namespace SZMK
         {
             try
             {
-                SettingsProgram_F Dialog = new SettingsProgram_F();
+                ADSettingsProgram_F Dialog = new ADSettingsProgram_F();
 
                 if (SystemArgs.ClientProgram.GetParametersConnect())
                 {
@@ -604,7 +602,7 @@ namespace SZMK
         {
             try
             {
-                SettingsByteScout_F Dialog = new SettingsByteScout_F();
+                ADSettingsByteScout_F Dialog = new ADSettingsByteScout_F();
 
                 if (SystemArgs.ByteScout.GetParametersConnect())
                 {
@@ -646,7 +644,7 @@ namespace SZMK
         {
             try
             {
-                SettingsMails_F Dialog = new SettingsMails_F();
+                ADSettingsMails_F Dialog = new ADSettingsMails_F();
 
                 Dialog.Mails_DGV.AutoGenerateColumns = false;
 

@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class SettingsProgram_F
+    partial class ADSettingsProgram_F
     {
         /// <summary>
         /// Required designer variable.

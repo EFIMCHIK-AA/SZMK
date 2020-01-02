@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class SettingsMobileApp_F : Form
+    public partial class ADSettingsMobileApp_F : Form
     {
-        public SettingsMobileApp_F()
+        public ADSettingsMobileApp_F()
         {
             InitializeComponent();
         }

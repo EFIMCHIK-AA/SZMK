@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class SettingsMails_F : Form
+    public partial class ADSettingsMails_F : Form
     {
-        public SettingsMails_F()
+        public ADSettingsMails_F()
         {
             InitializeComponent();
         }
@@ -31,7 +31,7 @@ namespace SZMK
         {
             try
             {
-                RegistrationMail_F Dialog = new RegistrationMail_F();
+                ADRegistrationMail_F Dialog = new ADRegistrationMail_F();
 
                 DateTime DateCreate = DateTime.Now;
                 Dialog.DataReg_TB.Text = DateCreate.ToShortDateString();
@@ -95,7 +95,7 @@ namespace SZMK
                 {
                     Mail Temp = (Mail)View[Mails_DGV.CurrentCell.RowIndex];
 
-                    RegistrationMail_F Dialog = new RegistrationMail_F();
+                    ADRegistrationMail_F Dialog = new ADRegistrationMail_F();
 
                     Dialog.label1.Text = "Изменение адреса электронной почты";
 
@@ -205,7 +205,7 @@ namespace SZMK
                 {
                     Mail Temp = (Mail)View[Mails_DGV.CurrentCell.RowIndex];
 
-                    InformationMail_F Dialog = new InformationMail_F();
+                    ADInformationMail_F Dialog = new ADInformationMail_F();
 
                     Dialog.DataReg_TB.Text = Temp.DateCreate.ToShortDateString();
                     Dialog.Name_TB.Text = Temp.Name;
@@ -346,7 +346,7 @@ namespace SZMK
 
         private void Server_B_Click(object sender, EventArgs e)
         {
-            ServerMail_F Dialog = new ServerMail_F();
+            ADServerMail_F Dialog = new ADServerMail_F();
 
             Dialog.Login_TB.Text = SystemArgs.ServerMail.Login;
             Dialog.Name_TB.Text = SystemArgs.ServerMail.Name;

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class SettingsDataBase_F : Form
+    public partial class ADSettingsDataBase_F : Form
     {
-        public SettingsDataBase_F()
+        public ADSettingsDataBase_F()
         {
             InitializeComponent();
         }

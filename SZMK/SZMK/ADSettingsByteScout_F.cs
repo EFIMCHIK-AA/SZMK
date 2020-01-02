@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class SettingsByteScout_F : Form
+    public partial class ADSettingsByteScout_F : Form
     {
-        public SettingsByteScout_F()
+        public ADSettingsByteScout_F()
         {
             InitializeComponent();
         }

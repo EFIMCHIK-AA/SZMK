@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class RegistrationUser_F : Form
+    public partial class ADRegistrationUser_F : Form
     {
-        public RegistrationUser_F(User TempUser)
+        public ADRegistrationUser_F(User TempUser)
         {
             this.TempUser = TempUser;
             InitializeComponent();

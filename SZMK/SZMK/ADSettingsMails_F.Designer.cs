@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class SettingsMails_F
+    partial class ADSettingsMails_F
     {
         /// <summary>
         /// Required designer variable.

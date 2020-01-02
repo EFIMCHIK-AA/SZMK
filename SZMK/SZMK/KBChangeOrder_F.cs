@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class SearchParamKB_F : Form
+    public partial class KBChangeOrder_F : Form
     {
-        public SearchParamKB_F()
+        public KBChangeOrder_F(Order TempOrder)
         {
+            this.TempOrder = TempOrder;
             InitializeComponent();
+        }
+        private Order TempOrder;
+        private void ChangeOrderKB_F_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

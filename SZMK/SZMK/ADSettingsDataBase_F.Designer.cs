@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class SettingsDataBase_F
+    partial class ADSettingsDataBase_F
     {
         /// <summary>
         /// Required designer variable.

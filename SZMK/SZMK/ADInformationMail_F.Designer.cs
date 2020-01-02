@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class InformationMail_F
+    partial class ADInformationMail_F
     {
         /// <summary>
         /// Required designer variable.

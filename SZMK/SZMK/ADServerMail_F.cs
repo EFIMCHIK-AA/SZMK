@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class ServerMail_F : Form
+    public partial class ADServerMail_F : Form
     {
-        public ServerMail_F()
+        public ADServerMail_F()
         {
             InitializeComponent();
         }

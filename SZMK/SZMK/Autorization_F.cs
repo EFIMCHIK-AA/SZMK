@@ -67,7 +67,7 @@ namespace SZMK
                 switch(IDPosition)
                 {
                     case 1: //Администратор
-                        Adminstrator_F Administrator = new Adminstrator_F();
+                        ADAdminstrator_F Administrator = new ADAdminstrator_F();
                         this.Hide();
                         Administrator.Show();
                         break;

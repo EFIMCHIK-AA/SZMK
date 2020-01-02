@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class SearchParamKB_F
+    partial class KBSearchParam_F
     {
         /// <summary>
         /// Required designer variable.
@@ -43,18 +43,18 @@
             this.Cancel_B = new System.Windows.Forms.Button();
             this.OK_B = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.Executor_TB = new System.Windows.Forms.TextBox();
+            this.Number_TB = new System.Windows.Forms.TextBox();
+            this.List_TB = new System.Windows.Forms.TextBox();
+            this.Mark_TB = new System.Windows.Forms.TextBox();
+            this.Lenght_TB = new System.Windows.Forms.TextBox();
+            this.Weight_TB = new System.Windows.Forms.TextBox();
             this.BlankOrder_CB = new System.Windows.Forms.ComboBox();
             this.Status_CB = new System.Windows.Forms.ComboBox();
             this.User_CB = new System.Windows.Forms.ComboBox();
-            this.DTP1 = new System.Windows.Forms.DateTimePicker();
+            this.First_DP = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
-            this.DTP2 = new System.Windows.Forms.DateTimePicker();
+            this.Second_DP = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,18 +78,18 @@
             this.tableLayoutPanel1.Controls.Add(this.Cancel_B, 0, 18);
             this.tableLayoutPanel1.Controls.Add(this.OK_B, 0, 17);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 15);
-            this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.textBox2, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.textBox3, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.textBox4, 1, 8);
-            this.tableLayoutPanel1.Controls.Add(this.textBox5, 1, 9);
-            this.tableLayoutPanel1.Controls.Add(this.textBox6, 1, 10);
+            this.tableLayoutPanel1.Controls.Add(this.Executor_TB, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.Number_TB, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.List_TB, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.Mark_TB, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.Lenght_TB, 1, 9);
+            this.tableLayoutPanel1.Controls.Add(this.Weight_TB, 1, 10);
             this.tableLayoutPanel1.Controls.Add(this.BlankOrder_CB, 0, 12);
             this.tableLayoutPanel1.Controls.Add(this.Status_CB, 0, 14);
             this.tableLayoutPanel1.Controls.Add(this.User_CB, 0, 16);
-            this.tableLayoutPanel1.Controls.Add(this.DTP1, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.First_DP, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.DTP2, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.Second_DP, 2, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -327,71 +327,71 @@
             this.label7.Text = "Пользователь установивший статус";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox1
+            // Executor_TB
             // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.textBox1, 2);
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(92, 229);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(400, 20);
-            this.textBox1.TabIndex = 9;
+            this.Executor_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.Executor_TB, 2);
+            this.Executor_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Executor_TB.Location = new System.Drawing.Point(92, 229);
+            this.Executor_TB.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
+            this.Executor_TB.Name = "Executor_TB";
+            this.Executor_TB.Size = new System.Drawing.Size(400, 20);
+            this.Executor_TB.TabIndex = 9;
             // 
-            // textBox2
+            // Number_TB
             // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.textBox2, 2);
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Location = new System.Drawing.Point(92, 255);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(400, 20);
-            this.textBox2.TabIndex = 10;
+            this.Number_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.Number_TB, 2);
+            this.Number_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Number_TB.Location = new System.Drawing.Point(92, 255);
+            this.Number_TB.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
+            this.Number_TB.Name = "Number_TB";
+            this.Number_TB.Size = new System.Drawing.Size(400, 20);
+            this.Number_TB.TabIndex = 10;
             // 
-            // textBox3
+            // List_TB
             // 
-            this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.textBox3, 2);
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Location = new System.Drawing.Point(92, 281);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(400, 20);
-            this.textBox3.TabIndex = 11;
+            this.List_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.List_TB, 2);
+            this.List_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.List_TB.Location = new System.Drawing.Point(92, 281);
+            this.List_TB.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
+            this.List_TB.Name = "List_TB";
+            this.List_TB.Size = new System.Drawing.Size(400, 20);
+            this.List_TB.TabIndex = 11;
             // 
-            // textBox4
+            // Mark_TB
             // 
-            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.textBox4, 2);
-            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox4.Location = new System.Drawing.Point(92, 307);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(400, 20);
-            this.textBox4.TabIndex = 12;
+            this.Mark_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.Mark_TB, 2);
+            this.Mark_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Mark_TB.Location = new System.Drawing.Point(92, 307);
+            this.Mark_TB.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
+            this.Mark_TB.Name = "Mark_TB";
+            this.Mark_TB.Size = new System.Drawing.Size(400, 20);
+            this.Mark_TB.TabIndex = 12;
             // 
-            // textBox5
+            // Lenght_TB
             // 
-            this.textBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.textBox5, 2);
-            this.textBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox5.Location = new System.Drawing.Point(92, 333);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(400, 20);
-            this.textBox5.TabIndex = 13;
+            this.Lenght_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.Lenght_TB, 2);
+            this.Lenght_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Lenght_TB.Location = new System.Drawing.Point(92, 333);
+            this.Lenght_TB.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
+            this.Lenght_TB.Name = "Lenght_TB";
+            this.Lenght_TB.Size = new System.Drawing.Size(400, 20);
+            this.Lenght_TB.TabIndex = 13;
             // 
-            // textBox6
+            // Weight_TB
             // 
-            this.textBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.textBox6, 2);
-            this.textBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox6.Location = new System.Drawing.Point(92, 359);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(400, 20);
-            this.textBox6.TabIndex = 14;
+            this.Weight_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.Weight_TB, 2);
+            this.Weight_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Weight_TB.Location = new System.Drawing.Point(92, 359);
+            this.Weight_TB.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
+            this.Weight_TB.Name = "Weight_TB";
+            this.Weight_TB.Size = new System.Drawing.Size(400, 20);
+            this.Weight_TB.TabIndex = 14;
             // 
             // BlankOrder_CB
             // 
@@ -418,6 +418,7 @@
             this.Status_CB.Name = "Status_CB";
             this.Status_CB.Size = new System.Drawing.Size(491, 21);
             this.Status_CB.TabIndex = 16;
+            this.Status_CB.SelectedIndexChanged += new System.EventHandler(this.Status_CB_SelectedIndexChanged);
             // 
             // User_CB
             // 
@@ -432,15 +433,15 @@
             this.User_CB.Size = new System.Drawing.Size(491, 21);
             this.User_CB.TabIndex = 17;
             // 
-            // DTP1
+            // First_DP
             // 
-            this.DTP1.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.DTP1, 2);
-            this.DTP1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DTP1.Location = new System.Drawing.Point(3, 148);
-            this.DTP1.Name = "DTP1";
-            this.DTP1.Size = new System.Drawing.Size(242, 20);
-            this.DTP1.TabIndex = 18;
+            this.First_DP.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.First_DP, 2);
+            this.First_DP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.First_DP.Location = new System.Drawing.Point(3, 148);
+            this.First_DP.Name = "First_DP";
+            this.First_DP.Size = new System.Drawing.Size(242, 20);
+            this.First_DP.TabIndex = 18;
             // 
             // label8
             // 
@@ -453,14 +454,14 @@
             this.label8.Text = "Исполнитель";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // DTP2
+            // Second_DP
             // 
-            this.DTP2.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.DTP2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DTP2.Location = new System.Drawing.Point(251, 148);
-            this.DTP2.Name = "DTP2";
-            this.DTP2.Size = new System.Drawing.Size(243, 20);
-            this.DTP2.TabIndex = 19;
+            this.Second_DP.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Second_DP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Second_DP.Location = new System.Drawing.Point(251, 148);
+            this.Second_DP.Name = "Second_DP";
+            this.Second_DP.Size = new System.Drawing.Size(243, 20);
+            this.Second_DP.TabIndex = 19;
             // 
             // SearchParamKB_F
             // 
@@ -477,6 +478,7 @@
             this.Name = "SearchParamKB_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Расширенный поиск";
+            this.Load += new System.EventHandler(this.SearchParamKB_F_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -501,16 +503,16 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        public System.Windows.Forms.TextBox textBox1;
-        public System.Windows.Forms.TextBox textBox2;
-        public System.Windows.Forms.TextBox textBox3;
-        public System.Windows.Forms.TextBox textBox4;
-        public System.Windows.Forms.TextBox textBox5;
-        public System.Windows.Forms.TextBox textBox6;
+        public System.Windows.Forms.TextBox Executor_TB;
+        public System.Windows.Forms.TextBox Number_TB;
+        public System.Windows.Forms.TextBox List_TB;
+        public System.Windows.Forms.TextBox Mark_TB;
+        public System.Windows.Forms.TextBox Lenght_TB;
+        public System.Windows.Forms.TextBox Weight_TB;
         public System.Windows.Forms.ComboBox BlankOrder_CB;
         public System.Windows.Forms.ComboBox Status_CB;
         public System.Windows.Forms.ComboBox User_CB;
-        public System.Windows.Forms.DateTimePicker DTP1;
-        public System.Windows.Forms.DateTimePicker DTP2;
+        public System.Windows.Forms.DateTimePicker First_DP;
+        public System.Windows.Forms.DateTimePicker Second_DP;
     }
 }

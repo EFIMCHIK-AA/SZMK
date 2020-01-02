@@ -22,7 +22,7 @@ namespace SZMK
         static public List<User> Users; //общий список пользователей в системе
         static public List<Order> Orders; // Общий список заказов
         static public ServerMobileApp ServerMobileApp; //Сервер для получения данных с мобильного ПО
-        static public Excel ActExcel;//Формирование Актов при добавлении чертежей
+        static public Excel Excel;//Формирование Актов при добавлении чертежей
         static public UnLoadSpecific UnLoadSpecific;//Проверка выгрузки деталей
         static public List<Status> Statuses;//Общий список возможных статусов
         static public List<BlankOrder> BlankOrders;//Общий список возможных бланков заказа

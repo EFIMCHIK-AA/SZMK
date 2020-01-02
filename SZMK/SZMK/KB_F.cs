@@ -24,10 +24,12 @@ namespace SZMK
                 Order_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 Load_F Dialog = new Load_F();
                 Dialog.Show();
-                SystemArgs.MobileApplication = new MobileApplication(); //Конфигурация мобильного приложения
+                SystemArgs.MobileApplication = new MobileApplication();
                 SystemArgs.Orders = new List<Order>();
                 SystemArgs.BlankOrders = new List<BlankOrder>();
                 SystemArgs.Statuses = new List<Status>();
+                SystemArgs.Excel = new Excel();
+                SystemArgs.Template = new Template();
                 ItemsFilter();
                 if (SystemArgs.Request.GetAllBlankOrder())
                 {
@@ -108,11 +110,10 @@ namespace SZMK
 
         private void ReportDate_TSM_Click(object sender, EventArgs e)
         {
-
-        }
-        private void Exit_TSM_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
+            if (ReportOrderOfDate())
+            {
+                MessageBox.Show("Отчет успешно сформирован и сохранен", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void Search_TSB_Click(object sender, EventArgs e)
@@ -219,7 +220,7 @@ namespace SZMK
                 if (Order_DGV.CurrentCell.RowIndex >= 0)
                 {
                     Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
-                    ChangeOrderKB_F Dialog = new ChangeOrderKB_F(Temp);
+                    KBChangeOrder_F Dialog = new KBChangeOrder_F(Temp);
 
                     Dialog.Executor_TB.Text = Temp.Executor;
                     Dialog.Number_TB.Text = Temp.Number;
@@ -302,11 +303,13 @@ namespace SZMK
             {
                 View = new BindingListView<Order>(List.Where(p=>p.Status.IDPosition==SystemArgs.User.GetPosition().ID).ToList());
                 Order_DGV.DataSource = View;
+                CountOrder_TB.Text = View.Count.ToString();
             }
             else
             {
                 View = new BindingListView<Order>(List);
                 Order_DGV.DataSource = View;
+                CountOrder_TB.Text = View.Count.ToString();
             }
         }
 
@@ -451,37 +454,93 @@ namespace SZMK
         {
             try
             {
-                SearchParamKB_F Dialog = new SearchParamKB_F();
+                KBSearchParam_F Dialog = new KBSearchParam_F();
 
                 List<BlankOrder> BlankOrders = new List<BlankOrder>();
 
                 BlankOrders.Add(new BlankOrder());
                 BlankOrders.AddRange(SystemArgs.BlankOrders);
                 Dialog.BlankOrder_CB.DataSource = BlankOrders;
-                Dialog.BlankOrder_CB.DataSource = SystemArgs.BlankOrders;
 
                 List<Status> Statuses = new List<Status>();
 
                 Statuses.Add(new Status(-1, 0,"Не задан"));
                 Statuses.AddRange(SystemArgs.Statuses);
                 Dialog.Status_CB.DataSource = Statuses;
-                Dialog.Status_CB.DataSource = SystemArgs.Statuses;
-
-                List<User> Users = new List<User>();
-
-                Users.Add(new User(0, "Нет имени", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null, "Нет лоигна", "Нет хеша"));
-                Users.AddRange(SystemArgs.Users);
-                Dialog.User_CB.DataSource = Users;
-                Dialog.User_CB.DataSource = SystemArgs.Users;
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
+                    Result = SystemArgs.Orders;
+
+                    Result = Result.Where(p => (p.DateCreate >= Dialog.First_DP.Value.Date) && (p.DateCreate <= Dialog.Second_DP.Value.Date)).ToList();
+
+                    if (Dialog.Executor_TB.Text.Trim() != String.Empty)
+                    {
+                        Result = Result.Where(p => p.Executor == Dialog.Executor_TB.Text.Trim()).ToList();
+                    }
+
+                    if (Dialog.Number_TB.Text.Trim() != String.Empty)
+                    {
+                        Result = Result.Where(p => p.Number == Dialog.Number_TB.Text.Trim()).ToList();
+                    }
+
+                    if (Dialog.List_TB.Text.Trim() != String.Empty)
+                    {
+                        Result = Result.Where(p => p.List.ToString() == Dialog.List_TB.Text.Trim()).ToList();
+                    }
+
+                    if (Dialog.Mark_TB.Text.Trim() != String.Empty)
+                    {
+                        Result = Result.Where(p => p.Mark == Dialog.Mark_TB.Text.Trim()).ToList();
+                    }
+
+                    if (Dialog.Lenght_TB.Text.Trim() != String.Empty)
+                    {
+                        Result = Result.Where(p => p.Lenght.ToString() == Dialog.Lenght_TB.Text.Trim()).ToList();
+                    }
+
+                    if (Dialog.Weight_TB.Text.Trim() != String.Empty)
+                    {
+                        Result = Result.Where(p => p.Weight.ToString() == Dialog.Weight_TB.Text.Trim()).ToList();
+                    }
+                    if (Dialog.BlankOrder_CB.SelectedIndex > 0)
+                    {
+                        Result = Result.Where(p => p.BlankOrder == (BlankOrder)Dialog.BlankOrder_CB.SelectedItem).ToList();
+                    }
+                    if (Dialog.Status_CB.SelectedIndex > 0)
+                    {
+                        Result = Result.Where(p => p.Status == (Status)Dialog.Status_CB.SelectedItem).ToList();
+                    }
+                    if (Dialog.User_CB.SelectedIndex > 0)
+                    {
+                        Result = Result.Where(p => p.User == (User)Dialog.User_CB.SelectedItem).ToList();
+                    }
                     return true;
                 }
                 else
                 {
                     return false;
                 }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+        private bool ReportOrderOfDate()
+        {
+            try
+            {
+                KBReportOrderOfDate_F Dialog = new KBReportOrderOfDate_F();
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (SystemArgs.Excel.ReportOrderOfDate(Dialog.First_MC.SelectionStart, Dialog.Second_MC.SelectionStart))
+                    {
+                        return true;
+                    }
+                }
+                return false;
             }
             catch (Exception E)
             {

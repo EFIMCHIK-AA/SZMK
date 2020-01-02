@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class SettingsProgram_F : Form
+    public partial class ADSettingsProgram_F : Form
     {
-        public SettingsProgram_F()
+        public ADSettingsProgram_F()
         {
             InitializeComponent();
         }

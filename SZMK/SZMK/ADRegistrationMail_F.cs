@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class RegistrationMail_F : Form
+    public partial class ADRegistrationMail_F : Form
     {
-        public RegistrationMail_F()
+        public ADRegistrationMail_F()
         {
             InitializeComponent();
         }

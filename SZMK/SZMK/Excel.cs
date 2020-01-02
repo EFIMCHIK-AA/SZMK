@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 
@@ -18,6 +19,7 @@ namespace SZMK
             date = date.Replace(".", "_");
             date = date.Replace(":", "_");
             SaveAct.FileName = "Акты от " + date;
+            SaveAct.Filter = "Excel Files .xlsx|*.xlsx";
             FileInfo fInfoSrcUnique = new FileInfo(SystemArgs.Path.TemplateActUniquePath);
             FileInfo fInfoSrcNoUnique = new FileInfo(SystemArgs.Path.TemplateActNoUniquePath);
 
@@ -72,7 +74,7 @@ namespace SZMK
                         wsUnique.Cells[lastline + 3, 6].Value = "Сдал";
                         wsUnique.Cells[lastline + 2, 8].Value = "______________";
                         wsUnique.Cells[lastline + 3, 8].Value = "______________";
-                        wsUnique.Cells[lastline + 2, 9].Value = SystemArgs.User.Surname+" "+ SystemArgs.User.Name+" "+ SystemArgs.User.MiddleName;
+                        wsUnique.Cells[lastline + 2, 9].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
                         wsUnique.Cells[lastline + 3, 9].Value = "/______________/";
                         wbUnique.Save();
                         lastline = wsNoUnique.Dimension.End.Row;
@@ -85,7 +87,7 @@ namespace SZMK
                         wbNoUnique.Save();
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     MessageBox.Show(e.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
@@ -96,6 +98,67 @@ namespace SZMK
             {
                 return false;
             }
-         }
-     }
- }
+        }
+        public bool ReportOrderOfDate(DateTime First,DateTime Second)
+        {
+            SaveFileDialog SaveReport = new SaveFileDialog();
+            String date = DateTime.Now.ToString();
+            date = date.Replace(".", "_");
+            date = date.Replace(":", "_");
+            SaveReport.FileName = "Отчет за выбранный период от " + date;
+            SaveReport.Filter = "Excel Files .xlsx|*.xlsx";
+
+            System.IO.FileInfo fInfoSrcUnique = new System.IO.FileInfo(SystemArgs.Path.TemplateReportOrderOfDatePath);
+
+            if (SaveReport.ShowDialog() == DialogResult.OK)
+            {
+                var WBcopy = new ExcelPackage(fInfoSrcUnique).File.CopyTo(SaveReport.FileName);
+
+                try
+                {
+                    ExcelPackage WB = new ExcelPackage(new System.IO.FileInfo(SaveReport.FileName));
+                    ExcelWorksheet WS = WB.Workbook.Worksheets[1];
+                    var rowCntReport = WS.Dimension.End.Row;
+
+                    if (SaveReport.FileName.IndexOf(@":\") != -1)
+                    {
+                        List<Order> Report = SystemArgs.Orders.Where(p => (p.DateCreate >= First) && (p.DateCreate <= Second)).ToList();
+                        for (Int32 i = 0; i < Report.Count; i++)
+                        {
+                            WS.Cells[i + rowCntReport + 1, 1].Value = Report[i].Number;
+                            WS.Cells[i + rowCntReport + 1, 2].Value = Report[i].List.ToString();
+                            WS.Cells[i + rowCntReport + 1, 3].Value = Report[i].Mark;
+                            WS.Cells[i + rowCntReport + 1, 4].Value = Report[i].Executor;
+                            WS.Cells[i + rowCntReport + 1, 5].Value = Report[i].Lenght.ToString();
+                            WS.Cells[i + rowCntReport + 1, 6].Value = Report[i].Weight.ToString();
+                            WS.Cells[i + rowCntReport + 1, 7].Value = Report[i].BlankOrder.QR;
+                            WS.Cells[i + rowCntReport + 1, 8].Value = Report[i].Status.Name;
+                            WS.Cells[i + rowCntReport + 1, 9].Value = Report[i].User.Login;
+                            WS.Cells[i + rowCntReport + 1, 10].Value = Report[i].DateCreate.ToShortDateString().ToString();
+                        }
+                        int last = WS.Dimension.End.Row;
+                        WS.Cells[last + 2, 8].Value = "Принял";
+                        WS.Cells[last + 3, 8].Value = "Сдал";
+                        WS.Cells[last + 2, 9].Value = "______________";
+                        WS.Cells[last + 3, 9].Value = "______________";
+                        WS.Cells[last + 2, 10].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
+                        WS.Cells[last + 3, 10].Value = "/______________/";
+                        WS.Cells["A2:J"+ WS.Dimension.End.Row.ToString()].AutoFitColumns();
+                        WS.Cells["A2:J" + WS.Dimension.End.Row.ToString()].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        WB.Save();
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}

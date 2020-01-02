@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class ChangeOrderKB_F
+    partial class KBChangeOrder_F
     {
         /// <summary>
         /// Required designer variable.
