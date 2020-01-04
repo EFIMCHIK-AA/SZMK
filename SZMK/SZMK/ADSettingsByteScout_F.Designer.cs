@@ -39,6 +39,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.OK_B = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.IP_TB = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.Port_TB = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +57,7 @@
             this.SaveDirectoryProgPath_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.SaveDirectoryProgPath_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveDirectoryProgPath_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SaveDirectoryProgPath_B.Location = new System.Drawing.Point(5, 175);
+            this.SaveDirectoryProgPath_B.Location = new System.Drawing.Point(5, 278);
             this.SaveDirectoryProgPath_B.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.SaveDirectoryProgPath_B.Name = "SaveDirectoryProgPath_B";
             this.SaveDirectoryProgPath_B.Size = new System.Drawing.Size(495, 33);
@@ -70,10 +75,10 @@
             this.DirectoryProgPath_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.DirectoryProgPath_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DirectoryProgPath_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DirectoryProgPath_B.Location = new System.Drawing.Point(376, 141);
+            this.DirectoryProgPath_B.Location = new System.Drawing.Point(378, 141);
             this.DirectoryProgPath_B.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.DirectoryProgPath_B.Name = "DirectoryProgPath_B";
-            this.DirectoryProgPath_B.Size = new System.Drawing.Size(124, 25);
+            this.DirectoryProgPath_B.Size = new System.Drawing.Size(122, 25);
             this.DirectoryProgPath_B.TabIndex = 111;
             this.DirectoryProgPath_B.Text = "Обзор";
             this.DirectoryProgPath_B.UseVisualStyleBackColor = false;
@@ -100,11 +105,11 @@
             // 
             this.DirectoryProgPath_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.DirectoryProgPath_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DirectoryProgPath_TB.Location = new System.Drawing.Point(49, 141);
+            this.DirectoryProgPath_TB.Location = new System.Drawing.Point(57, 141);
             this.DirectoryProgPath_TB.Margin = new System.Windows.Forms.Padding(2);
             this.DirectoryProgPath_TB.Name = "DirectoryProgPath_TB";
             this.DirectoryProgPath_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.DirectoryProgPath_TB.Size = new System.Drawing.Size(323, 20);
+            this.DirectoryProgPath_TB.Size = new System.Drawing.Size(317, 20);
             this.DirectoryProgPath_TB.TabIndex = 109;
             this.DirectoryProgPath_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -116,7 +121,7 @@
             this.label8.Location = new System.Drawing.Point(5, 139);
             this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(40, 29);
+            this.label8.Size = new System.Drawing.Size(48, 29);
             this.label8.TabIndex = 108;
             this.label8.Text = "Путь";
             // 
@@ -129,10 +134,10 @@
             this.ReviewProgram_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.ReviewProgram_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ReviewProgram_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ReviewProgram_B.Location = new System.Drawing.Point(376, 57);
+            this.ReviewProgram_B.Location = new System.Drawing.Point(378, 57);
             this.ReviewProgram_B.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.ReviewProgram_B.Name = "ReviewProgram_B";
-            this.ReviewProgram_B.Size = new System.Drawing.Size(124, 25);
+            this.ReviewProgram_B.Size = new System.Drawing.Size(122, 25);
             this.ReviewProgram_B.TabIndex = 106;
             this.ReviewProgram_B.Text = "Обзор";
             this.ReviewProgram_B.UseVisualStyleBackColor = false;
@@ -159,11 +164,11 @@
             // 
             this.PrpgramPath_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.PrpgramPath_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PrpgramPath_TB.Location = new System.Drawing.Point(49, 57);
+            this.PrpgramPath_TB.Location = new System.Drawing.Point(57, 57);
             this.PrpgramPath_TB.Margin = new System.Windows.Forms.Padding(2);
             this.PrpgramPath_TB.Name = "PrpgramPath_TB";
             this.PrpgramPath_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.PrpgramPath_TB.Size = new System.Drawing.Size(323, 20);
+            this.PrpgramPath_TB.Size = new System.Drawing.Size(317, 20);
             this.PrpgramPath_TB.TabIndex = 104;
             this.PrpgramPath_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -175,7 +180,7 @@
             this.label5.Location = new System.Drawing.Point(5, 55);
             this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 29);
+            this.label5.Size = new System.Drawing.Size(48, 29);
             this.label5.TabIndex = 103;
             this.label5.Text = "Путь";
             // 
@@ -190,7 +195,7 @@
             this.OK_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.OK_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OK_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.OK_B.Location = new System.Drawing.Point(5, 215);
+            this.OK_B.Location = new System.Drawing.Point(5, 318);
             this.OK_B.Margin = new System.Windows.Forms.Padding(5, 0, 5, 7);
             this.OK_B.Name = "OK_B";
             this.OK_B.Size = new System.Drawing.Size(495, 33);
@@ -204,9 +209,13 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.42857F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.57143F));
+            this.tableLayoutPanel1.Controls.Add(this.Port_TB, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.IP_TB, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.OK_B, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.SaveDirectoryProgPath_B, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.OK_B, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.SaveDirectoryProgPath_B, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.DirectoryProgPath_B, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.PrpgramPath_TB, 1, 1);
@@ -214,34 +223,107 @@
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.ReviewProgram_B, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowCount = 10;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(505, 257);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(505, 358);
             this.tableLayoutPanel1.TabIndex = 113;
             // 
-            // SettingsByteScout_F
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tableLayoutPanel1.SetColumnSpan(this.label1, 3);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.label1.Location = new System.Drawing.Point(5, 178);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(495, 35);
+            this.label1.TabIndex = 113;
+            this.label1.Text = "Параметры подключения";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(5, 223);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 24);
+            this.label2.TabIndex = 114;
+            this.label2.Text = "Адрес";
+            // 
+            // IP_TB
+            // 
+            this.IP_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.IP_TB, 2);
+            this.IP_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.IP_TB.Location = new System.Drawing.Point(57, 225);
+            this.IP_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.IP_TB.Name = "IP_TB";
+            this.IP_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.IP_TB.Size = new System.Drawing.Size(443, 20);
+            this.IP_TB.TabIndex = 115;
+            this.IP_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(5, 247);
+            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(48, 24);
+            this.label6.TabIndex = 117;
+            this.label6.Text = "Порт";
+            // 
+            // Port_TB
+            // 
+            this.Port_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.Port_TB, 2);
+            this.Port_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Port_TB.Location = new System.Drawing.Point(57, 249);
+            this.Port_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.Port_TB.Name = "Port_TB";
+            this.Port_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.Port_TB.Size = new System.Drawing.Size(443, 20);
+            this.Port_TB.TabIndex = 118;
+            this.Port_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ADSettingsByteScout_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(505, 257);
+            this.ClientSize = new System.Drawing.Size(505, 358);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "SettingsByteScout_F";
+            this.MinimumSize = new System.Drawing.Size(521, 397);
+            this.Name = "ADSettingsByteScout_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки программы распознавания";
+            this.Load += new System.EventHandler(this.ADSettingsByteScout_F_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -261,5 +343,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button OK_B;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        public System.Windows.Forms.TextBox Port_TB;
+        private System.Windows.Forms.Label label6;
+        public System.Windows.Forms.TextBox IP_TB;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }

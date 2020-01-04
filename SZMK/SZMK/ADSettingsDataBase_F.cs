@@ -87,5 +87,10 @@ namespace SZMK
                 MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void ADSettingsDataBase_F_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

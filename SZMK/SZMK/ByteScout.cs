@@ -13,8 +13,8 @@ namespace SZMK
     {
         private String _ProgramPath;
         private String _DirectoryProgramPath;
-        private const int port = 49000;
-        private const string server = "192.168.1.105";
+        private String _Port;
+        private String _Server;
         public delegate void LoadData(List<ScanSession> ScanSession);
         public event LoadData Load;
         public delegate void FailData(String FileName);
@@ -27,6 +27,7 @@ namespace SZMK
             {
                 throw new Exception("Ошибка при получении конфигурационных путей программы распознавания");
             }
+
             _DecodeSession = new List<ScanSession>();
         }
 
@@ -44,6 +45,11 @@ namespace SZMK
                     throw new Exception();
                 }
 
+                if (!File.Exists(SystemArgs.Path.ConnectProgramPath))
+                {
+                    throw new Exception();
+                }
+
                 using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ProgramPath, FileMode.Open)))
                 {
                     _ProgramPath = sr.ReadLine();
@@ -52,6 +58,12 @@ namespace SZMK
                 using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.DirectoryProgramPath, FileMode.Open)))
                 {
                     _DirectoryProgramPath = sr.ReadLine();
+                }
+
+                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ConnectProgramPath, FileMode.Open)))
+                {
+                    _Server = sr.ReadLine();
+                    _Port = sr.ReadLine();
                 }
 
                 return true;
@@ -80,6 +92,13 @@ namespace SZMK
                     Directory.CreateDirectory(DirTempDirProgram);
                 }
 
+                String DirConnProgram = SystemArgs.Path.GetDirectory(SystemArgs.Path.ConnectProgramPath);
+
+                if (!Directory.Exists(DirConnProgram))
+                {
+                    Directory.CreateDirectory(DirConnProgram);
+                }
+
                 using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ProgramPath, FileMode.Create)))
                 {
                     sw.WriteLine(_ProgramPath);
@@ -88,6 +107,12 @@ namespace SZMK
                 using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.DirectoryProgramPath, FileMode.Create)))
                 {
                     sw.WriteLine(_DirectoryProgramPath);
+                }
+
+                using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ConnectProgramPath, FileMode.Create)))
+                {
+                    sw.WriteLine(_Server);
+                    sw.WriteLine(_Port);
                 }
 
                 return true;
@@ -129,6 +154,38 @@ namespace SZMK
             }
         }
 
+        public String Server
+        {
+            get
+            {
+                return _Server;
+            }
+
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    _Server = value;
+                }
+            }
+        }
+
+        public String Port
+        {
+            get
+            {
+                return _Port;
+            }
+
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    _Port = value;
+                }
+            }
+        }
+
         public String DirectoryProgramPath
         {
             get
@@ -150,7 +207,7 @@ namespace SZMK
         }
         public String SendAndRead(String FileName)
         {
-            TcpClient client = new TcpClient(server, port);
+            TcpClient client = new TcpClient(_Server, Convert.ToInt32(_Port));
             String responseData = String.Empty;
             using (FileStream inputStream = File.OpenRead(FileName))
             {
@@ -210,7 +267,7 @@ namespace SZMK
         {
             try
             {
-                TcpClient client = new TcpClient(server, port);
+                TcpClient client = new TcpClient(_Server, Convert.ToInt32(_Port));
                 String responseData = String.Empty;
                 using (FileStream inputStream = File.OpenRead(SystemArgs.Path.TestFileApplicationPath))
                 {

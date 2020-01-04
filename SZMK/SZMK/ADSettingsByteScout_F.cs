@@ -67,6 +67,22 @@ namespace SZMK
                     throw new Exception("Указанная дирекория распознавания не существует");
                 }
 
+                if (String.IsNullOrEmpty(IP_TB.Text))
+                {
+                    IP_TB.Focus();
+                    throw new Exception("Необходимо ввести адрес программы распознавания");
+                }
+
+                if (String.IsNullOrEmpty(Port_TB.Text))
+                {
+                    Port_TB.Focus();
+                    throw new Exception("Необходимо ввести порт программы распознавания");
+                }
+
+                Int32 Port = Convert.ToInt32(Port_TB.Text);
+
+                SystemArgs.ByteScout.Server = IP_TB.Text.Trim();
+                SystemArgs.ByteScout.Port = Port_TB.Text.Trim();
                 SystemArgs.ByteScout.ProgramPath = PrpgramPath_TB.Text.Trim();
                 SystemArgs.ByteScout.DirectoryProgramPath = DirectoryProgPath_TB.Text.Trim();
 
@@ -79,10 +95,20 @@ namespace SZMK
                     throw new Exception("Ошибка при записи директорий");
                 }
             }
+            catch (FormatException)
+            {
+                Port_TB.Focus();
+                MessageBox.Show("Порт подключения должен состоять из целых цифр", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception E)
             {
                 MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void ADSettingsByteScout_F_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

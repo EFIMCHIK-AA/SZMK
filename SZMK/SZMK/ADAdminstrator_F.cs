@@ -608,6 +608,8 @@ namespace SZMK
                 {
                     Dialog.DirectoryProgPath_TB.Text = SystemArgs.ByteScout.DirectoryProgramPath;
                     Dialog.PrpgramPath_TB.Text = SystemArgs.ByteScout.ProgramPath;
+                    Dialog.IP_TB.Text = SystemArgs.ByteScout.Server;
+                    Dialog.Port_TB.Text = SystemArgs.ByteScout.Port;
                 }
 
                 if (Dialog.ShowDialog() == DialogResult.OK)

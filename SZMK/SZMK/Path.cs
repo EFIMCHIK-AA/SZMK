@@ -22,12 +22,14 @@ namespace SZMK
         private readonly String _TemplateReportOrderOfDatePath;
         private readonly String _TemplateRegistryPath;
         private readonly String _TestFileApplicationPath;
+        private readonly String _ConnectProgramPath;
 
 
         public Path() 
         {
             _ConnectDBPath = $@"Connect\DataBase\connect.conf"; //Параметры подключения к базе данных
             _ConnectApplicationPath = $@"Connect\Application\connect.conf"; //Параметры подключения к приложению
+            _ConnectProgramPath = $@"Path\Program\connect.df"; //Параметры подключения к программе распознавания
             _TestFileApplicationPath = $@"Connect\Application\test.png";//Путь к тестовому файлу для проверки подключения к программе по распознованию
             _ArchivePath = $@"Path\Archive.df";//Путь к архиву
             _RegistryPath = $@"Path\Registry.df";//Путь к реестру
@@ -47,6 +49,14 @@ namespace SZMK
             get
             {
                 return _DirectoryProgramPath;
+            }
+        }
+
+        public String ConnectProgramPath
+        {
+            get
+            {
+                return _ConnectProgramPath;
             }
         }
 
@@ -78,6 +88,7 @@ namespace SZMK
 
             return Directory;
         }
+
         public String GetFileName(String Path)
         {
             String[] Temp = Path.Split('\\');

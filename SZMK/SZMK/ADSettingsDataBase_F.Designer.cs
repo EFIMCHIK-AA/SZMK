@@ -261,7 +261,7 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(396, 315);
             this.tableLayoutPanel1.TabIndex = 83;
             // 
-            // SettingsDataBase_F
+            // ADSettingsDataBase_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,9 +272,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "SettingsDataBase_F";
+            this.Name = "ADSettingsDataBase_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки базы данных";
+            this.Load += new System.EventHandler(this.ADSettingsDataBase_F_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
