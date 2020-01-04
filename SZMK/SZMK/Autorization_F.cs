@@ -73,13 +73,17 @@ namespace SZMK
                         break;
                     case 2: //КБ
                         KB_F KB = new KB_F();
+                        this.Hide();
                         KB.Show();
                         break;
                     case 3: //Архивариус
+                        ARArhive_F Arhive = new ARArhive_F();
+                        this.Hide();
+                        Arhive.Show();
                         break;
                     case 4://Сотрудник ПДО
                         break;
-                    case 5:
+                    case 5://Сотрудник ООП
                         break;
                     case 6:
                         break;

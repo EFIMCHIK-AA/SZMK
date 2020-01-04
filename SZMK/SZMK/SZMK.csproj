@@ -98,6 +98,36 @@
     <Compile Include="ADAdminstrator_F.Designer.cs">
       <DependentUpon>ADAdminstrator_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="ARArhive_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ARArhive_F.designer.cs">
+      <DependentUpon>ARArhive_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ARChangeOrder_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ARChangeOrder_F.Designer.cs">
+      <DependentUpon>ARChangeOrder_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ARDecode_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ARDecode_F.Designer.cs">
+      <DependentUpon>ARDecode_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ARReportOrderOfDate_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ARReportOrderOfDate_F.Designer.cs">
+      <DependentUpon>ARReportOrderOfDate_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ARSearchParam_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ARSearchParam_F.Designer.cs">
+      <DependentUpon>ARSearchParam_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="ByteScout.cs" />
     <Compile Include="KBChangeOrder_F.cs">
       <SubType>Form</SubType>
@@ -234,6 +264,21 @@
     <Compile Include="User.cs" />
     <EmbeddedResource Include="ADAdminstrator_F.resx">
       <DependentUpon>ADAdminstrator_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ARArhive_F.resx">
+      <DependentUpon>ARArhive_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ARChangeOrder_F.resx">
+      <DependentUpon>ARChangeOrder_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ARDecode_F.resx">
+      <DependentUpon>ARDecode_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ARReportOrderOfDate_F.resx">
+      <DependentUpon>ARReportOrderOfDate_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ARSearchParam_F.resx">
+      <DependentUpon>ARSearchParam_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KBChangeOrder_F.resx">
       <DependentUpon>KBChangeOrder_F.cs</DependentUpon>

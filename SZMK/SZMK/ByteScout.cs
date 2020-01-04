@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Sockets;
 
 namespace SZMK
 {
@@ -11,6 +13,13 @@ namespace SZMK
     {
         private String _ProgramPath;
         private String _DirectoryProgramPath;
+        private const int port = 49000;
+        private const string server = "192.168.1.105";
+        public delegate void LoadData(List<ScanSession> ScanSession);
+        public event LoadData Load;
+        public delegate void FailData(String FileName);
+        public event FailData Fail;
+        public List<ScanSession> _DecodeSession;
 
         public ByteScout()
         {
@@ -18,6 +27,7 @@ namespace SZMK
             {
                 throw new Exception("Ошибка при получении конфигурационных путей программы распознавания");
             }
+            _DecodeSession = new List<ScanSession>();
         }
 
         public bool GetParametersConnect()
@@ -131,6 +141,141 @@ namespace SZMK
                 if (!String.IsNullOrEmpty(value))
                 {
                     _DirectoryProgramPath = value;
+                }
+            }
+        }
+        public void ClearData()
+        {
+            _DecodeSession.Clear();
+        }
+        public String SendAndRead(String FileName)
+        {
+            TcpClient client = new TcpClient(server, port);
+            String responseData = String.Empty;
+            using (FileStream inputStream = File.OpenRead(FileName))
+            {
+                using (NetworkStream outputStream = client.GetStream())
+                {
+                    using (BinaryWriter writer = new BinaryWriter(outputStream))
+                    {
+                        long lenght = inputStream.Length;
+                        long totalBytes = 0;
+                        int readBytes = 0;
+                        byte[] buffer = new byte[2048];
+                        writer.Write(SystemArgs.Path.GetFileName(FileName));
+                        writer.Write(lenght);
+                        do
+                        {
+                            readBytes = inputStream.Read(buffer, 0, buffer.Length);
+                            outputStream.Write(buffer, 0, readBytes);
+                            totalBytes += readBytes;
+                        } while (client.Connected && totalBytes < lenght);
+                        Byte[] readingData = new Byte[256];
+                        StringBuilder completeMessage = new StringBuilder();
+                        int numberOfBytesRead = 0;
+                        do
+                        {
+                            numberOfBytesRead = outputStream.Read(readingData, 0, readingData.Length);
+                            completeMessage.AppendFormat("{0}", Encoding.UTF8.GetString(readingData, 0, numberOfBytesRead));
+                        }
+                        while (outputStream.DataAvailable);
+                        responseData = completeMessage.ToString();
+                        if (AddDecodeSession(responseData))
+                        {
+                            Load?.Invoke(_DecodeSession);
+                        }
+                        else
+                        {
+                            Fail?.Invoke(FileName);
+                        }
+
+                    }
+                }
+            }
+            client.Close();
+            return responseData;
+        }
+        public bool CheckedUniqueList(String Message)
+        {
+            foreach (var item in _DecodeSession)
+            {
+                if (item._DateMatrix.Equals(Message))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public bool CheckConnect()
+        {
+            try
+            {
+                TcpClient client = new TcpClient(server, port);
+                String responseData = String.Empty;
+                using (FileStream inputStream = File.OpenRead(SystemArgs.Path.TestFileApplicationPath))
+                {
+                    using (NetworkStream outputStream = client.GetStream())
+                    {
+                        using (BinaryWriter writer = new BinaryWriter(outputStream))
+                        {
+                            long lenght = inputStream.Length;
+                            long totalBytes = 0;
+                            int readBytes = 0;
+                            byte[] buffer = new byte[2048];
+                            writer.Write(SystemArgs.Path.GetFileName(SystemArgs.Path.TestFileApplicationPath));
+                            writer.Write(lenght);
+                            do
+                            {
+                                readBytes = inputStream.Read(buffer, 0, buffer.Length);
+                                outputStream.Write(buffer, 0, readBytes);
+                                totalBytes += readBytes;
+                            } while (client.Connected && totalBytes < lenght);
+
+                        }
+                    }
+                }
+                client.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public String GetPathTempFile(String FileName, int Index)
+        {
+            Image myImage = Image.FromFile(FileName);
+            Bitmap source = new Bitmap(myImage);
+            Bitmap CroppedImage = source.Clone(new System.Drawing.Rectangle(source.Width / 2, source.Height / 2, source.Width / 2, source.Height / 2), source.PixelFormat);
+            string path = @"TempFile\" + Index + ".jpg";
+            CroppedImage = new Bitmap(CroppedImage, new Size(source.Width / 5, source.Height / 5));
+            CroppedImage.Save(path);
+            myImage.Dispose();
+            return path;
+        }
+        private bool AddDecodeSession(String DataMatrix)
+        {
+            if (DataMatrix.Split('_').Length != 6)
+            {
+                return false;
+            }
+            else
+            {
+                if (CheckedUniqueList(DataMatrix))
+                {
+                    if (!SystemArgs.Request.CheckedUniqueOrderDB(DataMatrix))
+                    {
+                        _DecodeSession.Add(new ScanSession(DataMatrix, true));
+                    }
+                    else
+                    {
+                        _DecodeSession.Add(new ScanSession(DataMatrix, false));
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
                 }
             }
         }

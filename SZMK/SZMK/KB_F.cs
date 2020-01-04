@@ -22,6 +22,7 @@ namespace SZMK
             {
                 Order_DGV.AutoGenerateColumns = false;
                 Order_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                Order_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 Load_F Dialog = new Load_F();
                 Dialog.Show();
                 SystemArgs.MobileApplication = new MobileApplication();
@@ -31,24 +32,18 @@ namespace SZMK
                 SystemArgs.Excel = new Excel();
                 SystemArgs.Template = new Template();
                 ItemsFilter();
-                if (SystemArgs.Request.GetAllBlankOrder())
+                if (SystemArgs.Request.GetAllBlankOrder() && SystemArgs.Request.GetAllStatus() && SystemArgs.Request.GetAllOrders())
                 {
-                    if (SystemArgs.Request.GetAllStatus())
+                    if (SystemArgs.Orders.Count() <= 0)
                     {
-                        if (SystemArgs.Request.GetAllOrders())
-                        {
-                            if (SystemArgs.Orders.Count() <= 0)
-                            {
-                                ChangeOrder_TSB.Enabled = false;
-                                DeleteOrder_TSB.Enabled = false;
-                            }
-                            Display(SystemArgs.Orders);
-                        }
-                        else
-                        {
-                            throw new Exception("Ошибка загрузки данных из базы");
-                        }
+                        EnableButton(false);
+
                     }
+                    Display(SystemArgs.Orders);
+                }
+                else
+                {
+                    throw new Exception("Ошибка загрузки данных из базы");
                 }
 
                 Thread.Sleep(2000);
@@ -302,14 +297,26 @@ namespace SZMK
             if (Filter())
             {
                 View = new BindingListView<Order>(List.Where(p=>p.Status.IDPosition==SystemArgs.User.GetPosition().ID).ToList());
+                Order_DGV.DataSource = null;
                 Order_DGV.DataSource = View;
                 CountOrder_TB.Text = View.Count.ToString();
+                if (View.Count > 0) 
+                {
+                    EnableButton(true);
+                }
+                else
+                {
+                    EnableButton(false);
+                }
             }
             else
             {
                 View = new BindingListView<Order>(List);
+                Order_DGV.DataSource = null;
                 Order_DGV.DataSource = View;
                 CountOrder_TB.Text = View.Count.ToString();
+                EnableButton(false);
+
             }
         }
 
@@ -318,8 +325,6 @@ namespace SZMK
             if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex < View.Count())
             {
                 Order_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                ChangeOrder_TSB.Enabled = true;
-                DeleteOrder_TSB.Enabled = true;
 
                 Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
 
@@ -335,10 +340,6 @@ namespace SZMK
             }
             else
             {
-
-                ChangeOrder_TSB.Enabled = false;
-                DeleteOrder_TSB.Enabled = false;
-
                 DateCreate_TB.Text = String.Empty;
                 Executor_TB.Text = String.Empty;
                 Number_TB.Text = String.Empty;
@@ -546,6 +547,23 @@ namespace SZMK
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
+            }
+        }
+        private void EnableButton(Boolean Enable)
+        {
+            if (Enable)
+            {
+                ChangeOrder_TSB.Enabled = true;
+                DeleteOrder_TSB.Enabled = true;
+                ChangeOrder_TSM.Enabled = true;
+                DeleteOrder_TSM.Enabled = true;
+            }
+            else
+            {
+                ChangeOrder_TSB.Enabled = false;
+                DeleteOrder_TSB.Enabled = false;
+                ChangeOrder_TSM.Enabled = false;
+                DeleteOrder_TSM.Enabled = false;
             }
         }
     }

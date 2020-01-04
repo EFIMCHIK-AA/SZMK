@@ -201,7 +201,7 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(539, 286);
             this.tableLayoutPanel1.TabIndex = 75;
             // 
-            // SettingsMobileApp_F
+            // ADSettingsMobileApp_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,7 +212,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "SettingsMobileApp_F";
+            this.Name = "ADSettingsMobileApp_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки мобильного приложения";
             ((System.ComponentModel.ISupportInitialize)(this.QR_PB)).EndInit();
