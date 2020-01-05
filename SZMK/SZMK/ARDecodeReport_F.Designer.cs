@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.Close_B = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.Report_DGV = new System.Windows.Forms.DataGridView();
             this.DataMatrix = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Discribe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Close_B = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Report_DGV)).BeginInit();
             this.SuspendLayout();
@@ -54,6 +54,21 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(733, 496);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // Close_B
+            // 
+            this.Close_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Close_B.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.Close_B.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Close_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Close_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.Close_B.Location = new System.Drawing.Point(5, 450);
+            this.Close_B.Margin = new System.Windows.Forms.Padding(5, 0, 5, 5);
+            this.Close_B.Name = "Close_B";
+            this.Close_B.Size = new System.Drawing.Size(723, 42);
+            this.Close_B.TabIndex = 24;
+            this.Close_B.Text = "Закрыть";
+            this.Close_B.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -90,6 +105,8 @@
             this.Report_DGV.RowHeadersVisible = false;
             this.Report_DGV.Size = new System.Drawing.Size(723, 390);
             this.Report_DGV.TabIndex = 1;
+            this.Report_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Report_DGV_CellFormatting);
+            this.Report_DGV.SelectionChanged += new System.EventHandler(this.Report_DGV_SelectionChanged);
             // 
             // DataMatrix
             // 
@@ -107,21 +124,6 @@
             this.Discribe.Name = "Discribe";
             this.Discribe.ReadOnly = true;
             // 
-            // Close_B
-            // 
-            this.Close_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.Close_B.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.Close_B.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Close_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Close_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.Close_B.Location = new System.Drawing.Point(5, 450);
-            this.Close_B.Margin = new System.Windows.Forms.Padding(5, 0, 5, 5);
-            this.Close_B.Name = "Close_B";
-            this.Close_B.Size = new System.Drawing.Size(723, 42);
-            this.Close_B.TabIndex = 24;
-            this.Close_B.Text = "Закрыть";
-            this.Close_B.UseVisualStyleBackColor = false;
-            // 
             // ARDecodeReport_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -133,7 +135,9 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ARDecodeReport_F";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Отчет по перемещенным файлам";
+            this.Load += new System.EventHandler(this.ARDecodeReport_F_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Report_DGV)).EndInit();
@@ -145,9 +149,9 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DataMatrix;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Discribe;
         public System.Windows.Forms.DataGridView Report_DGV;
         private System.Windows.Forms.Button Close_B;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataMatrix;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Discribe;
     }
 }

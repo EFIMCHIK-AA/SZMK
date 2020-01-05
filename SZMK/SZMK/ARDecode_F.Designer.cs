@@ -75,8 +75,9 @@
             // CreateAct_TSM
             // 
             this.CreateAct_TSM.Name = "CreateAct_TSM";
-            this.CreateAct_TSM.Size = new System.Drawing.Size(178, 22);
+            this.CreateAct_TSM.Size = new System.Drawing.Size(180, 22);
             this.CreateAct_TSM.Text = "Сформировать акт";
+            this.CreateAct_TSM.Click += new System.EventHandler(this.CreateAct_TSM_Click);
             // 
             // tableLayoutPanel1
             // 

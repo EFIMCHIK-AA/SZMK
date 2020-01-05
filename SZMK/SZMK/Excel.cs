@@ -12,61 +12,80 @@ namespace SZMK
 {
     public class Excel
     {
-        public Boolean CreateAndExportActs(List<ScanSession> ScanSession)
+        public Boolean CreateAndExportActs(List<ScanSession> ScanSession,Boolean Added)
         {
             SaveFileDialog SaveAct = new SaveFileDialog();
             String date = DateTime.Now.ToString();
             date = date.Replace(".", "_");
             date = date.Replace(":", "_");
             SaveAct.FileName = "Акты от " + date;
-            SaveAct.Filter = "Excel Files .xlsx|*.xlsx";
             FileInfo fInfoSrcUnique = new FileInfo(SystemArgs.Path.TemplateActUniquePath);
             FileInfo fInfoSrcNoUnique = new FileInfo(SystemArgs.Path.TemplateActNoUniquePath);
+            String Status = (from p in SystemArgs.Statuses
+                             where p.IDPosition == SystemArgs.User.GetPosition().ID
+                             select p.Name).Single();
 
             if (SaveAct.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
+                    String UniqueFileName = "";
+                    String NoUniqueFileName = "";
+                    if (!Added)
+                    {
+                        UniqueFileName = SaveAct.FileName + @"\Акт от " + date + " найденных чертежей.xlsx";
+                        NoUniqueFileName = SaveAct.FileName + @"\Акт от " + date + " не найденных чертежей.xlsx";
+                    }
+                    else
+                    {
+                        UniqueFileName = SaveAct.FileName + @"\Акт от " + date + " уникальных чертежей.xlsx";
+                        NoUniqueFileName = SaveAct.FileName + @"\Акт от " + date + " не уникальных чертежей.xlsx";
+                    }
                     Directory.CreateDirectory(SaveAct.FileName.Replace(".xlsx", ""));
-                    new ExcelPackage(fInfoSrcUnique).File.CopyTo(SaveAct.FileName + @"\Акт от " + date + " уникальных чертежей.xlsx");
-                    new ExcelPackage(fInfoSrcNoUnique).File.CopyTo(SaveAct.FileName + @"\Акт от " + date + " не уникальных чертежей.xlsx");
+                    new ExcelPackage(fInfoSrcUnique).File.CopyTo(UniqueFileName);
+                    new ExcelPackage(fInfoSrcNoUnique).File.CopyTo(NoUniqueFileName);
 
-                    ExcelPackage wbUnique = new ExcelPackage(new System.IO.FileInfo(SaveAct.FileName + @"\Акт от " + date + " уникальных чертежей.xlsx"));
+                    ExcelPackage wbUnique = new ExcelPackage(new System.IO.FileInfo(UniqueFileName));
                     ExcelWorksheet wsUnique = wbUnique.Workbook.Worksheets[1];
-                    var rowCntAct = wsUnique.Dimension.End.Row;
 
-                    ExcelPackage wbNoUnique = new ExcelPackage(new System.IO.FileInfo(SaveAct.FileName + @"\Акт от " + date + " не уникальных чертежей.xlsx"));
+                    ExcelPackage wbNoUnique = new ExcelPackage(new System.IO.FileInfo(NoUniqueFileName));
                     ExcelWorksheet wsNoUnique = wbNoUnique.Workbook.Worksheets[1];
-                    rowCntAct = wsNoUnique.Dimension.End.Row;
 
                     if (SaveAct.FileName.IndexOf(@":\") != -1)
                     {
+                        if (!Added)
+                        {
+                            wsUnique.Cells[1, 1].Value = "Акт найденных чертежей";
+                            wsNoUnique.Cells[1, 1].Value = "Акт не найденных чертежей";
+                        }
                         for (Int32 i = 0; i < ScanSession.Count; i++)
                         {
                             String[] SplitDataMatrix = ScanSession[i].DataMatrix.Split('_');
                             if (ScanSession[i].Unique)
                             {
-                                wsUnique.Cells[i + rowCntAct + 1, 1].Value = SplitDataMatrix[0];
-                                wsUnique.Cells[i + rowCntAct + 1, 2].Value = Convert.ToInt64(SplitDataMatrix[1]);
-                                wsUnique.Cells[i + rowCntAct + 1, 3].Value = SplitDataMatrix[2];
-                                wsUnique.Cells[i + rowCntAct + 1, 4].Value = SplitDataMatrix[3];
-                                wsUnique.Cells[i + rowCntAct + 1, 5].Value = Convert.ToDouble(SplitDataMatrix[4]);
-                                wsUnique.Cells[i + rowCntAct + 1, 6].Value = Convert.ToDouble(SplitDataMatrix[5]);
-                                wsUnique.Cells[i + rowCntAct + 1, 7].Value = DateTime.Now.ToShortDateString();
-                                wsUnique.Cells[i + rowCntAct + 1, 8].Value = "Добавлены начальником групп КБ";
-                                wsUnique.Cells[i + rowCntAct + 1, 9].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
+                                int rowCntActUnique = wsUnique.Dimension.End.Row;
+                                wsUnique.Cells[rowCntActUnique + 1, 1].Value = SplitDataMatrix[0];
+                                wsUnique.Cells[rowCntActUnique + 1, 2].Value = Convert.ToInt64(SplitDataMatrix[1]);
+                                wsUnique.Cells[rowCntActUnique + 1, 3].Value = SplitDataMatrix[2];
+                                wsUnique.Cells[rowCntActUnique + 1, 4].Value = SplitDataMatrix[3];
+                                wsUnique.Cells[rowCntActUnique + 1, 5].Value = Convert.ToDouble(SplitDataMatrix[4]);
+                                wsUnique.Cells[rowCntActUnique + 1, 6].Value = Convert.ToDouble(SplitDataMatrix[5]);
+                                wsUnique.Cells[rowCntActUnique + 1, 7].Value = DateTime.Now.ToShortDateString();
+                                wsUnique.Cells[rowCntActUnique + 1, 8].Value = Status;
+                                wsUnique.Cells[rowCntActUnique + 1, 9].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
                             }
                             else
                             {
-                                wsNoUnique.Cells[i + rowCntAct + 1, 1].Value = SplitDataMatrix[0];
-                                wsNoUnique.Cells[i + rowCntAct + 1, 2].Value = Convert.ToInt64(SplitDataMatrix[1]);
-                                wsNoUnique.Cells[i + rowCntAct + 1, 3].Value = SplitDataMatrix[2];
-                                wsNoUnique.Cells[i + rowCntAct + 1, 4].Value = SplitDataMatrix[3];
-                                wsNoUnique.Cells[i + rowCntAct + 1, 5].Value = Convert.ToDouble(SplitDataMatrix[4]);
-                                wsNoUnique.Cells[i + rowCntAct + 1, 6].Value = Convert.ToDouble(SplitDataMatrix[5]);
-                                wsNoUnique.Cells[i + rowCntAct + 1, 7].Value = DateTime.Now.ToShortDateString();
-                                wsNoUnique.Cells[i + rowCntAct + 1, 8].Value = "Добавлены начальником групп КБ";
-                                wsNoUnique.Cells[i + rowCntAct + 1, 9].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
+                                int rowCntActNoUnique = wsNoUnique.Dimension.End.Row;
+                                wsNoUnique.Cells[rowCntActNoUnique + 1, 1].Value = SplitDataMatrix[0];
+                                wsNoUnique.Cells[rowCntActNoUnique + 1, 2].Value = Convert.ToInt64(SplitDataMatrix[1]);
+                                wsNoUnique.Cells[rowCntActNoUnique + 1, 3].Value = SplitDataMatrix[2];
+                                wsNoUnique.Cells[rowCntActNoUnique + 1, 4].Value = SplitDataMatrix[3];
+                                wsNoUnique.Cells[rowCntActNoUnique + 1, 5].Value = Convert.ToDouble(SplitDataMatrix[4]);
+                                wsNoUnique.Cells[rowCntActNoUnique + 1, 6].Value = Convert.ToDouble(SplitDataMatrix[5]);
+                                wsNoUnique.Cells[rowCntActNoUnique + 1, 7].Value = DateTime.Now.ToShortDateString();
+                                wsNoUnique.Cells[rowCntActNoUnique + 1, 8].Value = Status;
+                                wsNoUnique.Cells[rowCntActNoUnique + 1, 9].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
                             }
                         }
                         int lastline = wsUnique.Dimension.End.Row;

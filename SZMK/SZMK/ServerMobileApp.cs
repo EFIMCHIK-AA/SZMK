@@ -47,16 +47,33 @@ namespace SZMK
         {
             if (CheckedUniqueList(e))
             {
-                if (SystemArgs.Request.CheckedUniqueOrderDB(e.MessageString))
+                try
                 {
-                    _ScanSession.Add(new ScanSession(e.MessageString, true));
+                    String[] ValidationDataMatrix = e.MessageString.Split('_');
+                    if (ValidationDataMatrix.Length != 6)
+                    {
+                        throw new Exception("В DataMatrix менее 6 полей");
+                    }
+                    Int32 List = Convert.ToInt32(ValidationDataMatrix[1]);
+                    if (SystemArgs.Request.CheckedUniqueOrderDB(e.MessageString))
+                    {
+                        _ScanSession.Add(new ScanSession(e.MessageString, true));
 
+                    }
+                    else
+                    {
+                        _ScanSession.Add(new ScanSession(e.MessageString, false));
+                    }
+                    Load?.Invoke(_ScanSession);
                 }
-                else
+                catch(FormatException)
                 {
-                    _ScanSession.Add(new ScanSession(e.MessageString,false));
+                    MessageBox.Show("Неверный формат DataMatrix, лист должен быть целым числом", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                Load?.Invoke(_ScanSession);
+                catch(Exception E)
+                {
+                    MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         private bool CheckedUniqueList(SimpleTCP.Message e)

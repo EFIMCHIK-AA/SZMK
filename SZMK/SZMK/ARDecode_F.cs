@@ -42,7 +42,7 @@ namespace SZMK
 
                 foreach (String FileName in Opd.FileNames)
                 {
-                    Status_TB.AppendText($"Файл {SystemArgs.Path.GetFileName(FileName)} обрабатывается, пожалуйста подождите..." + Environment.NewLine);
+                    Status_TB.AppendText($"Файл" +Environment.NewLine + SystemArgs.Path.GetFileName(FileName) + "обрабатывается, пожалуйста подождите..." + Environment.NewLine);
 
                     Status_TB.AppendText($">{i + 1}|{CountFile}<" + Environment.NewLine);
 
@@ -101,7 +101,7 @@ namespace SZMK
         }
         private void LoadToDGVAndTB(List<ScanSession> DecodeSession)
         {
-            Status_TB.AppendText($"Получены данные {DecodeSession[DecodeSession.Count - 1].DataMatrix}" + Environment.NewLine);
+            Status_TB.AppendText($"Получены данные"+Environment.NewLine+ DecodeSession[DecodeSession.Count - 1].DataMatrix + Environment.NewLine);
             Scan_DGV.Rows.Add();
             Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = DecodeSession[DecodeSession.Count - 1].DataMatrix;
             if (DecodeSession[DecodeSession.Count - 1].Unique)
@@ -113,6 +113,22 @@ namespace SZMK
             {
                 Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Не найден";
                 Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Red;
+            }
+        }
+
+        private void CreateAct_TSM_Click(object sender, EventArgs e)
+        {
+            if (SystemArgs.ByteScout._DecodeSession.Count != 0)
+            {
+                if (SystemArgs.Excel.CreateAndExportActs(SystemArgs.ByteScout._DecodeSession, false))
+                {
+                    MessageBox.Show("Акты успешно сформированы и сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                };
+            }
+            else
+            {
+                MessageBox.Show("Невозможно сформировать акт, нет данных", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
         }
     }

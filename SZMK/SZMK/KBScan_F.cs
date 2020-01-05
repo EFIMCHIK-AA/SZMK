@@ -53,7 +53,7 @@ namespace SZMK
         {
             if (SystemArgs.ServerMobileApp._ScanSession.Count != 0)
             {
-                if (SystemArgs.Excel.CreateAndExportActs(SystemArgs.ServerMobileApp._ScanSession))
+                if (SystemArgs.Excel.CreateAndExportActs(SystemArgs.ServerMobileApp._ScanSession,true))
                 {
                     MessageBox.Show("Акты успешно сформированы и сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 };

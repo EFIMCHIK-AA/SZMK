@@ -265,7 +265,7 @@
             this.Weight_TB.Size = new System.Drawing.Size(302, 20);
             this.Weight_TB.TabIndex = 14;
             // 
-            // ChangeOrderKB_F
+            // KBChangeOrder_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -277,10 +277,10 @@
             this.MaximumSize = new System.Drawing.Size(412, 318);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(412, 318);
-            this.Name = "ChangeOrderKB_F";
+            this.Name = "KBChangeOrder_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Изменение данных чертежа";
-            this.Load += new System.EventHandler(this.ChangeOrderKB_F_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.KBChangeOrder_F_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

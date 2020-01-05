@@ -317,7 +317,7 @@
             this.Name = "ARChangeOrder_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Изменение данных чертежа";
-            this.Load += new System.EventHandler(this.ARChangeOrder_F_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ARChangeOrder_F_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

@@ -152,6 +152,7 @@ namespace SZMK
 
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
+                        ARDecodeReport_F Report = new ARDecodeReport_F();
                         for (int i = 0; i < SystemArgs.ByteScout._DecodeSession.Count; i++)
                         {
                             if (SystemArgs.ByteScout._DecodeSession[i]._Unique)
@@ -168,13 +169,9 @@ namespace SZMK
                                 {
                                     SystemArgs.Orders.Remove(Temp);
                                     SystemArgs.Orders.Add(NewOrder);
-                                    String TempReport = "";
-                                    CopyFileToArhive(NewOrder.DataMatrix, Dialog.FileNames[i],TempReport);
-                                    ARDecodeReport_F Report = new ARDecodeReport_F();
                                     Report.Report_DGV.Rows.Add();
                                     Report.Report_DGV[0, Report.Report_DGV.Rows.Count - 1].Value = NewOrder.DataMatrix;
-                                    Report.Report_DGV[0, Report.Report_DGV.Rows.Count - 1].Value = TempReport;
-                                    Report.Show();
+                                    Report.Report_DGV[1, Report.Report_DGV.Rows.Count - 1].Value = CopyFileToArhive(NewOrder.DataMatrix, Dialog.FileNames[i]);
                                 }
                                 else
                                 {
@@ -182,6 +179,7 @@ namespace SZMK
                                 }
                             }
                         }
+                        Report.ShowDialog();
                     }
 
                     SystemArgs.ByteScout.ClearData();
@@ -200,17 +198,18 @@ namespace SZMK
             }
 
         }
-        private bool CopyFileToArhive(String DataMatrix, String FileName,String TempReport)
+        private String CopyFileToArhive(String DataMatrix, String FileName)
         {
             try
             {
                 String[] Temp = DataMatrix.Split('_');
+                String TextReport = "";
                 if (Directory.Exists($@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}"))
                 {
                     if (!File.Exists($@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}\{DataMatrix}.tiff"))
                     {
                         File.Copy(FileName, $@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}\{DataMatrix}.tiff");
-                        TempReport = $"Файл {DataMatrix}.tiff помещен в директорию {Temp[0]}" + Environment.NewLine;
+                        TextReport = $"Файл {DataMatrix}.tiff помещен в директорию {Temp[0]}" + Environment.NewLine;
                         try
                         {
                             File.Delete(FileName);
@@ -221,6 +220,10 @@ namespace SZMK
 
                         }
 
+                    }
+                    else
+                    {
+                        TextReport = $"Файл {DataMatrix}.tiff уже сущетвует в директории {Temp[0]}" + Environment.NewLine;
                     }
                 }
                 else
@@ -230,7 +233,7 @@ namespace SZMK
                     if (!File.Exists($@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}\{DataMatrix}.tiff"))
                     {
                         File.Copy(FileName, $@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}\{DataMatrix}.tiff");
-                        TempReport = $"Директория {Temp[0]} создана. Файл {DataMatrix}.tiff помещен в директорию" + Environment.NewLine;
+                        TextReport = $"Директория {Temp[0]} создана. Файл {DataMatrix}.tiff помещен в директорию" + Environment.NewLine;
                         try
                         {
                             File.Delete(FileName);
@@ -241,12 +244,16 @@ namespace SZMK
 
                         }
                     }
+                    else
+                    {
+                        TextReport = $"Файл {DataMatrix}.tiff уже сущетвует в директории {Temp[0]}" + Environment.NewLine;
+                    }
                 }
-                return true;
+                return TextReport;
             }
             catch
             {
-                return false;
+                throw new Exception("Ошибка перемещения файлов по директории");
             }
         }
         private bool ChangeOrder()
@@ -275,7 +282,6 @@ namespace SZMK
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         String NewDataMatrix = Dialog.Number_TB.Text + "_" + Dialog.List_TB.Text + "_" + Dialog.Mark_TB.Text + "_" + Dialog.Executor_TB.Text + "_" + Dialog.Lenght_TB.Text + "_" + Dialog.Weight_TB.Text;
-                        Result = Result.Where(p => p.Status == (Status)Dialog.Status_CB.SelectedItem).ToList();
                         Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Convert.ToInt64(Dialog.List_TB.Text), Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), Temp.User, Temp.BlankOrder);
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
                         {
