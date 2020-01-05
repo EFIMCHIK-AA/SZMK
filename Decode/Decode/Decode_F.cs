@@ -28,33 +28,37 @@ namespace Decode
                 if (SystemArgs.Server.Start())
                 {
                     SystemArgs.Server.Load += AppendToTB;
+                    SystemArgs.PrintLog("Сервер успешно запущен "+DateTime.Now.ToString());
                 }
                 else
                 {
                     MessageBox.Show("Сервер не был запущен", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    SystemArgs.PrintLog("Ошибка запуска сервера " + DateTime.Now.ToString());
                 }
             }
             else
             {
                 MessageBox.Show("Не удалось прочитать данные для запуска сервера", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SystemArgs.PrintLog("Не удалось прочитать данные для запуска сервера " + DateTime.Now.ToString());
             }
         }
 
         private void Setting_TSM_Click(object sender, EventArgs e)
         {
-            Setting_F Dialog = new Setting_F();
-            Dialog.IP_TB.Text = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
-            Dialog.Port_TB.Text = SystemArgs.Server._Port;
-            if (Dialog.ShowDialog() == DialogResult.OK)
-            {
-                
-            }
+                Setting_F Dialog = new Setting_F();
+                Dialog.IP_TB.Text = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
+                Dialog.Port_TB.Text = SystemArgs.Server._Port;
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
         }
         private void AppendToTB(String Text)
         {
             Status_TB.Invoke((MethodInvoker)delegate ()
             {
                 Status_TB.AppendText(Text+Environment.NewLine);
+                SystemArgs.PrintLog(Text+" " + DateTime.Now.ToString());
             });
         }
         private void Closing(object sender, FormClosingEventArgs e)
@@ -66,16 +70,19 @@ namespace Decode
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
             e.Cancel = true;
+            SystemArgs.PrintLog("Сервер свернут в трей " + DateTime.Now.ToString());
         }
 
         private void notifyIcon1_Click(object sender, EventArgs e)
         {
             this.ShowInTaskbar = true;
             this.WindowState = FormWindowState.Normal;
+            SystemArgs.PrintLog("Сервер развернут из трея " + DateTime.Now.ToString());
         }
 
         private void Exit_TSM_Click(object sender, EventArgs e)
         {
+            SystemArgs.PrintLog("Закрытие сервера " + DateTime.Now.ToString());
             Environment.Exit(0);
         }
     }

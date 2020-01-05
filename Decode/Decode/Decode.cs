@@ -42,11 +42,13 @@ namespace Decode
                         cash = "Не правильно";
                         return cash;
                     }
+
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return ex.Message;
+                SystemArgs.PrintLog(e.Message + " " + DateTime.Now.ToString());
+                return e.Message;
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Drawing;
@@ -205,20 +206,24 @@ namespace SZMK
         {
             _DecodeSession.Clear();
         }
-        public String SendAndRead(String FileName)
+        public String SendAndRead(String FileName,String OldFileName)
         {
-            TcpClient client = new TcpClient(_Server, Convert.ToInt32(_Port));
+            TcpClient tcpClient = new TcpClient(_Server,Convert.ToInt32(_Port));
             String responseData = String.Empty;
             using (FileStream inputStream = File.OpenRead(FileName))
             {
-                using (NetworkStream outputStream = client.GetStream())
+                using (NetworkStream outputStream = tcpClient.GetStream())
                 {
                     using (BinaryWriter writer = new BinaryWriter(outputStream))
                     {
+                        bool CloseConnect = false;
                         long lenght = inputStream.Length;
                         long totalBytes = 0;
                         int readBytes = 0;
                         byte[] buffer = new byte[2048];
+                        writer.Write(CloseConnect);
+                        writer.Write(SystemArgs.User.Login);
+                        writer.Write(OldFileName);
                         writer.Write(SystemArgs.Path.GetFileName(FileName));
                         writer.Write(lenght);
                         do
@@ -226,7 +231,7 @@ namespace SZMK
                             readBytes = inputStream.Read(buffer, 0, buffer.Length);
                             outputStream.Write(buffer, 0, readBytes);
                             totalBytes += readBytes;
-                        } while (client.Connected && totalBytes < lenght);
+                        } while (tcpClient.Connected && totalBytes < lenght);
                         Byte[] readingData = new Byte[256];
                         StringBuilder completeMessage = new StringBuilder();
                         int numberOfBytesRead = 0;
@@ -243,13 +248,13 @@ namespace SZMK
                         }
                         else
                         {
-                            Fail?.Invoke(FileName);
+                            Fail?.Invoke(OldFileName);
                         }
 
                     }
                 }
             }
-            client.Close();
+            tcpClient.Close();
             return responseData;
         }
         public bool CheckedUniqueList(String Message)
@@ -267,31 +272,12 @@ namespace SZMK
         {
             try
             {
-                TcpClient client = new TcpClient(_Server, Convert.ToInt32(_Port));
-                String responseData = String.Empty;
-                using (FileStream inputStream = File.OpenRead(SystemArgs.Path.TestFileApplicationPath))
-                {
-                    using (NetworkStream outputStream = client.GetStream())
-                    {
-                        using (BinaryWriter writer = new BinaryWriter(outputStream))
-                        {
-                            long lenght = inputStream.Length;
-                            long totalBytes = 0;
-                            int readBytes = 0;
-                            byte[] buffer = new byte[2048];
-                            writer.Write(SystemArgs.Path.GetFileName(SystemArgs.Path.TestFileApplicationPath));
-                            writer.Write(lenght);
-                            do
-                            {
-                                readBytes = inputStream.Read(buffer, 0, buffer.Length);
-                                outputStream.Write(buffer, 0, readBytes);
-                                totalBytes += readBytes;
-                            } while (client.Connected && totalBytes < lenght);
-
-                        }
-                    }
-                }
-                client.Close();
+                TcpClient tcpClient = new TcpClient(_Server, Convert.ToInt32(_Port));
+                NetworkStream outputStream = tcpClient.GetStream();
+                BinaryWriter writer = new BinaryWriter(outputStream);
+                writer.Write(true);
+                writer.Write(SystemArgs.User.Login);
+                tcpClient.Close();
                 return true;
             }
             catch (Exception e)
@@ -307,6 +293,7 @@ namespace SZMK
             string path = @"TempFile\" + Index + ".jpg";
             CroppedImage = new Bitmap(CroppedImage, new Size(source.Width / 5, source.Height / 5));
             CroppedImage.Save(path);
+            CroppedImage.Dispose();
             myImage.Dispose();
             return path;
         }

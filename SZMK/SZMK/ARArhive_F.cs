@@ -25,6 +25,7 @@ namespace SZMK
                 Order_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 Load_F Dialog = new Load_F();
                 Dialog.Show();
+                SystemArgs.ByteScout = new ByteScout();
                 SystemArgs.MobileApplication = new MobileApplication();
                 SystemArgs.Orders = new List<Order>();
                 SystemArgs.BlankOrders = new List<BlankOrder>();
@@ -142,7 +143,7 @@ namespace SZMK
                 ARDecode_F Dialog = new ARDecode_F();
                 if (SystemArgs.ByteScout.CheckConnect())
                 {
-                    Dialog.ServerStatus_TB.Text = "Запущено";
+                    Dialog.ServerStatus_TB.Text = "Подключено";
                     Dialog.ServerStatus_TB.BackColor = Color.FromArgb(233, 245, 255);
                     Dialog.Status_TB.AppendText($"Ожидание распознования" + Environment.NewLine);
                     if (Dialog.ShowDialog() == DialogResult.OK)

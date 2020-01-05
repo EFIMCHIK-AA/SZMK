@@ -46,7 +46,7 @@ namespace SZMK
                     Status_TB.AppendText($">{i + 1}|{CountFile}<" + Environment.NewLine);
 
                     String CurrentInfoDataMatrix = "";
-                    CurrentInfoDataMatrix=SystemArgs.ByteScout.SendAndRead(SystemArgs.ByteScout.GetPathTempFile(FileName, i));
+                    CurrentInfoDataMatrix=SystemArgs.ByteScout.SendAndRead(SystemArgs.ByteScout.GetPathTempFile(FileName, i),SystemArgs.Path.GetFileName(FileName));
                     i++;
                 }
                 DeleteFilesAndDirectory();

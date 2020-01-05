@@ -25,15 +25,18 @@ namespace Decode
                     listener = new TcpListener(IPAddress.Any, Convert.ToInt32(SystemArgs.Server._Port));
                     listener.Start();
                     ListeningAsync();
+                    SystemArgs.PrintLog("Запущено слушание клиентов и найдена директория темповых файлов " + DateTime.Now.ToString());
                     return true;
                 }
                 else
                 {
+                    SystemArgs.PrintLog("Ошибка создания директории темповых файлов " + DateTime.Now.ToString());
                     return false;
                 }
             }
-            catch
+            catch(Exception e)
             {
+                SystemArgs.PrintLog(e.Message+" " + DateTime.Now.ToString());
                 return false;
             }
         }
@@ -47,12 +50,25 @@ namespace Decode
             {
                 while (true)
                 {
+                    String User="";
                     TcpClient client = listener.AcceptTcpClient();
                     using (NetworkStream inputStream = client.GetStream())
                     {
                         using (BinaryReader reader = new BinaryReader(inputStream))
                         {
-                            string filename = reader.ReadString();
+                            if (reader.ReadBoolean())
+                            {
+                                Load?.Invoke("Была проведена проверка соединения пользователем "+reader.ReadString());
+                                client.Close();
+                                continue;
+                            }
+                            else
+                            {
+                                User = reader.ReadString();
+                                Load?.Invoke("Был присоединен пользователь "+ User);
+                            }
+                            string OldFilename = reader.ReadString();
+                            string FileName = reader.ReadString();
                             long lenght = reader.ReadInt64();
                             using (FileStream outputStream = File.Open(Path.Combine(SystemArgs.Path.TempFile, Index + ".png"), FileMode.Create))
                             {
@@ -66,7 +82,7 @@ namespace Decode
                                     outputStream.Write(buffer, 0, readBytes);
                                     totalBytes += readBytes;
                                 } while (client.Connected && totalBytes < lenght);
-                                Load?.Invoke("Был получен файл: " + filename);
+                                Load?.Invoke("Был получен файл: " + OldFilename);
                             }
                             String Data = SystemArgs.Decode.TIFF(SystemArgs.Path.TempFile + @"\" + Index + ".png");
                             Byte[] responseData = Encoding.UTF8.GetBytes(Data);
@@ -74,14 +90,23 @@ namespace Decode
                             Load?.Invoke("Были отправлены данные: " + Data);
                             Index++;
                         }
-
                     }
                     client.Close();
+                    DirectoryInfo TempFiles = new DirectoryInfo(SystemArgs.Path.TempFile);
+                    if (TempFiles.GetFiles().Length >= 50)
+                    {
+                        foreach (FileInfo File in TempFiles.GetFiles())
+                        {
+                            File.Delete();
+                        }
+                    }
+                    Load?.Invoke("Был отключен пользователь " + User);
                 }
             }
             catch(Exception e)
             {
-                throw new Exception(e.Message);
+                SystemArgs.PrintLog(e.Message+" " + DateTime.Now.ToString());
+                ListeningAsync();
             }
         }
         public bool GetParametersConnect()
@@ -100,8 +125,9 @@ namespace Decode
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                SystemArgs.PrintLog(e.Message + " " + DateTime.Now.ToString());
                 return false;
             }
         }
@@ -124,8 +150,9 @@ namespace Decode
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                SystemArgs.PrintLog(e.Message + " " + DateTime.Now.ToString());
                 return false;
             }
         }
@@ -142,8 +169,9 @@ namespace Decode
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                SystemArgs.PrintLog(e.Message+" " + DateTime.Now.ToString());
                 return false;
             }
         }

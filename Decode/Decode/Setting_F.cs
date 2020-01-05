@@ -34,9 +34,11 @@ namespace Decode
                 }
                 Int32 Port = Convert.ToInt32(Port_TB.Text);
 
-                SystemArgs.Server._Port= Port_TB.Text.Trim();
+                SystemArgs.Server._Port = Port_TB.Text.Trim();
+
                 if (SystemArgs.Server.SetParametersConnect())
                 {
+                    SystemArgs.PrintLog("Обновлены параметры сервера порт: " + SystemArgs.Server._Port + " " + DateTime.Now.ToString());
                     MessageBox.Show("Параметры подключения успешно обновлены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -44,9 +46,11 @@ namespace Decode
             {
                 Port_TB.Focus();
                 MessageBox.Show("Порт подключения должен состоять из целых цифр", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             catch (Exception E)
             {
+                SystemArgs.PrintLog(E.Message + DateTime.Now.ToString());
                 MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
