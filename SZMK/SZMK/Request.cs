@@ -939,6 +939,74 @@ namespace SZMK
                 return false;
             }
         }
+        public Int64 GetIDOrder(String DataMatrix)
+        {
+            Int64 ID = 0;
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID\" FROM public.\"Orders\" WHERE \"DataMatrix\"='{DataMatrix}';", Connect))
+                    {
+                        using (var reader = Command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ID = reader.GetInt64(0);
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return ID;
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения ID чертежа");
+            }
+        }
+        public bool CheckedStatusOrderDB(Int64 IDStatus, String DataMatrix)
+        {
+            Int64 IDOrder = GetIDOrder(DataMatrix);
+            Boolean flag = false;
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT Count(\"AddStatus\".\"ID_Status\") FROM public.\"AddStatus\" WHERE \"ID_Status\"='{IDStatus - 1}' AND \"ID_Order\"='{IDOrder}';", Connect))
+                    {
+                        using (var reader = Command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.GetInt64(0) == 1)
+                                {
+                                    Int32 CheckNowStatus = (from p in SystemArgs.Orders
+                                                            where p.ID == IDOrder && p.Status.ID == IDStatus
+                                                            select p).Count();
+                                    if (CheckNowStatus == 0)
+                                    {
+                                        flag = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return flag;
+            }
+            catch
+            {
+                return flag;
+            }
+        }
         public bool CheckedUniqueOrderDB(String DataMatrix)
         {
             Boolean flag = false;

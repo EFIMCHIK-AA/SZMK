@@ -47,7 +47,7 @@ namespace Decode
             }
             catch (Exception e)
             {
-                SystemArgs.PrintLog(e.Message + " " + DateTime.Now.ToString());
+                SystemArgs.PrintLog(e.Message);
                 return e.Message;
             }
         }

@@ -28,18 +28,18 @@ namespace Decode
                 if (SystemArgs.Server.Start())
                 {
                     SystemArgs.Server.Load += AppendToTB;
-                    SystemArgs.PrintLog("Сервер успешно запущен "+DateTime.Now.ToString());
+                    SystemArgs.PrintLog("Сервер успешно запущен");
                 }
                 else
                 {
                     MessageBox.Show("Сервер не был запущен", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    SystemArgs.PrintLog("Ошибка запуска сервера " + DateTime.Now.ToString());
+                    SystemArgs.PrintLog("Ошибка запуска сервера");
                 }
             }
             else
             {
                 MessageBox.Show("Не удалось прочитать данные для запуска сервера", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                SystemArgs.PrintLog("Не удалось прочитать данные для запуска сервера " + DateTime.Now.ToString());
+                SystemArgs.PrintLog("Не удалось прочитать данные для запуска сервера");
             }
         }
 
@@ -58,7 +58,7 @@ namespace Decode
             Status_TB.Invoke((MethodInvoker)delegate ()
             {
                 Status_TB.AppendText(Text+Environment.NewLine);
-                SystemArgs.PrintLog(Text+" " + DateTime.Now.ToString());
+                SystemArgs.PrintLog(Text);
             });
         }
         private void Closing(object sender, FormClosingEventArgs e)
@@ -70,19 +70,19 @@ namespace Decode
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
             e.Cancel = true;
-            SystemArgs.PrintLog("Сервер свернут в трей " + DateTime.Now.ToString());
+            SystemArgs.PrintLog("Сервер свернут в трей");
         }
 
         private void notifyIcon1_Click(object sender, EventArgs e)
         {
             this.ShowInTaskbar = true;
             this.WindowState = FormWindowState.Normal;
-            SystemArgs.PrintLog("Сервер развернут из трея " + DateTime.Now.ToString());
+            SystemArgs.PrintLog("Сервер развернут из трея");
         }
 
         private void Exit_TSM_Click(object sender, EventArgs e)
         {
-            SystemArgs.PrintLog("Закрытие сервера " + DateTime.Now.ToString());
+            SystemArgs.PrintLog("Закрытие сервера");
             Environment.Exit(0);
         }
     }

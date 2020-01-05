@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Threading;
 using Npgsql;
+using System.IO;
 using Equin.ApplicationFramework;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -164,32 +165,83 @@ namespace SZMK
                                 {
                                     SystemArgs.Orders.Remove(Temp);
                                     SystemArgs.Orders.Add(NewOrder);
+                                    String TempReport = "";
+                                    CopyFileToArhive(NewOrder.DataMatrix, Dialog.FileNames[i],TempReport);
+                                    ARDecodeReport_F Report = new ARDecodeReport_F();
+                                    Report.Report_DGV.Rows.Add();
+                                    Report.Report_DGV[0, Report.Report_DGV.Rows.Count - 1].Value = NewOrder.DataMatrix;
+                                    Report.Report_DGV[0, Report.Report_DGV.Rows.Count - 1].Value = TempReport;
+                                    Report.Show();
                                 }
                                 else
                                 {
                                     MessageBox.Show("Ошибка при добавлении в базу данных статуса для: " + SystemArgs.ByteScout._DecodeSession[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    return false;
                                 }
-
                             }
                         }
-                        return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
+                    SystemArgs.ByteScout.ClearData();
+                    return true;
                 }
                 else
                 {
-                    Dialog.ServerStatus_TB.Text = "Остановлен";
-                    Dialog.ServerStatus_TB.BackColor = Color.Red;
+                    SystemArgs.ByteScout.ClearData();
                     return false;
                 }
             }
             catch (Exception E)
             {
                 MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+        }
+        private bool CopyFileToArhive(String DataMatrix, String FileName,String TempReport)
+        {
+            try
+            {
+                String[] Temp = DataMatrix.Split('_');
+                if (Directory.Exists($@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}"))
+                {
+                    if (!File.Exists($@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}\{DataMatrix}.tiff"))
+                    {
+                        File.Copy(FileName, $@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}\{DataMatrix}.tiff");
+                        TempReport = $"Файл {DataMatrix}.tiff помещен в директорию {Temp[0]}" + Environment.NewLine;
+                        try
+                        {
+                            File.Delete(FileName);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ошибка доступа к файлу по пути " + FileName, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        }
+
+                    }
+                }
+                else
+                {
+                    Directory.CreateDirectory($@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}");
+
+                    if (!File.Exists($@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}\{DataMatrix}.tiff"))
+                    {
+                        File.Copy(FileName, $@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}\{DataMatrix}.tiff");
+                        TempReport = $"Директория {Temp[0]} создана. Файл {DataMatrix}.tiff помещен в директорию" + Environment.NewLine;
+                        try
+                        {
+                            File.Delete(FileName);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ошибка доступа к файлу по пути " + FileName, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        }
+                    }
+                }
+                return true;
+            }
+            catch
+            {
                 return false;
             }
         }

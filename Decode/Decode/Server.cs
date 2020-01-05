@@ -25,18 +25,18 @@ namespace Decode
                     listener = new TcpListener(IPAddress.Any, Convert.ToInt32(SystemArgs.Server._Port));
                     listener.Start();
                     ListeningAsync();
-                    SystemArgs.PrintLog("Запущено слушание клиентов и найдена директория темповых файлов " + DateTime.Now.ToString());
+                    SystemArgs.PrintLog("Запущено слушание клиентов и найдена директория темповых файлов");
                     return true;
                 }
                 else
                 {
-                    SystemArgs.PrintLog("Ошибка создания директории темповых файлов " + DateTime.Now.ToString());
+                    SystemArgs.PrintLog("Ошибка создания директории темповых файлов");
                     return false;
                 }
             }
             catch(Exception e)
             {
-                SystemArgs.PrintLog(e.Message+" " + DateTime.Now.ToString());
+                SystemArgs.PrintLog(e.Message);
                 return false;
             }
         }
@@ -105,7 +105,7 @@ namespace Decode
             }
             catch(Exception e)
             {
-                SystemArgs.PrintLog(e.Message+" " + DateTime.Now.ToString());
+                SystemArgs.PrintLog(e.Message);
                 ListeningAsync();
             }
         }
@@ -127,7 +127,7 @@ namespace Decode
             }
             catch (Exception e)
             {
-                SystemArgs.PrintLog(e.Message + " " + DateTime.Now.ToString());
+                SystemArgs.PrintLog(e.Message);
                 return false;
             }
         }
@@ -152,7 +152,7 @@ namespace Decode
             }
             catch (Exception e)
             {
-                SystemArgs.PrintLog(e.Message + " " + DateTime.Now.ToString());
+                SystemArgs.PrintLog(e.Message);
                 return false;
             }
         }
@@ -171,7 +171,7 @@ namespace Decode
             }
             catch (Exception e)
             {
-                SystemArgs.PrintLog(e.Message+" " + DateTime.Now.ToString());
+                SystemArgs.PrintLog(e.Message);
                 return false;
             }
         }

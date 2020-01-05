@@ -14,6 +14,7 @@ namespace SZMK
         {
             InitializeComponent();
         }
+        public List<String> FileNames;
 
         private void Change_B_Click(object sender, EventArgs e)
         {
@@ -47,6 +48,7 @@ namespace SZMK
 
                     String CurrentInfoDataMatrix = "";
                     CurrentInfoDataMatrix=SystemArgs.ByteScout.SendAndRead(SystemArgs.ByteScout.GetPathTempFile(FileName, i),SystemArgs.Path.GetFileName(FileName));
+                    FileNames.Add(FileName);
                     i++;
                 }
                 DeleteFilesAndDirectory();
@@ -57,6 +59,7 @@ namespace SZMK
 
         private void ARDecode_F_Load(object sender, EventArgs e)
         {
+            FileNames = new List<string>();
             Scan_DGV.AutoGenerateColumns = false;
             Scan_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             SystemArgs.ByteScout.Load += LoadToDGVAndTB;

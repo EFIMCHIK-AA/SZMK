@@ -116,3 +116,4 @@ C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.ADSettingsByteScout_F.resour
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.ADSettingsMails_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.ADSettingsMobileApp_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.ADSettingsProgram_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.ARDecodeReport_F.resources

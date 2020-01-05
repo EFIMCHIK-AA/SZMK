@@ -50,7 +50,7 @@ namespace Decode
             }
             catch (Exception E)
             {
-                SystemArgs.PrintLog(E.Message + DateTime.Now.ToString());
+                SystemArgs.PrintLog(E.Message);
                 MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }

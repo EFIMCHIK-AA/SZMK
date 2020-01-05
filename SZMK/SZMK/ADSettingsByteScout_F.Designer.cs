@@ -39,11 +39,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.OK_B = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.IP_TB = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.Port_TB = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.IP_TB = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -241,6 +241,56 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(505, 358);
             this.tableLayoutPanel1.TabIndex = 113;
             // 
+            // Port_TB
+            // 
+            this.Port_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.Port_TB, 2);
+            this.Port_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Port_TB.Location = new System.Drawing.Point(57, 249);
+            this.Port_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.Port_TB.Name = "Port_TB";
+            this.Port_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.Port_TB.Size = new System.Drawing.Size(443, 20);
+            this.Port_TB.TabIndex = 118;
+            this.Port_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(5, 247);
+            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(48, 24);
+            this.label6.TabIndex = 117;
+            this.label6.Text = "Порт";
+            // 
+            // IP_TB
+            // 
+            this.IP_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.IP_TB, 2);
+            this.IP_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.IP_TB.Location = new System.Drawing.Point(57, 225);
+            this.IP_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.IP_TB.Name = "IP_TB";
+            this.IP_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.IP_TB.Size = new System.Drawing.Size(443, 20);
+            this.IP_TB.TabIndex = 115;
+            this.IP_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(5, 223);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 24);
+            this.label2.TabIndex = 114;
+            this.label2.Text = "Адрес";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -257,56 +307,6 @@
             this.label1.TabIndex = 113;
             this.label1.Text = "Параметры подключения";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(5, 223);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 24);
-            this.label2.TabIndex = 114;
-            this.label2.Text = "Адрес";
-            // 
-            // IP_TB
-            // 
-            this.IP_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.IP_TB, 2);
-            this.IP_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.IP_TB.Location = new System.Drawing.Point(57, 225);
-            this.IP_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.IP_TB.Name = "IP_TB";
-            this.IP_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.IP_TB.Size = new System.Drawing.Size(443, 20);
-            this.IP_TB.TabIndex = 115;
-            this.IP_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(5, 247);
-            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(48, 24);
-            this.label6.TabIndex = 117;
-            this.label6.Text = "Порт";
-            // 
-            // Port_TB
-            // 
-            this.Port_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.Port_TB, 2);
-            this.Port_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Port_TB.Location = new System.Drawing.Point(57, 249);
-            this.Port_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.Port_TB.Name = "Port_TB";
-            this.Port_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Port_TB.Size = new System.Drawing.Size(443, 20);
-            this.Port_TB.TabIndex = 118;
-            this.Port_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ADSettingsByteScout_F
             // 

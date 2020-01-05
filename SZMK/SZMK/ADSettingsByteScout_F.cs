@@ -85,14 +85,20 @@ namespace SZMK
                 SystemArgs.ByteScout.Port = Port_TB.Text.Trim();
                 SystemArgs.ByteScout.ProgramPath = PrpgramPath_TB.Text.Trim();
                 SystemArgs.ByteScout.DirectoryProgramPath = DirectoryProgPath_TB.Text.Trim();
-
-                if (SystemArgs.ByteScout.SetParametersConnect())
+                if (SystemArgs.ByteScout.CheckConnect())
                 {
-                    MessageBox.Show("Параметры успешно записаны", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (SystemArgs.ByteScout.SetParametersConnect())
+                    {
+                        MessageBox.Show("Параметры успешно записаны", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        throw new Exception("Ошибка при записи директорий");
+                    }
                 }
                 else
                 {
-                    throw new Exception("Ошибка при записи директорий");
+                    throw new Exception("Ошибка при подключении к программе распознования");
                 }
             }
             catch (FormatException)

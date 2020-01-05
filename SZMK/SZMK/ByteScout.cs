@@ -307,7 +307,10 @@ namespace SZMK
             {
                 if (CheckedUniqueList(DataMatrix))
                 {
-                    if (!SystemArgs.Request.CheckedUniqueOrderDB(DataMatrix))
+                    Int64 IDStatus = (from p in SystemArgs.Statuses
+                                      where p.IDPosition == SystemArgs.User.GetPosition().ID
+                                      select p.ID).Single();
+                    if (SystemArgs.Request.CheckedStatusOrderDB(IDStatus,DataMatrix))
                     {
                         _DecodeSession.Add(new ScanSession(DataMatrix, true));
                     }

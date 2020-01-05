@@ -174,7 +174,7 @@ namespace SZMK
                                 Status TempStatus = (from p in SystemArgs.Statuses
                                                     where p.IDPosition==PositionID
                                                     select p).Single();
-                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, SystemArgs.User, TempBlank);
+                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4].Replace('.', ',')), Convert.ToDouble(SplitDataMatrix[5].Replace('.', ',')), TempStatus, SystemArgs.User, TempBlank);
                                 if (SystemArgs.Request.InsertOrder(TempOrder))
                                 {
                                     SystemArgs.Orders.Add(TempOrder);
@@ -197,8 +197,6 @@ namespace SZMK
                 }
                 else
                 {
-                    Dialog.ServerStatus_TB.Text = "Остановлен";
-                    Dialog.ServerStatus_TB.BackColor = Color.Red;
                     return false;
                 }
             }
