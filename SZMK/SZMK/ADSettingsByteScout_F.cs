@@ -85,6 +85,7 @@ namespace SZMK
                 SystemArgs.ByteScout.Port = Port_TB.Text.Trim();
                 SystemArgs.ByteScout.ProgramPath = PrpgramPath_TB.Text.Trim();
                 SystemArgs.ByteScout.DirectoryProgramPath = DirectoryProgPath_TB.Text.Trim();
+
                 if (SystemArgs.ByteScout.CheckConnect())
                 {
                     if (SystemArgs.ByteScout.SetParametersConnect())
@@ -98,7 +99,7 @@ namespace SZMK
                 }
                 else
                 {
-                    throw new Exception("Ошибка при подключении к программе распознования");
+                    throw new Exception("Ошибка при подключении к серверу распознавания");
                 }
             }
             catch (FormatException)

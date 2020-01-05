@@ -55,6 +55,7 @@ namespace SZMK
                 Textbox.BackColor = Color;
             }
         }
+
         private void GetStatus()
         {
             if (SystemArgs.DataBase.CheckConnect(SystemArgs.DataBase.ToString()))
@@ -91,6 +92,15 @@ namespace SZMK
             else
             {
                 SetStatus(StatusByteScout_TB, Color.Red, false);
+            }
+
+            if(SystemArgs.ByteScout.CheckConnect())
+            {
+                SetStatus(StatusServer_TB, Color.Lime, true);
+            }
+            else
+            {
+                SetStatus(StatusServer_TB, Color.Red, false);
             }
 
             if (SystemArgs.ServerMail.CheckFile())

@@ -97,6 +97,9 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.StatusServer_TB = new System.Windows.Forms.TextBox();
             this.Menu_MS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Users_DGV)).BeginInit();
             this.Tool_TS.SuspendLayout();
@@ -116,7 +119,7 @@
             this.распознаваниеToolStripMenuItem});
             this.Menu_MS.Location = new System.Drawing.Point(0, 0);
             this.Menu_MS.Name = "Menu_MS";
-            this.Menu_MS.Size = new System.Drawing.Size(1129, 25);
+            this.Menu_MS.Size = new System.Drawing.Size(1168, 25);
             this.Menu_MS.TabIndex = 9;
             this.Menu_MS.Text = "Menu_MS";
             this.Menu_MS.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Menu_MS_ItemClicked);
@@ -203,7 +206,7 @@
             this.label1.Location = new System.Drawing.Point(5, 10);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 10, 3, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(656, 35);
+            this.label1.Size = new System.Drawing.Size(695, 35);
             this.label1.TabIndex = 17;
             this.label1.Text = "Список пользователей";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -232,7 +235,7 @@
             this.Users_DGV.ReadOnly = true;
             this.Users_DGV.RowHeadersVisible = false;
             this.Users_DGV.RowHeadersWidth = 51;
-            this.Users_DGV.Size = new System.Drawing.Size(656, 563);
+            this.Users_DGV.Size = new System.Drawing.Size(695, 641);
             this.Users_DGV.TabIndex = 18;
             this.Users_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Users_DGV_CellFormatting);
             this.Users_DGV.SelectionChanged += new System.EventHandler(this.Users_DGV_SelectionChanged);
@@ -302,7 +305,7 @@
             this.Tool_TS.Location = new System.Drawing.Point(0, 25);
             this.Tool_TS.Margin = new System.Windows.Forms.Padding(5, 5, 0, 5);
             this.Tool_TS.Name = "Tool_TS";
-            this.Tool_TS.Size = new System.Drawing.Size(1129, 38);
+            this.Tool_TS.Size = new System.Drawing.Size(1168, 38);
             this.Tool_TS.TabIndex = 19;
             this.Tool_TS.Text = "toolStrip1";
             // 
@@ -682,11 +685,14 @@
             this.tableLayoutPanel1.Controls.Add(this.StatusConf_TB, 1, 16);
             this.tableLayoutPanel1.Controls.Add(this.StatusByteScout_TB, 1, 17);
             this.tableLayoutPanel1.Controls.Add(this.StatusMail_TB, 1, 18);
-            this.tableLayoutPanel1.Controls.Add(this.RefreshStatus_B, 0, 19);
+            this.tableLayoutPanel1.Controls.Add(this.RefreshStatus_B, 0, 21);
+            this.tableLayoutPanel1.Controls.Add(this.label21, 0, 19);
+            this.tableLayoutPanel1.Controls.Add(this.label22, 0, 20);
+            this.tableLayoutPanel1.Controls.Add(this.StatusServer_TB, 1, 20);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 21;
+            this.tableLayoutPanel1.RowCount = 23;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -705,10 +711,12 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(465, 628);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(465, 706);
             this.tableLayoutPanel1.TabIndex = 42;
             // 
             // label20
@@ -893,7 +901,7 @@
             this.RefreshStatus_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.RefreshStatus_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RefreshStatus_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.RefreshStatus_B.Location = new System.Drawing.Point(3, 587);
+            this.RefreshStatus_B.Location = new System.Drawing.Point(3, 666);
             this.RefreshStatus_B.Margin = new System.Windows.Forms.Padding(3, 7, 5, 3);
             this.RefreshStatus_B.Name = "RefreshStatus_B";
             this.RefreshStatus_B.Size = new System.Drawing.Size(457, 35);
@@ -914,16 +922,16 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(664, 628);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(703, 706);
             this.tableLayoutPanel2.TabIndex = 43;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(664, 63);
+            this.panel1.Location = new System.Drawing.Point(703, 63);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(465, 628);
+            this.panel1.Size = new System.Drawing.Size(465, 706);
             this.panel1.TabIndex = 44;
             // 
             // panel2
@@ -932,15 +940,56 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 63);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(664, 628);
+            this.panel2.Size = new System.Drawing.Size(703, 706);
             this.panel2.TabIndex = 45;
             // 
-            // Adminstrator_F
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
+            this.label21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tableLayoutPanel1.SetColumnSpan(this.label21, 2);
+            this.label21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label21.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.label21.Location = new System.Drawing.Point(3, 590);
+            this.label21.Margin = new System.Windows.Forms.Padding(3, 10, 5, 10);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(457, 35);
+            this.label21.TabIndex = 57;
+            this.label21.Text = "Подлючение к серверу распознавания";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.label22.Location = new System.Drawing.Point(3, 635);
+            this.label22.Margin = new System.Windows.Forms.Padding(3, 0, 2, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(127, 24);
+            this.label22.TabIndex = 58;
+            this.label22.Text = "Сервер";
+            // 
+            // StatusServer_TB
+            // 
+            this.StatusServer_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.StatusServer_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StatusServer_TB.Location = new System.Drawing.Point(134, 637);
+            this.StatusServer_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.StatusServer_TB.Name = "StatusServer_TB";
+            this.StatusServer_TB.ReadOnly = true;
+            this.StatusServer_TB.Size = new System.Drawing.Size(326, 20);
+            this.StatusServer_TB.TabIndex = 59;
+            this.StatusServer_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ADAdminstrator_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1129, 691);
+            this.ClientSize = new System.Drawing.Size(1168, 769);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Tool_TS);
@@ -949,7 +998,7 @@
             this.KeyPreview = true;
             this.MainMenuStrip = this.Menu_MS;
             this.MinimumSize = new System.Drawing.Size(1145, 730);
-            this.Name = "Adminstrator_F";
+            this.Name = "ADAdminstrator_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Администратор";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Adminstrator_F_FormClosing);
@@ -1036,5 +1085,8 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox StatusMail_TB;
         public System.Windows.Forms.Button RefreshStatus_B;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        public System.Windows.Forms.TextBox StatusServer_TB;
     }
 }

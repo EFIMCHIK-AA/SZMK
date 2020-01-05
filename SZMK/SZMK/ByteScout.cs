@@ -202,10 +202,12 @@ namespace SZMK
                 }
             }
         }
+
         public void ClearData()
         {
             _DecodeSession.Clear();
         }
+
         public String SendAndRead(String FileName,String OldFileName)
         {
             TcpClient tcpClient = new TcpClient(_Server,Convert.ToInt32(_Port));
@@ -257,6 +259,7 @@ namespace SZMK
             tcpClient.Close();
             return responseData;
         }
+
         public bool CheckedUniqueList(String Message)
         {
             foreach (var item in _DecodeSession)
@@ -266,8 +269,10 @@ namespace SZMK
                     return false;
                 }
             }
+
             return true;
         }
+
         public bool CheckConnect()
         {
             try
@@ -278,13 +283,15 @@ namespace SZMK
                 writer.Write(true);
                 writer.Write(SystemArgs.User.Login);
                 tcpClient.Close();
+
                 return true;
             }
-            catch (Exception e)
+            catch
             {
-                throw new Exception(e.Message);
+                return false;
             }
         }
+
         public String GetPathTempFile(String FileName, int Index)
         {
             Image myImage = Image.FromFile(FileName);
@@ -297,6 +304,7 @@ namespace SZMK
             myImage.Dispose();
             return path;
         }
+
         private bool AddDecodeSession(String DataMatrix)
         {
             if (DataMatrix.Split('_').Length != 6)

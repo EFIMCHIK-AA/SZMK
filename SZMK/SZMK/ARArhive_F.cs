@@ -137,16 +137,19 @@ namespace SZMK
                 Display(Result);
             }
         }
+
         private Boolean AddOrder()
         {
             try
             {
                 ARDecode_F Dialog = new ARDecode_F();
+
                 if (SystemArgs.ByteScout.CheckConnect())
                 {
                     Dialog.ServerStatus_TB.Text = "Подключено";
                     Dialog.ServerStatus_TB.BackColor = Color.FromArgb(233, 245, 255);
                     Dialog.Status_TB.AppendText($"Ожидание распознования" + Environment.NewLine);
+
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         for (int i = 0; i < SystemArgs.ByteScout._DecodeSession.Count; i++)
@@ -180,13 +183,14 @@ namespace SZMK
                             }
                         }
                     }
+
                     SystemArgs.ByteScout.ClearData();
                     return true;
                 }
                 else
                 {
                     SystemArgs.ByteScout.ClearData();
-                    return false;
+                    throw new Exception("Ошибка при подключении к серверу распознавнаия");
                 }
             }
             catch (Exception E)
