@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
-    public class ScanSession
+    public class OrderScanSession
     {
         public String _DateMatrix;
         public bool _Unique;
-        public ScanSession(String DataMatrix, Boolean Unique)
+        public OrderScanSession(String DataMatrix, Boolean Unique)
         {
             if(!String.IsNullOrEmpty(DataMatrix))
             {
@@ -22,7 +22,7 @@ namespace SZMK
             }
             _Unique = Unique;
         }
-        public ScanSession() : this("Нет DataMatrix", false) { }
+        public OrderScanSession() : this("Нет DataMatrix", false) { }
         public String DataMatrix
         {
             get

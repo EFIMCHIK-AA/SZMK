@@ -418,6 +418,7 @@
             this.Status_CB.Name = "Status_CB";
             this.Status_CB.Size = new System.Drawing.Size(491, 21);
             this.Status_CB.TabIndex = 16;
+            this.Status_CB.SelectedIndexChanged += new System.EventHandler(this.Status_CB_SelectedIndexChanged);
             // 
             // User_CB
             // 
@@ -462,7 +463,7 @@
             this.Second_DP.Size = new System.Drawing.Size(243, 20);
             this.Second_DP.TabIndex = 19;
             // 
-            // ARShearchParam_F
+            // ARSearchParam_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -474,7 +475,7 @@
             this.MaximumSize = new System.Drawing.Size(513, 753);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(513, 753);
-            this.Name = "ARShearchParam_F";
+            this.Name = "ARSearchParam_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Расширенный поиск";
             this.tableLayoutPanel1.ResumeLayout(false);

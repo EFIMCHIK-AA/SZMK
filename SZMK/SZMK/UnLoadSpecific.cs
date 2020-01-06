@@ -126,7 +126,7 @@ namespace SZMK
         {
             Specifics = new List<Specific>();
         }
-        public void ChekedUnloading(List<ScanSession> ScanSession)
+        public void ChekedUnloading(List<OrderScanSession> ScanSession)
         {
             for (int i = 0; i < ScanSession.Count; i++)
             {

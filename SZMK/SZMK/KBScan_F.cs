@@ -25,15 +25,15 @@ namespace SZMK
             Scan_DGV.AutoGenerateColumns = false;
             Scan_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             SystemArgs.UnLoadSpecific = new UnLoadSpecific();
-            SystemArgs.ServerMobileApp.Load += LoadToDGV;
+            SystemArgs.ServerMobileAppOrder.Load += LoadToDGV;
         }
 
         private void CheckedUnloading_TSM_Click(object sender, EventArgs e)
         {
-            if(SystemArgs.ServerMobileApp._ScanSession.Count!=0)
+            if(SystemArgs.ServerMobileAppOrder._ScanSession.Count!=0)
                 try
                 {
-                    SystemArgs.UnLoadSpecific.ChekedUnloading(SystemArgs.ServerMobileApp._ScanSession);
+                    SystemArgs.UnLoadSpecific.ChekedUnloading(SystemArgs.ServerMobileAppOrder._ScanSession);
                     KBScanUnloadSpecific Dialog = new KBScanUnloadSpecific();
                     Dialog.Show();
                 }
@@ -51,9 +51,9 @@ namespace SZMK
 
         private void CreateAct_TSM_Click(object sender, EventArgs e)
         {
-            if (SystemArgs.ServerMobileApp._ScanSession.Count != 0)
+            if (SystemArgs.ServerMobileAppOrder._ScanSession.Count != 0)
             {
-                if (SystemArgs.Excel.CreateAndExportActs(SystemArgs.ServerMobileApp._ScanSession,true))
+                if (SystemArgs.Excel.CreateAndExportActs(SystemArgs.ServerMobileAppOrder._ScanSession,true))
                 {
                     MessageBox.Show("Акты успешно сформированы и сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 };
@@ -82,13 +82,13 @@ namespace SZMK
         }
         private void ClosedServer()
         {
-            if (SystemArgs.ServerMobileApp.Stop())
+            if (SystemArgs.ServerMobileAppOrder.Stop())
             {
                 Status_TB.AppendText($"Закрытие сервера" + Environment.NewLine);
-                SystemArgs.ServerMobileApp.Load -= LoadToDGV;
+                SystemArgs.ServerMobileAppOrder.Load -= LoadToDGV;
             }
         }
-        private void LoadToDGV(List<ScanSession> ScanSessions)
+        private void LoadToDGV(List<OrderScanSession> ScanSessions)
         {
             Scan_DGV.Invoke((MethodInvoker)delegate ()
             {

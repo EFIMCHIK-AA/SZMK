@@ -12,7 +12,7 @@ namespace SZMK
 {
     public class Excel
     {
-        public Boolean CreateAndExportActs(List<ScanSession> ScanSession,Boolean Added)
+        public Boolean CreateAndExportActs(List<OrderScanSession> ScanSession,Boolean Added)
         {
             SaveFileDialog SaveAct = new SaveFileDialog();
             String date = DateTime.Now.ToString();

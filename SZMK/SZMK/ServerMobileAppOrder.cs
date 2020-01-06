@@ -1,26 +1,22 @@
 ﻿using System;
 using SimpleTCP;
-using Npgsql;
 using System.Net;
-using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SZMK
 {
-    public class ServerMobileApp
+    public class ServerMobileAppOrder
     {
         SimpleTcpServer ServerTCP;
-        public delegate void LoadData (List<ScanSession> ScanSession);
+        public delegate void LoadData (List<OrderScanSession> ScanSession);
         public event LoadData  Load;
-        public List<ScanSession> _ScanSession;
+        public List<OrderScanSession> _ScanSession;
 
-        public ServerMobileApp()
+        public ServerMobileAppOrder()
         {
-            _ScanSession = new List<ScanSession>();
+            _ScanSession = new List<OrderScanSession>();
         }
         public void ClearData()
         {
@@ -57,12 +53,12 @@ namespace SZMK
                     Int32 List = Convert.ToInt32(ValidationDataMatrix[1]);
                     if (SystemArgs.Request.CheckedUniqueOrderDB(e.MessageString))
                     {
-                        _ScanSession.Add(new ScanSession(e.MessageString, true));
+                        _ScanSession.Add(new OrderScanSession(e.MessageString, true));
 
                     }
                     else
                     {
-                        _ScanSession.Add(new ScanSession(e.MessageString, false));
+                        _ScanSession.Add(new OrderScanSession(e.MessageString, false));
                     }
                     Load?.Invoke(_ScanSession);
                 }

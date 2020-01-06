@@ -82,6 +82,9 @@ namespace SZMK
                         Arhive.Show();
                         break;
                     case 4://Сотрудник ПДО
+                        PDO_F PDO = new PDO_F();
+                        this.Hide();
+                        PDO.Show();
                         break;
                     case 5://Сотрудник ООП
                         break;

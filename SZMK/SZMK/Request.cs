@@ -495,23 +495,23 @@ namespace SZMK
                 return false;
             }
         }
+        Int64 IndexBlankOrder = -1;
         public bool CompareBlankOrder(List<Order> Orders, String QR)
         {
-            Int64 Index = -1;
             try
             {
-                if (SelectBlankOrder(Index, QR))
+                if (SelectBlankOrder(IndexBlankOrder, QR))
                 {
-                    if (InsertBlankOrderOfOrders(Orders, Index))
+                    if (InsertBlankOrderOfOrders(Orders, IndexBlankOrder))
                     {
                         return true;
                     }
                 }
-                else if (GetOldIDBlankOrder(Orders, Index))
+                else if (GetOldIDBlankOrder(Orders, IndexBlankOrder))
                 {
-                    if (UpdateBlankOrder(QR, Index))
+                    if (UpdateBlankOrder(QR, IndexBlankOrder))
                     {
-                        if (InsertBlankOrderOfOrders(Orders, Index))
+                        if (InsertBlankOrderOfOrders(Orders, IndexBlankOrder))
                         {
                             return true;
                         }
@@ -521,9 +521,9 @@ namespace SZMK
                 {
                     if (InsertBlankOrder(QR))
                     {
-                        if (SelectBlankOrder(Index, QR))
+                        if (SelectBlankOrder(IndexBlankOrder, QR))
                         {
-                            if (InsertBlankOrderOfOrders(Orders, Index))
+                            if (InsertBlankOrderOfOrders(Orders, IndexBlankOrder))
                             {
                                 return true;
                             }
@@ -552,7 +552,7 @@ namespace SZMK
                         {
                             while (reader.Read())
                             {
-                                Index = reader.GetInt64(0);
+                                IndexBlankOrder = reader.GetInt64(0);
                                 flag = true;
                             }
                         }
@@ -598,7 +598,7 @@ namespace SZMK
                     Connect.Open();
                     foreach (Order order in Orders)
                     {
-                        using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddBlank\"(\"DateCreate\", \"ID_BlankOrder\", \"ID_Order\") VALUES('{DateTime.Now}', '{IDBlankOrder}', '{order.ID}') WHERE (SELECT COUNT(\"AddBlank\".\"ID_Order\") FROM \"AddBlank\" WHERE \"ID_Order\"='{order.ID}')=0; ", Connect))
+                        using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddBlank\"(\"DateCreate\", \"ID_BlankOrder\", \"ID_Order\") VALUES('{DateTime.Now}', '{IDBlankOrder}', '{order.ID}') WHERE (SELECT COUNT(\"AddBlank\".\"ID_Order\") FROM \"AddBlank\" WHERE \"ID_Order\"='{order.ID}')='0'; ", Connect))
                         {
                             Command.ExecuteNonQuery();
                         }
@@ -630,7 +630,7 @@ namespace SZMK
                             {
                                 while (reader.Read())
                                 {
-                                    Index = reader.GetInt64(0);
+                                    IndexBlankOrder = reader.GetInt64(0);
                                     flag = true;
                                 }
                             }
@@ -1039,7 +1039,37 @@ namespace SZMK
                 return flag;
             }
         }
+        public bool CheckedExistenceOrderAndStatus(String Number,Int64 List)
+        {
+            Boolean flag = false;
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
 
+                    using (var Command = new NpgsqlCommand($"SELECT Count(\"DataMatrix\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{List}';", Connect))
+                    {
+                        using (var reader = Command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.GetInt64(0) == 1)
+                                {
+                                    flag = true;
+                                }
+                            }
+                        }
+                    }
 
+                    Connect.Close();
+                }
+                return flag;
+            }
+            catch
+            {
+                return flag;
+            }
+        }
     } 
 }

@@ -16,11 +16,11 @@ namespace SZMK
         private String _DirectoryProgramPath;
         private String _Port;
         private String _Server;
-        public delegate void LoadData(List<ScanSession> ScanSession);
+        public delegate void LoadData(List<OrderScanSession> ScanSession);
         public event LoadData Load;
         public delegate void FailData(String FileName);
         public event FailData Fail;
-        public List<ScanSession> _DecodeSession;
+        public List<OrderScanSession> _DecodeSession;
 
         public ByteScout()
         {
@@ -29,7 +29,7 @@ namespace SZMK
                 throw new Exception("Ошибка при получении конфигурационных путей программы распознавания");
             }
 
-            _DecodeSession = new List<ScanSession>();
+            _DecodeSession = new List<OrderScanSession>();
         }
 
         public bool GetParametersConnect()
@@ -320,11 +320,11 @@ namespace SZMK
                                       select p.ID).Single();
                     if (SystemArgs.Request.CheckedStatusOrderDB(IDStatus,DataMatrix))
                     {
-                        _DecodeSession.Add(new ScanSession(DataMatrix, true));
+                        _DecodeSession.Add(new OrderScanSession(DataMatrix, true));
                     }
                     else
                     {
-                        _DecodeSession.Add(new ScanSession(DataMatrix, false));
+                        _DecodeSession.Add(new OrderScanSession(DataMatrix, false));
                     }
                     return true;
                 }

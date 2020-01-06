@@ -478,7 +478,6 @@
             this.Name = "SearchParamKB_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Расширенный поиск";
-            this.Load += new System.EventHandler(this.SearchParamKB_F_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

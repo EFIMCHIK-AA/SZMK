@@ -134,6 +134,7 @@
     <Compile Include="ARSearchParam_F.Designer.cs">
       <DependentUpon>ARSearchParam_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="BlankOrderScanSession.cs" />
     <Compile Include="ByteScout.cs" />
     <Compile Include="KBChangeOrder_F.cs">
       <SubType>Form</SubType>
@@ -174,6 +175,36 @@
       <DependentUpon>Load_F.cs</DependentUpon>
     </Compile>
     <Compile Include="Order.cs" />
+    <Compile Include="PDOChangeOrder_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PDOChangeOrder_F.Designer.cs">
+      <DependentUpon>PDOChangeOrder_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PDOReportOrderOfDate_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PDOReportOrderOfDate_F.Designer.cs">
+      <DependentUpon>PDOReportOrderOfDate_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PDOScan_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PDOScan_F.Designer.cs">
+      <DependentUpon>PDOScan_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PDOSearchParam_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PDOSearchParam_F.Designer.cs">
+      <DependentUpon>PDOSearchParam_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PDO_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PDO_F.Designer.cs">
+      <DependentUpon>PDO_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="Request.cs" />
     <Compile Include="BlankOrder.cs" />
     <Compile Include="KBSearchParam_F.cs">
@@ -182,8 +213,9 @@
     <Compile Include="KBSearchParam_F.Designer.cs">
       <DependentUpon>KBSearchParam_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="ServerMobileAppBlankOrder.cs" />
     <Compile Include="Status.cs" />
-    <Compile Include="ScanSession.cs" />
+    <Compile Include="OrderScanSession.cs" />
     <Compile Include="ServerMail.cs" />
     <Compile Include="ADServerMail_F.cs">
       <SubType>Form</SubType>
@@ -191,7 +223,7 @@
     <Compile Include="ADServerMail_F.Designer.cs">
       <DependentUpon>ADServerMail_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="ServerMobileApp.cs" />
+    <Compile Include="ServerMobileAppOrder.cs" />
     <Compile Include="ADSettingsDataBase_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -321,6 +353,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Autorization_F.resx">
       <DependentUpon>Autorization_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PDOChangeOrder_F.resx">
+      <DependentUpon>PDOChangeOrder_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PDOReportOrderOfDate_F.resx">
+      <DependentUpon>PDOReportOrderOfDate_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PDOScan_F.resx">
+      <DependentUpon>PDOScan_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PDOSearchParam_F.resx">
+      <DependentUpon>PDOSearchParam_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PDO_F.resx">
+      <DependentUpon>PDO_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

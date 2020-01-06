@@ -139,19 +139,19 @@ namespace SZMK
         {
             try
             {
-                SystemArgs.ServerMobileApp = new ServerMobileApp();//Сервер мобильного приложения
+                SystemArgs.ServerMobileAppOrder = new ServerMobileAppOrder();//Сервер мобильного приложения
                 Int64 IndexOrder = -1;
                 KBScan_F Dialog = new KBScan_F();
-                if (SystemArgs.ServerMobileApp.Start())
+                if (SystemArgs.ServerMobileAppOrder.Start())
                 {
                     Dialog.ServerStatus_TB.Text = "Запущен";
                     Dialog.ServerStatus_TB.BackColor = Color.FromArgb(233, 245, 255);
-                    Dialog.Status_TB.AppendText($"Ожидание QR" + Environment.NewLine);
+                    Dialog.Status_TB.AppendText($"Ожидание данных" + Environment.NewLine);
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
-                        for(int i = 0; i < SystemArgs.ServerMobileApp._ScanSession.Count; i++)
+                        for(int i = 0; i < SystemArgs.ServerMobileAppOrder._ScanSession.Count; i++)
                         {
-                            if (SystemArgs.ServerMobileApp._ScanSession[i]._Unique)
+                            if (SystemArgs.ServerMobileAppOrder._ScanSession[i]._Unique)
                             {
                                 using (var Connect = new NpgsqlConnection(SystemArgs.DataBase.ToString()))
                                 {
@@ -168,13 +168,13 @@ namespace SZMK
                                         }
                                     }
                                 }
-                                String[] SplitDataMatrix = SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix.Split('_');
+                                String[] SplitDataMatrix = SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix.Split('_');
                                 BlankOrder TempBlank = new BlankOrder();
                                 Int64 PositionID = SystemArgs.User.GetPosition().ID;
                                 Status TempStatus = (from p in SystemArgs.Statuses
                                                     where p.IDPosition==PositionID
                                                     select p).Single();
-                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4].Replace('.', ',')), Convert.ToDouble(SplitDataMatrix[5].Replace('.', ',')), TempStatus, SystemArgs.User, TempBlank);
+                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4].Replace('.', ',')), Convert.ToDouble(SplitDataMatrix[5].Replace('.', ',')), TempStatus, SystemArgs.User, TempBlank);
                                 if (SystemArgs.Request.InsertOrder(TempOrder))
                                 {
                                     SystemArgs.Orders.Add(TempOrder);
@@ -182,7 +182,7 @@ namespace SZMK
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Ошибка при добавлении в базу данных DataMatrix: "+SystemArgs.ServerMobileApp._ScanSession[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show("Ошибка при добавлении в базу данных DataMatrix: "+SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return false;
                                 }
 

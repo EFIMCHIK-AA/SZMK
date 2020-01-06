@@ -99,7 +99,7 @@ namespace SZMK
         {
             Status_TB.AppendText($"Файл {SystemArgs.Path.GetFileName(Path)} неправильный формат DataMatrix" + Environment.NewLine);
         }
-        private void LoadToDGVAndTB(List<ScanSession> DecodeSession)
+        private void LoadToDGVAndTB(List<OrderScanSession> DecodeSession)
         {
             Status_TB.AppendText($"Получены данные"+Environment.NewLine+ DecodeSession[DecodeSession.Count - 1].DataMatrix + Environment.NewLine);
             Scan_DGV.Rows.Add();

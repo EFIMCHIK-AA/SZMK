@@ -37,10 +37,5 @@ namespace SZMK
                 User_CB.DataSource = Users;
             }
         }
-
-        private void SearchParamKB_F_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

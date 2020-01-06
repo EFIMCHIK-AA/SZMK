@@ -118,3 +118,8 @@ C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.ADSettingsMobileApp_F.resour
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.ADSettingsProgram_F.resources
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.ARDecodeReport_F.resources
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.ARDecodeReport_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.PDOChangeOrder_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.PDOReportOrderOfDate_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.PDOScan_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.PDOSearchParam_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.PDO_F.resources
