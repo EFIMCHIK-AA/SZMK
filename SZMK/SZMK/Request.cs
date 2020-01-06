@@ -500,18 +500,18 @@ namespace SZMK
         {
             try
             {
-                if (SelectBlankOrder(IndexBlankOrder, QR))
+                if (SelectBlankOrder(QR))
                 {
-                    if (InsertBlankOrderOfOrders(Orders, IndexBlankOrder))
+                    if (InsertBlankOrderOfOrders(Orders))
                     {
                         return true;
                     }
                 }
-                else if (GetOldIDBlankOrder(Orders, IndexBlankOrder))
+                else if (GetOldIDBlankOrder(Orders))
                 {
-                    if (UpdateBlankOrder(QR, IndexBlankOrder))
+                    if (UpdateBlankOrder(QR))
                     {
-                        if (InsertBlankOrderOfOrders(Orders, IndexBlankOrder))
+                        if (InsertBlankOrderOfOrders(Orders))
                         {
                             return true;
                         }
@@ -521,9 +521,9 @@ namespace SZMK
                 {
                     if (InsertBlankOrder(QR))
                     {
-                        if (SelectBlankOrder(IndexBlankOrder, QR))
+                        if (SelectBlankOrder(QR))
                         {
-                            if (InsertBlankOrderOfOrders(Orders, IndexBlankOrder))
+                            if (InsertBlankOrderOfOrders(Orders))
                             {
                                 return true;
                             }
@@ -537,7 +537,39 @@ namespace SZMK
                 return false;
             }
         }
-        private bool SelectBlankOrder(Int64 Index, String QR)
+        private bool SelectOrderInBlankOrder(Int64 IDOrder)
+        {
+            Boolean flag = false;
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT COUNT(\"AddBlank\".\"ID_Order\") AS \"Count\" FROM \"AddBlank\" WHERE \"ID_Order\"='{IDOrder}';", Connect))
+                    {
+                        using (var reader = Command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.GetInt64(0) == 1)
+                                {
+                                    flag = true;
+                                }
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return flag;
+            }
+            catch
+            {
+                return flag;
+            }
+        }
+        private bool SelectBlankOrder(String QR)
         {
             Boolean flag = false;
             try
@@ -559,6 +591,41 @@ namespace SZMK
                     }
 
                     Connect.Close();
+                }
+                return flag;
+            }
+            catch
+            {
+                return flag;
+            }
+        }
+        private bool FindedOrdersInAddBlankOrder(String QR,Int64 IDOrder)
+        {
+            Boolean flag = false;
+            try
+            {
+                if (SelectBlankOrder(QR))
+                {
+                    using (var Connect = new NpgsqlConnection(_ConnectString))
+                    {
+                        Connect.Open();
+
+                        using (var Command = new NpgsqlCommand($"SELECT COUNT(\"ID_BlankOrder\") FROM public.\"AddBlank\" WHERE \"ID_BlankOrder\"='{IndexBlankOrder}' AND \"ID_Order\"='{IDOrder}';", Connect))
+                        {
+                            using (var reader = Command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    if (reader.GetInt64(0) == 1)
+                                    {
+                                        flag = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        Connect.Close();
+                    }
                 }
                 return flag;
             }
@@ -589,7 +656,7 @@ namespace SZMK
                 return false;
             }
         }
-        private bool InsertBlankOrderOfOrders(List<Order> Orders, Int64 IDBlankOrder)
+        private bool InsertBlankOrderOfOrders(List<Order> Orders)
         {
             try
             {
@@ -598,9 +665,12 @@ namespace SZMK
                     Connect.Open();
                     foreach (Order order in Orders)
                     {
-                        using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddBlank\"(\"DateCreate\", \"ID_BlankOrder\", \"ID_Order\") VALUES('{DateTime.Now}', '{IDBlankOrder}', '{order.ID}') WHERE (SELECT COUNT(\"AddBlank\".\"ID_Order\") FROM \"AddBlank\" WHERE \"ID_Order\"='{order.ID}')='0'; ", Connect))
+                        if (!SelectOrderInBlankOrder(order.ID))
                         {
-                            Command.ExecuteNonQuery();
+                            using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddBlank\"(\"DateCreate\", \"ID_BlankOrder\", \"ID_Order\") VALUES('{DateTime.Now}', '{IndexBlankOrder}', '{order.ID}')", Connect))
+                            {
+                                Command.ExecuteNonQuery();
+                            }
                         }
                     }
 
@@ -614,7 +684,7 @@ namespace SZMK
                 return false;
             }
         }
-        private bool GetOldIDBlankOrder(List<Order> Orders, Int64 Index)
+        private bool GetOldIDBlankOrder(List<Order> Orders)
         {
             Boolean flag = false;
             try
@@ -646,7 +716,7 @@ namespace SZMK
                 return flag;
             }
         }
-        private bool UpdateBlankOrder(String QR, Int64 ID)
+        private bool UpdateBlankOrder(String QR)
         {
             try
             {
@@ -654,7 +724,7 @@ namespace SZMK
                 {
                     Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"UPDATE public.\"BlankOrder\" SET \"QR\" = '{QR}' WHERE \"BlankOrder\".\"ID\" = '{ID}'; ", Connect))
+                    using (var Command = new NpgsqlCommand($"UPDATE public.\"BlankOrder\" SET \"QR\" = '{QR}' WHERE \"BlankOrder\".\"ID\" = '{IndexBlankOrder}'; ", Connect))
                     {
                         Command.ExecuteNonQuery();
                     }
@@ -770,34 +840,6 @@ namespace SZMK
                 return false;
             }
         }
-        struct StatusOfUser
-        {
-            public DateTime _DateCreate;
-            public Int64 _IDStatus;
-            public Int64 _IDOrder;
-            public Int64 _IDUser;
-
-            public StatusOfUser(DateTime DateCreate, Int64 IDStatus, Int64 IDOrder, Int64 IDUser)
-            {
-                _DateCreate = DateCreate;
-                _IDStatus = IDStatus;
-                _IDOrder = IDOrder;
-                _IDUser = IDUser;
-            }
-        }
-        struct BlankOrderofOrders
-        {
-            public DateTime _DateCreate;
-            public Int64 _IDBlankOrder;
-            public Int64 _IDOrder;
-
-            public BlankOrderofOrders(DateTime DateCreate, Int64 IDBlankOrder, Int64 IDOrder)
-            {
-                _DateCreate = DateCreate;
-                _IDBlankOrder = IDBlankOrder;
-                _IDOrder = IDOrder;
-            }
-        }
         public bool GetAllOrders()
         {
             try
@@ -805,7 +847,7 @@ namespace SZMK
                 using (var Connect = new NpgsqlConnection(_ConnectString))
                 {
                     List<StatusOfUser> StatusOfUsers = new List<StatusOfUser>();
-                    List<BlankOrderofOrders> BlankOrderofOrders = new List<BlankOrderofOrders>();
+                    List<BlankOrderOfOrders> BlankOrderofOrders = new List<BlankOrderOfOrders>();
                     if (GetAllStatusOfUser(StatusOfUsers) && GetAllBlankOrderofOrders(BlankOrderofOrders))
                     {
                         Connect.Open();
@@ -819,7 +861,7 @@ namespace SZMK
                                     Int64 ID = Reader.GetInt64(0);
 
                                     List<StatusOfUser> StatusID = (from p in StatusOfUsers
-                                                                   where p._IDOrder == ID
+                                                                   where p.IDOrder == ID
                                                                    select p).ToList();
                                     Int64 UserID = -1;
                                     Int64 MaxIDStatus = -1;
@@ -828,11 +870,11 @@ namespace SZMK
                                     {
                                         foreach (StatusOfUser StatusOfUser in StatusID)
                                         {
-                                            if (item.ID == StatusOfUser._IDStatus && StatusOfUser._IDStatus > MaxIDStatus)
+                                            if (item.ID == StatusOfUser.IDStatus && StatusOfUser.IDStatus > MaxIDStatus)
                                             {
                                                 TempStatus = item;
-                                                MaxIDStatus = StatusOfUser._IDStatus;
-                                                UserID = StatusOfUser._IDUser;
+                                                MaxIDStatus = StatusOfUser.IDStatus;
+                                                UserID = StatusOfUser.IDUser;
                                             }
                                         }
                                     }
@@ -842,12 +884,12 @@ namespace SZMK
                                     BlankOrder TempBlank = new BlankOrder();
                                     if (BlankOrderofOrders.Count > 0)
                                     {
-                                        List<BlankOrderofOrders> BlankOrderID = (from p in BlankOrderofOrders
-                                                                                 where p._IDOrder == ID
+                                        List<BlankOrderOfOrders> BlankOrderID = (from p in BlankOrderofOrders
+                                                                                 where p.IDOrder == ID
                                                                                  select p).ToList();
                                         if (BlankOrderID.Count() > 0)
                                         {
-                                            foreach (BlankOrderofOrders ID_Blank in BlankOrderID)
+                                            foreach (BlankOrderOfOrders ID_Blank in BlankOrderID)
                                             {
                                                 foreach (BlankOrder item in SystemArgs.BlankOrders)
                                                 {
@@ -879,7 +921,7 @@ namespace SZMK
                 return false;
             }
         }
-        private bool GetAllBlankOrderofOrders(List<BlankOrderofOrders> BlankOrderofOrders)
+        private bool GetAllBlankOrderofOrders(List<BlankOrderOfOrders> BlankOrderofOrders)
         {
             try
             {
@@ -894,7 +936,7 @@ namespace SZMK
                         {
                             while (Reader.Read())
                             {
-                                BlankOrderofOrders.Add(new BlankOrderofOrders(Reader.GetDateTime(0), Reader.GetInt64(1), Reader.GetInt64(2)));
+                                BlankOrderofOrders.Add(new BlankOrderOfOrders(Reader.GetDateTime(0), Reader.GetInt64(1), Reader.GetInt64(2)));
                             }
                         }
                     }
@@ -909,7 +951,7 @@ namespace SZMK
                 return false;
             }
         }
-        private bool GetAllStatusOfUser(List<StatusOfUser> StatusOfUsers)
+        public bool GetAllStatusOfUser(List<StatusOfUser> StatusOfUsers)
         {
             try
             {
@@ -978,21 +1020,16 @@ namespace SZMK
                 {
                     Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"SELECT Count(\"AddStatus\".\"ID_Status\") FROM public.\"AddStatus\" WHERE \"ID_Status\"='{IDStatus - 1}' AND \"ID_Order\"='{IDOrder}';", Connect))
+                    using (var Command = new NpgsqlCommand($"SELECT MAX(\"ID_Status\") FROM public.\"AddStatus\" WHERE \"ID_Order\"='{IDOrder}';", Connect))
                     {
                         using (var reader = Command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                if (reader.GetInt64(0) == 1)
+                                if (reader.GetInt64(0) == IDStatus-1)
                                 {
-                                    Int32 CheckNowStatus = (from p in SystemArgs.Orders
-                                                            where p.ID == IDOrder && p.Status.ID == IDStatus
-                                                            select p).Count();
-                                    if (CheckNowStatus == 0)
-                                    {
+
                                         flag = true;
-                                    }
                                 }
                             }
                         }
@@ -1044,25 +1081,75 @@ namespace SZMK
             Boolean flag = false;
             try
             {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
+                Int64 IDStatus = (from p in SystemArgs.Statuses
+                                  where p.IDPosition == SystemArgs.User.GetPosition().ID
+                                  select p.ID).Single();
+                String DataMatrix = (from p in SystemArgs.Orders
+                                     where (p.Number == Number) && (p.List == List)
+                                     select p.DataMatrix).Single();
+                if (CheckedStatusOrderDB(IDStatus, DataMatrix))
                 {
-                    Connect.Open();
-
-                    using (var Command = new NpgsqlCommand($"SELECT Count(\"DataMatrix\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{List}';", Connect))
+                    using (var Connect = new NpgsqlConnection(_ConnectString))
                     {
-                        using (var reader = Command.ExecuteReader())
+                        Connect.Open();
+
+                        using (var Command = new NpgsqlCommand($"SELECT Count(\"DataMatrix\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{List}';", Connect))
                         {
-                            while (reader.Read())
+                            using (var reader = Command.ExecuteReader())
                             {
-                                if (reader.GetInt64(0) == 1)
+                                while (reader.Read())
                                 {
-                                    flag = true;
+                                    if (reader.GetInt64(0) == 1)
+                                    {
+                                        flag = true;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    Connect.Close();
+                        Connect.Close();
+                    }
+                }
+                return flag;
+            }
+            catch
+            {
+                return flag;
+            }
+        }
+        public bool CheckedExistenceBlankOrderAndStatus(String Number, Int64 List,String QR)
+        {
+            Boolean flag = false;
+            try
+            {
+                Int64 IDStatus = (from p in SystemArgs.Statuses
+                                  where p.IDPosition == SystemArgs.User.GetPosition().ID
+                                  select p.ID).Single();
+                String DataMatrix = (from p in SystemArgs.Orders
+                                     where (p.Number == Number) && (p.List == List)
+                                     select p.DataMatrix).Single();
+                if (CheckedStatusOrderDB(IDStatus, DataMatrix)&&FindedOrdersInAddBlankOrder(QR,GetIDOrder(DataMatrix)))
+                {
+                    using (var Connect = new NpgsqlConnection(_ConnectString))
+                    {
+                        Connect.Open();
+
+                        using (var Command = new NpgsqlCommand($"SELECT Count(\"DataMatrix\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{List}';", Connect))
+                        {
+                            using (var reader = Command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    if (reader.GetInt64(0) == 1)
+                                    {
+                                        flag = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        Connect.Close();
+                    }
                 }
                 return flag;
             }

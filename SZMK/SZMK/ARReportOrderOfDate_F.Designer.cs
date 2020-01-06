@@ -129,7 +129,7 @@
             this.First_MC.Name = "First_MC";
             this.First_MC.TabIndex = 1;
             // 
-            // ARReportOrderOfDate
+            // ARReportOrderOfDate_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -141,7 +141,7 @@
             this.MaximumSize = new System.Drawing.Size(362, 355);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(362, 355);
-            this.Name = "ARReportOrderOfDate";
+            this.Name = "ARReportOrderOfDate_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Отчет за выбранный период";
             this.tableLayoutPanel1.ResumeLayout(false);

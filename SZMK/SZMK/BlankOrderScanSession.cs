@@ -8,20 +8,25 @@ namespace SZMK
 {
     public class BlankOrderScanSession
     {
-        public String _QR;
-        public bool _Unique;
-        public String _QRBlankOrder;
-        public BlankOrderScanSession(String QR, Boolean Unique,String QRBlankOrder)
+        public struct NumberAndList
         {
-            if (!String.IsNullOrEmpty(QR))
+            public String _Number;
+            public Int64 _List;
+            public bool _Finded;
+
+            public NumberAndList(String Number, Int64 List,bool Finded)
             {
-                _QR = QR;
+                _Number = Number;
+                _List = List;
+                _Finded = Finded;
             }
-            else
-            {
-                throw new Exception("Пустое значение DataMatrix чертежа");
-            }
-            _Unique = Unique;
+        }
+        private bool _Added;
+        private String _QRBlankOrder;
+        public List<NumberAndList> _Order;
+        public BlankOrderScanSession(Boolean Added, String QRBlankOrder)
+        {
+            _Added = Added;
             if (!String.IsNullOrEmpty(QRBlankOrder))
             {
                 _QRBlankOrder = QRBlankOrder;
@@ -30,31 +35,19 @@ namespace SZMK
             {
                 throw new Exception("Пустое значение QR бланка заказа чертежа");
             }
+            _Order = new List<NumberAndList>();
         }
-        public BlankOrderScanSession() : this("Нет QR", false,"Нет QR бланка заказа") { }
-        public String QR
+        public BlankOrderScanSession() : this(false,"Нет QR бланка заказа") { }
+
+        public Boolean Added
         {
             get
             {
-                return _QR;
+                return _Added;
             }
             set
             {
-                if (!String.IsNullOrEmpty(value))
-                {
-                    _QR = value;
-                }
-            }
-        }
-        public Boolean Unique
-        {
-            get
-            {
-                return _Unique;
-            }
-            set
-            {
-                _Unique = value;
+                _Added = value;
             }
         }
         public String QRBlankOrder

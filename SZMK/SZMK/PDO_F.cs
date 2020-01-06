@@ -26,6 +26,7 @@ namespace SZMK
                 Load_F Dialog = new Load_F();
                 Dialog.Show();
                 SystemArgs.MobileApplication = new MobileApplication();
+                SystemArgs.ClientProgram = new ClientProgram();
                 SystemArgs.Orders = new List<Order>();
                 SystemArgs.BlankOrders = new List<BlankOrder>();
                 SystemArgs.Statuses = new List<Status>();
@@ -141,11 +142,10 @@ namespace SZMK
         {
             try
             {
-                SystemArgs.ServerMobileAppBlankOrder = new ServerMobileAppBlankOrder();//Сервер мобильного приложения
+                SystemArgs.ServerMobileAppBlankOrder = new ServerMobileAppBlankOrder(true);//Сервер мобильного приложения
                 PDOScan_F Dialog = new PDOScan_F();
                 BlankOrder NewBlankOrder = new BlankOrder();
                 Int64 IndexBlankOrder = 0;
-                Boolean NoAddedBlankOrder = false;
                 List<Order> TempForBlankOrder = new List<Order>();
                 if (SystemArgs.ServerMobileAppBlankOrder.Start())
                 {
@@ -154,14 +154,9 @@ namespace SZMK
                     Dialog.Status_TB.AppendText($"Ожидание QR" + Environment.NewLine);
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
-                        if (SystemArgs.ServerMobileAppBlankOrder._ScanSession.Count > 0)
-                        {
-                            NewBlankOrder = new BlankOrder(0, DateTime.Now, SystemArgs.ServerMobileAppBlankOrder._ScanSession[0].QRBlankOrder);
-                            SystemArgs.ServerMobileAppBlankOrder._ScanSession.Add(new BlankOrderScanSession("Не правильный",true,"Не существует"));
-                        }
                         for (int i = 0; i < SystemArgs.ServerMobileAppBlankOrder._ScanSession.Count; i++)
                         {
-                            if (SystemArgs.ServerMobileAppBlankOrder._ScanSession[i]._Unique)
+                            if (SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].Added)
                             {
                                 using (var Connect = new NpgsqlConnection(SystemArgs.DataBase.ToString()))
                                 {
@@ -182,46 +177,37 @@ namespace SZMK
                                 Status TempStatus = (from p in SystemArgs.Statuses
                                                      where p.IDPosition == PositionID
                                                      select p).Single();
-                                if (i < SystemArgs.ServerMobileAppBlankOrder._ScanSession.Count - 1)
+                                foreach(BlankOrderScanSession.NumberAndList NumberAndList in SystemArgs.ServerMobileAppBlankOrder._ScanSession[i]._Order)
                                 {
-                                    Order Temp = SystemArgs.Orders.Where(p => p.Number == GetNumber(SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].QR) && p.List == GetList(SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].QR)).Single();
+                                    Order Temp = SystemArgs.Orders.Where(p => p.Number == NumberAndList._Number && p.List == NumberAndList._List).Single();
                                     Order NewOrder = Temp;
-                                    TempForBlankOrder.Add(NewOrder);
-                                }
-                                if (NewBlankOrder.QR!= SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].QRBlankOrder)
-                                {
-                                    NewBlankOrder = new BlankOrder(IndexBlankOrder, DateTime.Now, SystemArgs.ServerMobileAppBlankOrder._ScanSession[i-1].QRBlankOrder);
-                                    if (!NoAddedBlankOrder)
+                                    NewBlankOrder = new BlankOrder(IndexBlankOrder, DateTime.Now, SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].QRBlankOrder);
+
+                                    NewOrder.Status = TempStatus;
+                                    NewOrder.User = SystemArgs.User;
+                                    NewOrder.BlankOrder = NewBlankOrder;
+                                    if (SystemArgs.Excel.AddToRegistry(NewOrder))
                                     {
-                                        SystemArgs.Request.CompareBlankOrder(TempForBlankOrder, NewBlankOrder.QR);
-                                        foreach(Order item in TempForBlankOrder)
+                                        TempForBlankOrder.Add(NewOrder);
+                                        if (SystemArgs.Request.InsertStatus(NewOrder))
                                         {
-                                            SystemArgs.Orders.Remove(item);
-                                            item.Status = TempStatus;
-                                            item.User = SystemArgs.User;
-                                            item.BlankOrder = NewBlankOrder;
-                                            if (SystemArgs.Request.InsertStatus(item))
-                                            {
-                                                SystemArgs.Orders.Add(item);
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("Ошибка при добавлении в базу данных бланка заказа: " + SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].QRBlankOrder, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                return false;
-                                            }
+                                            SystemArgs.Orders.Remove(Temp);
+                                            SystemArgs.Orders.Add(NewOrder);
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Ошибка при добавлении в базу данных бланка заказа: " + SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].QRBlankOrder, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         }
                                     }
                                     else
                                     {
-                                        MessageBox.Show("Ошибка при добавлении в базу данных бланка заказа, не все чертежи найдены: " + SystemArgs.ServerMobileAppBlankOrder._ScanSession[i-1].QRBlankOrder, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show("Ошибка добавления данных в реестр, добавление бланка заказа и обновление статуса " + SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix + " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     }
-                                    TempForBlankOrder.Clear();
-                                }
-                                else if(!SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].Unique)
-                                {
-                                    NoAddedBlankOrder = true;
                                 }
 
+                                SystemArgs.Request.CompareBlankOrder(TempForBlankOrder, NewBlankOrder.QR);
+
+                                TempForBlankOrder.Clear();
                             }
                         }
                         return true;
@@ -256,14 +242,25 @@ namespace SZMK
                     Dialog.List_TB.Text = Temp.List.ToString();
                     Dialog.Mark_TB.Text = Temp.Mark;
                     Dialog.Lenght_TB.Text = Temp.Lenght.ToString();
+                    List<Status> TempStatuses = new List<Status>();
+                    TempStatuses.Add(Temp.Status);
                     Dialog.Weight_TB.Text = Temp.Weight.ToString();
+                    if (Temp.Status.ID != SystemArgs.Statuses.Min(p => p.ID))
+                    {
+                        TempStatuses.Add(SystemArgs.Statuses.Where(p => p.ID == Temp.Status.ID - 1).Single());
+                    }
+                    Dialog.Status_CB.DataSource = TempStatuses;
 
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         String NewDataMatrix = Dialog.Number_TB.Text + "_" + Dialog.List_TB.Text + "_" + Dialog.Mark_TB.Text + "_" + Dialog.Executor_TB.Text + "_" + Dialog.Lenght_TB.Text + "_" + Dialog.Weight_TB.Text;
-                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Convert.ToInt64(Dialog.List_TB.Text), Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), Temp.Status, Temp.User, Temp.BlankOrder);
+                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Convert.ToInt64(Dialog.List_TB.Text), Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), Temp.User, Temp.BlankOrder);
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
                         {
+                            if (Dialog.Status_CB.SelectedIndex != 0)
+                            {
+                                SystemArgs.Request.DeleteStatus(Temp);
+                            }
                             SystemArgs.Orders.Remove(Temp);
                             SystemArgs.Orders.Add(NewOrder);
 
@@ -450,7 +447,7 @@ namespace SZMK
                         SystemArgs.PrintLog("Количество объектов по параметрам поиска 0");
                         return false;
                     }
-
+                    timer1.Stop();
                     return true;
                 }
                 else
@@ -475,6 +472,7 @@ namespace SZMK
                 Search_TSTB.Text = String.Empty;
 
                 Result.Clear();
+                timer1.Start();
             }
         }
         private bool SearchParam()
@@ -542,6 +540,7 @@ namespace SZMK
                     {
                         Result = Result.Where(p => p.User == (User)Dialog.User_CB.SelectedItem).ToList();
                     }
+                    timer1.Stop();
                     return true;
                 }
                 else
@@ -559,7 +558,7 @@ namespace SZMK
         {
             try
             {
-                KBReportOrderOfDate_F Dialog = new KBReportOrderOfDate_F();
+                PDOReportOrderOfDate_F Dialog = new PDOReportOrderOfDate_F();
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
                     if (SystemArgs.Excel.ReportOrderOfDate(Dialog.First_MC.SelectionStart, Dialog.Second_MC.SelectionStart))
@@ -592,15 +591,31 @@ namespace SZMK
                 DeleteOrder_TSM.Enabled = false;
             }
         }
-        private String GetNumber(String QR)
+
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            String[] Temp = QR.Split(' ');
-            return Temp[1];
-        }
-        private Int64 GetList(String QR)
-        {
-            String[] Temp = QR.Split(' ');
-            return Convert.ToInt64(Temp[3]);
+            try
+            {
+                SystemArgs.Orders.Clear();
+                if (SystemArgs.Request.GetAllBlankOrder() && SystemArgs.Request.GetAllStatus() && SystemArgs.Request.GetAllOrders())
+                {
+                    if (SystemArgs.Orders.Count() <= 0)
+                    {
+                        EnableButton(false);
+
+                    }
+                    Display(SystemArgs.Orders);
+                }
+                else
+                {
+                    throw new Exception("Ошибка загрузки данных из базы");
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
         }
     }
 }

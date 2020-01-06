@@ -135,6 +135,8 @@ namespace SZMK
 
                 try
                 {
+                    List<StatusOfUser> Statuses = new List<StatusOfUser>();
+                    SystemArgs.Request.GetAllStatusOfUser(Statuses);
                     ExcelPackage WB = new ExcelPackage(new System.IO.FileInfo(SaveReport.FileName));
                     ExcelWorksheet WS = WB.Workbook.Worksheets[1];
                     var rowCntReport = WS.Dimension.End.Row;
@@ -144,26 +146,45 @@ namespace SZMK
                         List<Order> Report = SystemArgs.Orders.Where(p => (p.DateCreate >= First) && (p.DateCreate <= Second)).ToList();
                         for (Int32 i = 0; i < Report.Count; i++)
                         {
+                            List<StatusOfUser> OrderStatuses = (from p in Statuses
+                                                                where p.IDOrder == Report[i].ID
+                                                                orderby p.IDStatus
+                                                                select p).ToList();
                             WS.Cells[i + rowCntReport + 1, 1].Value = Report[i].Number;
-                            WS.Cells[i + rowCntReport + 1, 2].Value = Report[i].List.ToString();
-                            WS.Cells[i + rowCntReport + 1, 3].Value = Report[i].Mark;
-                            WS.Cells[i + rowCntReport + 1, 4].Value = Report[i].Executor;
-                            WS.Cells[i + rowCntReport + 1, 5].Value = Report[i].Lenght.ToString();
-                            WS.Cells[i + rowCntReport + 1, 6].Value = Report[i].Weight.ToString();
-                            WS.Cells[i + rowCntReport + 1, 7].Value = Report[i].BlankOrder.QR;
+                            if (Report[i].BlankOrder.QR.Split('_').Length > 3)
+                            {
+                                WS.Cells[i + rowCntReport + 1, 2].Value = Report[i].BlankOrder.QR.Split('_')[1];
+                            }
+                            else
+                            {
+                                WS.Cells[i + rowCntReport + 1, 2].Value = Report[i].BlankOrder.QR;
+                            }
+                            WS.Cells[i + rowCntReport + 1, 3].Value = Report[i].List.ToString();
+                            WS.Cells[i + rowCntReport + 1, 4].Value = Report[i].Mark;
+                            WS.Cells[i + rowCntReport + 1, 5].Value = Report[i].Executor;
+                            WS.Cells[i + rowCntReport + 1, 6].Value = Report[i].Lenght.ToString();
+                            WS.Cells[i + rowCntReport + 1, 7].Value = Report[i].Weight.ToString();
                             WS.Cells[i + rowCntReport + 1, 8].Value = Report[i].Status.Name;
-                            WS.Cells[i + rowCntReport + 1, 9].Value = Report[i].User.Login;
-                            WS.Cells[i + rowCntReport + 1, 10].Value = Report[i].DateCreate.ToShortDateString().ToString();
+                            Int32 Count = 0;
+                            for (int j = 0; j < OrderStatuses.Count; j++)
+                            {
+                                User Temp = (from p in SystemArgs.Users
+                                             where p.ID == OrderStatuses[j].IDUser
+                                             select p).Single();
+                                WS.Cells[i + rowCntReport + 1, 9+Count].Value = Temp.Surname + " " + Temp.Name.First() + ". " + Temp.MiddleName.First()+".";
+                                WS.Cells[i + rowCntReport + 1, 10+Count].Value = OrderStatuses[j].DateCreate.ToShortDateString();
+                                Count = Count + 2;
+                            }
                         }
                         int last = WS.Dimension.End.Row;
-                        WS.Cells[last + 2, 8].Value = "Принял";
-                        WS.Cells[last + 3, 8].Value = "Сдал";
-                        WS.Cells[last + 2, 9].Value = "______________";
-                        WS.Cells[last + 3, 9].Value = "______________";
-                        WS.Cells[last + 2, 10].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
-                        WS.Cells[last + 3, 10].Value = "/______________/";
-                        WS.Cells["A2:J"+ WS.Dimension.End.Row.ToString()].AutoFitColumns();
-                        WS.Cells["A2:J" + WS.Dimension.End.Row.ToString()].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        WS.Cells[last + 2, 14].Value = "Принял";
+                        WS.Cells[last + 3, 14].Value = "Сдал";
+                        WS.Cells[last + 2, 15].Value = "______________";
+                        WS.Cells[last + 3, 15].Value = "______________";
+                        WS.Cells[last + 2, 16].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
+                        WS.Cells[last + 3, 16].Value = "/______________/";
+                        WS.Cells["A2:P"+ WS.Dimension.End.Row.ToString()].AutoFitColumns();
+                        WS.Cells["A2:P" + WS.Dimension.End.Row.ToString()].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         WB.Save();
                     }
                 }
@@ -175,6 +196,44 @@ namespace SZMK
                 return true;
             }
             else
+            {
+                return false;
+            }
+        }
+        public bool AddToRegistry(Order Order)
+        {
+            try
+            {
+                System.IO.FileInfo fInfoSrcTemplateRegistry = new System.IO.FileInfo(SystemArgs.Path.TemplateRegistry);
+                System.IO.FileInfo fInfoSrcRegistry = new System.IO.FileInfo(SystemArgs.ClientProgram.RegistryPath + @"\Реестр.xlsx");
+                if (!File.Exists(fInfoSrcRegistry.ToString()))
+                {
+                    var WBcopy = new ExcelPackage(fInfoSrcTemplateRegistry).File.CopyTo(fInfoSrcRegistry.ToString());
+                }
+                ExcelPackage WB = new ExcelPackage(new System.IO.FileInfo(fInfoSrcRegistry.ToString()));
+                ExcelWorksheet WS = WB.Workbook.Worksheets[1];
+                var rowCntReport = WS.Dimension.End.Row;
+                WS.Cells[rowCntReport + 1, 1].Value = Order.Number;
+                if (Order.BlankOrder.QR.Split('_').Length > 3)
+                {
+                    WS.Cells[rowCntReport + 1, 2].Value = Order.BlankOrder.QR.Split('_')[1];
+                }
+                else
+                {
+                    WS.Cells[rowCntReport + 1, 2].Value = Order.BlankOrder.QR;
+                }
+                WS.Cells[rowCntReport + 1, 3].Value = Order.List.ToString();
+                WS.Cells[rowCntReport + 1, 4].Value = Order.Mark;
+                WS.Cells[rowCntReport + 1, 5].Value = Order.Executor;
+                WS.Cells[rowCntReport + 1, 6].Value = Order.Lenght.ToString();
+                WS.Cells[rowCntReport + 1, 7].Value = Order.Weight.ToString();
+                WS.Cells[rowCntReport + 1, 8].Value = Order.Status.Name;
+                WS.Cells["A2:H" + WS.Dimension.End.Row.ToString()].AutoFitColumns();
+                WS.Cells["A2:H" + WS.Dimension.End.Row.ToString()].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                WB.Save();
+                return true;
+            }
+            catch (Exception e)
             {
                 return false;
             }

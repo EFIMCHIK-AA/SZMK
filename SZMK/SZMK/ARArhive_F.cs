@@ -27,6 +27,7 @@ namespace SZMK
                 Load_F Dialog = new Load_F();
                 Dialog.Show();
                 SystemArgs.ByteScout = new ByteScout();
+                SystemArgs.ClientProgram = new ClientProgram();
                 SystemArgs.MobileApplication = new MobileApplication();
                 SystemArgs.Orders = new List<Order>();
                 SystemArgs.BlankOrders = new List<BlankOrder>();
@@ -155,7 +156,7 @@ namespace SZMK
                         ARDecodeReport_F Report = new ARDecodeReport_F();
                         for (int i = 0; i < SystemArgs.ByteScout._DecodeSession.Count; i++)
                         {
-                            if (SystemArgs.ByteScout._DecodeSession[i]._Unique)
+                            if (SystemArgs.ByteScout._DecodeSession[i].Unique)
                             {
                                 Int64 PositionID = SystemArgs.User.GetPosition().ID;
                                 Status TempStatus = (from p in SystemArgs.Statuses
@@ -165,17 +166,24 @@ namespace SZMK
                                 Order NewOrder = Temp;
                                 NewOrder.Status = TempStatus;
                                 NewOrder.User = SystemArgs.User;
-                                if (SystemArgs.Request.InsertStatus(NewOrder))
+                                if (SystemArgs.Excel.AddToRegistry(NewOrder))
                                 {
-                                    SystemArgs.Orders.Remove(Temp);
-                                    SystemArgs.Orders.Add(NewOrder);
-                                    Report.Report_DGV.Rows.Add();
-                                    Report.Report_DGV[0, Report.Report_DGV.Rows.Count - 1].Value = NewOrder.DataMatrix;
-                                    Report.Report_DGV[1, Report.Report_DGV.Rows.Count - 1].Value = CopyFileToArhive(NewOrder.DataMatrix, Dialog.FileNames[i]);
+                                    if (SystemArgs.Request.InsertStatus(NewOrder))
+                                    {
+                                        SystemArgs.Orders.Remove(Temp);
+                                        SystemArgs.Orders.Add(NewOrder);
+                                        Report.Report_DGV.Rows.Add();
+                                        Report.Report_DGV[0, Report.Report_DGV.Rows.Count - 1].Value = NewOrder.DataMatrix;
+                                        Report.Report_DGV[1, Report.Report_DGV.Rows.Count - 1].Value = CopyFileToArhive(NewOrder.DataMatrix, Dialog.FileNames[i]);
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Ошибка при добавлении в базу данных статуса для: " + SystemArgs.ByteScout._DecodeSession[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Ошибка при добавлении в базу данных статуса для: " + SystemArgs.ByteScout._DecodeSession[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show("Ошибка добавления данных в реестр, перемещение и обновление статуса " + SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix+" не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                             }
                         }
@@ -473,7 +481,7 @@ namespace SZMK
                         SystemArgs.PrintLog("Количество объектов по параметрам поиска 0");
                         return false;
                     }
-
+                    timer1.Stop();
                     return true;
                 }
                 else
@@ -498,6 +506,7 @@ namespace SZMK
                 Search_TSTB.Text = String.Empty;
 
                 Result.Clear();
+                timer1.Start();
             }
         }
         private bool SearchParam()
@@ -565,6 +574,7 @@ namespace SZMK
                     {
                         Result = Result.Where(p => p.User == (User)Dialog.User_CB.SelectedItem).ToList();
                     }
+                    timer1.Stop();
                     return true;
                 }
                 else
@@ -613,6 +623,32 @@ namespace SZMK
                 DeleteOrder_TSB.Enabled = false;
                 ChangeOrder_TSM.Enabled = false;
                 DeleteOrder_TSM.Enabled = false;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                SystemArgs.Orders.Clear();
+                if (SystemArgs.Request.GetAllBlankOrder() && SystemArgs.Request.GetAllStatus() && SystemArgs.Request.GetAllOrders())
+                {
+                    if (SystemArgs.Orders.Count() <= 0)
+                    {
+                        EnableButton(false);
+
+                    }
+                    Display(SystemArgs.Orders);
+                }
+                else
+                {
+                    throw new Exception("Ошибка загрузки данных из базы");
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
         }
     }

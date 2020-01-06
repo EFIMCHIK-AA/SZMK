@@ -8,8 +8,8 @@ namespace SZMK
 {
     public class OrderScanSession
     {
-        public String _DateMatrix;
-        public bool _Unique;
+        private String _DateMatrix;
+        private bool _Unique;
         public OrderScanSession(String DataMatrix, Boolean Unique)
         {
             if(!String.IsNullOrEmpty(DataMatrix))

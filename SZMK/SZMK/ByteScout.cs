@@ -264,7 +264,7 @@ namespace SZMK
         {
             foreach (var item in _DecodeSession)
             {
-                if (item._DateMatrix.Equals(Message))
+                if (item.DataMatrix.Equals(Message))
                 {
                     return false;
                 }

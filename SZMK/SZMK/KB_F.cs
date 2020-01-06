@@ -26,6 +26,7 @@ namespace SZMK
                 Load_F Dialog = new Load_F();
                 Dialog.Show();
                 SystemArgs.MobileApplication = new MobileApplication();
+                SystemArgs.ClientProgram = new ClientProgram();
                 SystemArgs.Orders = new List<Order>();
                 SystemArgs.BlankOrders = new List<BlankOrder>();
                 SystemArgs.Statuses = new List<Status>();
@@ -151,7 +152,7 @@ namespace SZMK
                     {
                         for(int i = 0; i < SystemArgs.ServerMobileAppOrder._ScanSession.Count; i++)
                         {
-                            if (SystemArgs.ServerMobileAppOrder._ScanSession[i]._Unique)
+                            if (SystemArgs.ServerMobileAppOrder._ScanSession[i].Unique)
                             {
                                 using (var Connect = new NpgsqlConnection(SystemArgs.DataBase.ToString()))
                                 {
@@ -175,15 +176,21 @@ namespace SZMK
                                                     where p.IDPosition==PositionID
                                                     select p).Single();
                                 Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4].Replace('.', ',')), Convert.ToDouble(SplitDataMatrix[5].Replace('.', ',')), TempStatus, SystemArgs.User, TempBlank);
-                                if (SystemArgs.Request.InsertOrder(TempOrder))
+                                if (SystemArgs.Excel.AddToRegistry(TempOrder))
                                 {
-                                    SystemArgs.Orders.Add(TempOrder);
-                                    SystemArgs.Request.InsertStatus(TempOrder);
+                                    if (SystemArgs.Request.InsertOrder(TempOrder))
+                                    {
+                                        SystemArgs.Orders.Add(TempOrder);
+                                        SystemArgs.Request.InsertStatus(TempOrder);
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Ошибка при добавлении в базу данных DataMatrix: " + SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Ошибка при добавлении в базу данных DataMatrix: "+SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    return false;
+                                    MessageBox.Show("Ошибка добавления данных в реестр, добавление в базу данных " +SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix+ " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
 
                             }
@@ -421,7 +428,7 @@ namespace SZMK
                         SystemArgs.PrintLog("Количество объектов по параметрам поиска 0");
                         return false;
                     }
-
+                    timer1.Stop();
                     return true;
                 }
                 else
@@ -447,6 +454,7 @@ namespace SZMK
                 Search_TSTB.Text = String.Empty;
 
                 Result.Clear();
+                timer1.Start();
             }
         }
         private bool SearchParam()
@@ -514,6 +522,7 @@ namespace SZMK
                     {
                         Result = Result.Where(p => p.User == (User)Dialog.User_CB.SelectedItem).ToList();
                     }
+                    timer1.Stop();
                     return true;
                 }
                 else
@@ -562,6 +571,32 @@ namespace SZMK
                 DeleteOrder_TSB.Enabled = false;
                 ChangeOrder_TSM.Enabled = false;
                 DeleteOrder_TSM.Enabled = false;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                SystemArgs.Orders.Clear();
+                if (SystemArgs.Request.GetAllBlankOrder() && SystemArgs.Request.GetAllStatus() && SystemArgs.Request.GetAllOrders())
+                {
+                    if (SystemArgs.Orders.Count() <= 0)
+                    {
+                        EnableButton(false);
+
+                    }
+                    Display(SystemArgs.Orders);
+                }
+                else
+                {
+                    throw new Exception("Ошибка загрузки данных из базы");
+                }
+            }
+            catch(Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
         }
     }

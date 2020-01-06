@@ -10,15 +10,28 @@ namespace SZMK
     public class ServerMobileAppBlankOrder
     {
         SimpleTcpServer ServerTCP;
+        private Boolean _Added;
         public delegate void LoadData(List<BlankOrderScanSession> ScanSession);
         public event LoadData Load;
         public delegate void LoadStatus(String QRBlankOrder);
         public event LoadStatus Status;
         public List<BlankOrderScanSession> _ScanSession;
 
-        public ServerMobileAppBlankOrder()
+        public ServerMobileAppBlankOrder(Boolean Added)
         {
+            _Added = Added;
             _ScanSession = new List<BlankOrderScanSession>();
+        }
+        public Boolean Added
+        {
+            get
+            {
+                return _Added;
+            }
+            set
+            {
+                _Added = value;
+            }
         }
         public void ClearData()
         {
@@ -50,9 +63,12 @@ namespace SZMK
                     String[] ValidationDataMatrix = e.MessageString.Split('_');
                     if (ValidationDataMatrix.Length <= 3)
                     {
-                        throw new Exception("В DataMatrix менее 6 полей");
+                        throw new Exception("В QR менее 3 полей");
                     }
-                    FindedOrder(ValidationDataMatrix,e.MessageString);
+                    if (!FindedOrder(ValidationDataMatrix, e.MessageString))
+                    {
+                        throw new Exception("Ошибка определения чертежей в бланке заказа");
+                    }
                 }
                 catch (FormatException)
                 {
@@ -68,7 +84,7 @@ namespace SZMK
         {
             foreach (var item in _ScanSession)
             {
-                if (item._QR.Equals(e.MessageString))
+                if (item.QRBlankOrder.Equals(e.MessageString))
                 {
                     return false;
                 }
@@ -97,25 +113,49 @@ namespace SZMK
         {
             try
             {
-                //Status?.Invoke(QRBlankOrder);
+                _ScanSession.Add(new BlankOrderScanSession (true, QRBlankOrder));
+                ValidationDataMatrix[1] = ReplaceNumber(ValidationDataMatrix[1]);
+                Status?.Invoke(QRBlankOrder);
                 for (int i = 4; i < ValidationDataMatrix.Length; i++)
                 {
-                    if (SystemArgs.Request.CheckedExistenceOrderAndStatus(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i])))
+                    if (Added)
                     {
-                        _ScanSession.Add(new BlankOrderScanSession($"Заказ {ValidationDataMatrix[1]} Лист {ValidationDataMatrix[i]}", true, QRBlankOrder));
+                        if (SystemArgs.Request.CheckedExistenceOrderAndStatus(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i])))
+                        {
+                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]), true));
+                        }
+                        else
+                        {
+                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]), false));
+                            _ScanSession[_ScanSession.Count - 1].Added = false;
+                        }
                     }
                     else
                     {
-                        _ScanSession.Add(new BlankOrderScanSession($"Заказ {ValidationDataMatrix[1]} Лист {ValidationDataMatrix[i]}", false, QRBlankOrder));
+                        if (SystemArgs.Request.CheckedExistenceBlankOrderAndStatus(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]),QRBlankOrder))
+                        {
+                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]), true));
+                        }
+                        else
+                        {
+                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]), false));
+                            _ScanSession[_ScanSession.Count - 1].Added = false;
+                        }
                     }
-                    Load?.Invoke(_ScanSession);
                 }
+                Load?.Invoke(_ScanSession);
                 return true;
             }
             catch
             {
-                throw new Exception("Ошибка определения чертежей в бланке заказа");
+                return false;
             }
+        }
+        private String ReplaceNumber(String Number)
+        {
+            Number = Number.Remove(Number.IndexOf('-'), Number.Remove(0, Number.IndexOf('-') + 1).IndexOf('-') + 1);//Удаляю подстроку с шаблоном -*- отставляя полседнее -
+            Number = Number.Replace('-', '(') + ")";//Заменяю - на скобочку ( и добавляю )
+            return Number;
         }
     }
 }

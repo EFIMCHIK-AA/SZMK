@@ -86,7 +86,10 @@ namespace SZMK
                         this.Hide();
                         PDO.Show();
                         break;
-                    case 5://Сотрудник ООП
+                    case 5://Сотрудник ОПП
+                        OPP_F OPP = new OPP_F();
+                        this.Hide();
+                        OPP.Show();
                         break;
                     case 6:
                         break;

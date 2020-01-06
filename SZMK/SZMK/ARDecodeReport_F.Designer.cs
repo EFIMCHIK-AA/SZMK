@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Close_B = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -111,6 +113,8 @@
             // DataMatrix
             // 
             this.DataMatrix.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DataMatrix.DefaultCellStyle = dataGridViewCellStyle1;
             this.DataMatrix.FillWeight = 40F;
             this.DataMatrix.HeaderText = "Данные чертежа";
             this.DataMatrix.Name = "DataMatrix";
@@ -119,6 +123,8 @@
             // Discribe
             // 
             this.Discribe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Discribe.DefaultCellStyle = dataGridViewCellStyle2;
             this.Discribe.FillWeight = 60F;
             this.Discribe.HeaderText = "Описание выполненной операции";
             this.Discribe.Name = "Discribe";

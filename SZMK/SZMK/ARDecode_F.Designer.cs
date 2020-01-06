@@ -37,8 +37,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.Scan_DGV = new System.Windows.Forms.DataGridView();
-            this.DataMatrixOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Unique = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status_TB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.ServerStatus_TB = new System.Windows.Forms.TextBox();
@@ -47,6 +45,8 @@
             this.Add_B = new System.Windows.Forms.Button();
             this.Change_B = new System.Windows.Forms.Button();
             this.TIFF_OFD = new System.Windows.Forms.OpenFileDialog();
+            this.DataMatrixOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Unique = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Scan_DGV)).BeginInit();
@@ -75,7 +75,7 @@
             // CreateAct_TSM
             // 
             this.CreateAct_TSM.Name = "CreateAct_TSM";
-            this.CreateAct_TSM.Size = new System.Drawing.Size(180, 22);
+            this.CreateAct_TSM.Size = new System.Drawing.Size(178, 22);
             this.CreateAct_TSM.Text = "Сформировать акт";
             this.CreateAct_TSM.Click += new System.EventHandler(this.CreateAct_TSM_Click);
             // 
@@ -159,29 +159,6 @@
             this.Scan_DGV.TabIndex = 10;
             this.Scan_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Scan_DGV_CellFormatting);
             this.Scan_DGV.SelectionChanged += new System.EventHandler(this.Scan_DGV_SelectionChanged);
-            // 
-            // DataMatrixOrder
-            // 
-            this.DataMatrixOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DataMatrixOrder.DataPropertyName = "DataMatrix";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DataMatrixOrder.DefaultCellStyle = dataGridViewCellStyle1;
-            this.DataMatrixOrder.FillWeight = 75F;
-            this.DataMatrixOrder.HeaderText = "Данные чертежа";
-            this.DataMatrixOrder.Name = "DataMatrixOrder";
-            this.DataMatrixOrder.ReadOnly = true;
-            // 
-            // Unique
-            // 
-            this.Unique.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Unique.DataPropertyName = "Unique";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Unique.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Unique.FillWeight = 25F;
-            this.Unique.HeaderText = "Найден";
-            this.Unique.Name = "Unique";
-            this.Unique.ReadOnly = true;
-            this.Unique.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // Status_TB
             // 
@@ -285,6 +262,29 @@
             this.Change_B.UseVisualStyleBackColor = false;
             this.Change_B.Click += new System.EventHandler(this.Change_B_Click);
             // 
+            // DataMatrixOrder
+            // 
+            this.DataMatrixOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DataMatrixOrder.DataPropertyName = "DataMatrix";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DataMatrixOrder.DefaultCellStyle = dataGridViewCellStyle1;
+            this.DataMatrixOrder.FillWeight = 75F;
+            this.DataMatrixOrder.HeaderText = "Данные чертежа";
+            this.DataMatrixOrder.Name = "DataMatrixOrder";
+            this.DataMatrixOrder.ReadOnly = true;
+            // 
+            // Unique
+            // 
+            this.Unique.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Unique.DataPropertyName = "Unique";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Unique.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Unique.FillWeight = 25F;
+            this.Unique.HeaderText = "Найдено";
+            this.Unique.Name = "Unique";
+            this.Unique.ReadOnly = true;
+            this.Unique.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
             // ARDecode_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -324,9 +324,9 @@
         private System.Windows.Forms.DataGridView Scan_DGV;
         private System.Windows.Forms.Button Cancel_B;
         private System.Windows.Forms.Button Add_B;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DataMatrixOrder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Unique;
         private System.Windows.Forms.Button Change_B;
         private System.Windows.Forms.OpenFileDialog TIFF_OFD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataMatrixOrder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Unique;
     }
 }

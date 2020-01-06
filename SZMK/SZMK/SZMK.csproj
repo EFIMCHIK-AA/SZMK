@@ -134,6 +134,7 @@
     <Compile Include="ARSearchParam_F.Designer.cs">
       <DependentUpon>ARSearchParam_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="BlankOrderOfOrders.cs" />
     <Compile Include="BlankOrderScanSession.cs" />
     <Compile Include="ByteScout.cs" />
     <Compile Include="KBChangeOrder_F.cs">
@@ -173,6 +174,36 @@
     </Compile>
     <Compile Include="Load_F.Designer.cs">
       <DependentUpon>Load_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OPPChangeOrder_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OPPChangeOrder_F.Designer.cs">
+      <DependentUpon>OPPChangeOrder_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OPPReportOrderOfDate_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OPPReportOrderOfDate_F.Designer.cs">
+      <DependentUpon>OPPReportOrderOfDate_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OPPScan_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OPPScan_F.Designer.cs">
+      <DependentUpon>OPPScan_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OPPSearchParam_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OPPSearchParam_F.Designer.cs">
+      <DependentUpon>OPPSearchParam_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OPP_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OPP_F.Designer.cs">
+      <DependentUpon>OPP_F.cs</DependentUpon>
     </Compile>
     <Compile Include="Order.cs" />
     <Compile Include="PDOChangeOrder_F.cs">
@@ -296,6 +327,7 @@
     <Compile Include="ADSettingsProgram_F.Designer.cs">
       <DependentUpon>ADSettingsProgram_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="StatusOfUser.cs" />
     <Compile Include="SystemArgs.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="UnLoadSpecific.cs" />
@@ -353,6 +385,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Autorization_F.resx">
       <DependentUpon>Autorization_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OPPChangeOrder_F.resx">
+      <DependentUpon>OPPChangeOrder_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OPPReportOrderOfDate_F.resx">
+      <DependentUpon>OPPReportOrderOfDate_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OPPScan_F.resx">
+      <DependentUpon>OPPScan_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OPPSearchParam_F.resx">
+      <DependentUpon>OPPSearchParam_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OPP_F.resx">
+      <DependentUpon>OPP_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PDOChangeOrder_F.resx">
       <DependentUpon>PDOChangeOrder_F.cs</DependentUpon>

@@ -39,22 +39,44 @@ namespace SZMK
             Scan_DGV.Invoke((MethodInvoker)delegate ()
             {
                 Scan_DGV.Rows.Add();
-                Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = ScanSessions[ScanSessions.Count - 1].QR;
-                if (ScanSessions[ScanSessions.Count - 1].Unique)
+                if (ScanSessions[ScanSessions.Count - 1].Added)
                 {
-                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Уникален";
-                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
+                    Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = ScanSessions[ScanSessions.Count - 1].QRBlankOrder;
+                    Scan_DGV[0, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
+                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "QR бланка заказа";
+                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.AliceBlue;
                 }
                 else
                 {
-                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Не уникален";
-                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Red;
+                    Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = ScanSessions[ScanSessions.Count - 1].QRBlankOrder;
+                    Scan_DGV[0, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Red;
+                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "QR бланка заказа";
+                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.AliceBlue;
+                }
+                foreach (BlankOrderScanSession.NumberAndList Order in ScanSessions[ScanSessions.Count - 1]._Order)
+                {
+                    Scan_DGV.Rows.Add();
+                    String TextOrder = "Заказ №" + Order._Number + " Лист №" + Order._List.ToString();
+                    Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = TextOrder;
+                    if (Order._Finded)
+                    {
+                        Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Найден";
+                        Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
+                    }
+                    else
+                    {
+                        Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Не найден";
+                        Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Red;
+                    }
                 }
             });
         }
         private void LoadStatusOperation(String DataMatrix)
         {
-            Status_TB.AppendText(DataMatrix + Environment.NewLine);
+            Status_TB.Invoke((MethodInvoker)delegate ()
+            {
+                Status_TB.AppendText("Получен: " + DataMatrix + Environment.NewLine);
+            });
         }
 
         private void PDOScan_F_FormClosing(object sender, FormClosingEventArgs e)

@@ -25,6 +25,6 @@ public class Client{
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+    }
     }
 }

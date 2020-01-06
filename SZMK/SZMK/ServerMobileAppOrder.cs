@@ -76,7 +76,7 @@ namespace SZMK
         {
             foreach (var item in _ScanSession)
             {
-                if (item._DateMatrix.Equals(e.MessageString))
+                if (item.DataMatrix.Equals(e.MessageString))
                 {
                     return false;
                 }
