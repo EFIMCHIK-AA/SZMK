@@ -81,7 +81,8 @@ namespace SZMK
 
         private void Add_B_Click(object sender, EventArgs e)
         {
-            if(AddMail())
+            Timer_T.Start();
+            if (AddMail())
             {
                 Display(SystemArgs.Mails);
             }
@@ -140,6 +141,7 @@ namespace SZMK
 
         private void Change_B_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             if (ChangeMail())
             {
                 Display(SystemArgs.Mails);
@@ -185,6 +187,7 @@ namespace SZMK
 
         private void Delete_B_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             if (DeleteMail())
             {
                 Display(SystemArgs.Mails);
@@ -298,6 +301,7 @@ namespace SZMK
 
         private void Search_B_Click(object sender, EventArgs e)
         {
+            Timer_T.Stop();
             if (Search())
             {
                 if (Result != null)
@@ -327,6 +331,7 @@ namespace SZMK
 
         private void ResetSearch_B_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             ResetSearch();
             Display(SystemArgs.Mails);
         }

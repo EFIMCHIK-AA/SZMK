@@ -87,7 +87,7 @@
             this.Mark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Timer_T = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -732,11 +732,11 @@
             this.Weight.Name = "Weight";
             this.Weight.ReadOnly = true;
             // 
-            // timer1
+            // Timer_T
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 15000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.Timer_T.Enabled = true;
+            this.Timer_T.Interval = 15000;
+            this.Timer_T.Tick += new System.EventHandler(this.Timer_T_Tick);
             // 
             // ARArhive_F
             // 
@@ -820,6 +820,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Mark;
         private System.Windows.Forms.DataGridViewTextBoxColumn Lenght;
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer Timer_T;
     }
 }

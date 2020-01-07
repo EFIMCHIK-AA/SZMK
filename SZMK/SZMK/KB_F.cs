@@ -60,6 +60,7 @@ namespace SZMK
 
         private void AddOrder_TSB_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             if (AddOrder())
             {
                 Display(SystemArgs.Orders);
@@ -68,6 +69,7 @@ namespace SZMK
 
         private void ChangeOrder_TSB_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             if (ChangeOrder())
             {
                 Display(SystemArgs.Orders);
@@ -75,6 +77,7 @@ namespace SZMK
         }
         private void DeleteOrder_TSB_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             if (DeleteOrder())
             {
                 Display(SystemArgs.Orders);
@@ -83,6 +86,7 @@ namespace SZMK
 
         private void AddOrder_TSM_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             if (AddOrder())
             {
                 Display(SystemArgs.Orders);
@@ -90,6 +94,7 @@ namespace SZMK
         }
         private void ChangeOrder_TSM_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             if (ChangeOrder())
             {
                 Display(SystemArgs.Orders);
@@ -98,6 +103,7 @@ namespace SZMK
 
         private void DeleteOrder_TSM_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             if (DeleteOrder())
             {
                 Display(SystemArgs.Orders);
@@ -114,6 +120,7 @@ namespace SZMK
 
         private void Search_TSB_Click(object sender, EventArgs e)
         {
+            Timer_T.Stop();
             if (Search())
             {
                 if (Result != null)
@@ -125,12 +132,14 @@ namespace SZMK
 
         private void Reset_TSB_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             ResetSearch();
             Display(SystemArgs.Orders);
         }
 
         private void AdvancedSearch_TSB_Click(object sender, EventArgs e)
         {
+            Timer_T.Stop();
             if (SearchParam())
             {
                 Display(Result);
@@ -329,31 +338,13 @@ namespace SZMK
         {
             if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex < View.Count())
             {
-                Order_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
                 Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
 
-                DateCreate_TB.Text = Temp.DateCreate.ToShortDateString();
-                Executor_TB.Text = Temp.Executor;
-                Number_TB.Text = Temp.Number;
-                List_TB.Text = Temp.List.ToString();
-                Mark_TB.Text = Temp.Mark;
-                Lenght_TB.Text = Temp.Lenght.ToString();
-                Weight_TB.Text = Temp.Weight.ToString();
-                BlankOrder_TB.Text = Temp.BlankOrder.QR;
-                Status_TB.Text = Temp.Status.Name;
+                Selection(Temp, true);
             }
             else
             {
-                DateCreate_TB.Text = String.Empty;
-                Executor_TB.Text = String.Empty;
-                Number_TB.Text = String.Empty;
-                List_TB.Text = String.Empty;
-                Mark_TB.Text = String.Empty;
-                Lenght_TB.Text = String.Empty;
-                Weight_TB.Text = String.Empty;
-                BlankOrder_TB.Text = String.Empty;
-                Status_TB.Text = String.Empty;
+                Selection(null, false);
             }
         }
 
@@ -428,7 +419,6 @@ namespace SZMK
                         SystemArgs.PrintLog("Количество объектов по параметрам поиска 0");
                         return false;
                     }
-                    timer1.Stop();
                     return true;
                 }
                 else
@@ -454,7 +444,6 @@ namespace SZMK
                 Search_TSTB.Text = String.Empty;
 
                 Result.Clear();
-                timer1.Start();
             }
         }
         private bool SearchParam()
@@ -522,7 +511,6 @@ namespace SZMK
                     {
                         Result = Result.Where(p => p.User == (User)Dialog.User_CB.SelectedItem).ToList();
                     }
-                    timer1.Stop();
                     return true;
                 }
                 else
@@ -573,12 +561,45 @@ namespace SZMK
                 DeleteOrder_TSM.Enabled = false;
             }
         }
+        private void Selection(Order Temp, bool flag)
+        {
+            if (flag)
+            {
+                DateCreate_TB.Text = Temp.DateCreate.ToShortDateString();
+                Executor_TB.Text = Temp.Executor;
+                Number_TB.Text = Temp.Number;
+                List_TB.Text = Temp.List.ToString();
+                Mark_TB.Text = Temp.Mark;
+                Lenght_TB.Text = Temp.Lenght.ToString();
+                Weight_TB.Text = Temp.Weight.ToString();
+                BlankOrder_TB.Text = Temp.BlankOrder.QR;
+                Status_TB.Text = Temp.Status.Name;
+            }
+            else
+            {
+                DateCreate_TB.Text = String.Empty;
+                Executor_TB.Text = String.Empty;
+                Number_TB.Text = String.Empty;
+                List_TB.Text = String.Empty;
+                Mark_TB.Text = String.Empty;
+                Lenght_TB.Text = String.Empty;
+                Weight_TB.Text = String.Empty;
+                BlankOrder_TB.Text = String.Empty;
+                Status_TB.Text = String.Empty;
+            }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        }
+
+        private void Timer_T_Tick(object sender, EventArgs e)
         {
             try
             {
+                (Int32, Int32) Index = (Order_DGV.CurrentCell.ColumnIndex, Order_DGV.CurrentCell.RowIndex);
+
+                List<Order> Temp = new List<Order>(SystemArgs.Orders);
+
                 SystemArgs.Orders.Clear();
+
                 if (SystemArgs.Request.GetAllBlankOrder() && SystemArgs.Request.GetAllStatus() && SystemArgs.Request.GetAllOrders())
                 {
                     if (SystemArgs.Orders.Count() <= 0)
@@ -586,15 +607,35 @@ namespace SZMK
                         EnableButton(false);
 
                     }
-                    Display(SystemArgs.Orders);
+                    if (!Temp.SequenceEqual(SystemArgs.Orders))
+                    {
+                        Display(SystemArgs.Orders);
+                    }
                 }
                 else
                 {
+                    SystemArgs.Orders = Temp;
                     throw new Exception("Ошибка загрузки данных из базы");
+                }
+                if (Index.Item2 < SystemArgs.Users.Count)
+                {
+                    Order_DGV.CurrentCell = Order_DGV[Index.Item1, Index.Item2];
+
+                    if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex < View.Count())
+                    {
+                        Order Order = (Order)View[Order_DGV.CurrentCell.RowIndex];
+
+                        Selection(Order, true);
+                    }
+                    else
+                    {
+                        Selection(null, false);
+                    }
                 }
             }
             catch(Exception E)
             {
+                Timer_T.Stop();
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }

@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KB_F));
             this.добавлениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddOrder_TSM = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,7 +89,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.BlankOrder_TB = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Timer_T = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -356,8 +356,8 @@
             // 
             this.DateCreate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.DateCreate.DataPropertyName = "DateCreateView";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DateCreate.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DateCreate.DefaultCellStyle = dataGridViewCellStyle1;
             this.DateCreate.FillWeight = 15F;
             this.DateCreate.HeaderText = "Дата создания";
             this.DateCreate.Name = "DateCreate";
@@ -367,8 +367,8 @@
             // 
             this.Executor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Executor.DataPropertyName = "Executor";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Executor.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Executor.DefaultCellStyle = dataGridViewCellStyle2;
             this.Executor.FillWeight = 17F;
             this.Executor.HeaderText = "Исполнитель";
             this.Executor.Name = "Executor";
@@ -378,8 +378,8 @@
             // 
             this.Number.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Number.DataPropertyName = "Number";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Number.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Number.DefaultCellStyle = dataGridViewCellStyle3;
             this.Number.FillWeight = 13F;
             this.Number.HeaderText = "Номер заказа";
             this.Number.Name = "Number";
@@ -389,8 +389,8 @@
             // 
             this.List.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.List.DataPropertyName = "List";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.List.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.List.DefaultCellStyle = dataGridViewCellStyle4;
             this.List.FillWeight = 10F;
             this.List.HeaderText = "Лист";
             this.List.Name = "List";
@@ -400,8 +400,8 @@
             // 
             this.Mark.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Mark.DataPropertyName = "Mark";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Mark.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Mark.DefaultCellStyle = dataGridViewCellStyle5;
             this.Mark.FillWeight = 10F;
             this.Mark.HeaderText = "Марка";
             this.Mark.Name = "Mark";
@@ -411,8 +411,8 @@
             // 
             this.Lenght.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Lenght.DataPropertyName = "Lenght";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Lenght.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Lenght.DefaultCellStyle = dataGridViewCellStyle6;
             this.Lenght.FillWeight = 10F;
             this.Lenght.HeaderText = "Длина";
             this.Lenght.Name = "Lenght";
@@ -422,8 +422,8 @@
             // 
             this.Weight.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Weight.DataPropertyName = "Weight";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Weight.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Weight.DefaultCellStyle = dataGridViewCellStyle7;
             this.Weight.FillWeight = 10F;
             this.Weight.HeaderText = "Вес";
             this.Weight.Name = "Weight";
@@ -754,11 +754,11 @@
             this.label11.Text = "Статус чертежа";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // timer1
+            // Timer_T
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 15000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.Timer_T.Enabled = true;
+            this.Timer_T.Interval = 15000;
+            this.Timer_T.Tick += new System.EventHandler(this.Timer_T_Tick);
             // 
             // KB_F
             // 
@@ -845,6 +845,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Lenght;
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer Timer_T;
     }
 }

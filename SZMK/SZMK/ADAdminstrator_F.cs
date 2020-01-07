@@ -258,6 +258,7 @@ namespace SZMK
 
         private void Add_TSB_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             if (AddUser())
             {
                 Display(SystemArgs.Users);
@@ -333,6 +334,7 @@ namespace SZMK
 
         private void Change_TSB_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             if (ChangeUser())
             {
                 Display(SystemArgs.Users);
@@ -378,6 +380,7 @@ namespace SZMK
 
         private void Delete_TSB_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             if (DeleteUser())
             {
                 Display(SystemArgs.Users);
@@ -460,6 +463,7 @@ namespace SZMK
 
         private void Search_TSB_Click(object sender, EventArgs e)
         {
+            Timer_T.Stop();
             if (Search())
             {
                 if (Result != null)
@@ -471,6 +475,7 @@ namespace SZMK
 
         private void Reset_TSB_Click(object sender, EventArgs e)
         {
+            Timer_T.Start();
             ResetSearch();
             Display(SystemArgs.Users);
         }
@@ -520,7 +525,7 @@ namespace SZMK
                     {
                         Result = Result.Where(p => p.Surname == Dialog.Login_TB.Text.Trim()).ToList();
                     }
-
+                    Timer_T.Stop();
                     return true;
                 }
                 else
@@ -537,6 +542,7 @@ namespace SZMK
 
         private void SearchParam_TSB_Click(object sender, EventArgs e)
         {
+            Timer_T.Stop();
             if (SearchParam())
             {
                 Display(Result);

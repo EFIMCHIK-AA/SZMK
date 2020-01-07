@@ -87,7 +87,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.BlankOrder_TB = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Timer_T = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -732,11 +732,11 @@
             this.label11.Text = "Статус чертежа";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // timer1
+            // Timer_T
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 15000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.Timer_T.Enabled = true;
+            this.Timer_T.Interval = 15000;
+            this.Timer_T.Tick += new System.EventHandler(this.Timer_T_Tick);
             // 
             // OPP_F
             // 
@@ -820,6 +820,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox BlankOrder_TB;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer Timer_T;
     }
 }

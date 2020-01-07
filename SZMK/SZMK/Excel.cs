@@ -233,7 +233,7 @@ namespace SZMK
                 WB.Save();
                 return true;
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
