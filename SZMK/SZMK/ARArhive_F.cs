@@ -16,7 +16,9 @@ namespace SZMK
         {
             InitializeComponent();
         }
+
         BindingListView<Order> View;
+
         private void ARArhive_F_Load(object sender, EventArgs e)
         {
             try
@@ -631,6 +633,7 @@ namespace SZMK
             try
             {
                 SystemArgs.Orders.Clear();
+
                 if (SystemArgs.Request.GetAllBlankOrder() && SystemArgs.Request.GetAllStatus() && SystemArgs.Request.GetAllOrders())
                 {
                     if (SystemArgs.Orders.Count() <= 0)
@@ -638,6 +641,7 @@ namespace SZMK
                         EnableButton(false);
 
                     }
+
                     Display(SystemArgs.Orders);
                 }
                 else

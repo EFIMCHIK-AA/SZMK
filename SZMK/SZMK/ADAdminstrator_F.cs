@@ -142,6 +142,7 @@ namespace SZMK
                 }
 
                 Display(SystemArgs.Users);
+                Timer_T.Start();
             }
             catch (Exception E)
             {
@@ -704,6 +705,36 @@ namespace SZMK
                 {
                     Application.Exit();
                 }
+            }
+        }
+
+        private void Timer_T_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                List<User> Temp = new List<User>(SystemArgs.Users); //Темповй лист для сравнения
+
+                SystemArgs.Users.Clear();
+
+                if(SystemArgs.Request.GetAllUsers())
+                {
+                    if(!Temp.SequenceEqual(SystemArgs.Users))
+                    {       
+                        View.DataSource = null;
+                        Display(SystemArgs.Users);
+                    }
+                }
+                else
+                {
+                    SystemArgs.Users = Temp;
+                    throw new Exception("Ошибка при получении данных из базы данных");
+                }
+            }
+            catch(Exception E)
+            {
+                Timer_T.Stop();
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
         }
     }

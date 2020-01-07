@@ -128,3 +128,13 @@ C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.OPPReportOrderOfDate_
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.OPPScan_F.resources
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.OPPSearchParam_F.resources
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.OPP_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.OPPChangeOrder_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.OPPReportOrderOfDate_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.OPPScan_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.OPPSearchParam_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.OPP_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.PDOChangeOrder_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.PDOReportOrderOfDate_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.PDOScan_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.PDOSearchParam_F.resources
+C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.PDO_F.resources
