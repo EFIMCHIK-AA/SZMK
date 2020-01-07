@@ -150,15 +150,13 @@ namespace SZMK
             }
         }
 
-        private void Users_DGV_SelectionChanged(object sender, EventArgs e)
+        private void Selection(User Temp, bool flag)
         {
-            if (Users_DGV.CurrentCell != null && Users_DGV.CurrentCell.RowIndex < View.Count())
+            if(flag)
             {
                 Users_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect; //Выделение строки
                 Change_TSB.Enabled = true;
                 Delete_TSB.Enabled = true;
-
-                User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
 
                 Name_TB.Text = Temp.Name;
                 Surname_TB.Text = Temp.Surname;
@@ -172,7 +170,6 @@ namespace SZMK
             }
             else
             {
-
                 Change_TSB.Enabled = false;
                 Delete_TSB.Enabled = false;
 
@@ -185,6 +182,21 @@ namespace SZMK
                 DataReg_TB.Text = String.Empty;
                 Login_TB.Text = String.Empty;
                 HashPassword_TB.Text = String.Empty;
+            }
+
+        }
+
+        private void Users_DGV_SelectionChanged(object sender, EventArgs e)
+        {
+            if (Users_DGV.CurrentCell != null && Users_DGV.CurrentCell.RowIndex < View.Count())
+            {
+                User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
+
+                Selection(Temp,true);
+            }
+            else
+            {
+                Selection(null, false);
             }
         }
 
@@ -663,7 +675,7 @@ namespace SZMK
 
                 if(Dialog.ShowDialog() == DialogResult.OK)
                 {
-
+                    Dialog.Timer_T.Stop();
                 }
             }
             catch (Exception E)
@@ -712,6 +724,8 @@ namespace SZMK
         {
             try
             {
+                (Int32,Int32) Index = (Users_DGV.CurrentCell.ColumnIndex, Users_DGV.CurrentCell.RowIndex);
+
                 List<User> Temp = new List<User>(SystemArgs.Users); //Темповй лист для сравнения
 
                 SystemArgs.Users.Clear();
@@ -728,6 +742,22 @@ namespace SZMK
                 {
                     SystemArgs.Users = Temp;
                     throw new Exception("Ошибка при получении данных из базы данных");
+                }
+
+                if (Index.Item2 < SystemArgs.Users.Count)
+                {
+                    Users_DGV.CurrentCell = Users_DGV[Index.Item1, Index.Item2];
+
+                    if (Users_DGV.CurrentCell != null && Users_DGV.CurrentCell.RowIndex < View.Count())
+                    {
+                        User User = (User)View[Users_DGV.CurrentCell.RowIndex];
+
+                        Selection(User, true);
+                    }
+                    else
+                    {
+                        Selection(null, false);
+                    }
                 }
             }
             catch(Exception E)

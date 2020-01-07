@@ -307,6 +307,24 @@ namespace SZMK
             }
         }
 
+        private void Selection(bool flag)
+        {
+            if (flag)
+            {
+                Mails_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect; //Выделение строки
+
+                Change_B.Enabled = true;
+                Delete_B.Enabled = true;
+                MoreInfo_B.Enabled = true;
+            }
+            else
+            {
+                Change_B.Enabled = false;
+                Delete_B.Enabled = false;
+                MoreInfo_B.Enabled = false;
+            }
+        }
+
         private void ResetSearch_B_Click(object sender, EventArgs e)
         {
             ResetSearch();
@@ -322,25 +340,18 @@ namespace SZMK
 
             Display(SystemArgs.Mails);
             Mails_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
+            Timer_T.Start();
         }
 
         private void Mails_DGV_SelectionChanged(object sender, EventArgs e)
         {
             if (Mails_DGV.CurrentCell != null && Mails_DGV.CurrentCell.RowIndex < View.Count())
             {
-                Mails_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect; //Выделение строки
-
-                Change_B.Enabled = true;
-                Delete_B.Enabled = true;
-                MoreInfo_B.Enabled = true;
+                Selection(true);
             }
             else
             {
-
-                Change_B.Enabled = false;
-                Delete_B.Enabled = false;
-                MoreInfo_B.Enabled = false;
+                Selection(false);
             }
         }
 
@@ -374,6 +385,62 @@ namespace SZMK
             {
                 Search_B.PerformClick();
             }
+        }
+
+        private void Timer_T_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                (Int32, Int32) Index = (Mails_DGV.CurrentCell.ColumnIndex, Mails_DGV.CurrentCell.RowIndex);
+
+                List<Mail> Temp = new List<Mail>(SystemArgs.Mails); //Темповй лист для сравнения
+
+                SystemArgs.Mails.Clear();
+
+                if (SystemArgs.Request.GetAllMails())
+                {
+                    if (!Temp.SequenceEqual(SystemArgs.Mails))
+                    {
+                        View.DataSource = null;
+                        Display(SystemArgs.Mails);
+                    }
+                }
+                else
+                {
+                    SystemArgs.Mails = Temp;
+                    throw new Exception("Ошибка при получении данных из базы данных");
+                }
+
+                if (Index.Item2 < SystemArgs.Users.Count)
+                {
+                    Mails_DGV.CurrentCell = Mails_DGV[Index.Item1, Index.Item2];
+
+                    if (Mails_DGV.CurrentCell != null && Mails_DGV.CurrentCell.RowIndex < View.Count())
+                    {
+                        Selection(true);
+                    }
+                    else
+                    {
+                        Selection(false);
+                    }
+                }
+            }
+            catch (Exception E)
+            {
+                Timer_T.Stop();
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+        }
+
+        private void OK_B_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ADSettingsMails_F_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
     }
 }
