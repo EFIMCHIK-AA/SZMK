@@ -30,8 +30,8 @@ public class ScanerActivity extends AppCompatActivity implements ZXingScannerVie
     static boolean ScanDoc = false;
     static boolean ScanBlank = false;
     public static String msg = "default";
-    public static String server_address = "192.168.1.105";
-    public static Integer server_port = 49000;
+    public static String server_address = "000.000.000.000";
+    public static Integer server_port = 0;
     public static Boolean Abort = false;
     public static LongOperation lo = null;
     public static Socket socket = null;
@@ -85,7 +85,8 @@ public class ScanerActivity extends AppCompatActivity implements ZXingScannerVie
            if(Count == 6)
            {
                String [] ConnectParam = Read(SettingsActivity.fileName).split("_"); // 0 - IP 1- Port
-               int Port = Integer.parseInt(ConnectParam[1]);
+               server_address = ConnectParam[0];
+               server_port = Integer.parseInt(ConnectParam[1]);
                msg=ScanData.Data;
                sendMessage();
            }
@@ -110,7 +111,8 @@ public class ScanerActivity extends AppCompatActivity implements ZXingScannerVie
            if(Count >= 3)
            {
                String [] ConnectParam = Read(SettingsActivity.fileName).split("_"); // 0 - IP 1- Port
-               int Port = Integer.parseInt(ConnectParam[1]);
+               server_address = ConnectParam[0];
+               server_port = Integer.parseInt(ConnectParam[1]);
                msg=ScanData.Data;
                sendMessage();
            }

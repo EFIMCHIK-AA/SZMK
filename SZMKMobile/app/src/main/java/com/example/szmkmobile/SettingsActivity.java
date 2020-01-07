@@ -20,7 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     public static EditText IP, Port;
     public Button Scan, Save, Cancel;
-    public final static String fileName= "param";
+    public final static String fileName= "param.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
