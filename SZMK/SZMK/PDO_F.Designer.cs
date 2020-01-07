@@ -735,7 +735,7 @@
             // Timer_T
             // 
             this.Timer_T.Enabled = true;
-            this.Timer_T.Interval = 15000;
+            this.Timer_T.Interval = 1700;
             this.Timer_T.Tick += new System.EventHandler(this.Timer_T_Tick);
             // 
             // PDO_F
