@@ -272,7 +272,11 @@ namespace SZMK
                 if (Users_DGV.CurrentCell.RowIndex >= 0)
                 {
                     User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
-
+                    if (Temp.Login == "ROOT")
+                    {
+                        MessageBox.Show("Изменение пользователя ROOT запрещено", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
                     ADRegistrationUser_F Dialog = new ADRegistrationUser_F(Temp)
                     {
                         Text = "Измененте параметров пользователя",
@@ -348,7 +352,11 @@ namespace SZMK
                 if (Users_DGV.CurrentCell.RowIndex >= 0)
                 {
                     User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
-
+                    if (Temp.Login == "ROOT")
+                    {
+                        MessageBox.Show("Удаление пользователя ROOT запрещено", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
                     if (MessageBox.Show("Вы действительно хотите удалить пользователя?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
                         if(SystemArgs.Request.DeleteUser(Temp))
@@ -733,7 +741,6 @@ namespace SZMK
                 (Int32,Int32) Index = (Users_DGV.CurrentCell.ColumnIndex, Users_DGV.CurrentCell.RowIndex);
 
                 List<User> Temp = new List<User>(SystemArgs.Users); //Темповй лист для сравнения
-
                 SystemArgs.Users.Clear();
 
                 if(SystemArgs.Request.GetAllUsers())

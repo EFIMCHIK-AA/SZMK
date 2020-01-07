@@ -35,11 +35,6 @@ namespace SZMK
                 ItemsFilter();
                 if (SystemArgs.Request.GetAllBlankOrder() && SystemArgs.Request.GetAllStatus() && SystemArgs.Request.GetAllOrders())
                 {
-                    if (SystemArgs.Orders.Count() <= 0)
-                    {
-                        EnableButton(false);
-
-                    }
                     Display(SystemArgs.Orders);
                 }
                 else
@@ -60,54 +55,60 @@ namespace SZMK
 
         private void AddOrder_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
+            Timer_T.Stop();
             if (AddOrder())
             {
                 Display(SystemArgs.Orders);
             }
+            Timer_T.Start();
         }
 
         private void ChangeOrder_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
+            Timer_T.Stop();
             if (ChangeOrder())
             {
                 Display(SystemArgs.Orders);
             }
+            Timer_T.Start();
         }
         private void DeleteOrder_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
+            Timer_T.Stop();
             if (DeleteOrder())
             {
                 Display(SystemArgs.Orders);
             }
+            Timer_T.Start();
         }
 
         private void AddOrder_TSM_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
+            Timer_T.Stop();
             if (AddOrder())
             {
                 Display(SystemArgs.Orders);
             }
+            Timer_T.Start();
         }
         private void ChangeOrder_TSM_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
+            Timer_T.Stop();
             if (ChangeOrder())
             {
                 Display(SystemArgs.Orders);
             }
+            Timer_T.Start();
         }
 
         private void DeleteOrder_TSM_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
+            Timer_T.Stop();
             if (DeleteOrder())
             {
                 Display(SystemArgs.Orders);
             }
+            Timer_T.Start();
         }
 
         private void ReportDate_TSM_Click(object sender, EventArgs e)
@@ -594,11 +595,17 @@ namespace SZMK
         {
             try
             {
+                if (View.Count() == 0)
+                {
+                    return;
+                }
                 (Int32, Int32) Index = (Order_DGV.CurrentCell.ColumnIndex, Order_DGV.CurrentCell.RowIndex);
 
                 List<Order> Temp = new List<Order>(SystemArgs.Orders);
 
                 SystemArgs.Orders.Clear();
+                SystemArgs.Statuses.Clear();
+                SystemArgs.BlankOrders.Clear();
 
                 if (SystemArgs.Request.GetAllBlankOrder() && SystemArgs.Request.GetAllStatus() && SystemArgs.Request.GetAllOrders())
                 {

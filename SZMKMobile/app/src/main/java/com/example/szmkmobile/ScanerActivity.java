@@ -32,7 +32,6 @@ public class ScanerActivity extends AppCompatActivity implements ZXingScannerVie
     public static String msg = "default";
     public static String server_address = "000.000.000.000";
     public static Integer server_port = 0;
-    public static Boolean Abort = false;
     public static LongOperation lo = null;
     public static Socket socket = null;
 
@@ -93,13 +92,6 @@ public class ScanerActivity extends AppCompatActivity implements ZXingScannerVie
        }
        else if(ScanBlank)
        {
-           try
-           {
-               String str = new String(ScanData.Data.getBytes("ISO-8859-1"), "Cp1251");
-               ScanData.Data = str;
-           } catch (UnsupportedEncodingException e) {
-               e.printStackTrace();
-           }
 
            if (ScanData.Data.indexOf("\u001D") != -1)
            {
@@ -119,7 +111,7 @@ public class ScanerActivity extends AppCompatActivity implements ZXingScannerVie
        }
 
        Toast.makeText(this, ScanData.Data, Toast.LENGTH_LONG).show();
-       onBackPressed();
+       onResume();
     }
 
     private String Read(String fileName)
@@ -195,44 +187,7 @@ public class LongOperation extends AsyncTask<String, Void, String> {
 
         output.print(msg);
         //output.flush();
-
-//read
-        String str = "waiting";
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            Log.d("test", "trying to read from server");
-
-            String line;
-            str = "";
-            while ((line = br.readLine()) != null) {
-                Log.d("read line", line);
-                str = str + line;
-                str = str + "\r\n";
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (str != null) {
-            Log.d("test", "trying to print what was just read");
-            System.out.println(str);
-        }
-
-
-//read
         output.close();
-
-//read
-        try {
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//read
         try {
             socket.close();
         } catch (IOException e) {
@@ -240,31 +195,14 @@ public class LongOperation extends AsyncTask<String, Void, String> {
         }
 
         Log.d("tag", "done server");
-        return str;
-    }
-
-
-    protected void onCancelled() {
-        Log.d("cancel", "ca");
-        try {
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Abort = false;
+        return msg;
     }
 
 }
     //Метод отправки данных на сервер
     public void sendMessage() {
-        if (Abort == true) {
-            lo.cancel(false);
-            Log.d("Aborting", Abort.toString());
-        } else {
-            lo = new LongOperation();
-            lo.execute();
-        }
-        Abort = true;
+        lo = new LongOperation();
+        lo.execute();
     }
 
 }
