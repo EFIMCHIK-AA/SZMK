@@ -28,9 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Mails_DGV = new System.Windows.Forms.DataGridView();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,7 +47,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.Server_B = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.Timer_T = new System.Windows.Forms.Timer(this.components);
+            this.Refresh_B = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Mails_DGV)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -73,8 +72,8 @@
             this.Mails_DGV.ReadOnly = true;
             this.Mails_DGV.RowHeadersVisible = false;
             this.Mails_DGV.RowHeadersWidth = 51;
-            this.tableLayoutPanel1.SetRowSpan(this.Mails_DGV, 12);
-            this.Mails_DGV.Size = new System.Drawing.Size(413, 524);
+            this.tableLayoutPanel1.SetRowSpan(this.Mails_DGV, 13);
+            this.Mails_DGV.Size = new System.Drawing.Size(413, 528);
             this.Mails_DGV.TabIndex = 19;
             this.Mails_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Mails_DGV_CellFormatting);
             this.Mails_DGV.SelectionChanged += new System.EventHandler(this.Mails_DGV_SelectionChanged);
@@ -82,8 +81,8 @@
             // Column2
             // 
             this.Column2.DataPropertyName = "DateCreateView";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle9;
             this.Column2.HeaderText = "Дата создания";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
@@ -92,8 +91,8 @@
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.DataPropertyName = "MailAddress";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle10;
             this.Column1.HeaderText = "Адрес электронной почты";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
@@ -194,10 +193,10 @@
             this.OK_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.OK_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OK_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.OK_B.Location = new System.Drawing.Point(424, 540);
+            this.OK_B.Location = new System.Drawing.Point(424, 545);
             this.OK_B.Margin = new System.Windows.Forms.Padding(3, 0, 5, 5);
             this.OK_B.Name = "OK_B";
-            this.OK_B.Size = new System.Drawing.Size(173, 44);
+            this.OK_B.Size = new System.Drawing.Size(173, 43);
             this.OK_B.TabIndex = 88;
             this.OK_B.Text = "Завершить редактирование";
             this.OK_B.UseVisualStyleBackColor = false;
@@ -326,7 +325,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.Mails_DGV, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.OK_B, 1, 12);
+            this.tableLayoutPanel1.Controls.Add(this.OK_B, 1, 13);
             this.tableLayoutPanel1.Controls.Add(this.Server_B, 1, 10);
             this.tableLayoutPanel1.Controls.Add(this.label3, 1, 9);
             this.tableLayoutPanel1.Controls.Add(this.Add_B, 1, 1);
@@ -337,10 +336,11 @@
             this.tableLayoutPanel1.Controls.Add(this.Delete_B, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.Search_TB, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.Refresh_B, 1, 11);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 13;
+            this.tableLayoutPanel1.RowCount = 14;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
@@ -352,22 +352,36 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(602, 589);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(602, 593);
             this.tableLayoutPanel1.TabIndex = 97;
             // 
-            // Timer_T
+            // Refresh_B
             // 
-            this.Timer_T.Interval = 1700;
-            this.Timer_T.Tick += new System.EventHandler(this.Timer_T_Tick);
+            this.Refresh_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Refresh_B.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Refresh_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
+            this.Refresh_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
+            this.Refresh_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
+            this.Refresh_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Refresh_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.Refresh_B.Location = new System.Drawing.Point(424, 440);
+            this.Refresh_B.Margin = new System.Windows.Forms.Padding(3, 0, 5, 5);
+            this.Refresh_B.Name = "Refresh_B";
+            this.Refresh_B.Size = new System.Drawing.Size(173, 30);
+            this.Refresh_B.TabIndex = 97;
+            this.Refresh_B.Text = "Обновить";
+            this.Refresh_B.UseVisualStyleBackColor = false;
+            this.Refresh_B.Click += new System.EventHandler(this.Refresh_B_Click);
             // 
             // ADSettingsMails_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(602, 589);
+            this.ClientSize = new System.Drawing.Size(602, 593);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
@@ -405,6 +419,6 @@
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.Button Server_B;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        public System.Windows.Forms.Timer Timer_T;
+        private System.Windows.Forms.Button Refresh_B;
     }
 }

@@ -171,6 +171,6 @@ namespace SZMK
             }
         }
 
-        public String SearchString() => $"{_ID}_{_Name}_{_MiddleName}_{_Surname}_{_DateCreate.ToShortDateString()}_{_MailAddress}";
+        public String SearchString() => $"{_Name}_{_MiddleName}_{_Surname}_{_DateCreate.ToShortDateString()}_{_MailAddress}";
     }
 }

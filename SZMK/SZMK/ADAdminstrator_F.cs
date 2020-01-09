@@ -131,7 +131,7 @@ namespace SZMK
 
                 GetStatus();
 
-                Thread.Sleep(2000);
+                Thread.Sleep(1300);
 
                 Dialog.Close();
 
@@ -142,7 +142,6 @@ namespace SZMK
                 }
 
                 Display(SystemArgs.Users);
-                Timer_T.Start();
             }
             catch (Exception E)
             {
@@ -258,7 +257,6 @@ namespace SZMK
 
         private void Add_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
             if (AddUser())
             {
                 Display(SystemArgs.Users);
@@ -338,7 +336,6 @@ namespace SZMK
 
         private void Change_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
             if (ChangeUser())
             {
                 Display(SystemArgs.Users);
@@ -388,7 +385,6 @@ namespace SZMK
 
         private void Delete_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
             if (DeleteUser())
             {
                 Display(SystemArgs.Users);
@@ -471,7 +467,6 @@ namespace SZMK
 
         private void Search_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Stop();
             if (Search())
             {
                 if (Result != null)
@@ -483,7 +478,6 @@ namespace SZMK
 
         private void Reset_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
             ResetSearch();
             Display(SystemArgs.Users);
         }
@@ -533,7 +527,7 @@ namespace SZMK
                     {
                         Result = Result.Where(p => p.Surname == Dialog.Login_TB.Text.Trim()).ToList();
                     }
-                    Timer_T.Stop();
+
                     return true;
                 }
                 else
@@ -550,7 +544,6 @@ namespace SZMK
 
         private void SearchParam_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Stop();
             if (SearchParam())
             {
                 Display(Result);
@@ -689,7 +682,7 @@ namespace SZMK
 
                 if(Dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Dialog.Timer_T.Stop();
+
                 }
             }
             catch (Exception E)
@@ -716,7 +709,27 @@ namespace SZMK
 
         private void RefreshStatus_B_Click(object sender, EventArgs e)
         {
-            GetStatus();
+            List<User> Temp = null;
+
+            try
+            {
+                Temp = new List<User>(SystemArgs.Users);
+
+                SystemArgs.Users.Clear();
+
+                SystemArgs.Request.GetAllUsers();
+
+                Display(SystemArgs.Users);
+            }
+            catch (Exception E)
+            {
+                if(Temp != null)
+                {
+                    Display(Temp);
+                }
+
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Adminstrator_F_KeyDown(object sender, KeyEventArgs e)
@@ -731,53 +744,6 @@ namespace SZMK
                 {
                     Application.Exit();
                 }
-            }
-        }
-
-        private void Timer_T_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                (Int32,Int32) Index = (Users_DGV.CurrentCell.ColumnIndex, Users_DGV.CurrentCell.RowIndex);
-
-                List<User> Temp = new List<User>(SystemArgs.Users); //Темповй лист для сравнения
-                SystemArgs.Users.Clear();
-
-                if(SystemArgs.Request.GetAllUsers())
-                {
-                    if(!Temp.SequenceEqual(SystemArgs.Users))
-                    {       
-                        View.DataSource = null;
-                        Display(SystemArgs.Users);
-                    }
-                }
-                else
-                {
-                    SystemArgs.Users = Temp;
-                    throw new Exception("Ошибка при получении данных из базы данных");
-                }
-
-                if (Index.Item2 < SystemArgs.Users.Count)
-                {
-                    Users_DGV.CurrentCell = Users_DGV[Index.Item1, Index.Item2];
-
-                    if (Users_DGV.CurrentCell != null && Users_DGV.CurrentCell.RowIndex < View.Count())
-                    {
-                        User User = (User)View[Users_DGV.CurrentCell.RowIndex];
-
-                        Selection(User, true);
-                    }
-                    else
-                    {
-                        Selection(null, false);
-                    }
-                }
-            }
-            catch(Exception E)
-            {
-                Timer_T.Stop();
-                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
             }
         }
     }

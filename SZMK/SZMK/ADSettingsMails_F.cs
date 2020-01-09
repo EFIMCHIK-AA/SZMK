@@ -81,7 +81,6 @@ namespace SZMK
 
         private void Add_B_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
             if (AddMail())
             {
                 Display(SystemArgs.Mails);
@@ -141,7 +140,6 @@ namespace SZMK
 
         private void Change_B_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
             if (ChangeMail())
             {
                 Display(SystemArgs.Mails);
@@ -187,7 +185,6 @@ namespace SZMK
 
         private void Delete_B_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
             if (DeleteMail())
             {
                 Display(SystemArgs.Mails);
@@ -301,7 +298,6 @@ namespace SZMK
 
         private void Search_B_Click(object sender, EventArgs e)
         {
-            Timer_T.Stop();
             if (Search())
             {
                 if (Result != null)
@@ -331,7 +327,6 @@ namespace SZMK
 
         private void ResetSearch_B_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
             ResetSearch();
             Display(SystemArgs.Mails);
         }
@@ -345,7 +340,6 @@ namespace SZMK
 
             Display(SystemArgs.Mails);
             Mails_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Timer_T.Start();
         }
 
         private void Mails_DGV_SelectionChanged(object sender, EventArgs e)
@@ -392,52 +386,6 @@ namespace SZMK
             }
         }
 
-        private void Timer_T_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                (Int32, Int32) Index = (Mails_DGV.CurrentCell.ColumnIndex, Mails_DGV.CurrentCell.RowIndex);
-
-                List<Mail> Temp = new List<Mail>(SystemArgs.Mails); //Темповй лист для сравнения
-
-                SystemArgs.Mails.Clear();
-
-                if (SystemArgs.Request.GetAllMails())
-                {
-                    if (!Temp.SequenceEqual(SystemArgs.Mails))
-                    {
-                        View.DataSource = null;
-                        Display(SystemArgs.Mails);
-                    }
-                }
-                else
-                {
-                    SystemArgs.Mails = Temp;
-                    throw new Exception("Ошибка при получении данных из базы данных");
-                }
-
-                if (Index.Item2 < SystemArgs.Users.Count)
-                {
-                    Mails_DGV.CurrentCell = Mails_DGV[Index.Item1, Index.Item2];
-
-                    if (Mails_DGV.CurrentCell != null && Mails_DGV.CurrentCell.RowIndex < View.Count())
-                    {
-                        Selection(true);
-                    }
-                    else
-                    {
-                        Selection(false);
-                    }
-                }
-            }
-            catch (Exception E)
-            {
-                Timer_T.Stop();
-                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
-            }
-        }
-
         private void OK_B_Click(object sender, EventArgs e)
         {
 
@@ -446,6 +394,31 @@ namespace SZMK
         private void ADSettingsMails_F_FormClosing(object sender, FormClosingEventArgs e)
         {
 
+        }
+
+        private void Refresh_B_Click(object sender, EventArgs e)
+        {
+            List<Mail> Temp = null;
+
+            try
+            {
+                Temp = new List<Mail>(SystemArgs.Mails);
+
+                SystemArgs.Mails.Clear();
+
+                SystemArgs.Request.GetAllMails();
+
+                Display(SystemArgs.Mails);
+            }
+            catch (Exception E)
+            {
+                if (Temp != null)
+                {
+                    Display(Temp);
+                }
+
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
