@@ -53,12 +53,12 @@ namespace SZMK
                     Int32 List = Convert.ToInt32(ValidationDataMatrix[1]);
                     if (SystemArgs.Request.CheckedUniqueOrderDB(e.MessageString))
                     {
-                        _ScanSession.Add(new OrderScanSession(e.MessageString, true));
+                        _ScanSession.Add(new OrderScanSession(e.MessageString.Trim(), true));
 
                     }
                     else
                     {
-                        _ScanSession.Add(new OrderScanSession(e.MessageString, false));
+                        _ScanSession.Add(new OrderScanSession(e.MessageString.Trim(), false));
                     }
                     Load?.Invoke(_ScanSession);
                 }

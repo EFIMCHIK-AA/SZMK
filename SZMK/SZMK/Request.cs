@@ -85,7 +85,7 @@ namespace SZMK
         public bool CheckConnect(String ConnectString)
         {
             try
-            {
+           {
                 using (var Connect = new NpgsqlConnection(ConnectString))
                 {
                     Connect.Open();

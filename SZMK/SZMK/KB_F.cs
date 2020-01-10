@@ -33,15 +33,7 @@ namespace SZMK
                 SystemArgs.Excel = new Excel();
                 SystemArgs.Template = new Template();
                 ItemsFilter();
-                if (SystemArgs.Request.GetAllBlankOrder() && SystemArgs.Request.GetAllStatus() && SystemArgs.Request.GetAllOrders())
-                {
-                    Display(SystemArgs.Orders);
-                }
-                else
-                {
-                    throw new Exception("Ошибка загрузки данных из базы");
-                }
-
+                Refresh();
                 Thread.Sleep(2000);
 
                 Dialog.Close();
@@ -55,60 +47,48 @@ namespace SZMK
 
         private void AddOrder_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Stop();
             if (AddOrder())
             {
                 Display(SystemArgs.Orders);
             }
-            Timer_T.Start();
         }
 
         private void ChangeOrder_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Stop();
             if (ChangeOrder())
             {
                 Display(SystemArgs.Orders);
             }
-            Timer_T.Start();
         }
         private void DeleteOrder_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Stop();
             if (DeleteOrder())
             {
                 Display(SystemArgs.Orders);
             }
-            Timer_T.Start();
         }
 
         private void AddOrder_TSM_Click(object sender, EventArgs e)
         {
-            Timer_T.Stop();
             if (AddOrder())
             {
                 Display(SystemArgs.Orders);
             }
-            Timer_T.Start();
         }
         private void ChangeOrder_TSM_Click(object sender, EventArgs e)
         {
-            Timer_T.Stop();
             if (ChangeOrder())
             {
                 Display(SystemArgs.Orders);
             }
-            Timer_T.Start();
         }
 
         private void DeleteOrder_TSM_Click(object sender, EventArgs e)
         {
-            Timer_T.Stop();
             if (DeleteOrder())
             {
                 Display(SystemArgs.Orders);
             }
-            Timer_T.Start();
         }
 
         private void ReportDate_TSM_Click(object sender, EventArgs e)
@@ -121,7 +101,6 @@ namespace SZMK
 
         private void Search_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Stop();
             if (Search())
             {
                 if (Result != null)
@@ -133,14 +112,12 @@ namespace SZMK
 
         private void Reset_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Start();
             ResetSearch();
             Display(SystemArgs.Orders);
         }
 
         private void AdvancedSearch_TSB_Click(object sender, EventArgs e)
         {
-            Timer_T.Stop();
             if (SearchParam())
             {
                 Display(Result);
@@ -590,61 +567,42 @@ namespace SZMK
             }
 
         }
+        private bool Refresh()
+        {
+            List<Order> Temp = null;
 
-        private void Timer_T_Tick(object sender, EventArgs e)
+            try
+            {
+                Temp = new List<Order>(SystemArgs.Orders);
+
+                SystemArgs.Orders.Clear();
+
+                SystemArgs.Request.GetAllBlankOrder();
+                SystemArgs.Request.GetAllStatus();
+                SystemArgs.Request.GetAllUsers();
+
+                Display(SystemArgs.Orders);
+                return true;
+            }
+            catch
+            {
+                if (Temp != null)
+                {
+                    Display(Temp);
+                }
+                throw;
+            }
+        }
+
+        private void RefreshStatus_B_Click(object sender, EventArgs e)
         {
             try
             {
-                if (View.Count() == 0)
-                {
-                    return;
-                }
-                (Int32, Int32) Index = (Order_DGV.CurrentCell.ColumnIndex, Order_DGV.CurrentCell.RowIndex);
-
-                List<Order> Temp = new List<Order>(SystemArgs.Orders);
-
-                SystemArgs.Orders.Clear();
-                SystemArgs.Statuses.Clear();
-                SystemArgs.BlankOrders.Clear();
-
-                if (SystemArgs.Request.GetAllBlankOrder() && SystemArgs.Request.GetAllStatus() && SystemArgs.Request.GetAllOrders())
-                {
-                    if (SystemArgs.Orders.Count() <= 0)
-                    {
-                        EnableButton(false);
-
-                    }
-                    if (!Temp.SequenceEqual(SystemArgs.Orders))
-                    {
-                        Display(SystemArgs.Orders);
-                    }
-                }
-                else
-                {
-                    SystemArgs.Orders = Temp;
-                    throw new Exception("Ошибка загрузки данных из базы");
-                }
-                if (Index.Item2 < SystemArgs.Users.Count)
-                {
-                    Order_DGV.CurrentCell = Order_DGV[Index.Item1, Index.Item2];
-
-                    if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex < View.Count())
-                    {
-                        Order Order = (Order)View[Order_DGV.CurrentCell.RowIndex];
-
-                        Selection(Order, true);
-                    }
-                    else
-                    {
-                        Selection(null, false);
-                    }
-                }
+                Refresh();
             }
             catch(Exception E)
             {
-                Timer_T.Stop();
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
             }
         }
     }
