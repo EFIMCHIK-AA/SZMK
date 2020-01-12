@@ -424,16 +424,19 @@ namespace SZMK
         {
             try
             {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
+                if (!StatusExist(Order))
                 {
-                    Connect.Open();
-
-                    using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddStatus\" (\"DateCreate\", \"ID_Status\", \"ID_Order\", \"ID_User\") VALUES('{Order.DateCreate}', '{Order.Status.ID}', '{Order.ID}', '{Order.User.ID}'); ", Connect))
+                    using (var Connect = new NpgsqlConnection(_ConnectString))
                     {
-                        Command.ExecuteNonQuery();
-                    }
+                        Connect.Open();
 
-                    Connect.Close();
+                        using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddStatus\" (\"DateCreate\", \"ID_Status\", \"ID_Order\", \"ID_User\") VALUES('{Order.DateCreate}', '{Order.Status.ID}', '{Order.ID}', '{Order.User.ID}'); ", Connect))
+                        {
+                            Command.ExecuteNonQuery();
+                        }
+
+                        Connect.Close();
+                    }
                 }
 
                 return true;
@@ -441,6 +444,37 @@ namespace SZMK
             catch
             {
                 return false;
+            }
+        }
+        private bool StatusExist(Order Order)
+        {
+            Boolean flag = false;
+            try
+            {
+
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"DateCreate\", \"ID_Status\", \"ID_Order\", \"ID_User\" FROM public.\"AddStatus\" WHERE \"ID_Status\"='{Order.Status.ID}' AND \"ID_Order\"='{Order.ID}';", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                flag = true;
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+
+                return flag;
+            }
+            catch
+            {
+                return flag;
             }
         }
         public bool GetAllStatus()
@@ -1045,6 +1079,40 @@ namespace SZMK
                 return flag;
             }
         }
+        public bool CheckedStatusForBlankOrder(Int64 IDStatus, String DataMatrix)
+        {
+            Int64 IDOrder = GetIDOrder(DataMatrix);
+            Boolean flag = false;
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID_Status\" FROM public.\"AddStatus\" WHERE \"ID_Order\"='{IDOrder}';", Connect))
+                    {
+                        using (var reader = Command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.GetInt64(0) == IDStatus - 1)
+                                {
+
+                                    flag = true;
+                                }
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return flag;
+            }
+            catch
+            {
+                return flag;
+            }
+        }
         public bool CheckedUniqueOrderDB(String DataMatrix)
         {
             Boolean flag = false;
@@ -1088,7 +1156,7 @@ namespace SZMK
                 String DataMatrix = (from p in SystemArgs.Orders
                                      where (p.Number == Number) && (p.List == List)
                                      select p.DataMatrix).Single();
-                if (CheckedStatusOrderDB(IDStatus, DataMatrix))
+                if (CheckedStatusForBlankOrder(IDStatus, DataMatrix))
                 {
                     using (var Connect = new NpgsqlConnection(_ConnectString))
                     {

@@ -67,6 +67,7 @@
             this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.RefreshStatus_B = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.CountOrder_TB = new System.Windows.Forms.TextBox();
             this.Lenght_TB = new System.Windows.Forms.TextBox();
@@ -88,7 +89,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.BlankOrder_TB = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.RefreshStatus_B = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -486,6 +486,25 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(394, 620);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
+            // RefreshStatus_B
+            // 
+            this.RefreshStatus_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel2.SetColumnSpan(this.RefreshStatus_B, 2);
+            this.RefreshStatus_B.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RefreshStatus_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
+            this.RefreshStatus_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
+            this.RefreshStatus_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
+            this.RefreshStatus_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RefreshStatus_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.RefreshStatus_B.Location = new System.Drawing.Point(3, 467);
+            this.RefreshStatus_B.Margin = new System.Windows.Forms.Padding(3, 7, 5, 7);
+            this.RefreshStatus_B.Name = "RefreshStatus_B";
+            this.RefreshStatus_B.Size = new System.Drawing.Size(386, 33);
+            this.RefreshStatus_B.TabIndex = 57;
+            this.RefreshStatus_B.Text = "Обновить информацию";
+            this.RefreshStatus_B.UseVisualStyleBackColor = false;
+            this.RefreshStatus_B.Click += new System.EventHandler(this.RefreshStatus_B_Click);
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -753,25 +772,6 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "Статус чертежа";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // RefreshStatus_B
-            // 
-            this.RefreshStatus_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel2.SetColumnSpan(this.RefreshStatus_B, 2);
-            this.RefreshStatus_B.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.RefreshStatus_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
-            this.RefreshStatus_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
-            this.RefreshStatus_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
-            this.RefreshStatus_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RefreshStatus_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.RefreshStatus_B.Location = new System.Drawing.Point(3, 467);
-            this.RefreshStatus_B.Margin = new System.Windows.Forms.Padding(3, 7, 5, 7);
-            this.RefreshStatus_B.Name = "RefreshStatus_B";
-            this.RefreshStatus_B.Size = new System.Drawing.Size(386, 33);
-            this.RefreshStatus_B.TabIndex = 57;
-            this.RefreshStatus_B.Text = "Обновить информацию";
-            this.RefreshStatus_B.UseVisualStyleBackColor = false;
-            this.RefreshStatus_B.Click += new System.EventHandler(this.RefreshStatus_B_Click);
             // 
             // KB_F
             // 

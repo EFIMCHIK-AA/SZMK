@@ -95,7 +95,7 @@ namespace SZMK
 
         public Position GetPosition()
         {
-            if(_Position != null)
+           if(_Position != null)
             {
                 return _Position;
             }

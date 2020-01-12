@@ -278,3 +278,12 @@ C:\Users\kirill.gubanov\Desktop\Project\SZMK\SZMK\SZMK\obj\Debug\SZMK.csproj.Gen
 C:\Users\kirill.gubanov\Desktop\Project\SZMK\SZMK\SZMK\obj\Debug\SZMK.csproj.CopyComplete
 C:\Users\kirill.gubanov\Desktop\Project\SZMK\SZMK\SZMK\obj\Debug\SZMK.exe
 C:\Users\kirill.gubanov\Desktop\Project\SZMK\SZMK\SZMK\obj\Debug\SZMK.pdb
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\Spire.Common.dll
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\Spire.License.dll
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\Spire.Pdf.dll
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\Spire.XLS.dll
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\Microsoft.mshtml.dll
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\Spire.Common.xml
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\Spire.License.xml
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\Spire.Pdf.xml
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\bin\Debug\Spire.XLS.xml

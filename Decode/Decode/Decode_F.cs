@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Decode
 {
@@ -28,12 +29,13 @@ namespace Decode
                 if (SystemArgs.Server.Start())
                 {
                     SystemArgs.Server.Load += AppendToTB;
-                    SystemArgs.PrintLog("Сервер успешно запущен");
+                    SystemArgs.PrintLog(Directory.GetCurrentDirectory());
                 }
                 else
                 {
                     MessageBox.Show("Сервер не был запущен", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     SystemArgs.PrintLog("Ошибка запуска сервера");
+                    Environment.Exit(0);
                 }
             }
             else

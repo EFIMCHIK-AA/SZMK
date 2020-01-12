@@ -83,7 +83,7 @@ namespace SZMK
 
             for (Int32 i = 0; i < Temp.Length - 1; i++)
             {
-                Directory += Temp[i];
+                Directory += Temp[i]+@"\";
             }
 
             return Directory;

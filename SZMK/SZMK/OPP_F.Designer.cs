@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OPP_F));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.добавлениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,6 +65,7 @@
             this.Lenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.RefreshStatus_B = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.CountOrder_TB = new System.Windows.Forms.TextBox();
             this.Lenght_TB = new System.Windows.Forms.TextBox();
@@ -246,6 +247,7 @@
             this.Search_TSTB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.Search_TSTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Search_TSTB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Search_TSTB.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Search_TSTB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
             this.Search_TSTB.Name = "Search_TSTB";
             this.Search_TSTB.Size = new System.Drawing.Size(150, 34);
@@ -280,8 +282,8 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.Order_DGV, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 62);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -340,8 +342,8 @@
             // 
             this.DateCreate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.DateCreate.DataPropertyName = "DateCreateView";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DateCreate.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DateCreate.DefaultCellStyle = dataGridViewCellStyle1;
             this.DateCreate.FillWeight = 15F;
             this.DateCreate.HeaderText = "Дата создания";
             this.DateCreate.Name = "DateCreate";
@@ -351,8 +353,8 @@
             // 
             this.Executor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Executor.DataPropertyName = "Executor";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Executor.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Executor.DefaultCellStyle = dataGridViewCellStyle2;
             this.Executor.FillWeight = 17F;
             this.Executor.HeaderText = "Исполнитель";
             this.Executor.Name = "Executor";
@@ -362,8 +364,8 @@
             // 
             this.Number.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Number.DataPropertyName = "Number";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Number.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Number.DefaultCellStyle = dataGridViewCellStyle3;
             this.Number.FillWeight = 13F;
             this.Number.HeaderText = "Номер заказа";
             this.Number.Name = "Number";
@@ -373,8 +375,8 @@
             // 
             this.List.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.List.DataPropertyName = "List";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.List.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.List.DefaultCellStyle = dataGridViewCellStyle4;
             this.List.FillWeight = 10F;
             this.List.HeaderText = "Лист";
             this.List.Name = "List";
@@ -384,8 +386,8 @@
             // 
             this.Mark.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Mark.DataPropertyName = "Mark";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Mark.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Mark.DefaultCellStyle = dataGridViewCellStyle5;
             this.Mark.FillWeight = 10F;
             this.Mark.HeaderText = "Марка";
             this.Mark.Name = "Mark";
@@ -395,8 +397,8 @@
             // 
             this.Lenght.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Lenght.DataPropertyName = "Lenght";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Lenght.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Lenght.DefaultCellStyle = dataGridViewCellStyle6;
             this.Lenght.FillWeight = 10F;
             this.Lenght.HeaderText = "Длина";
             this.Lenght.Name = "Lenght";
@@ -406,8 +408,8 @@
             // 
             this.Weight.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Weight.DataPropertyName = "Weight";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Weight.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Weight.DefaultCellStyle = dataGridViewCellStyle7;
             this.Weight.FillWeight = 10F;
             this.Weight.HeaderText = "Вес";
             this.Weight.Name = "Weight";
@@ -418,6 +420,7 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.RefreshStatus_B, 0, 14);
             this.tableLayoutPanel2.Controls.Add(this.label12, 0, 12);
             this.tableLayoutPanel2.Controls.Add(this.CountOrder_TB, 0, 13);
             this.tableLayoutPanel2.Controls.Add(this.Lenght_TB, 1, 6);
@@ -442,7 +445,7 @@
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(870, 62);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 14;
+            this.tableLayoutPanel2.RowCount = 16;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -457,9 +460,29 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(394, 620);
             this.tableLayoutPanel2.TabIndex = 24;
+            // 
+            // RefreshStatus_B
+            // 
+            this.RefreshStatus_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel2.SetColumnSpan(this.RefreshStatus_B, 2);
+            this.RefreshStatus_B.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RefreshStatus_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
+            this.RefreshStatus_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
+            this.RefreshStatus_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
+            this.RefreshStatus_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RefreshStatus_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.RefreshStatus_B.Location = new System.Drawing.Point(3, 467);
+            this.RefreshStatus_B.Margin = new System.Windows.Forms.Padding(3, 7, 5, 7);
+            this.RefreshStatus_B.Name = "RefreshStatus_B";
+            this.RefreshStatus_B.Size = new System.Drawing.Size(386, 33);
+            this.RefreshStatus_B.TabIndex = 57;
+            this.RefreshStatus_B.Text = "Обновить информацию";
+            this.RefreshStatus_B.UseVisualStyleBackColor = false;
+            this.RefreshStatus_B.Click += new System.EventHandler(this.RefreshStatus_B_Click);
             // 
             // label12
             // 
@@ -790,6 +813,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Lenght;
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        public System.Windows.Forms.Button RefreshStatus_B;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox CountOrder_TB;
         private System.Windows.Forms.TextBox Lenght_TB;

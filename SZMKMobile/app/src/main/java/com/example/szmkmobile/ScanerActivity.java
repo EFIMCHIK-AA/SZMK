@@ -63,6 +63,7 @@ public class ScanerActivity extends AppCompatActivity implements ZXingScannerVie
                    SettingsActivity.Port.setText("0000");
                }
            }
+           onPause();
        }
        else if(ScanDoc)
        {
@@ -89,6 +90,7 @@ public class ScanerActivity extends AppCompatActivity implements ZXingScannerVie
                msg=ScanData.Data;
                sendMessage();
            }
+           onResume();
        }
        else if(ScanBlank)
        {
@@ -108,10 +110,10 @@ public class ScanerActivity extends AppCompatActivity implements ZXingScannerVie
                msg=ScanData.Data;
                sendMessage();
            }
+           onResume();
        }
 
        Toast.makeText(this, ScanData.Data, Toast.LENGTH_LONG).show();
-       onResume();
     }
 
     private String Read(String fileName)
@@ -139,7 +141,6 @@ public class ScanerActivity extends AppCompatActivity implements ZXingScannerVie
     protected void onPause(){
         ScannerView.stopCamera();
         super.onPause();
-
     }
 
     @Override

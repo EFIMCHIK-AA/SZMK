@@ -33,14 +33,7 @@ namespace SZMK
                 SystemArgs.Excel = new Excel();
                 SystemArgs.Template = new Template();
                 ItemsFilter();
-                if (SystemArgs.Request.GetAllBlankOrder() && SystemArgs.Request.GetAllStatus() && SystemArgs.Request.GetAllOrders())
-                {
-                    Display(SystemArgs.Orders);
-                }
-                else
-                {
-                    throw new Exception("Ошибка загрузки данных из базы");
-                }
+                RefreshOrder();
 
                 Thread.Sleep(2000);
 
@@ -177,9 +170,11 @@ namespace SZMK
                                     Order Temp = SystemArgs.Orders.Where(p => p.Number == NumberAndList._Number && p.List == NumberAndList._List).Single();
                                     Order NewOrder = Temp;
                                     NewBlankOrder = new BlankOrder(IndexBlankOrder, DateTime.Now, SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].QRBlankOrder);
-
-                                    NewOrder.Status = TempStatus;
-                                    NewOrder.User = SystemArgs.User;
+                                    if (NewOrder.Status.ID < TempStatus.ID)
+                                    {
+                                        NewOrder.Status = TempStatus;
+                                        NewOrder.User = SystemArgs.User;
+                                    }
                                     NewOrder.BlankOrder = NewBlankOrder;
                                     if (SystemArgs.Excel.AddToRegistry(NewOrder))
                                     {
@@ -592,6 +587,44 @@ namespace SZMK
                 Status_TB.Text = String.Empty;
             }
 
+        }
+        private bool RefreshOrder()
+        {
+            List<Order> Temp = null;
+
+            try
+            {
+                Temp = new List<Order>(SystemArgs.Orders);
+
+                SystemArgs.Orders.Clear();
+
+                SystemArgs.Request.GetAllBlankOrder();
+                SystemArgs.Request.GetAllStatus();
+                SystemArgs.Request.GetAllOrders();
+
+                Display(SystemArgs.Orders);
+                return true;
+            }
+            catch
+            {
+                if (Temp != null)
+                {
+                    Display(Temp);
+                }
+                throw;
+            }
+        }
+
+        private void RefreshStatus_B_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                RefreshOrder();
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -33,7 +33,7 @@ namespace SZMK
                 SystemArgs.Excel = new Excel();
                 SystemArgs.Template = new Template();
                 ItemsFilter();
-                Refresh();
+                RefreshOrder();
                 Thread.Sleep(2000);
 
                 Dialog.Close();
@@ -567,7 +567,7 @@ namespace SZMK
             }
 
         }
-        private bool Refresh()
+        private bool RefreshOrder()
         {
             List<Order> Temp = null;
 
@@ -579,7 +579,7 @@ namespace SZMK
 
                 SystemArgs.Request.GetAllBlankOrder();
                 SystemArgs.Request.GetAllStatus();
-                SystemArgs.Request.GetAllUsers();
+                SystemArgs.Request.GetAllOrders();
 
                 Display(SystemArgs.Orders);
                 return true;
@@ -598,7 +598,7 @@ namespace SZMK
         {
             try
             {
-                Refresh();
+                RefreshOrder();
             }
             catch(Exception E)
             {

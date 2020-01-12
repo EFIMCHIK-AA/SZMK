@@ -659,7 +659,11 @@ namespace SZMK
             {
                 if(File.Exists(SystemArgs.ByteScout.ProgramPath))
                 {
-                    System.Diagnostics.Process.Start(SystemArgs.ByteScout.ProgramPath);
+                    System.Diagnostics.ProcessStartInfo infoStartProcess = new System.Diagnostics.ProcessStartInfo();
+                    infoStartProcess.UseShellExecute = false;
+                    infoStartProcess.WorkingDirectory = SystemArgs.Path.GetDirectory(SystemArgs.ByteScout.ProgramPath);
+                    infoStartProcess.FileName = SystemArgs.ByteScout.ProgramPath;
+                    System.Diagnostics.Process.Start(infoStartProcess);
                 }
                 else
                 {
