@@ -1,0 +1,4 @@
+	INSERT INTO public."Status"("ID_Position", "Name") VALUES ('2', 'Добавлен начальником групп КБ');
+	INSERT INTO public."Status"("ID_Position", "Name") VALUES ('3', 'Передан в архив');
+	INSERT INTO public."Status"("ID_Position", "Name") VALUES ('4', 'Передан в ПДО');
+	INSERT INTO public."Status"("ID_Position", "Name") VALUES ('5', 'Передан в ОПП');

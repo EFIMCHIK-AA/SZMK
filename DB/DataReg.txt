@@ -1,0 +1,1 @@
+INSERT INTO public."DataReg"("ID", "DateUpd", "Login", "HashPass") VALUES ('1', '12.12.1212', 'ROOT', 'CJVFg6t4w0LhHDv37X2iA8B82N1MxpTjWcsaIqt0Nfo=');

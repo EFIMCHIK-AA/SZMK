@@ -1,0 +1,5 @@
+INSERT INTO public."Position"("Name")VALUES ('Администратор');
+INSERT INTO public."Position"("Name")VALUES ('Начальник групп КБ');
+INSERT INTO public."Position"("Name")VALUES ('Архивариус');
+INSERT INTO public."Position"("Name")VALUES ('Сотрудник ПДО');
+INSERT INTO public."Position"("Name")VALUES ('Сотрудник ОПП');

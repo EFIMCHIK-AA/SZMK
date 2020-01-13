@@ -1,0 +1,1 @@
+INSERT INTO public."User"("ID_Position", "DateCreate", "Name", "MidName", "SurName", "DOB") VALUES ('1', '12.12.1212', 'ROOT', 'ROOT', 'ROOT', '12.12.1212');
