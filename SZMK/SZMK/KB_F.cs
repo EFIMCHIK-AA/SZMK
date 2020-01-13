@@ -576,7 +576,8 @@ namespace SZMK
                 Temp = new List<Order>(SystemArgs.Orders);
 
                 SystemArgs.Orders.Clear();
-
+                SystemArgs.Statuses.Clear();
+                SystemArgs.BlankOrders.Clear();
                 SystemArgs.Request.GetAllBlankOrder();
                 SystemArgs.Request.GetAllStatus();
                 SystemArgs.Request.GetAllOrders();

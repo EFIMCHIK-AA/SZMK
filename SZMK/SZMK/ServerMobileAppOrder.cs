@@ -51,14 +51,15 @@ namespace SZMK
                         throw new Exception("В DataMatrix менее 6 полей");
                     }
                     Int32 List = Convert.ToInt32(ValidationDataMatrix[1]);
+                    String Temp = e.MessageString.Replace(" ", "");
                     if (SystemArgs.Request.CheckedUniqueOrderDB(e.MessageString))
                     {
-                        _ScanSession.Add(new OrderScanSession(e.MessageString.Trim(), true));
+                        _ScanSession.Add(new OrderScanSession(Temp, true));
 
                     }
                     else
                     {
-                        _ScanSession.Add(new OrderScanSession(e.MessageString.Trim(), false));
+                        _ScanSession.Add(new OrderScanSession(Temp, false));
                     }
                     Load?.Invoke(_ScanSession);
                 }

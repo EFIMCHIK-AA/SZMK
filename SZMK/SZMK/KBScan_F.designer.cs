@@ -28,14 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.CreateAct_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.проверкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CheckedUnloading_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.Scan_DGV = new System.Windows.Forms.DataGridView();
+            this.DataMatrixOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Unique = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status_TB = new System.Windows.Forms.TextBox();
             this.ServerStatus_TB = new System.Windows.Forms.TextBox();
             this.Cancel_B = new System.Windows.Forms.Button();
@@ -45,8 +47,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.Add_B = new System.Windows.Forms.Button();
-            this.DataMatrixOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Unique = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Scan_DGV)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -117,6 +117,29 @@
             this.Scan_DGV.TabIndex = 10;
             this.Scan_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Scan_DGV_CellFormatting);
             this.Scan_DGV.SelectionChanged += new System.EventHandler(this.Scan_DGV_SelectionChanged);
+            // 
+            // DataMatrixOrder
+            // 
+            this.DataMatrixOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DataMatrixOrder.DataPropertyName = "DataMatrix";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DataMatrixOrder.DefaultCellStyle = dataGridViewCellStyle1;
+            this.DataMatrixOrder.FillWeight = 75F;
+            this.DataMatrixOrder.HeaderText = "Данные чертежа";
+            this.DataMatrixOrder.Name = "DataMatrixOrder";
+            this.DataMatrixOrder.ReadOnly = true;
+            // 
+            // Unique
+            // 
+            this.Unique.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Unique.DataPropertyName = "Unique";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Unique.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Unique.FillWeight = 25F;
+            this.Unique.HeaderText = "Уникальность";
+            this.Unique.Name = "Unique";
+            this.Unique.ReadOnly = true;
+            this.Unique.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // Status_TB
             // 
@@ -261,29 +284,6 @@
             this.Add_B.TabIndex = 19;
             this.Add_B.Text = "Добавить";
             this.Add_B.UseVisualStyleBackColor = false;
-            // 
-            // DataMatrixOrder
-            // 
-            this.DataMatrixOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DataMatrixOrder.DataPropertyName = "DataMatrix";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DataMatrixOrder.DefaultCellStyle = dataGridViewCellStyle3;
-            this.DataMatrixOrder.FillWeight = 75F;
-            this.DataMatrixOrder.HeaderText = "Данные чертежа";
-            this.DataMatrixOrder.Name = "DataMatrixOrder";
-            this.DataMatrixOrder.ReadOnly = true;
-            // 
-            // Unique
-            // 
-            this.Unique.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Unique.DataPropertyName = "Unique";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Unique.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Unique.FillWeight = 25F;
-            this.Unique.HeaderText = "Уникальность";
-            this.Unique.Name = "Unique";
-            this.Unique.ReadOnly = true;
-            this.Unique.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // KBScan_F
             // 

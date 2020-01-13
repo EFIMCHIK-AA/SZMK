@@ -13,7 +13,7 @@ namespace SZMK
     public class ByteScout
     {
         private String _ProgramPath;
-        private String _DirectoryProgramPath;
+        private String _ArhivePath;
         private String _Port;
         private String _Server;
         public delegate void LoadData(List<OrderScanSession> ScanSession);
@@ -41,7 +41,7 @@ namespace SZMK
                     throw new Exception();
                 }
 
-                if (!File.Exists(SystemArgs.Path.DirectoryProgramPath))
+                if (!File.Exists(SystemArgs.Path.ArchivePath))
                 {
                     throw new Exception();
                 }
@@ -56,9 +56,9 @@ namespace SZMK
                     _ProgramPath = sr.ReadLine();
                 }
 
-                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.DirectoryProgramPath, FileMode.Open)))
+                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ArchivePath, FileMode.Open)))
                 {
-                    _DirectoryProgramPath = sr.ReadLine();
+                    _ArhivePath = sr.ReadLine();
                 }
 
                 using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ConnectProgramPath, FileMode.Open)))
@@ -86,11 +86,11 @@ namespace SZMK
                     Directory.CreateDirectory(DirProg);
                 }
 
-                String DirTempDirProgram = SystemArgs.Path.GetDirectory(SystemArgs.Path.DirectoryProgramPath);
+                String DirArhive = SystemArgs.Path.GetDirectory(SystemArgs.Path.ArchivePath);
 
-                if (!Directory.Exists(DirTempDirProgram))
+                if (!Directory.Exists(DirArhive))
                 {
-                    Directory.CreateDirectory(DirTempDirProgram);
+                    Directory.CreateDirectory(DirArhive);
                 }
 
                 String DirConnProgram = SystemArgs.Path.GetDirectory(SystemArgs.Path.ConnectProgramPath);
@@ -105,9 +105,9 @@ namespace SZMK
                     sw.WriteLine(_ProgramPath);
                 }
 
-                using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.DirectoryProgramPath, FileMode.Create)))
+                using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ArchivePath, FileMode.Create)))
                 {
-                    sw.WriteLine(_DirectoryProgramPath);
+                    sw.WriteLine(_ArhivePath);
                 }
 
                 using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ConnectProgramPath, FileMode.Create)))
@@ -126,7 +126,7 @@ namespace SZMK
 
         public bool CheckFile()
         {
-            if (!Directory.Exists(_DirectoryProgramPath))
+            if (!Directory.Exists(_ArhivePath))
             {
                 return false;
             }
@@ -187,18 +187,18 @@ namespace SZMK
             }
         }
 
-        public String DirectoryProgramPath
+        public String ArhivePath
         {
             get
             {
-                return _DirectoryProgramPath;
+                return _ArhivePath;
             }
 
             set
             {
                 if (!String.IsNullOrEmpty(value))
                 {
-                    _DirectoryProgramPath = value;
+                    _ArhivePath = value;
                 }
             }
         }
@@ -244,7 +244,7 @@ namespace SZMK
                         }
                         while (outputStream.DataAvailable);
                         responseData = completeMessage.ToString();
-                        if (AddDecodeSession(responseData))
+                        if (AddDecodeSession(responseData.Replace(" ","")))
                         {
                             Load?.Invoke(_DecodeSession);
                         }

@@ -203,11 +203,11 @@ namespace SZMK
             {
                 String[] Temp = DataMatrix.Split('_');
                 String TextReport = "";
-                if (Directory.Exists($@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}"))
+                if (Directory.Exists($@"{SystemArgs.ByteScout.ArhivePath}\{Temp[0]}"))
                 {
-                    if (!File.Exists($@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}\{DataMatrix}.tiff"))
+                    if (!File.Exists($@"{SystemArgs.ByteScout.ArhivePath}\{Temp[0]}\{DataMatrix}.tiff"))
                     {
-                        File.Copy(FileName, $@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}\{DataMatrix}.tiff");
+                        File.Copy(FileName, $@"{SystemArgs.ByteScout.ArhivePath}\{Temp[0]}\{DataMatrix}.tiff");
                         TextReport = $"Файл {DataMatrix}.tiff помещен в директорию {Temp[0]}" + Environment.NewLine;
                         try
                         {
@@ -227,11 +227,11 @@ namespace SZMK
                 }
                 else
                 {
-                    Directory.CreateDirectory($@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}");
+                    Directory.CreateDirectory($@"{SystemArgs.ByteScout.ArhivePath}\{Temp[0]}");
 
-                    if (!File.Exists($@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}\{DataMatrix}.tiff"))
+                    if (!File.Exists($@"{SystemArgs.ByteScout.ArhivePath}\{Temp[0]}\{DataMatrix}.tiff"))
                     {
-                        File.Copy(FileName, $@"{SystemArgs.ByteScout.DirectoryProgramPath}\{Temp[0]}\{DataMatrix}.tiff");
+                        File.Copy(FileName, $@"{SystemArgs.ByteScout.ArhivePath}\{Temp[0]}\{DataMatrix}.tiff");
                         TextReport = $"Директория {Temp[0]} создана. Файл {DataMatrix}.tiff помещен в директорию" + Environment.NewLine;
                         try
                         {
@@ -634,6 +634,8 @@ namespace SZMK
                 Temp = new List<Order>(SystemArgs.Orders);
 
                 SystemArgs.Orders.Clear();
+                SystemArgs.Statuses.Clear();
+                SystemArgs.BlankOrders.Clear();
 
                 SystemArgs.Request.GetAllBlankOrder();
                 SystemArgs.Request.GetAllStatus();

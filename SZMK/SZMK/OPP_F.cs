@@ -190,6 +190,9 @@ namespace SZMK
                                 Status TempStatus = (from p in SystemArgs.Statuses
                                                      where p.IDPosition == PositionID
                                                      select p).Single();
+                                NewBlankOrder = (from p in SystemArgs.BlankOrders
+                                                 where p.QR == SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].QRBlankOrder
+                                                 select p).Single();
                                 foreach (BlankOrderScanSession.NumberAndList NumberAndList in SystemArgs.ServerMobileAppBlankOrder._ScanSession[i]._Order)
                                 {
                                     Order Temp = SystemArgs.Orders.Where(p => p.Number == NumberAndList._Number && p.List == NumberAndList._List).Single();
@@ -600,6 +603,8 @@ namespace SZMK
                 Temp = new List<Order>(SystemArgs.Orders);
 
                 SystemArgs.Orders.Clear();
+                SystemArgs.Statuses.Clear();
+                SystemArgs.BlankOrders.Clear();
 
                 SystemArgs.Request.GetAllBlankOrder();
                 SystemArgs.Request.GetAllStatus();

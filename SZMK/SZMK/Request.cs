@@ -1197,7 +1197,7 @@ namespace SZMK
                 String DataMatrix = (from p in SystemArgs.Orders
                                      where (p.Number == Number) && (p.List == List)
                                      select p.DataMatrix).Single();
-                if (CheckedStatusOrderDB(IDStatus, DataMatrix)&&FindedOrdersInAddBlankOrder(QR,GetIDOrder(DataMatrix)))
+                if (FindedOrdersInAddBlankOrder(QR,GetIDOrder(DataMatrix)))
                 {
                     using (var Connect = new NpgsqlConnection(_ConnectString))
                     {

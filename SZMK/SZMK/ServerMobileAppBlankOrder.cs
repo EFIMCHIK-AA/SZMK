@@ -60,12 +60,13 @@ namespace SZMK
             {
                 try
                 {
-                    String[] ValidationDataMatrix = e.MessageString.Split('_');
+                    String Temp = e.MessageString.Replace(" ", "");
+                    String[] ValidationDataMatrix = Temp.Split('_');
                     if (ValidationDataMatrix.Length <= 3)
                     {
                         throw new Exception("В QR менее 3 полей");
                     }
-                    if (!FindedOrder(ValidationDataMatrix, e.MessageString))
+                    if (!FindedOrder(ValidationDataMatrix, Temp))
                     {
                         throw new Exception("Ошибка определения чертежей в бланке заказа");
                     }

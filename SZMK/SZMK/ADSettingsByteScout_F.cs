@@ -84,7 +84,7 @@ namespace SZMK
                 SystemArgs.ByteScout.Server = IP_TB.Text.Trim();
                 SystemArgs.ByteScout.Port = Port_TB.Text.Trim();
                 SystemArgs.ByteScout.ProgramPath = PrpgramPath_TB.Text.Trim();
-                SystemArgs.ByteScout.DirectoryProgramPath = DirectoryProgPath_TB.Text.Trim();
+                SystemArgs.ByteScout.ArhivePath = DirectoryProgPath_TB.Text.Trim();
 
                 if (SystemArgs.ByteScout.CheckConnect())
                 {
