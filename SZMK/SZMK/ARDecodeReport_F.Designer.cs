@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Close_B = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,11 +50,12 @@
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(733, 496);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(733, 494);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // Close_B
@@ -62,12 +63,15 @@
             this.Close_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Close_B.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close_B.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Close_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
+            this.Close_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
+            this.Close_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.Close_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Close_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.Close_B.Location = new System.Drawing.Point(5, 450);
-            this.Close_B.Margin = new System.Windows.Forms.Padding(5, 0, 5, 5);
+            this.Close_B.Location = new System.Drawing.Point(5, 455);
+            this.Close_B.Margin = new System.Windows.Forms.Padding(5, 9, 5, 5);
             this.Close_B.Name = "Close_B";
-            this.Close_B.Size = new System.Drawing.Size(723, 42);
+            this.Close_B.Size = new System.Drawing.Size(723, 33);
             this.Close_B.TabIndex = 24;
             this.Close_B.Text = "Закрыть";
             this.Close_B.UseVisualStyleBackColor = false;
@@ -101,7 +105,7 @@
             this.Discribe});
             this.Report_DGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Report_DGV.Location = new System.Drawing.Point(5, 55);
-            this.Report_DGV.Margin = new System.Windows.Forms.Padding(5, 0, 5, 5);
+            this.Report_DGV.Margin = new System.Windows.Forms.Padding(5, 0, 5, 1);
             this.Report_DGV.Name = "Report_DGV";
             this.Report_DGV.ReadOnly = true;
             this.Report_DGV.RowHeadersVisible = false;
@@ -113,8 +117,8 @@
             // DataMatrix
             // 
             this.DataMatrix.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DataMatrix.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DataMatrix.DefaultCellStyle = dataGridViewCellStyle7;
             this.DataMatrix.FillWeight = 40F;
             this.DataMatrix.HeaderText = "Данные чертежа";
             this.DataMatrix.Name = "DataMatrix";
@@ -123,8 +127,8 @@
             // Discribe
             // 
             this.Discribe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Discribe.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Discribe.DefaultCellStyle = dataGridViewCellStyle8;
             this.Discribe.FillWeight = 60F;
             this.Discribe.HeaderText = "Описание выполненной операции";
             this.Discribe.Name = "Discribe";
@@ -135,11 +139,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(733, 496);
+            this.ClientSize = new System.Drawing.Size(733, 494);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(749, 533);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(749, 533);
             this.Name = "ARDecodeReport_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Отчет по перемещенным файлам";

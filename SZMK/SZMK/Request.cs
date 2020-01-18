@@ -1071,6 +1071,36 @@ namespace SZMK
                 return false;
             }
         }
+        public DateTime GetStatusOfUserDate(Int64 IDOrder,Int64 IDStatus)
+        {
+            try
+            {
+                DateTime Temp = DateTime.Now;
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"DateCreate\"FROM public.\"AddStatus\" WHERE \"ID_Order\"='{IDOrder}' AND \"ID_Status\"='{IDStatus}';", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                Temp = Reader.GetDateTime(0);
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+
+                return Temp;
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения даты обновления статуса");
+            }
+        }
         public Int64 GetIDOrder(String DataMatrix)
         {
             Int64 ID = 0;

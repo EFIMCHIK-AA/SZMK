@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using OfficeOpenXml;
+using System.Xml.Linq;
 using System.Linq;
 using System.Text;
 
@@ -108,6 +109,20 @@ namespace SZMK
                     }
                 }
             }
+            public String FindedView
+            {
+                get
+                {
+                    if (_Finded)
+                    {
+                        return "Найдено";
+                    }
+                    else
+                    {
+                        return "Не найдено";
+                    }
+                }
+            }
             public Boolean Finded
             {
                 get
@@ -125,42 +140,65 @@ namespace SZMK
         {
             Specifics = new List<Specific>();
         }
+        struct Unloading
+        {
+            public String _List;
+            public String _Detail;
+
+            public Unloading(String List, String Detail)
+            {
+                _List = List;
+                _Detail = Detail;
+            }
+        }
         public void ChekedUnloading(List<OrderScanSession> ScanSession)
         {
+            SystemArgs.UnLoadSpecific.Specifics.Clear();
             for (int i = 0; i < ScanSession.Count; i++)
             {
                 String[] SplitDataMatrix = ScanSession[i].DataMatrix.Split('_');
-                String pathSpecific = "";
-                if (Directory.Exists(SystemArgs.Path.DirectoryModelsPath + SplitDataMatrix[0]))
+                String pathSpecific = SystemArgs.ClientProgram.ModelsPath;
+                if (Directory.Exists(pathSpecific + "\\" + SplitDataMatrix[0]))
                 {
-                    pathSpecific = SystemArgs.Path.DirectoryModelsPath + SplitDataMatrix[0];
+                    pathSpecific = pathSpecific + "\\" + SplitDataMatrix[0];
                 }
-                else if (Directory.Exists(SystemArgs.Path.DirectoryModelsPath + SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('(')) + @"\" + SplitDataMatrix[0]))
+                else if (Directory.Exists(pathSpecific + "\\" + SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('(')) + @"\" + SplitDataMatrix[0]))
                 {
-                    pathSpecific = SystemArgs.Path.DirectoryModelsPath + SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('(')) + @"\" + SplitDataMatrix[0];
+                    pathSpecific = pathSpecific + "\\" + SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('(')) + @"\" + SplitDataMatrix[0];
                 }
                 else
                 {
                     throw new Exception("Папки с номером заказа " + SplitDataMatrix[0] + " не существует");
                 }
-                if (File.Exists(pathSpecific + @"\Отчеты\#Для выгрузки.xls"))
+                if (File.Exists(pathSpecific + @"\Отчеты\#Для выгрузки.xml"))
                 {
                     Boolean flag = false;
-                    ExcelPackage WBChecked = new ExcelPackage(new System.IO.FileInfo(pathSpecific + @"\Отчеты\#Для выгрузки.xls"));
-                    ExcelWorksheet WSChecked = WBChecked.Workbook.Worksheets[1];
-                    for (int j = 0; j < WSChecked.Dimension.End.Row; i++)
+                    String List = "";
+                    String Detail = "";
+                    List<Unloading> Temp = new List<Unloading>();
+                    XDocument doc = XDocument.Load(pathSpecific + @"\Отчеты\#Для выгрузки.xml");
+                    foreach (XElement el in doc.Element("Export").Elements("Сборка"))
                     {
-                        if (WSChecked.Cells[j, 3].Value.ToString() == SplitDataMatrix[1])
+                        foreach (XElement xml in el.Elements("Деталь"))
                         {
-                            if (WSChecked.Cells[j, 7].Value != null)
+                            List = el.Element("Лист").Value.Trim();
+                            Detail = xml.Element("Позиция_детали").Value.Trim();
+                            Temp.Add(new Unloading(List, Detail));
+                        }
+                    }
+                    for (int j = 0; j < Temp.Count; j++)
+                    {
+                        if (Temp[j]._List == SplitDataMatrix[1])
+                        {
+                            if (Temp[j]._Detail != null)
                             {
-                                if (File.Exists(pathSpecific + @"\Чертежи\Детфли PDF\" + "Дет." + WSChecked.Cells[j, 7].Value.ToString() + ".pdf"))
+                                if (File.Exists(pathSpecific + @"\Чертежи\Детали PDF\" + "Дет." + Temp[j]._Detail + ".pdf"))
                                 {
-                                    Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[1], Convert.ToInt64(SplitDataMatrix[3]), true));
+                                    Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[3], Convert.ToInt64(Temp[j]._Detail), true));
                                 }
                                 else
                                 {
-                                    Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[1], Convert.ToInt64(SplitDataMatrix[3]), false));
+                                    Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[3], Convert.ToInt64(Temp[j]._Detail), false));
                                     flag = true;
                                 }
                             }

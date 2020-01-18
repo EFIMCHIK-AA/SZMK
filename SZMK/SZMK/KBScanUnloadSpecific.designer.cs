@@ -28,15 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Report_DGV = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.OK_B = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.List = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumberSpecific = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Finded = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.OK_B = new System.Windows.Forms.Button();
+            this.Finded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.Report_DGV)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Report_DGV
@@ -45,7 +52,7 @@
             this.Report_DGV.AllowUserToDeleteRows = false;
             this.Report_DGV.AllowUserToResizeColumns = false;
             this.Report_DGV.AllowUserToResizeRows = false;
-            this.Report_DGV.BackgroundColor = System.Drawing.Color.White;
+            this.Report_DGV.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Report_DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Report_DGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Number,
@@ -53,17 +60,74 @@
             this.Executor,
             this.NumberSpecific,
             this.Finded});
-            this.Report_DGV.Location = new System.Drawing.Point(9, 52);
+            this.Report_DGV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Report_DGV.Location = new System.Drawing.Point(5, 55);
+            this.Report_DGV.Margin = new System.Windows.Forms.Padding(5, 0, 5, 1);
             this.Report_DGV.Name = "Report_DGV";
             this.Report_DGV.ReadOnly = true;
             this.Report_DGV.RowHeadersVisible = false;
-            this.Report_DGV.Size = new System.Drawing.Size(773, 386);
+            this.Report_DGV.Size = new System.Drawing.Size(815, 386);
             this.Report_DGV.TabIndex = 0;
+            this.Report_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Report_DGV_CellFormatting);
+            this.Report_DGV.SelectionChanged += new System.EventHandler(this.Report_DGV_SelectionChanged);
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label1.Location = new System.Drawing.Point(5, 10);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(815, 35);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Отчет о проверке";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // OK_B
+            // 
+            this.OK_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.OK_B.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.OK_B.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.OK_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
+            this.OK_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
+            this.OK_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
+            this.OK_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OK_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.OK_B.Location = new System.Drawing.Point(5, 451);
+            this.OK_B.Margin = new System.Windows.Forms.Padding(5, 9, 5, 5);
+            this.OK_B.Name = "OK_B";
+            this.OK_B.Size = new System.Drawing.Size(815, 33);
+            this.OK_B.TabIndex = 2;
+            this.OK_B.Text = "Закрыть";
+            this.OK_B.UseVisualStyleBackColor = false;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.OK_B, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.Report_DGV, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(825, 490);
+            this.tableLayoutPanel1.TabIndex = 3;
             // 
             // Number
             // 
             this.Number.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Number.DataPropertyName = "Number";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Number.DefaultCellStyle = dataGridViewCellStyle6;
             this.Number.FillWeight = 20F;
             this.Number.HeaderText = "Номер заказа";
             this.Number.Name = "Number";
@@ -74,6 +138,8 @@
             // 
             this.List.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.List.DataPropertyName = "List";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.List.DefaultCellStyle = dataGridViewCellStyle7;
             this.List.FillWeight = 15F;
             this.List.HeaderText = "Номер листа";
             this.List.Name = "List";
@@ -84,6 +150,8 @@
             // 
             this.Executor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Executor.DataPropertyName = "Executor";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Executor.DefaultCellStyle = dataGridViewCellStyle8;
             this.Executor.FillWeight = 40F;
             this.Executor.HeaderText = "Исполнитель";
             this.Executor.Name = "Executor";
@@ -94,6 +162,8 @@
             // 
             this.NumberSpecific.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.NumberSpecific.DataPropertyName = "NumberSpecific";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.NumberSpecific.DefaultCellStyle = dataGridViewCellStyle9;
             this.NumberSpecific.FillWeight = 15F;
             this.NumberSpecific.HeaderText = "Номер детали";
             this.NumberSpecific.Name = "NumberSpecific";
@@ -103,36 +173,14 @@
             // Finded
             // 
             this.Finded.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Finded.DataPropertyName = "Finded";
-            this.Finded.FalseValue = "Найден";
+            this.Finded.DataPropertyName = "FindedView";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Finded.DefaultCellStyle = dataGridViewCellStyle10;
             this.Finded.FillWeight = 10F;
-            this.Finded.HeaderText = "Найден";
+            this.Finded.HeaderText = "Найдено";
             this.Finded.Name = "Finded";
             this.Finded.ReadOnly = true;
             this.Finded.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Finded.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Finded.TrueValue = "Не найден";
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(9, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(773, 40);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Отчет о проверке";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // OK_B
-            // 
-            this.OK_B.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.OK_B.Location = new System.Drawing.Point(329, 444);
-            this.OK_B.Name = "OK_B";
-            this.OK_B.Size = new System.Drawing.Size(150, 28);
-            this.OK_B.TabIndex = 2;
-            this.OK_B.Text = "Закрыть";
-            this.OK_B.UseVisualStyleBackColor = true;
             // 
             // KBScanUnloadSpecific
             // 
@@ -141,18 +189,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.OK_B;
-            this.ClientSize = new System.Drawing.Size(790, 477);
-            this.Controls.Add(this.OK_B);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.Report_DGV);
+            this.ClientSize = new System.Drawing.Size(825, 490);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(841, 529);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(841, 529);
             this.Name = "KBScanUnloadSpecific";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Отчет о проверке";
             this.Load += new System.EventHandler(this.KBScanUnloadSpecific_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Report_DGV)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -160,12 +209,13 @@
         #endregion
 
         private System.Windows.Forms.DataGridView Report_DGV;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button OK_B;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
         private System.Windows.Forms.DataGridViewTextBoxColumn List;
         private System.Windows.Forms.DataGridViewTextBoxColumn Executor;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumberSpecific;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Finded;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button OK_B;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Finded;
     }
 }

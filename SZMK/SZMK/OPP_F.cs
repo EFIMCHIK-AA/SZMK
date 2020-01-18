@@ -342,31 +342,38 @@ namespace SZMK
         }
         private void Display(List<Order> List)
         {
-            if (Filter())
+            try
             {
-                View = new BindingListView<Order>(List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID).ToList());
-                Order_DGV.DataSource = null;
-                Order_DGV.DataSource = View;
-                CountOrder_TB.Text = View.Count.ToString();
-                if (View.Count > 0)
+                if (Filter())
                 {
-                    EnableButton(true);
+                    View = new BindingListView<Order>(List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID).ToList());
+                    Order_DGV.DataSource = null;
+                    Order_DGV.DataSource = View;
+                    CountOrder_TB.Text = View.Count.ToString();
+                    if (View.Count > 0)
+                    {
+                        EnableButton(true);
+                    }
+                    else
+                    {
+                        EnableButton(false);
+                    }
+                    ForgetOrder();
                 }
                 else
                 {
+                    View = new BindingListView<Order>(List);
+                    Order_DGV.DataSource = null;
+                    Order_DGV.DataSource = View;
+                    CountOrder_TB.Text = View.Count.ToString();
                     EnableButton(false);
+
                 }
             }
-            else
+            catch (Exception e)
             {
-                View = new BindingListView<Order>(List);
-                Order_DGV.DataSource = null;
-                Order_DGV.DataSource = View;
-                CountOrder_TB.Text = View.Count.ToString();
-                EnableButton(false);
-
+                MessageBox.Show(e.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            ForgetOrder();
         }
 
         private void ForgetOrder()
@@ -653,7 +660,14 @@ namespace SZMK
 
         private void Order_DGV_Sorted(object sender, EventArgs e)
         {
-            ForgetOrder();
+            try
+            {
+                ForgetOrder();
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

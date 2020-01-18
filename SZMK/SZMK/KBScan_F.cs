@@ -25,6 +25,7 @@ namespace SZMK
             Scan_DGV.AutoGenerateColumns = false;
             Scan_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             SystemArgs.UnLoadSpecific = new UnLoadSpecific();
+            SystemArgs.ServerMail = new ServerMail();
             SystemArgs.ServerMobileAppOrder.Load += LoadToDGV;
         }
 
@@ -35,7 +36,7 @@ namespace SZMK
                 {
                     SystemArgs.UnLoadSpecific.ChekedUnloading(SystemArgs.ServerMobileAppOrder._ScanSession);
                     KBScanUnloadSpecific Dialog = new KBScanUnloadSpecific();
-                    Dialog.Show();
+                    Dialog.ShowDialog();
                 }
                 catch(Exception E)
                 {

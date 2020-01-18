@@ -19,18 +19,32 @@ namespace SZMK
 
         private void KBScanUnloadSpecific_Load(object sender, EventArgs e)
         {
+            Report_DGV.AutoGenerateColumns = false;
+            Report_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Report_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             Report_DGV.DataSource = SystemArgs.UnLoadSpecific.Specifics;
             for (int i = 0; i < Report_DGV.Rows.Count; i++)
             {
-                if (Convert.ToBoolean(Report_DGV[5, i].Value))
+                if (Report_DGV[4, i].Value.ToString()=="Найдено")
                 {
-                    Report_DGV[1, i].Style.BackColor = Color.Lime;
+                    Report_DGV[4, i].Style.BackColor = Color.Lime;
                 }
                 else
                 {
-                    Report_DGV[5, i].Style.BackColor = Color.Red;
+                    Report_DGV[4, i].Style.BackColor = Color.Red;
                 }
             }
+        }
+
+        private void Report_DGV_SelectionChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Report_DGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            e.CellStyle.SelectionBackColor = Color.FromArgb(112, 238, 226);
+            e.CellStyle.SelectionForeColor = Color.Black;
         }
     }
 }

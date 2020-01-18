@@ -283,6 +283,13 @@ namespace SZMK
                 return _Status.ToString();
             }
         }
+        public String StatusDate
+        {
+            get
+            {
+                return SystemArgs.Request.GetStatusOfUserDate(_ID,_Status.ID).ToString();
+            }
+        }
         public User User
         {
             get
@@ -325,6 +332,6 @@ namespace SZMK
                 }
             }
         }
-        public String SearchString() => $"{_DataMatrix}_{_Status.Name}_{_BlankOrder}_{_DateCreate.ToShortDateString()}_{_User.Name}_{_User.MiddleName}_{_User.Surname}";
+        public String SearchString() => $"{_DataMatrix}_{_Status.Name}_{_BlankOrder}_{_DateCreate.ToString()}_{_User.Name}_{_User.MiddleName}_{_User.Surname}_{SystemArgs.Request.GetStatusOfUserDate(_ID, _Status.ID).ToString()}";
     }
 }
