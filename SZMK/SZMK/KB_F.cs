@@ -310,14 +310,27 @@ namespace SZMK
                 EnableButton(false);
 
             }
+            ForgetOrder();
         }
-
+        private void ForgetOrder()
+        {
+            for (int i = 0; i < Order_DGV.RowCount; i++)
+            {
+                if ((DateTime.Now - Convert.ToDateTime(Order_DGV[0, i].Value)).TotalDays >= SystemArgs.ClientProgram.VisualRow_N2)
+                {
+                    Order_DGV.Rows[i].DefaultCellStyle.BackColor = Color.FromArgb(236, 0, 6);
+                }
+                else if ((DateTime.Now - Convert.ToDateTime(Order_DGV[0, i].Value)).TotalDays >= SystemArgs.ClientProgram.VisualRow_N1)
+                {
+                    Order_DGV.Rows[i].DefaultCellStyle.BackColor = Color.Orange;
+                }
+            }
+        }
         private void Order_DGV_SelectionChanged(object sender, EventArgs e)
         {
             if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex < View.Count())
             {
                 Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
-
                 Selection(Temp, true);
             }
             else
@@ -339,6 +352,7 @@ namespace SZMK
 
         private void FilterCB_TSB_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ResetSearch();
             Display(SystemArgs.Orders);
         }
         private void ItemsFilter()
@@ -543,7 +557,7 @@ namespace SZMK
         {
             if (flag)
             {
-                DateCreate_TB.Text = Temp.DateCreate.ToShortDateString();
+                DateCreate_TB.Text = Temp.DateCreate.ToString();
                 Executor_TB.Text = Temp.Executor;
                 Number_TB.Text = Temp.Number;
                 List_TB.Text = Temp.List.ToString();
@@ -605,6 +619,11 @@ namespace SZMK
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void Order_DGV_Sorted(object sender, EventArgs e)
+        {
+            ForgetOrder();
         }
     }
 }

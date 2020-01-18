@@ -42,7 +42,7 @@ namespace SZMK
 
                 foreach (String FileName in Opd.FileNames)
                 {
-                    Status_TB.AppendText($"Файл" +Environment.NewLine + SystemArgs.Path.GetFileName(FileName) + "обрабатывается, пожалуйста подождите..." + Environment.NewLine);
+                    Status_TB.AppendText($"Файл" +Environment.NewLine + SystemArgs.Path.GetFileName(FileName) + Environment.NewLine + "обрабатывается, пожалуйста подождите..." + Environment.NewLine);
 
                     Status_TB.AppendText($">{i + 1}|{CountFile}<" + Environment.NewLine);
 

@@ -13,7 +13,6 @@ namespace SZMK
     public class ByteScout
     {
         private String _ProgramPath;
-        private String _ArhivePath;
         private String _Port;
         private String _Server;
         public delegate void LoadData(List<OrderScanSession> ScanSession);
@@ -41,11 +40,6 @@ namespace SZMK
                     throw new Exception();
                 }
 
-                if (!File.Exists(SystemArgs.Path.ArchivePath))
-                {
-                    throw new Exception();
-                }
-
                 if (!File.Exists(SystemArgs.Path.ConnectProgramPath))
                 {
                     throw new Exception();
@@ -54,11 +48,6 @@ namespace SZMK
                 using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ProgramPath, FileMode.Open)))
                 {
                     _ProgramPath = sr.ReadLine();
-                }
-
-                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ArchivePath, FileMode.Open)))
-                {
-                    _ArhivePath = sr.ReadLine();
                 }
 
                 using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ConnectProgramPath, FileMode.Open)))
@@ -86,13 +75,6 @@ namespace SZMK
                     Directory.CreateDirectory(DirProg);
                 }
 
-                String DirArhive = SystemArgs.Path.GetDirectory(SystemArgs.Path.ArchivePath);
-
-                if (!Directory.Exists(DirArhive))
-                {
-                    Directory.CreateDirectory(DirArhive);
-                }
-
                 String DirConnProgram = SystemArgs.Path.GetDirectory(SystemArgs.Path.ConnectProgramPath);
 
                 if (!Directory.Exists(DirConnProgram))
@@ -103,11 +85,6 @@ namespace SZMK
                 using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ProgramPath, FileMode.Create)))
                 {
                     sw.WriteLine(_ProgramPath);
-                }
-
-                using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ArchivePath, FileMode.Create)))
-                {
-                    sw.WriteLine(_ArhivePath);
                 }
 
                 using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ConnectProgramPath, FileMode.Create)))
@@ -126,11 +103,6 @@ namespace SZMK
 
         public bool CheckFile()
         {
-            if (!Directory.Exists(_ArhivePath))
-            {
-                return false;
-            }
-
             if (!File.Exists(_ProgramPath))
             {
                 return false;
@@ -183,22 +155,6 @@ namespace SZMK
                 if (!String.IsNullOrEmpty(value))
                 {
                     _Port = value;
-                }
-            }
-        }
-
-        public String ArhivePath
-        {
-            get
-            {
-                return _ArhivePath;
-            }
-
-            set
-            {
-                if (!String.IsNullOrEmpty(value))
-                {
-                    _ArhivePath = value;
                 }
             }
         }

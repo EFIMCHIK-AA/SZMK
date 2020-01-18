@@ -58,10 +58,15 @@ namespace SZMK
                     Scan_DGV.Rows.Add();
                     String TextOrder = "Заказ №" + Order._Number + " Лист №" + Order._List.ToString();
                     Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = TextOrder;
-                    if (Order._Finded)
+                    if (Order._Finded == 1)
                     {
                         Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Найден";
                         Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
+                    }
+                    else if (Order._Finded == 0)
+                    {
+                        Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Уже подтвержден";
+                        Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Orange;
                     }
                     else
                     {

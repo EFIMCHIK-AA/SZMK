@@ -12,9 +12,9 @@ namespace SZMK
         {
             public String _Number;
             public Int64 _List;
-            public bool _Finded;
+            public Int32 _Finded;
 
-            public NumberAndList(String Number, Int64 List,bool Finded)
+            public NumberAndList(String Number, Int64 List, Int32 Finded)
             {
                 _Number = Number;
                 _List = List;

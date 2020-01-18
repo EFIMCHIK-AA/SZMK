@@ -484,7 +484,7 @@ namespace SZMK
                     {
                         Connect.Open();
 
-                        using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddStatus\" (\"DateCreate\", \"ID_Status\", \"ID_Order\", \"ID_User\") VALUES('{Order.DateCreate}', '{Order.Status.ID}', '{Order.ID}', '{Order.User.ID}'); ", Connect))
+                        using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddStatus\" (\"DateCreate\", \"ID_Status\", \"ID_Order\", \"ID_User\") VALUES('{DateTime.Now}', '{Order.Status.ID}', '{Order.ID}', '{Order.User.ID}'); ", Connect))
                         {
                             Command.ExecuteNonQuery();
                         }
@@ -526,9 +526,9 @@ namespace SZMK
 
                 return flag;
             }
-            catch
+            catch (Exception e)
             {
-                return flag;
+                throw new Exception(e.Message);
             }
         }
         public bool GetAllStatus()
@@ -653,9 +653,9 @@ namespace SZMK
                 }
                 return flag;
             }
-            catch
+            catch (Exception e)
             {
-                return flag;
+                throw new Exception(e.Message);
             }
         }
         private bool SelectBlankOrder(String QR)
@@ -683,13 +683,14 @@ namespace SZMK
                 }
                 return flag;
             }
-            catch
+            catch (Exception e)
             {
-                return flag;
+                throw new Exception(e.Message);
             }
         }
-        private bool FindedOrdersInAddBlankOrder(String QR,Int64 IDOrder)
+        public bool FindedOrdersInAddBlankOrder(String QR, String Number, Int64 List)
         {
+            Int64 ID = SystemArgs.Orders.Where(p => p.Number == Number && p.List == List).Single().ID;
             Boolean flag = false;
             try
             {
@@ -699,7 +700,7 @@ namespace SZMK
                     {
                         Connect.Open();
 
-                        using (var Command = new NpgsqlCommand($"SELECT COUNT(\"ID_BlankOrder\") FROM public.\"AddBlank\" WHERE \"ID_BlankOrder\"='{IndexBlankOrder}' AND \"ID_Order\"='{IDOrder}';", Connect))
+                        using (var Command = new NpgsqlCommand($"SELECT COUNT(\"ID_BlankOrder\") FROM public.\"AddBlank\" WHERE \"ID_BlankOrder\"='{IndexBlankOrder}' AND \"ID_Order\"='{ID}';", Connect))
                         {
                             using (var reader = Command.ExecuteReader())
                             {
@@ -718,9 +719,9 @@ namespace SZMK
                 }
                 return flag;
             }
-            catch
+            catch (Exception e)
             {
-                return flag;
+                throw new Exception(e.Message);
             }
         }
         private bool InsertBlankOrder(String QR)
@@ -800,9 +801,9 @@ namespace SZMK
                 }
                 return flag;
             }
-            catch
+            catch (Exception e)
             {
-                return flag;
+                throw new Exception(e.Message);
             }
         }
         private bool UpdateBlankOrder(String QR)
@@ -1115,40 +1116,6 @@ namespace SZMK
                         {
                             while (reader.Read())
                             {
-                                if (reader.GetInt64(0) == IDStatus-1)
-                                {
-
-                                        flag = true;
-                                }
-                            }
-                        }
-                    }
-
-                    Connect.Close();
-                }
-                return flag;
-            }
-            catch
-            {
-                return flag;
-            }
-        }
-        public bool CheckedStatusForBlankOrder(Int64 IDStatus, String DataMatrix)
-        {
-            Int64 IDOrder = GetIDOrder(DataMatrix);
-            Boolean flag = false;
-            try
-            {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
-
-                    using (var Command = new NpgsqlCommand($"SELECT \"ID_Status\" FROM public.\"AddStatus\" WHERE \"ID_Order\"='{IDOrder}';", Connect))
-                    {
-                        using (var reader = Command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
                                 if (reader.GetInt64(0) == IDStatus - 1)
                                 {
 
@@ -1162,12 +1129,77 @@ namespace SZMK
                 }
                 return flag;
             }
-            catch
+            catch (Exception e)
             {
-                return flag;
+                throw new Exception(e.Message);
             }
         }
-        public bool CheckedUniqueOrderDB(String DataMatrix)
+        public bool CheckedStatusExistingOrder(Int64 IDStatus, String DataMatrix)
+        {
+            Int64 IDOrder = GetIDOrder(DataMatrix);
+            Boolean flag = false;
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT MAX(\"ID_Status\") FROM public.\"AddStatus\" WHERE \"ID_Order\"='{IDOrder}';", Connect))
+                    {
+                        using (var reader = Command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.GetInt64(0) > IDStatus - 1)
+                                {
+
+                                    flag = true;
+                                }
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return flag;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public bool CheckedNumberAndMark(String Number, String Mark)
+        {
+            Boolean flag = true;
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+                    using (var Command = new NpgsqlCommand($"SELECT COUNT(\"Orders\".\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{Mark}';", Connect))
+                    {
+                        using (var reader = Command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.GetInt64(0) != 0)
+                                {
+                                    flag = false;
+                                }
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return flag;
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public bool CheckedNumberAndList(String Number, Int64 List)
         {
             Boolean flag = false;
             try
@@ -1176,7 +1208,7 @@ namespace SZMK
                 {
                     Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"SELECT Count(\"Orders\".\"DataMatrix\") FROM \"Orders\" WHERE \"DataMatrix\" = '{DataMatrix}'", Connect))
+                    using (var Command = new NpgsqlCommand($"SELECT COUNT(\"Orders\".\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{List}';", Connect))
                     {
                         using (var reader = Command.ExecuteReader())
                         {
@@ -1194,12 +1226,12 @@ namespace SZMK
                 }
                 return flag;
             }
-            catch
+            catch(Exception e)
             {
-                return flag;
+                throw new Exception(e.Message);
             }
         }
-        public bool CheckedExistenceOrderAndStatus(String Number,Int64 List)
+        public bool CheckedOrderAndStatus(String Number, Int64 List)
         {
             Boolean flag = false;
             try
@@ -1210,7 +1242,7 @@ namespace SZMK
                 String DataMatrix = (from p in SystemArgs.Orders
                                      where (p.Number == Number) && (p.List == List)
                                      select p.DataMatrix).Single();
-                if (CheckedStatusForBlankOrder(IDStatus, DataMatrix))
+                if (CheckedStatusOrderDB(IDStatus, DataMatrix))
                 {
                     using (var Connect = new NpgsqlConnection(_ConnectString))
                     {
@@ -1235,12 +1267,12 @@ namespace SZMK
                 }
                 return flag;
             }
-            catch
+            catch (Exception e)
             {
-                return flag;
+                throw new Exception(e.Message);
             }
         }
-        public bool CheckedExistenceBlankOrderAndStatus(String Number, Int64 List,String QR)
+        public bool CheckedOrderAndStatusForUpdate(String Number, Int64 List)
         {
             Boolean flag = false;
             try
@@ -1251,7 +1283,7 @@ namespace SZMK
                 String DataMatrix = (from p in SystemArgs.Orders
                                      where (p.Number == Number) && (p.List == List)
                                      select p.DataMatrix).Single();
-                if (FindedOrdersInAddBlankOrder(QR,GetIDOrder(DataMatrix)))
+                if (CheckedStatusExistingOrder(IDStatus, DataMatrix))
                 {
                     using (var Connect = new NpgsqlConnection(_ConnectString))
                     {
@@ -1276,9 +1308,9 @@ namespace SZMK
                 }
                 return flag;
             }
-            catch
+            catch (Exception e)
             {
-                return flag;
+                throw new Exception(e.Message);
             }
         }
     } 

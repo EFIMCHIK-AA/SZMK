@@ -172,13 +172,6 @@ namespace SZMK
                 }
             }
         }
-        public String DateCreateView
-        {
-            get
-            {
-                return _DateCreate.ToShortDateString();
-            }
-        }
 
         public String Executor
         {
@@ -301,6 +294,20 @@ namespace SZMK
                 if (value != null)
                 {
                     _User = value;
+                }
+            }
+        }
+        public String BlankOrderView
+        {
+            get
+            {
+                if (_BlankOrder.QR.Split('_').Length >= 3)
+                {
+                    return _BlankOrder.QR.Split('_')[1];
+                }
+                else
+                {
+                    return _BlankOrder.QR;
                 }
             }
         }

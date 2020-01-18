@@ -70,7 +70,7 @@ namespace SZMK
                                 wsUnique.Cells[rowCntActUnique + 1, 4].Value = SplitDataMatrix[3];
                                 wsUnique.Cells[rowCntActUnique + 1, 5].Value = Convert.ToDouble(SplitDataMatrix[4]);
                                 wsUnique.Cells[rowCntActUnique + 1, 6].Value = Convert.ToDouble(SplitDataMatrix[5]);
-                                wsUnique.Cells[rowCntActUnique + 1, 7].Value = DateTime.Now.ToShortDateString();
+                                wsUnique.Cells[rowCntActUnique + 1, 7].Value = DateTime.Now.ToString();
                                 wsUnique.Cells[rowCntActUnique + 1, 8].Value = Status;
                                 wsUnique.Cells[rowCntActUnique + 1, 9].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
                             }
@@ -83,12 +83,16 @@ namespace SZMK
                                 wsNoUnique.Cells[rowCntActNoUnique + 1, 4].Value = SplitDataMatrix[3];
                                 wsNoUnique.Cells[rowCntActNoUnique + 1, 5].Value = Convert.ToDouble(SplitDataMatrix[4]);
                                 wsNoUnique.Cells[rowCntActNoUnique + 1, 6].Value = Convert.ToDouble(SplitDataMatrix[5]);
-                                wsNoUnique.Cells[rowCntActNoUnique + 1, 7].Value = DateTime.Now.ToShortDateString();
+                                wsNoUnique.Cells[rowCntActNoUnique + 1, 7].Value = DateTime.Now.ToString();
                                 wsNoUnique.Cells[rowCntActNoUnique + 1, 8].Value = Status;
                                 wsNoUnique.Cells[rowCntActNoUnique + 1, 9].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
                             }
                         }
                         int lastline = wsUnique.Dimension.End.Row;
+                        wsUnique.Cells["A2:P" + lastline].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        wsUnique.Cells["A2:P" + lastline].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        wsUnique.Cells["A2:P" + lastline].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        wsUnique.Cells["A2:P" + lastline].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                         wsUnique.Cells[lastline + 2, 6].Value = "Принял";
                         wsUnique.Cells[lastline + 3, 6].Value = "Сдал";
                         wsUnique.Cells[lastline + 2, 8].Value = "______________";
@@ -97,6 +101,10 @@ namespace SZMK
                         wsUnique.Cells[lastline + 3, 9].Value = "/______________/";
                         wbUnique.Save();
                         lastline = wsNoUnique.Dimension.End.Row;
+                        wsNoUnique.Cells["A2:P" + lastline].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        wsNoUnique.Cells["A2:P" + lastline].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        wsNoUnique.Cells["A2:P" + lastline].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        wsNoUnique.Cells["A2:P" + lastline].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                         wsNoUnique.Cells[lastline + 2, 6].Value = "Принял";
                         wsNoUnique.Cells[lastline + 3, 6].Value = "Сдал";
                         wsNoUnique.Cells[lastline + 2, 8].Value = "______________";
@@ -172,11 +180,19 @@ namespace SZMK
                                              where p.ID == OrderStatuses[j].IDUser
                                              select p).Single();
                                 WS.Cells[i + rowCntReport + 1, 9+Count].Value = Temp.Surname + " " + Temp.Name.First() + ". " + Temp.MiddleName.First()+".";
-                                WS.Cells[i + rowCntReport + 1, 10+Count].Value = OrderStatuses[j].DateCreate.ToShortDateString();
+                                WS.Cells[i + rowCntReport + 1, 10+Count].Value = OrderStatuses[j].DateCreate.ToString();
                                 Count = Count + 2;
                             }
                         }
                         int last = WS.Dimension.End.Row;
+                        Double Sum = Report.Sum(p=>p.Weight);
+                        WS.Cells[last + 1, 1].Value = "Итого";
+                        WS.Cells[last + 1, 7].Value = Sum;
+                        last = WS.Dimension.End.Row;
+                        WS.Cells["A2:P" + last].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        WS.Cells["A2:P" + last].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        WS.Cells["A2:P" + last].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        WS.Cells["A2:P" + last].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                         WS.Cells[last + 2, 14].Value = "Принял";
                         WS.Cells[last + 3, 14].Value = "Сдал";
                         WS.Cells[last + 2, 15].Value = "______________";

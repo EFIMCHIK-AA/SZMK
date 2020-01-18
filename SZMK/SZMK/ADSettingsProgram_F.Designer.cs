@@ -43,20 +43,20 @@
             this.ModelsPath_TB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.ColorN2_NUD = new System.Windows.Forms.PictureBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.CheckMarks_CB = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.N1_NUD = new System.Windows.Forms.NumericUpDown();
             this.N2_NUD = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.ColorN1_NUD = new System.Windows.Forms.PictureBox();
-            this.ColorN2_NUD = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ColorN2_NUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.N1_NUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.N2_NUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorN1_NUD)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ColorN2_NUD)).BeginInit();
             this.SuspendLayout();
             // 
             // RegistryPath_TB
@@ -323,6 +323,34 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(487, 526);
             this.tableLayoutPanel1.TabIndex = 96;
             // 
+            // ColorN2_NUD
+            // 
+            this.ColorN2_NUD.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(0)))), ((int)(((byte)(6)))));
+            this.ColorN2_NUD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ColorN2_NUD.Location = new System.Drawing.Point(357, 412);
+            this.ColorN2_NUD.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.ColorN2_NUD.Name = "ColorN2_NUD";
+            this.ColorN2_NUD.Size = new System.Drawing.Size(125, 20);
+            this.ColorN2_NUD.TabIndex = 104;
+            this.ColorN2_NUD.TabStop = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tableLayoutPanel1.SetColumnSpan(this.label8, 3);
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.label8.Location = new System.Drawing.Point(5, 341);
+            this.label8.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(477, 35);
+            this.label8.TabIndex = 98;
+            this.label8.Text = "Визуализация просроченных чертежей";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -356,23 +384,6 @@
             this.CheckMarks_CB.TabIndex = 97;
             this.CheckMarks_CB.Text = "&Проверка строчных букв в марке";
             this.CheckMarks_CB.UseVisualStyleBackColor = false;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
-            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel1.SetColumnSpan(this.label8, 3);
-            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label8.Location = new System.Drawing.Point(5, 341);
-            this.label8.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(477, 35);
-            this.label8.TabIndex = 98;
-            this.label8.Text = "Визуализация просроченных чертежей";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // N1_NUD
             // 
@@ -451,17 +462,6 @@
             this.ColorN1_NUD.TabIndex = 103;
             this.ColorN1_NUD.TabStop = false;
             // 
-            // ColorN2_NUD
-            // 
-            this.ColorN2_NUD.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(0)))), ((int)(((byte)(6)))));
-            this.ColorN2_NUD.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ColorN2_NUD.Location = new System.Drawing.Point(357, 412);
-            this.ColorN2_NUD.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.ColorN2_NUD.Name = "ColorN2_NUD";
-            this.ColorN2_NUD.Size = new System.Drawing.Size(125, 20);
-            this.ColorN2_NUD.TabIndex = 104;
-            this.ColorN2_NUD.TabStop = false;
-            // 
             // ADSettingsProgram_F
             // 
             this.AcceptButton = this.OK_B;
@@ -480,10 +480,10 @@
             this.Text = "Конфигурация программного обеспечения";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ColorN2_NUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.N1_NUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.N2_NUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorN1_NUD)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ColorN2_NUD)).EndInit();
             this.ResumeLayout(false);
 
         }

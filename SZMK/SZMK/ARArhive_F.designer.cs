@@ -83,9 +83,9 @@
             this.DateCreate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumberBlankOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.List = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Lenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -659,9 +659,9 @@
             this.DateCreate,
             this.Executor,
             this.Number,
+            this.NumberBlankOrder,
             this.List,
             this.Mark,
-            this.Lenght,
             this.Weight});
             this.Order_DGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Order_DGV.Location = new System.Drawing.Point(5, 55);
@@ -674,11 +674,12 @@
             this.Order_DGV.TabIndex = 1;
             this.Order_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Order_DGV_CellFormatting);
             this.Order_DGV.SelectionChanged += new System.EventHandler(this.Order_DGV_SelectionChanged);
+            this.Order_DGV.Sorted += new System.EventHandler(this.Order_DGV_Sorted);
             // 
             // DateCreate
             // 
             this.DateCreate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DateCreate.DataPropertyName = "DateCreateView";
+            this.DateCreate.DataPropertyName = "DateCreate";
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.DateCreate.DefaultCellStyle = dataGridViewCellStyle1;
             this.DateCreate.FillWeight = 15F;
@@ -708,12 +709,23 @@
             this.Number.Name = "Number";
             this.Number.ReadOnly = true;
             // 
+            // NumberBlankOrder
+            // 
+            this.NumberBlankOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.NumberBlankOrder.DataPropertyName = "BlankOrderView";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.NumberBlankOrder.DefaultCellStyle = dataGridViewCellStyle4;
+            this.NumberBlankOrder.FillWeight = 25F;
+            this.NumberBlankOrder.HeaderText = "Номер заказа на производство";
+            this.NumberBlankOrder.Name = "NumberBlankOrder";
+            this.NumberBlankOrder.ReadOnly = true;
+            // 
             // List
             // 
             this.List.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.List.DataPropertyName = "List";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.List.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.List.DefaultCellStyle = dataGridViewCellStyle5;
             this.List.FillWeight = 10F;
             this.List.HeaderText = "Лист";
             this.List.Name = "List";
@@ -723,23 +735,12 @@
             // 
             this.Mark.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Mark.DataPropertyName = "Mark";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Mark.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Mark.DefaultCellStyle = dataGridViewCellStyle6;
             this.Mark.FillWeight = 10F;
             this.Mark.HeaderText = "Марка";
             this.Mark.Name = "Mark";
             this.Mark.ReadOnly = true;
-            // 
-            // Lenght
-            // 
-            this.Lenght.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Lenght.DataPropertyName = "Lenght";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Lenght.DefaultCellStyle = dataGridViewCellStyle6;
-            this.Lenght.FillWeight = 10F;
-            this.Lenght.HeaderText = "Длина";
-            this.Lenght.Name = "Lenght";
-            this.Lenght.ReadOnly = true;
             // 
             // Weight
             // 
@@ -827,13 +828,13 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView Order_DGV;
+        public System.Windows.Forms.Button RefreshStatus_B;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateCreate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Executor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumberBlankOrder;
         private System.Windows.Forms.DataGridViewTextBoxColumn List;
         private System.Windows.Forms.DataGridViewTextBoxColumn Mark;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Lenght;
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
-        public System.Windows.Forms.Button RefreshStatus_B;
     }
 }

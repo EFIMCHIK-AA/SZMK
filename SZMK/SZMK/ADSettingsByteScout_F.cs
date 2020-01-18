@@ -29,16 +29,6 @@ namespace SZMK
             }
         }
 
-        private void DirectoryProgPath_B_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog Ofd = new FolderBrowserDialog();
-
-            if (Ofd.ShowDialog() == DialogResult.OK)
-            {
-                DirectoryProgPath_TB.Text = Ofd.SelectedPath;
-            }
-        }
-
         private void SaveDirectoryProgPath_B_Click(object sender, EventArgs e)
         {
             try
@@ -49,22 +39,10 @@ namespace SZMK
                     throw new Exception("Необходимо указать исполняемый файл программы распознавания");
                 }
 
-                if (String.IsNullOrEmpty(DirectoryProgPath_TB.Text))
-                {
-                    DirectoryProgPath_TB.Focus();
-                    throw new Exception("Указать путь до директории распознавания не существует");
-                }
-
                 if (!File.Exists(PrpgramPath_TB.Text.Trim()))
                 {
                     PrpgramPath_TB.Focus();
                     throw new Exception("Указанный исполняемый файл программы распознавания не существует");
-                }
-
-                if (!Directory.Exists(DirectoryProgPath_TB.Text.Trim()))
-                {
-                    DirectoryProgPath_TB.Focus();
-                    throw new Exception("Указанная дирекория распознавания не существует");
                 }
 
                 if (String.IsNullOrEmpty(IP_TB.Text))
@@ -84,7 +62,6 @@ namespace SZMK
                 SystemArgs.ByteScout.Server = IP_TB.Text.Trim();
                 SystemArgs.ByteScout.Port = Port_TB.Text.Trim();
                 SystemArgs.ByteScout.ProgramPath = PrpgramPath_TB.Text.Trim();
-                SystemArgs.ByteScout.ArhivePath = DirectoryProgPath_TB.Text.Trim();
 
                 if (SystemArgs.ByteScout.CheckConnect())
                 {

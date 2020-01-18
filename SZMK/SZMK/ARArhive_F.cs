@@ -203,11 +203,11 @@ namespace SZMK
             {
                 String[] Temp = DataMatrix.Split('_');
                 String TextReport = "";
-                if (Directory.Exists($@"{SystemArgs.ByteScout.ArhivePath}\{Temp[0]}"))
+                if (Directory.Exists($@"{SystemArgs.ClientProgram.ArchivePath}\{Temp[0]}"))
                 {
-                    if (!File.Exists($@"{SystemArgs.ByteScout.ArhivePath}\{Temp[0]}\{DataMatrix}.tiff"))
+                    if (!File.Exists($@"{SystemArgs.ClientProgram.ArchivePath}\{Temp[0]}\{DataMatrix}.tiff"))
                     {
-                        File.Copy(FileName, $@"{SystemArgs.ByteScout.ArhivePath}\{Temp[0]}\{DataMatrix}.tiff");
+                        File.Copy(FileName, $@"{SystemArgs.ClientProgram.ArchivePath}\{Temp[0]}\{DataMatrix}.tiff");
                         TextReport = $"Файл {DataMatrix}.tiff помещен в директорию {Temp[0]}" + Environment.NewLine;
                         try
                         {
@@ -227,11 +227,11 @@ namespace SZMK
                 }
                 else
                 {
-                    Directory.CreateDirectory($@"{SystemArgs.ByteScout.ArhivePath}\{Temp[0]}");
+                    Directory.CreateDirectory($@"{SystemArgs.ClientProgram.ArchivePath}\{Temp[0]}");
 
-                    if (!File.Exists($@"{SystemArgs.ByteScout.ArhivePath}\{Temp[0]}\{DataMatrix}.tiff"))
+                    if (!File.Exists($@"{SystemArgs.ClientProgram.ArchivePath}\{Temp[0]}\{DataMatrix}.tiff"))
                     {
-                        File.Copy(FileName, $@"{SystemArgs.ByteScout.ArhivePath}\{Temp[0]}\{DataMatrix}.tiff");
+                        File.Copy(FileName, $@"{SystemArgs.ClientProgram.ArchivePath}\{Temp[0]}\{DataMatrix}.tiff");
                         TextReport = $"Директория {Temp[0]} создана. Файл {DataMatrix}.tiff помещен в директорию" + Environment.NewLine;
                         try
                         {
@@ -375,8 +375,22 @@ namespace SZMK
                 CountOrder_TB.Text = View.Count.ToString();
                 EnableButton(false);
             }
+            ForgetOrder();
         }
-
+        private void ForgetOrder()
+        {
+            for (int i = 0; i < Order_DGV.RowCount; i++)
+            {
+                if ((DateTime.Now - Convert.ToDateTime(Order_DGV[0, i].Value)).TotalDays >= SystemArgs.ClientProgram.VisualRow_N2)
+                {
+                    Order_DGV.Rows[i].DefaultCellStyle.BackColor = Color.FromArgb(236, 0, 6);
+                }
+                else if ((DateTime.Now - Convert.ToDateTime(Order_DGV[0, i].Value)).TotalDays >= SystemArgs.ClientProgram.VisualRow_N1)
+                {
+                    Order_DGV.Rows[i].DefaultCellStyle.BackColor = Color.Orange;
+                }
+            }
+        }
         private void Order_DGV_SelectionChanged(object sender, EventArgs e)
         {
             if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex < View.Count())
@@ -401,6 +415,7 @@ namespace SZMK
         }
         private void FilterCB_TSB_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ResetSearch();
             Display(SystemArgs.Orders);
         }
         private void ItemsFilter()
@@ -601,7 +616,7 @@ namespace SZMK
         {
             if (flag)
             {
-                DateCreate_TB.Text = Temp.DateCreate.ToShortDateString();
+                DateCreate_TB.Text = Temp.DateCreate.ToString();
                 Executor_TB.Text = Temp.Executor;
                 Number_TB.Text = Temp.Number;
                 List_TB.Text = Temp.List.ToString();
@@ -664,6 +679,11 @@ namespace SZMK
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void Order_DGV_Sorted(object sender, EventArgs e)
+        {
+            ForgetOrder();
         }
     }
 }

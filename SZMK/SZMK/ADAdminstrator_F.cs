@@ -665,7 +665,6 @@ namespace SZMK
 
                 if (SystemArgs.ByteScout.GetParametersConnect())
                 {
-                    Dialog.DirectoryProgPath_TB.Text = SystemArgs.ByteScout.ArhivePath;
                     Dialog.PrpgramPath_TB.Text = SystemArgs.ByteScout.ProgramPath;
                     Dialog.IP_TB.Text = SystemArgs.ByteScout.Server;
                     Dialog.Port_TB.Text = SystemArgs.ByteScout.Port;
