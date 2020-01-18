@@ -148,8 +148,8 @@ namespace SZMK
                     }
 
                     using (var Command = new NpgsqlCommand($"SELECT public.\"User\".\"ID\", public.\"User\".\"ID_Position\", public.\"User\".\"DateCreate\"," +
-                                                                  $"public.\"User\".\"Name\", public.\"User\".\"MidName\", public.\"User\".\"SurName\", public.\"User\".\"DOB\"," +
-                                                                  $"public.\"DataReg\".\"Login\",public.\"DataReg\".\"HashPass\"" +
+                                                                  $"public.\"User\".\"Name\", public.\"User\".\"MidName\", public.\"User\".\"SurName\"," +
+                                                                  $"public.\"DataReg\".\"Login\",public.\"DataReg\".\"HashPass\",public.\"DataReg\".\"UpdPassword\"" +
                                                            "FROM public.\"User\", public.\"DataReg\"" +
                                                            "WHERE public.\"User\".\"ID\" = public.\"DataReg\".\"ID\";", Connect))
                     {
@@ -177,7 +177,7 @@ namespace SZMK
                                 }
 
                                 SystemArgs.Users.Add(new User(ID, Reader.GetString(3), Reader.GetString(4),
-                                Reader.GetString(5),Reader.GetDateTime(2), Reader.GetDateTime(6),Reader.GetInt64(1),UserMails,Reader.GetString(7), Reader.GetString(8)));
+                                Reader.GetString(5),Reader.GetDateTime(2),Reader.GetInt64(1),UserMails,Reader.GetString(6), Reader.GetString(7), Reader.GetBoolean(8)));
                             }
                         }
                     }
@@ -187,8 +187,9 @@ namespace SZMK
 
                 return true;
             }
-            catch
+            catch(Exception E)
             {
+                MessageBox.Show(E.Message);
                 return false;
             }
         }
@@ -201,14 +202,14 @@ namespace SZMK
                 {
                     Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"INSERT INTO public.\"User\"(\"ID_Position\", \"DateCreate\", \"Name\", \"MidName\", \"SurName\", \"DOB\")" +
-                                                            $"VALUES({User.GetPosition().ID}, '{User.DateCreate}', '{User.Name}', '{User.MiddleName}', '{User.Surname}', '{User.DateOfBirth}'); ", Connect))
+                    using (var Command = new NpgsqlCommand($"INSERT INTO public.\"User\"(\"ID_Position\", \"DateCreate\", \"Name\", \"MidName\", \"SurName\")" +
+                                                            $"VALUES({User.GetPosition().ID}, '{User.DateCreate}', '{User.Name}', '{User.MiddleName}', '{User.Surname}');", Connect))
                     {
                         Command.ExecuteNonQuery();
                     }
 
-                    using (var Command = new NpgsqlCommand($"INSERT INTO public.\"DataReg\"(\"ID\", \"DateUpd\", \"Login\", \"HashPass\")" +
-                                                            $"VALUES({User.ID}, '{User.DateCreate}', '{User.Login}', '{User.HashPassword}'); ", Connect))
+                    using (var Command = new NpgsqlCommand($"INSERT INTO public.\"DataReg\"(\"ID\", \"DateUpd\", \"Login\", \"HashPass\", \"UpdPassword\")" +
+                                                            $"VALUES({User.ID}, '{User.DateCreate}', '{User.Login}', '{User.HashPassword}', {User.UpdPassword}); ", Connect))
                     {
                         Command.ExecuteNonQuery();
                     }
@@ -233,14 +234,67 @@ namespace SZMK
                     Connect.Open();
 
                     using (var Command = new NpgsqlCommand($"UPDATE public.\"User\"" +
-                                                            $"SET \"ID_Position\" = {User.GetPosition().ID}, \"DateCreate\" = '{User.DateCreate}', \"Name\" = '{User.Name}', \"MidName\" = '{User.MiddleName}', \"SurName\" = '{User.Surname}', \"DOB\" = '{User.DateOfBirth}'" +
+                                                            $"SET \"ID_Position\" = {User.GetPosition().ID}, \"DateCreate\" = '{User.DateCreate}', \"Name\" = '{User.Name}', \"MidName\" = '{User.MiddleName}', \"SurName\" = '{User.Surname}' " +
                                                             $"WHERE \"ID\" = {User.ID}; ", Connect))
                     {
                         Command.ExecuteNonQuery();
                     }
 
                     using (var Command = new NpgsqlCommand($"UPDATE public.\"DataReg\"" +
-                                                            $"SET \"DateUpd\" = '{User.DateCreate}', \"Login\" = '{User.Login}', \"HashPass\" ='{User.HashPassword}'" +
+                                                            $"SET \"DateUpd\" = '{User.DateCreate}', \"Login\" = '{User.Login}', \"HashPass\" ='{User.HashPassword}', \"UpdPassword\" = {User.UpdPassword} " +
+                                                            $"WHERE \"ID\" = {User.ID}; ", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public Boolean UpdatePasswordText(String Password, User User)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"UPDATE public.\"DataReg\" " +
+                                                            $"SET \"HashPass\" = '{Password}' " +
+                                                            $"WHERE \"ID\" = {User.ID}; ", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdatePassword(User User, Boolean Status)
+        {
+            try
+            {
+
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"UPDATE public.\"DataReg\" " +
+                                                            $"SET \"UpdPassword\" = {Status} " +
                                                             $"WHERE \"ID\" = {User.ID}; ", Connect))
                     {
                         Command.ExecuteNonQuery();

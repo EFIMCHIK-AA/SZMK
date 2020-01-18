@@ -273,6 +273,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ADSettingsDataBase_F";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки базы данных";
             this.Load += new System.EventHandler(this.ADSettingsDataBase_F_Load);

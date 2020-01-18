@@ -35,22 +35,23 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.DataReg_TB = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.MiddleName_TB = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.Surname_TB = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.Name_TB = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Surname_TB = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.Generate_B = new System.Windows.Forms.Button();
             this.Position_CB = new System.Windows.Forms.ComboBox();
             this.Cancel_B = new System.Windows.Forms.Button();
             this.OK_B = new System.Windows.Forms.Button();
-            this.DOB_MTB = new System.Windows.Forms.MaskedTextBox();
-            this.CheckPass_CB = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.CheckPass_CB = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.ChanageNext_CB = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label12
@@ -58,7 +59,7 @@
             this.label12.AutoSize = true;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(5, 224);
+            this.label12.Location = new System.Drawing.Point(5, 200);
             this.label12.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(127, 24);
@@ -69,12 +70,13 @@
             // 
             this.HashPassword_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.HashPassword_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HashPassword_TB.Location = new System.Drawing.Point(136, 226);
+            this.HashPassword_TB.Location = new System.Drawing.Point(136, 202);
             this.HashPassword_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.HashPassword_TB.Name = "HashPassword_TB";
             this.HashPassword_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.HashPassword_TB.Size = new System.Drawing.Size(379, 20);
             this.HashPassword_TB.TabIndex = 62;
+            this.HashPassword_TB.Text = "1111";
             this.HashPassword_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label11
@@ -82,7 +84,7 @@
             this.label11.AutoSize = true;
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(5, 200);
+            this.label11.Location = new System.Drawing.Point(5, 176);
             this.label11.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(127, 24);
@@ -93,7 +95,7 @@
             // 
             this.Login_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Login_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Login_TB.Location = new System.Drawing.Point(136, 202);
+            this.Login_TB.Location = new System.Drawing.Point(136, 178);
             this.Login_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.Login_TB.Name = "Login_TB";
             this.Login_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -106,7 +108,7 @@
             this.label9.AutoSize = true;
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(5, 175);
+            this.label9.Location = new System.Drawing.Point(5, 151);
             this.label9.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(127, 25);
@@ -137,18 +139,6 @@
             this.DataReg_TB.Size = new System.Drawing.Size(379, 20);
             this.DataReg_TB.TabIndex = 54;
             this.DataReg_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(5, 151);
-            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(127, 24);
-            this.label7.TabIndex = 51;
-            this.label7.Text = "Дата рождения";
             // 
             // label6
             // 
@@ -184,19 +174,19 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 24);
             this.label4.TabIndex = 47;
-            this.label4.Text = "Фамилия";
+            this.label4.Text = "Имя";
             // 
-            // Surname_TB
+            // Name_TB
             // 
-            this.Surname_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.Surname_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Surname_TB.Location = new System.Drawing.Point(136, 105);
-            this.Surname_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.Surname_TB.Name = "Surname_TB";
-            this.Surname_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Surname_TB.Size = new System.Drawing.Size(379, 20);
-            this.Surname_TB.TabIndex = 48;
-            this.Surname_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Name_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Name_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Name_TB.Location = new System.Drawing.Point(136, 105);
+            this.Name_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.Name_TB.Name = "Name_TB";
+            this.Name_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.Name_TB.Size = new System.Drawing.Size(379, 20);
+            this.Name_TB.TabIndex = 48;
+            this.Name_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label3
             // 
@@ -208,19 +198,19 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(127, 24);
             this.label3.TabIndex = 45;
-            this.label3.Text = "Имя";
+            this.label3.Text = "Фамилия";
             // 
-            // Name_TB
+            // Surname_TB
             // 
-            this.Name_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.Name_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Name_TB.Location = new System.Drawing.Point(136, 81);
-            this.Name_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.Name_TB.Name = "Name_TB";
-            this.Name_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Name_TB.Size = new System.Drawing.Size(379, 20);
-            this.Name_TB.TabIndex = 46;
-            this.Name_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Surname_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Surname_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Surname_TB.Location = new System.Drawing.Point(136, 81);
+            this.Surname_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.Surname_TB.Name = "Surname_TB";
+            this.Surname_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.Surname_TB.Size = new System.Drawing.Size(379, 20);
+            this.Surname_TB.TabIndex = 46;
+            this.Surname_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label2
             // 
@@ -249,7 +239,7 @@
             this.Generate_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.Generate_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Generate_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Generate_B.Location = new System.Drawing.Point(5, 279);
+            this.Generate_B.Location = new System.Drawing.Point(5, 261);
             this.Generate_B.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.Generate_B.Name = "Generate_B";
             this.Generate_B.Size = new System.Drawing.Size(510, 33);
@@ -269,7 +259,7 @@
             "asdasd",
             "asdsad",
             "asdad"});
-            this.Position_CB.Location = new System.Drawing.Point(136, 177);
+            this.Position_CB.Location = new System.Drawing.Point(136, 153);
             this.Position_CB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.Position_CB.Name = "Position_CB";
             this.Position_CB.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -287,7 +277,7 @@
             this.Cancel_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.Cancel_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Cancel_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Cancel_B.Location = new System.Drawing.Point(5, 359);
+            this.Cancel_B.Location = new System.Drawing.Point(5, 341);
             this.Cancel_B.Margin = new System.Windows.Forms.Padding(5, 0, 5, 7);
             this.Cancel_B.Name = "Cancel_B";
             this.Cancel_B.Size = new System.Drawing.Size(510, 33);
@@ -306,41 +296,13 @@
             this.OK_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.OK_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OK_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.OK_B.Location = new System.Drawing.Point(5, 319);
+            this.OK_B.Location = new System.Drawing.Point(5, 301);
             this.OK_B.Margin = new System.Windows.Forms.Padding(5, 0, 5, 7);
             this.OK_B.Name = "OK_B";
             this.OK_B.Size = new System.Drawing.Size(510, 33);
             this.OK_B.TabIndex = 66;
             this.OK_B.Text = "ОК";
             this.OK_B.UseVisualStyleBackColor = false;
-            // 
-            // DOB_MTB
-            // 
-            this.DOB_MTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.DOB_MTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DOB_MTB.Location = new System.Drawing.Point(136, 153);
-            this.DOB_MTB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.DOB_MTB.Mask = "00/00/0000";
-            this.DOB_MTB.Name = "DOB_MTB";
-            this.DOB_MTB.Size = new System.Drawing.Size(379, 20);
-            this.DOB_MTB.TabIndex = 68;
-            this.DOB_MTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.DOB_MTB.ValidatingType = typeof(System.DateTime);
-            // 
-            // CheckPass_CB
-            // 
-            this.CheckPass_CB.AutoSize = true;
-            this.CheckPass_CB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CheckPass_CB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CheckPass_CB.Location = new System.Drawing.Point(136, 250);
-            this.CheckPass_CB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.CheckPass_CB.Name = "CheckPass_CB";
-            this.CheckPass_CB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.CheckPass_CB.Size = new System.Drawing.Size(379, 20);
-            this.CheckPass_CB.TabIndex = 69;
-            this.CheckPass_CB.Text = "&Показать пароль";
-            this.CheckPass_CB.UseVisualStyleBackColor = true;
-            this.CheckPass_CB.CheckedChanged += new System.EventHandler(this.CheckPass_CB_CheckedChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -352,22 +314,20 @@
             this.tableLayoutPanel1.Controls.Add(this.OK_B, 0, 11);
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.Generate_B, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.DOB_MTB, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.DataReg_TB, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.Position_CB, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.HashPassword_TB, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.label12, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.Name_TB, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.Surname_TB, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.Login_TB, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.label11, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.Surname_TB, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.Name_TB, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.MiddleName_TB, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.label9, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.CheckPass_CB, 1, 9);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 9);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -386,29 +346,78 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(520, 399);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(520, 381);
             this.tableLayoutPanel1.TabIndex = 70;
             // 
-            // RegistrationUser_F
+            // CheckPass_CB
+            // 
+            this.CheckPass_CB.AutoSize = true;
+            this.CheckPass_CB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CheckPass_CB.Location = new System.Drawing.Point(2, 2);
+            this.CheckPass_CB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.CheckPass_CB.Name = "CheckPass_CB";
+            this.CheckPass_CB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.CheckPass_CB.Size = new System.Drawing.Size(140, 20);
+            this.CheckPass_CB.TabIndex = 69;
+            this.CheckPass_CB.Text = "&Показать пароль";
+            this.CheckPass_CB.UseVisualStyleBackColor = true;
+            this.CheckPass_CB.CheckedChanged += new System.EventHandler(this.CheckPass_CB_CheckedChanged);
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.AutoSize = true;
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.ChanageNext_CB, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.CheckPass_CB, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(137, 227);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(380, 24);
+            this.tableLayoutPanel2.TabIndex = 70;
+            // 
+            // ChanageNext_CB
+            // 
+            this.ChanageNext_CB.AutoSize = true;
+            this.ChanageNext_CB.Checked = true;
+            this.ChanageNext_CB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChanageNext_CB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ChanageNext_CB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ChanageNext_CB.Location = new System.Drawing.Point(149, 2);
+            this.ChanageNext_CB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.ChanageNext_CB.Name = "ChanageNext_CB";
+            this.ChanageNext_CB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ChanageNext_CB.Size = new System.Drawing.Size(226, 20);
+            this.ChanageNext_CB.TabIndex = 70;
+            this.ChanageNext_CB.Text = "&Сменить при авторизации";
+            this.ChanageNext_CB.UseVisualStyleBackColor = true;
+            // 
+            // ADRegistrationUser_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.Cancel_B;
-            this.ClientSize = new System.Drawing.Size(520, 399);
+            this.ClientSize = new System.Drawing.Size(520, 381);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(536, 438);
-            this.Name = "RegistrationUser_F";
+            this.Name = "ADRegistrationUser_F";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Регистрация пользователя";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegistrationUser_F_FormClosing);
             this.Load += new System.EventHandler(this.RegistrationUser_F_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -421,20 +430,20 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         public System.Windows.Forms.TextBox DataReg_TB;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         public System.Windows.Forms.TextBox MiddleName_TB;
         private System.Windows.Forms.Label label4;
-        public System.Windows.Forms.TextBox Surname_TB;
-        private System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox Name_TB;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.TextBox Surname_TB;
         private System.Windows.Forms.Button Generate_B;
         public System.Windows.Forms.ComboBox Position_CB;
         private System.Windows.Forms.Button Cancel_B;
         private System.Windows.Forms.Button OK_B;
-        public System.Windows.Forms.MaskedTextBox DOB_MTB;
         public System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox CheckPass_CB;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.CheckBox CheckPass_CB;
+        public System.Windows.Forms.CheckBox ChanageNext_CB;
     }
 }

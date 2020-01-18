@@ -5,7 +5,6 @@ CREATE TABLE "User" (
 	"Name" character varying NOT NULL,
 	"MidName" character varying NOT NULL,
 	"SurName" character varying NOT NULL,
-	"DOB" DATE NOT NULL,
 	CONSTRAINT "User_pk" PRIMARY KEY ("ID")
 ) WITH (
   OIDS=FALSE
@@ -17,7 +16,8 @@ CREATE TABLE "DataReg" (
 	"ID" bigint NOT NULL,
 	"DateUpd" DATE NOT NULL,
 	"Login" character varying NOT NULL,
-	"HashPass" character varying NOT NULL
+	"HashPass" character varying NOT NULL,
+	"UpdPassword" boolean NOT NULL
 ) WITH (
   OIDS=FALSE
 );

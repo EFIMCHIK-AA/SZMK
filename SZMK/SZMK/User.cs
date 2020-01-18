@@ -13,15 +13,15 @@ namespace SZMK
         private String _MiddleName;
         private String _Surname;
         private DateTime _DateCreate;
-        private DateTime _DateOfBirth;
         private List<Mail> _Mails;
         private Position _Position;
         private String _Login;
         private String _HashPassword;
+        private Boolean _UpdPassword;
 
 
-        public User (Int64 ID, String Name, String MiddleName, String Surname, DateTime DateCreate, DateTime DateOfBirth, Int64 IDPosition,
-                    List<Mail> ListMails, String Login, String HashPassword)
+        public User(Int64 ID, String Name, String MiddleName, String Surname, DateTime DateCreate, Int64 IDPosition,
+                    List<Mail> ListMails, String Login, String HashPassword, Boolean UpdPassword)
         {
             _ID = ID;
 
@@ -57,11 +57,6 @@ namespace SZMK
                 _DateCreate = DateCreate;
             }
 
-            if(DateOfBirth != null)
-            {
-                _DateOfBirth = DateOfBirth;
-            }
-
             if (ListMails != null)
             {
                 _Mails = ListMails;
@@ -89,13 +84,15 @@ namespace SZMK
             {
                 throw new Exception("Получено пустое значение хэша пароля пользователя");
             }
+
+            _UpdPassword = UpdPassword;
         }
 
-        public User() : this(-1,"Нет имени", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, -1, null, "Нет лоигна", "Нет хеша") { }
+        public User() : this(-1,"Нет имени", "Нет отчества", "Нет фамилии", DateTime.Now, -1, null, "Нет лоигна", "Нет хеша", false) { }
 
         public Position GetPosition()
         {
-           if(_Position != null)
+            if (_Position != null)
             {
                 return _Position;
             }
@@ -117,6 +114,19 @@ namespace SZMK
             }
 
             return false;
+        }
+
+        public Boolean UpdPassword
+        {
+            get
+            {
+                return _UpdPassword;
+            }
+
+            set
+            {
+                _UpdPassword = value;
+            }
         }
 
         public Int64 ID
@@ -235,23 +245,7 @@ namespace SZMK
         {
             get
             {
-                return _DateCreate.ToShortDateString();
-            }
-        }
-
-        public DateTime DateOfBirth
-        {
-            get
-            {
-                return _DateOfBirth;
-            }
-
-            set
-            {
-                if (value != null)
-                {
-                    _DateOfBirth = value;
-                }
+                return _DateCreate.ToString();
             }
         }
 
@@ -289,6 +283,6 @@ namespace SZMK
             return _Login;
         }
 
-        public String SearchString() => $"{_Name}_{_MiddleName}_{_Surname}_{_DateCreate.ToShortDateString()}_{_DateOfBirth.ToShortDateString()}_{_Position.Name}_{_Login}";
+        public String SearchString() => $"{_Name}_{_MiddleName}_{_Surname}_{_DateCreate.ToShortDateString()}_{_Position.Name}_{_Login}";
     }
 }

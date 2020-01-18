@@ -300,7 +300,7 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(359, 311);
             this.tableLayoutPanel1.TabIndex = 104;
             // 
-            // ServerMail_F
+            // ADServerMail_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -312,7 +312,9 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(375, 350);
-            this.Name = "ServerMail_F";
+            this.Name = "ADServerMail_F";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Почтовый сервер";
             this.tableLayoutPanel1.ResumeLayout(false);

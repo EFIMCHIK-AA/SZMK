@@ -10,11 +10,44 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class Autorization_F : Form
+    public partial class AVTAutorization_F : Form
     {
-        public Autorization_F()
+        public AVTAutorization_F()
         {
             InitializeComponent();
+        }
+
+        private bool UpdatePassword(User User)
+        {
+            String Password = String.Empty;
+
+            AVTChangePassword_F Dialog = new AVTChangePassword_F();
+
+            if (Dialog.ShowDialog() == DialogResult.OK)
+            {
+                Password = Hash.GetSHA256(Dialog.NewPassword_TB.Text.Trim());
+
+                if (SystemArgs.Request.UpdatePasswordText(Password, User))
+                {
+                    if (SystemArgs.Request.UpdatePassword(User, true))
+                    {
+                        Int32 Index = SystemArgs.Users.FindIndex(p => p.ID == User.ID);
+
+                        SystemArgs.Users[Index].UpdPassword = true;
+                        SystemArgs.Users[Index].HashPassword = Password;
+
+                        SystemArgs.User = null;
+
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception("Обнаружена ошибка при обновлении пароля");
+                    }
+                }
+            }
+
+            return false;
         }
 
         private void Enter_B_Click(object sender, EventArgs e)
@@ -33,7 +66,17 @@ namespace SZMK
                         {
                             SystemArgs.User = User;
 
-                            Start(User);
+                            if(SystemArgs.User.UpdPassword)
+                            {
+                                Start(User);
+                            }
+                            else
+                            {
+                                if(UpdatePassword(SystemArgs.User))
+                                {
+                                    MessageBox.Show("Пароль успешно изменен!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                            }
                         }
                         else
                         {
@@ -145,7 +188,7 @@ namespace SZMK
 
                     SystemArgs.Request.GetAllUsers();
 
-                    Users.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, 1, new List<Mail>(), "Не выбрано", "Нет хеша"));
+                    Users.Add(new User(-1, "Не выбрано", "Нет отчества", "Нет фамилии", DateTime.Now, 1, new List<Mail>(), "Не выбрано", "Нет хеша",true));
                     Users.AddRange(SystemArgs.Users);
                     Login_CB.DataSource = Users;
                 }

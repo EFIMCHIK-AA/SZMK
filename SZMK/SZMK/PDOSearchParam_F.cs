@@ -20,7 +20,7 @@ namespace SZMK
         private void Status_CB_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<User> Users = new List<User>();
-            Users.Add(new User(0, "Нет имени", "Нет отчества", "Нет фамилии", DateTime.Now, DateTime.Now, SystemArgs.Positions[0].ID, SystemArgs.Mails, "Не задано", "Нет хеша"));
+            Users.Add(new User(0, "Нет имени", "Нет отчества", "Нет фамилии",DateTime.Now, SystemArgs.Positions[0].ID, SystemArgs.Mails, "Не задано", "Нет хеша",true));
             User_CB.DataSource = null;
             User_CB.DataSource = Users;
             if (Status_CB.SelectedIndex != 0)

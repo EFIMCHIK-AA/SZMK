@@ -22,6 +22,8 @@ namespace SZMK
         private readonly String _TemplateRegistryPath;
         private readonly String _TestFileApplicationPath;
         private readonly String _ConnectProgramPath;
+        private readonly String _CheckMarksPath;
+        private readonly String _VisualRowPath;
 
 
         public Path() 
@@ -40,6 +42,8 @@ namespace SZMK
             _TemplateActNoUniquePath = $@"Templates\ActTemplateNoUnique.xlsx";//Путь до шаблона акта не уникальных чертежей
             _TemplateReportOrderOfDatePath = $@"Templates\ReportOrderOfDateTemplate.xlsx";//Путь до шаблона реестра
             _TemplateRegistryPath = $@"Templates\RegistryTemplate.xlsx";//Путь до шаблона реестра
+            _CheckMarksPath = $@"Path\MarksCheck.df"; // Путь до файла с проверкой строки с маркой на строчные буквы
+            _VisualRowPath = $@"Path\VisualRow.df"; // Путь до файла с параметра для визуализации просрочивания чертежей
         }
 
         public String ConnectProgramPath
@@ -47,6 +51,22 @@ namespace SZMK
             get
             {
                 return _ConnectProgramPath;
+            }
+        }
+
+        public String CheckMarksPath
+        {
+            get
+            {
+                return _CheckMarksPath;
+            }
+        }
+
+        public String VisualRowPath
+        {
+            get
+            {
+                return _VisualRowPath;
             }
         }
 
@@ -73,7 +93,7 @@ namespace SZMK
 
             for (Int32 i = 0; i < Temp.Length - 1; i++)
             {
-                Directory += Temp[i]+@"\";
+                Directory += Temp[i] + @"\";
             }
 
             return Directory;

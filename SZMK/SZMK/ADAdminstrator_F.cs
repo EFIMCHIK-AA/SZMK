@@ -157,10 +157,9 @@ namespace SZMK
                 Change_TSB.Enabled = true;
                 Delete_TSB.Enabled = true;
 
-                Name_TB.Text = Temp.Name;
-                Surname_TB.Text = Temp.Surname;
+                Surname_TB.Text = Temp.Name;
+                Name_TB.Text = Temp.Surname;
                 MiddleName_TB.Text = Temp.MiddleName;
-                DOB_TB.Text = Temp.DateOfBirth.ToShortDateString();
                 Position_TB.Text = Temp.GetPosition().Name;
                 ID_TB.Text = Temp.ID.ToString();
                 DataReg_TB.Text = Temp.DateCreate.ToShortDateString();
@@ -172,10 +171,9 @@ namespace SZMK
                 Change_TSB.Enabled = false;
                 Delete_TSB.Enabled = false;
 
-                Name_TB.Text = String.Empty;
                 Surname_TB.Text = String.Empty;
+                Name_TB.Text = String.Empty;
                 MiddleName_TB.Text = String.Empty;
-                DOB_TB.Text = String.Empty;
                 Position_TB.Text = String.Empty;
                 ID_TB.Text = String.Empty;
                 DataReg_TB.Text = String.Empty;
@@ -229,9 +227,15 @@ namespace SZMK
                         }
                     }
 
-                    User Temp = new User(Index + 1, Dialog.Name_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Surname_TB.Text, DateCreate,
-                                        Convert.ToDateTime(Dialog.DOB_MTB.Text, Dialog.DOB_MTB.Culture), SystemArgs.Positions[Dialog.Position_CB.SelectedIndex].ID,
-                                        new List<Mail>(), Dialog.Login_TB.Text, Hash.GetSHA256(Dialog.HashPassword_TB.Text));
+                    Boolean UpdatePassword = true;
+
+                    if(Dialog.ChanageNext_CB.Checked)
+                    {
+                        UpdatePassword = false;
+                    }
+
+                    User Temp = new User(Index + 1, Dialog.Surname_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Name_TB.Text, DateCreate, SystemArgs.Positions[Dialog.Position_CB.SelectedIndex].ID,
+                                        new List<Mail>(), Dialog.Login_TB.Text, Hash.GetSHA256(Dialog.HashPassword_TB.Text), UpdatePassword);
 
                     if(SystemArgs.Request.AddUser(Temp))
                     {
@@ -270,21 +274,28 @@ namespace SZMK
                 if (Users_DGV.CurrentCell.RowIndex >= 0)
                 {
                     User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
+
                     if (Temp.Login == "ROOT")
                     {
                         MessageBox.Show("Изменение пользователя ROOT запрещено", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
+
+                    if (Temp.Login == SystemArgs.User.Login)
+                    {
+                        MessageBox.Show("Изменение своего пользователя запрещено", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
                     ADRegistrationUser_F Dialog = new ADRegistrationUser_F(Temp)
                     {
                         Text = "Измененте параметров пользователя",
                     };
 
                     Dialog.DataReg_TB.Text = Temp.DateCreate.ToShortDateString();
-                    Dialog.Name_TB.Text = Temp.Name;
+                    Dialog.Surname_TB.Text = Temp.Name;
                     Dialog.MiddleName_TB.Text = Temp.MiddleName;
-                    Dialog.Surname_TB.Text = Temp.Surname;
-                    Dialog.DOB_MTB.Text = Temp.DateOfBirth.ToShortDateString();
+                    Dialog.Name_TB.Text = Temp.Surname;
                     Dialog.Position_CB.DataSource = SystemArgs.Positions;
 
                     for (Int32 i = 0; i < SystemArgs.Positions.Count; i++)
@@ -301,9 +312,16 @@ namespace SZMK
 
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
-                        User NewUser = new User(Temp.ID, Dialog.Name_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Surname_TB.Text, Temp.DateCreate,
-                                            Convert.ToDateTime(Dialog.DOB_MTB.Text, Dialog.DOB_MTB.Culture), SystemArgs.Positions[Dialog.Position_CB.SelectedIndex].ID,
-                                            Temp.Mails, Dialog.Login_TB.Text, Hash.GetSHA256(Dialog.HashPassword_TB.Text.Trim()));
+                        Boolean UpdatePassword = true;
+
+                        if (Dialog.ChanageNext_CB.Checked)
+                        {
+                            UpdatePassword = false;
+                        }
+
+                        User NewUser = new User(Temp.ID, Dialog.Surname_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Name_TB.Text, Temp.DateCreate,
+                                                SystemArgs.Positions[Dialog.Position_CB.SelectedIndex].ID,
+                                            Temp.Mails, Dialog.Login_TB.Text, Hash.GetSHA256(Dialog.HashPassword_TB.Text.Trim()), UpdatePassword);
 
                         if(SystemArgs.Request.ChangeUser(NewUser))
                         {
@@ -349,11 +367,19 @@ namespace SZMK
                 if (Users_DGV.CurrentCell.RowIndex >= 0)
                 {
                     User Temp = (User)View[Users_DGV.CurrentCell.RowIndex];
+
                     if (Temp.Login == "ROOT")
                     {
                         MessageBox.Show("Удаление пользователя ROOT запрещено", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
+
+                    if (Temp.Login == SystemArgs.User.Login)
+                    {
+                        MessageBox.Show("Удаление своего пользователя запрещено", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
                     if (MessageBox.Show("Вы действительно хотите удалить пользователя?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
                         if(SystemArgs.Request.DeleteUser(Temp))
@@ -615,6 +641,9 @@ namespace SZMK
                     Dialog.RegistryPath_TB.Text = SystemArgs.ClientProgram.RegistryPath;
                     Dialog.ArchivePath_TB.Text = SystemArgs.ClientProgram.ArchivePath;
                     Dialog.ModelsPath_TB.Text = SystemArgs.ClientProgram.ModelsPath;
+                    Dialog.CheckMarks_CB.Checked = SystemArgs.ClientProgram.CheckMarks;
+                    Dialog.N1_NUD.Value = SystemArgs.ClientProgram.VisualRow_N1;
+                    Dialog.N2_NUD.Value = SystemArgs.ClientProgram.VisualRow_N2;
                 }
 
                 if (Dialog.ShowDialog() == DialogResult.OK)

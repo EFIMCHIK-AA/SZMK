@@ -82,6 +82,18 @@ namespace SZMK
                 SystemArgs.ClientProgram.RegistryPath = RegistryPath_TB.Text.Trim();
                 SystemArgs.ClientProgram.ModelsPath = ModelsPath_TB.Text.Trim();
 
+                if(CheckMarks_CB.Checked)
+                {
+                    SystemArgs.ClientProgram.CheckMarks = true;
+                }
+                else
+                {
+                    SystemArgs.ClientProgram.CheckMarks = false;
+                }
+
+                SystemArgs.ClientProgram.VisualRow_N1 = Convert.ToInt32(N1_NUD.Value);
+                SystemArgs.ClientProgram.VisualRow_N2 = Convert.ToInt32(N2_NUD.Value);
+
                 if (SystemArgs.ClientProgram.SetParametersConnect())
                 {
                     MessageBox.Show("Параметры успешно записаны", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);

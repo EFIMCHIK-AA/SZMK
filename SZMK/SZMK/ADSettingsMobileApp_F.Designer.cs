@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.QR_PB = new System.Windows.Forms.PictureBox();
             this.Generate_B = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -38,21 +37,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.QR_PB)).BeginInit();
+            this.QR_PB = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.QR_PB)).BeginInit();
             this.SuspendLayout();
-            // 
-            // QR_PB
-            // 
-            this.QR_PB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.QR_PB.Location = new System.Drawing.Point(309, 57);
-            this.QR_PB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 7);
-            this.QR_PB.Name = "QR_PB";
-            this.tableLayoutPanel1.SetRowSpan(this.QR_PB, 5);
-            this.QR_PB.Size = new System.Drawing.Size(225, 225);
-            this.QR_PB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.QR_PB.TabIndex = 0;
-            this.QR_PB.TabStop = false;
             // 
             // Generate_B
             // 
@@ -155,7 +143,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(529, 35);
             this.label3.TabIndex = 73;
-            this.label3.Text = "Настрйоки подключения мобильного приложения";
+            this.label3.Text = "Настройки подключения мобильного приложения";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
@@ -201,6 +189,18 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(539, 286);
             this.tableLayoutPanel1.TabIndex = 75;
             // 
+            // QR_PB
+            // 
+            this.QR_PB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.QR_PB.Location = new System.Drawing.Point(309, 57);
+            this.QR_PB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 7);
+            this.QR_PB.Name = "QR_PB";
+            this.tableLayoutPanel1.SetRowSpan(this.QR_PB, 5);
+            this.QR_PB.Size = new System.Drawing.Size(225, 225);
+            this.QR_PB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.QR_PB.TabIndex = 0;
+            this.QR_PB.TabStop = false;
+            // 
             // ADSettingsMobileApp_F
             // 
             this.AcceptButton = this.OK_B;
@@ -213,11 +213,13 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ADSettingsMobileApp_F";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки мобильного приложения";
-            ((System.ComponentModel.ISupportInitialize)(this.QR_PB)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.QR_PB)).EndInit();
             this.ResumeLayout(false);
 
         }

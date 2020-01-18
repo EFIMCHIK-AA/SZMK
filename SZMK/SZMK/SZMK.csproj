@@ -137,6 +137,12 @@
     <Compile Include="BlankOrderOfOrders.cs" />
     <Compile Include="BlankOrderScanSession.cs" />
     <Compile Include="ByteScout.cs" />
+    <Compile Include="AVTChangePassword_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AVTChangePassword_F.Designer.cs">
+      <DependentUpon>AVTChangePassword_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="KBChangeOrder_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,11 +273,11 @@
     <Compile Include="ADInformationMail_F.Designer.cs">
       <DependentUpon>ADInformationMail_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="Autorization_F.cs">
+    <Compile Include="AVTAutorization_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Autorization_F.Designer.cs">
-      <DependentUpon>Autorization_F.cs</DependentUpon>
+    <Compile Include="AVTAutorization_F.Designer.cs">
+      <DependentUpon>AVTAutorization_F.cs</DependentUpon>
     </Compile>
     <Compile Include="DataBase.cs" />
     <Compile Include="Encryption.cs" />
@@ -353,6 +359,9 @@
     <EmbeddedResource Include="ARSearchParam_F.resx">
       <DependentUpon>ARSearchParam_F.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AVTChangePassword_F.resx">
+      <DependentUpon>AVTChangePassword_F.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="KBChangeOrder_F.resx">
       <DependentUpon>KBChangeOrder_F.cs</DependentUpon>
     </EmbeddedResource>
@@ -383,8 +392,8 @@
     <EmbeddedResource Include="ADInformationMail_F.resx">
       <DependentUpon>ADInformationMail_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Autorization_F.resx">
-      <DependentUpon>Autorization_F.cs</DependentUpon>
+    <EmbeddedResource Include="AVTAutorization_F.resx">
+      <DependentUpon>AVTAutorization_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OPPChangeOrder_F.resx">
       <DependentUpon>OPPChangeOrder_F.cs</DependentUpon>

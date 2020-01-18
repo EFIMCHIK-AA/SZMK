@@ -260,7 +260,7 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(546, 246);
             this.tableLayoutPanel1.TabIndex = 100;
             // 
-            // InformationMail_F
+            // ADInformationMail_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,7 +272,9 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(562, 285);
-            this.Name = "InformationMail_F";
+            this.Name = "ADInformationMail_F";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Почтовый адрес";
             this.tableLayoutPanel1.ResumeLayout(false);

@@ -27,7 +27,7 @@ namespace SZMK
 
             String Password = String.Empty;
 
-            for(Int32 i = 0; i < 8; i++)
+            for(Int32 i = 0; i < 4; i++)
             {
                 Password += Alfabet[Generate.Next(0, Alfabet.Length)];
             }
@@ -50,28 +50,19 @@ namespace SZMK
                     if (String.IsNullOrEmpty(Name_TB.Text))
                     {
                         Name_TB.Focus();
-                        throw new Exception("Необходимо указать имя пользователя");
+                        throw new Exception("Необходимо указать фамилию пользователя");
                     }
-
                     if (String.IsNullOrEmpty(Surname_TB.Text))
                     {
                         Surname_TB.Focus();
-                        throw new Exception("Необходимо указать фамилию пользователя");
+                        throw new Exception("Необходимо указать имя пользователя");
                     }
-
+                                       
                     if (String.IsNullOrEmpty(MiddleName_TB.Text))
                     {
                         MiddleName_TB.Focus();
                         throw new Exception("Необходимо указать отчество пользователя");
                     }
-
-                    if (String.IsNullOrEmpty(DOB_MTB.Text))
-                    {
-                        DOB_MTB.Focus();
-                        throw new Exception("Необходимо указать пользователя");
-                    }
-
-                    DateTime Temp = Convert.ToDateTime(DOB_MTB.Text, DOB_MTB.Culture);
 
                     if (Position_CB.SelectedIndex < 0)
                     {
@@ -107,10 +98,10 @@ namespace SZMK
                         throw new Exception("Необходимо указать пароль пользователя");
                     }
 
-                    if(HashPassword_TB.Text.Length < 8)
+                    if(HashPassword_TB.Text.Length < 4)
                     {
                         HashPassword_TB.Focus();
-                        throw new Exception("Длина пароля должна быть 8 и более символов");
+                        throw new Exception("Длина пароля должна быть 4 и более символов");
                     }
                 }
                 catch (FormatException)

@@ -321,6 +321,8 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(521, 397);
             this.Name = "ADSettingsByteScout_F";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки программы распознавания";
             this.Load += new System.EventHandler(this.ADSettingsByteScout_F_Load);

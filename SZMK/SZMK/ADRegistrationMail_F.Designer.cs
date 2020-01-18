@@ -249,7 +249,7 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(496, 262);
             this.tableLayoutPanel1.TabIndex = 87;
             // 
-            // RegistrationMail_F
+            // ADRegistrationMail_F
             // 
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -261,7 +261,9 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(512, 301);
-            this.Name = "RegistrationMail_F";
+            this.Name = "ADRegistrationMail_F";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Почтовый адрес";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegistrationMail_F_FormClosing);

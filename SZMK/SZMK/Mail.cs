@@ -151,7 +151,7 @@ namespace SZMK
         {
             get
             {
-                return _DateCreate.ToShortDateString();
+                return _DateCreate.ToString();
             }
         }
 
