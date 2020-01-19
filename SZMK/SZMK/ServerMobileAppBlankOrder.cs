@@ -4,6 +4,7 @@ using System.Net;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace SZMK
 {
@@ -128,7 +129,6 @@ namespace SZMK
                         else
                         {
                             _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]), -1));
-                            _ScanSession[_ScanSession.Count - 1].Added = false;
                         }
                     }
                     else
@@ -144,8 +144,16 @@ namespace SZMK
                         else
                         {
                             _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]), -1));
-                            _ScanSession[_ScanSession.Count - 1].Added = false;
                         }
+                    }
+
+                    if ((_ScanSession[_ScanSession.Count - 1]._Order.Where(p => p._Finded == -1).Count() == 0) && (_ScanSession[_ScanSession.Count - 1]._Order.Where(p => p._Finded == 1).Count() > 0))
+                    {
+                        _ScanSession[_ScanSession.Count - 1].Added = true;
+                    }
+                    else
+                    {
+                        _ScanSession[_ScanSession.Count - 1].Added = false;
                     }
                 }
                 Load?.Invoke(_ScanSession);

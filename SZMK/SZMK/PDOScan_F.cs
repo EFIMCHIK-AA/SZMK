@@ -46,6 +46,13 @@ namespace SZMK
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "QR бланка заказа";
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.AliceBlue;
                 }
+                else if (ScanSessions[ScanSessions.Count - 1]._Order.Where(p => p._Finded == -1).Count() == 0)
+                {
+                    Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = ScanSessions[ScanSessions.Count - 1].QRBlankOrder;
+                    Scan_DGV[0, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Orange;
+                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "QR бланка заказа";
+                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.AliceBlue;
+                }
                 else
                 {
                     Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = ScanSessions[ScanSessions.Count - 1].QRBlankOrder;

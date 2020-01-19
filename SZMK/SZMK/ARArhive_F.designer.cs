@@ -148,8 +148,8 @@
             // ReportDate_TSM
             // 
             this.ReportDate_TSM.Name = "ReportDate_TSM";
-            this.ReportDate_TSM.Size = new System.Drawing.Size(198, 22);
-            this.ReportDate_TSM.Text = "За выбранный период";
+            this.ReportDate_TSM.Size = new System.Drawing.Size(180, 22);
+            this.ReportDate_TSM.Text = "По дате создания";
             this.ReportDate_TSM.Click += new System.EventHandler(this.ReportDate_TSM_Click);
             // 
             // toolStrip1

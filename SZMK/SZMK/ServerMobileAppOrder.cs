@@ -106,10 +106,10 @@ namespace SZMK
         }
         private bool CheckedLowerRegistery(String Mark)
         {
-            String[] LowerCharacters = new String[] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь", "э", "ю", "я" };
-            for (int i = 0; i < LowerCharacters.Length; i++)
+            String LowerCharacters = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyz";
+            for (int i = 0; i < Mark.Length; i++)
             {
-                if (Mark.Contains(LowerCharacters[i]))
+                if (LowerCharacters.IndexOf(Mark[i])!=-1)
                 {
                     return false;
                 }

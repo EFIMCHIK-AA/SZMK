@@ -1159,9 +1159,9 @@ namespace SZMK
                 }
                 return flag;
             }
-            catch (Exception e)
+            catch
             {
-                throw new Exception(e.Message);
+                return flag;
             }
         }
         public bool CheckedStatusExistingOrder(Int64 IDStatus, String DataMatrix)
@@ -1193,9 +1193,9 @@ namespace SZMK
                 }
                 return flag;
             }
-            catch (Exception e)
+            catch
             {
-                throw new Exception(e.Message);
+                return flag;
             }
         }
         public bool CheckedNumberAndMark(String Number, String Mark)
@@ -1206,7 +1206,7 @@ namespace SZMK
                 using (var Connect = new NpgsqlConnection(_ConnectString))
                 {
                     Connect.Open();
-                    using (var Command = new NpgsqlCommand($"SELECT COUNT(\"Orders\".\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{Mark}';", Connect))
+                    using (var Command = new NpgsqlCommand($"SELECT COUNT(\"Orders\".\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"Mark\"='{Mark}';", Connect))
                     {
                         using (var reader = Command.ExecuteReader())
                         {
@@ -1297,9 +1297,9 @@ namespace SZMK
                 }
                 return flag;
             }
-            catch (Exception e)
+            catch
             {
-                throw new Exception(e.Message);
+                return flag;
             }
         }
         public bool CheckedOrderAndStatusForUpdate(String Number, Int64 List)
@@ -1338,9 +1338,9 @@ namespace SZMK
                 }
                 return flag;
             }
-            catch (Exception e)
+            catch
             {
-                throw new Exception(e.Message);
+                return false;
             }
         }
     } 
