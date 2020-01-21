@@ -203,7 +203,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(487, 35);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Для исключения поиска по параметру оставьте его путым";
+            this.label2.Text = "Для исключения поиска по параметру оставьте его пуcтым";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3

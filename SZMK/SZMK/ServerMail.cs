@@ -256,32 +256,45 @@ namespace SZMK
             try
             {
                 MailMessage m = new MailMessage();
-                m.From = new MailAddress(NameWho,Name);
+                m.From = new MailAddress(NameWho, Name);
                 if (SystemArgs.Mails.Count != 0)
                 {
-                    for(int i=0;i<SystemArgs.Mails.Count;i++)
+                    for(int i = 0; i < SystemArgs.UnLoadSpecific.ExecutorMails.Count(); i++) 
                     {
-                        m.To.Add(new MailAddress(SystemArgs.Mails[i].MailAddress));
+                        m.To.Clear();
+                        for (int j = 0; j < SystemArgs.Mails.Count; j++)
+                        {
+                            if(SystemArgs.UnLoadSpecific.ExecutorMails[i].Executor.Equals(SystemArgs.Mails[j].Surname.Trim()+ SystemArgs.Mails[j].Name.First()+"."+ SystemArgs.Mails[j].MiddleName.First()+"." +
+                                ""))
+                            {
+                                m.To.Add(new MailAddress(SystemArgs.Mails[j].MailAddress));
+                            }
+                        }
+                        if (m.To.Count() == 0)
+                        {
+                            throw new Exception($"Email адрес для исполнителя {SystemArgs.UnLoadSpecific.ExecutorMails[i].Executor} не найден");
+                        }
+                        m.Subject = "Деталировка отсутствует от " + DateTime.Now.ToString();
+                        m.Body = CreateMessage(SystemArgs.UnLoadSpecific.ExecutorMails[i]);
+                        m.IsBodyHtml = true;
+                        SmtpClient smtp = new SmtpClient(SMTP, Convert.ToInt32(Port));
+                        smtp.Credentials = new NetworkCredential(Login, Password);
+                        smtp.EnableSsl = true;
+                        smtp.Send(m);
                     }
+                    
                 }
                 else
                 {
-                    throw new Exception("Отсутсвуют адреса для отправки"); 
+                    throw new Exception("Отсутсвуют адреса для отправки");
                 }
-                m.Subject = "Деталировка отсутствует от " + DateTime.Now.ToString();
-                m.Body = CreateMessage();
-                m.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient(SMTP, Convert.ToInt32(Port));
-                smtp.Credentials = new NetworkCredential(Login, Password);
-                smtp.EnableSsl = true;
-                smtp.Send(m);
             }
             catch(Exception e)
             {
                 throw new Exception(e.Message);
             }
         }
-        public String CreateMessage()
+        public String CreateMessage(UnLoadSpecific.ExecutorMail Executor)
         {
             try
             {
@@ -292,15 +305,15 @@ namespace SZMK
                                     $"<td> Фамилия разработчика</td>" +
                                     $"<td> № детали</td>" +
                                     $"</tr>";
-                for (int i = 0; i < SystemArgs.UnLoadSpecific.Specifics.Count; i++)
+                foreach(var Specifics in Executor._Specifics)
                 {
-                    if (!SystemArgs.UnLoadSpecific.Specifics[i].Finded)
+                    if (!Specifics.Finded)
                     {
                         Message += $"<tr>" +
-                                    $"<td> {SystemArgs.UnLoadSpecific.Specifics[i].Number}</td>" +
-                                    $"<td> {SystemArgs.UnLoadSpecific.Specifics[i].List.ToString()}</td>" +
-                                    $"<td> {SystemArgs.UnLoadSpecific.Specifics[i].Executor}</td>" +
-                                    $"<td> {SystemArgs.UnLoadSpecific.Specifics[i].NumberSpecific.ToString()}</td>" +
+                                    $"<td> {Specifics.Number}</td>" +
+                                    $"<td> {Specifics.List.ToString()}</td>" +
+                                    $"<td> {Executor.Executor}</td>" +
+                                    $"<td> {Specifics.NumberSpecific.ToString()}</td>" +
                                     $"</tr>";
                     }
                 }

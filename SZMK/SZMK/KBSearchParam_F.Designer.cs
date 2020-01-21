@@ -203,7 +203,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(487, 35);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Для исключения поиска по параметру оставьте его путым";
+            this.label2.Text = "Для исключения поиска по параметру оставьте его пуcтым";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
@@ -463,7 +463,7 @@
             this.Second_DP.Size = new System.Drawing.Size(243, 20);
             this.Second_DP.TabIndex = 19;
             // 
-            // SearchParamKB_F
+            // KBSearchParam_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -475,7 +475,7 @@
             this.MaximumSize = new System.Drawing.Size(513, 753);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(513, 753);
-            this.Name = "SearchParamKB_F";
+            this.Name = "KBSearchParam_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Расширенный поиск";
             this.tableLayoutPanel1.ResumeLayout(false);

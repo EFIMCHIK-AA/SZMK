@@ -14,10 +14,9 @@ namespace SZMK
         {
             private String _Number;
             private Int64 _List;
-            private String _Executor;
             private Int64 _NumberSpecific;
             private Boolean _Finded;
-            public Specific(String Number,Int64 List,String Executor,Int64 NumberSpecific,Boolean Finded)
+            public Specific(String Number,Int64 List,Int64 NumberSpecific,Boolean Finded)
             {
                 if (!String.IsNullOrEmpty(Number))
                 {
@@ -34,14 +33,6 @@ namespace SZMK
                 else
                 {
                     throw new Exception("Номер листа заказа меньше 0");
-                }
-                if (!String.IsNullOrEmpty(Executor))
-                {
-                    _Executor = Executor;
-                }
-                else
-                {
-                    throw new Exception("Не задан исполнитель");
                 }
                 if (NumberSpecific >= 0)
                 {
@@ -78,20 +69,6 @@ namespace SZMK
                     if (value>=0)
                     {
                         _List = value;
-                    }
-                }
-            }
-            public String Executor
-            {
-                get
-                {
-                    return _Executor;
-                }
-                set
-                {
-                    if (!String.IsNullOrEmpty(Executor))
-                    {
-                        _Executor = value;
                     }
                 }
             }
@@ -135,10 +112,36 @@ namespace SZMK
                 }
             }
         }
-        public List<Specific> Specifics;
-        public UnLoadSpecific()
+        public struct ExecutorMail
         {
-            Specifics = new List<Specific>();
+            private String _Executor;
+            public List<Specific> _Specifics;
+            public ExecutorMail(String Executor)
+            {
+                if (!String.IsNullOrEmpty(Executor))
+                {
+                    _Executor = Executor;
+                }
+                else
+                {
+                    throw new Exception("Не задан исполнитель");
+                }
+                _Specifics = new List<Specific>();
+            }
+            public String Executor
+            {
+                get
+                {
+                    return _Executor;
+                }
+                set
+                {
+                    if (!String.IsNullOrEmpty(Executor))
+                    {
+                        _Executor = value;
+                    }
+                }
+            }
         }
         struct Unloading
         {
@@ -151,9 +154,14 @@ namespace SZMK
                 _Detail = Detail;
             }
         }
+        public List<ExecutorMail> ExecutorMails;
+        public UnLoadSpecific()
+        {
+            ExecutorMails = new List<ExecutorMail>();
+        }
         public void ChekedUnloading(List<OrderScanSession> ScanSession)
         {
-            SystemArgs.UnLoadSpecific.Specifics.Clear();
+            SystemArgs.UnLoadSpecific.ExecutorMails.Clear();
             for (int i = 0; i < ScanSession.Count; i++)
             {
                 String[] SplitDataMatrix = ScanSession[i].DataMatrix.Split('_');
@@ -172,7 +180,6 @@ namespace SZMK
                 }
                 if (File.Exists(pathSpecific + @"\Отчеты\#Для выгрузки.xml"))
                 {
-                    Boolean flag = false;
                     String List = "";
                     String Detail = "";
                     List<Unloading> Temp = new List<Unloading>();
@@ -194,19 +201,42 @@ namespace SZMK
                             {
                                 if (File.Exists(pathSpecific + @"\Чертежи\Детали PDF\" + "Дет." + Temp[j]._Detail + ".pdf"))
                                 {
-                                    Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[3], Convert.ToInt64(Temp[j]._Detail), true));
+                                    if(ExecutorMails.Where(p=>p.Executor.Equals(SplitDataMatrix[3])).Count()!=0)
+                                    {
+                                        foreach (var item in ExecutorMails)
+                                        {
+                                            if (SplitDataMatrix[3].Equals(item.Executor))
+                                            {
+                                                item._Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(Temp[j]._List), Convert.ToInt64(Temp[j]._Detail), true));
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
+                                        ExecutorMails[ExecutorMails.Count() - 1]._Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(Temp[j]._List),Convert.ToInt64(Temp[j]._Detail),true));
+                                    }
                                 }
                                 else
                                 {
-                                    Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[3], Convert.ToInt64(Temp[j]._Detail), false));
-                                    flag = true;
+                                    if (ExecutorMails.Where(p => p.Executor.Equals(SplitDataMatrix[3])).Count() != 0)
+                                    {
+                                        foreach (var item in ExecutorMails)
+                                        {
+                                            if (SplitDataMatrix[3].Equals(item.Executor))
+                                            {
+                                                item._Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(Temp[j]._List), Convert.ToInt64(Temp[j]._Detail), false));
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
+                                        ExecutorMails[ExecutorMails.Count() - 1]._Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(Temp[j]._List), Convert.ToInt64(Temp[j]._Detail), false));
+                                    }
                                 }
                             }
                         }
-                    }
-                    if (flag)
-                    {
-                        SystemArgs.ServerMail.SendMail();
                     }
                 }
                 else

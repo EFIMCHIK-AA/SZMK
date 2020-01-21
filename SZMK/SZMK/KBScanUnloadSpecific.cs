@@ -22,17 +22,30 @@ namespace SZMK
             Report_DGV.AutoGenerateColumns = false;
             Report_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             Report_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            Report_DGV.DataSource = SystemArgs.UnLoadSpecific.Specifics;
-            for (int i = 0; i < Report_DGV.Rows.Count; i++)
+            for(int i = 0; i < SystemArgs.UnLoadSpecific.ExecutorMails.Count(); i++)
             {
-                if (Report_DGV[4, i].Value.ToString()=="Найдено")
+                for (int j = 0; j < SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics.Count(); j++)
                 {
-                    Report_DGV[4, i].Style.BackColor = Color.Lime;
+                    Report_DGV.Rows.Add();
+                    Report_DGV[0, Report_DGV.Rows.Count-1].Value = SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics[j].Number;
+                    Report_DGV[1, Report_DGV.Rows.Count - 1].Value = SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics[j].List;
+                    Report_DGV[2, Report_DGV.Rows.Count - 1].Value = SystemArgs.UnLoadSpecific.ExecutorMails[i].Executor;
+                    Report_DGV[3, Report_DGV.Rows.Count - 1].Value = SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics[j].NumberSpecific;
+                    if (SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics[j].Finded)
+                    {
+                        Report_DGV[4, Report_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
+                        Report_DGV[4, Report_DGV.Rows.Count - 1].Value = "Найдено";
+                    }
+                    else
+                    {
+                        Report_DGV[4, Report_DGV.Rows.Count - 1].Style.BackColor = Color.Red;
+                        Report_DGV[4, Report_DGV.Rows.Count - 1].Value = "Не найдено";
+                    }
                 }
-                else
-                {
-                    Report_DGV[4, i].Style.BackColor = Color.Red;
-                }
+            }
+            if (SystemArgs.UnLoadSpecific.ExecutorMails.Count() == 0)
+            {
+                Send_B.Enabled = false;
             }
         }
 
@@ -45,6 +58,19 @@ namespace SZMK
         {
             e.CellStyle.SelectionBackColor = Color.FromArgb(112, 238, 226);
             e.CellStyle.SelectionForeColor = Color.Black;
+        }
+
+        private void Send_B_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SystemArgs.ServerMail.SendMail();
+                MessageBox.Show("Сообщение успешно отправлено", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch(Exception E)
+            {
+                MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

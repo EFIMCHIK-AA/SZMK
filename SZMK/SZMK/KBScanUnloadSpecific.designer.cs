@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Report_DGV = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.OK_B = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.Send_B = new System.Windows.Forms.Button();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.List = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -96,8 +97,8 @@
             this.OK_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.OK_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OK_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.OK_B.Location = new System.Drawing.Point(5, 451);
-            this.OK_B.Margin = new System.Windows.Forms.Padding(5, 9, 5, 5);
+            this.OK_B.Location = new System.Drawing.Point(5, 491);
+            this.OK_B.Margin = new System.Windows.Forms.Padding(5, 2, 5, 5);
             this.OK_B.Name = "OK_B";
             this.OK_B.Size = new System.Drawing.Size(815, 33);
             this.OK_B.TabIndex = 2;
@@ -109,25 +110,46 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.OK_B, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.Report_DGV, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.OK_B, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.Send_B, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(825, 490);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(825, 530);
             this.tableLayoutPanel1.TabIndex = 3;
+            // 
+            // Send_B
+            // 
+            this.Send_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Send_B.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Send_B.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Send_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
+            this.Send_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
+            this.Send_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
+            this.Send_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Send_B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.Send_B.Location = new System.Drawing.Point(5, 451);
+            this.Send_B.Margin = new System.Windows.Forms.Padding(5, 9, 5, 5);
+            this.Send_B.Name = "Send_B";
+            this.Send_B.Size = new System.Drawing.Size(815, 33);
+            this.Send_B.TabIndex = 3;
+            this.Send_B.Text = "Отправить сообщение";
+            this.Send_B.UseVisualStyleBackColor = false;
+            this.Send_B.Click += new System.EventHandler(this.Send_B_Click);
             // 
             // Number
             // 
             this.Number.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Number.DataPropertyName = "Number";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Number.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Number.DefaultCellStyle = dataGridViewCellStyle1;
             this.Number.FillWeight = 20F;
             this.Number.HeaderText = "Номер заказа";
             this.Number.Name = "Number";
@@ -137,9 +159,9 @@
             // List
             // 
             this.List.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.List.DataPropertyName = "List";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.List.DefaultCellStyle = dataGridViewCellStyle7;
+            this.List.DataPropertyName = "_Specific.List";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.List.DefaultCellStyle = dataGridViewCellStyle2;
             this.List.FillWeight = 15F;
             this.List.HeaderText = "Номер листа";
             this.List.Name = "List";
@@ -150,8 +172,8 @@
             // 
             this.Executor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Executor.DataPropertyName = "Executor";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Executor.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Executor.DefaultCellStyle = dataGridViewCellStyle3;
             this.Executor.FillWeight = 40F;
             this.Executor.HeaderText = "Исполнитель";
             this.Executor.Name = "Executor";
@@ -161,9 +183,9 @@
             // NumberSpecific
             // 
             this.NumberSpecific.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NumberSpecific.DataPropertyName = "NumberSpecific";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.NumberSpecific.DefaultCellStyle = dataGridViewCellStyle9;
+            this.NumberSpecific.DataPropertyName = "_Specific.NumberSpecific";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.NumberSpecific.DefaultCellStyle = dataGridViewCellStyle4;
             this.NumberSpecific.FillWeight = 15F;
             this.NumberSpecific.HeaderText = "Номер детали";
             this.NumberSpecific.Name = "NumberSpecific";
@@ -173,9 +195,9 @@
             // Finded
             // 
             this.Finded.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Finded.DataPropertyName = "FindedView";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Finded.DefaultCellStyle = dataGridViewCellStyle10;
+            this.Finded.DataPropertyName = "_Specific.FindedView";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Finded.DefaultCellStyle = dataGridViewCellStyle5;
             this.Finded.FillWeight = 10F;
             this.Finded.HeaderText = "Найдено";
             this.Finded.Name = "Finded";
@@ -189,13 +211,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.OK_B;
-            this.ClientSize = new System.Drawing.Size(825, 490);
+            this.ClientSize = new System.Drawing.Size(825, 530);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(841, 529);
+            this.MaximumSize = new System.Drawing.Size(841, 569);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(841, 529);
+            this.MinimumSize = new System.Drawing.Size(841, 569);
             this.Name = "KBScanUnloadSpecific";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Отчет о проверке";
@@ -212,6 +234,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button OK_B;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button Send_B;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
         private System.Windows.Forms.DataGridViewTextBoxColumn List;
         private System.Windows.Forms.DataGridViewTextBoxColumn Executor;
