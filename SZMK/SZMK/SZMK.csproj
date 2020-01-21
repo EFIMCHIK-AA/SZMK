@@ -251,6 +251,7 @@
       <DependentUpon>KBSearchParam_F.cs</DependentUpon>
     </Compile>
     <Compile Include="ServerMobileAppBlankOrder.cs" />
+    <Compile Include="Specific.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="OrderScanSession.cs" />
     <Compile Include="ServerMail.cs" />
