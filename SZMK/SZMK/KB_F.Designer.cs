@@ -89,6 +89,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.BlankOrder_TB = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.настройкиМобильногоПриложенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SettingMobile_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -134,7 +136,8 @@
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(201)))), ((int)(((byte)(188)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.добавлениеToolStripMenuItem,
-            this.отчетToolStripMenuItem});
+            this.отчетToolStripMenuItem,
+            this.настройкиМобильногоПриложенияToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
@@ -152,7 +155,7 @@
             // ReportDate_TSM
             // 
             this.ReportDate_TSM.Name = "ReportDate_TSM";
-            this.ReportDate_TSM.Size = new System.Drawing.Size(180, 22);
+            this.ReportDate_TSM.Size = new System.Drawing.Size(169, 22);
             this.ReportDate_TSM.Text = "По дате создания";
             this.ReportDate_TSM.Click += new System.EventHandler(this.ReportDate_TSM_Click);
             // 
@@ -775,6 +778,21 @@
             this.label11.Text = "Статус чертежа";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // настройкиМобильногоПриложенияToolStripMenuItem
+            // 
+            this.настройкиМобильногоПриложенияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SettingMobile_TSM});
+            this.настройкиМобильногоПриложенияToolStripMenuItem.Name = "настройкиМобильногоПриложенияToolStripMenuItem";
+            this.настройкиМобильногоПриложенияToolStripMenuItem.Size = new System.Drawing.Size(157, 20);
+            this.настройкиМобильногоПриложенияToolStripMenuItem.Text = "Мобильное приложение";
+            // 
+            // SettingMobile_TSM
+            // 
+            this.SettingMobile_TSM.Name = "SettingMobile_TSM";
+            this.SettingMobile_TSM.Size = new System.Drawing.Size(180, 22);
+            this.SettingMobile_TSM.Text = "Настроки";
+            this.SettingMobile_TSM.Click += new System.EventHandler(this.SettingMobile_TSM_Click);
+            // 
             // KB_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -861,5 +879,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn List;
         private System.Windows.Forms.DataGridViewTextBoxColumn Mark;
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
+        private System.Windows.Forms.ToolStripMenuItem настройкиМобильногоПриложенияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SettingMobile_TSM;
     }
 }

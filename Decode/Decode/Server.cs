@@ -74,7 +74,7 @@ namespace Decode
                             {
                                 long totalBytes = 0;
                                 int readBytes = 0;
-                                byte[] buffer = new byte[2048];
+                                byte[] buffer = new byte[8192];
 
                                 do
                                 {

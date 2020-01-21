@@ -6,6 +6,7 @@ using Equin.ApplicationFramework;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 namespace SZMK
 {
@@ -663,6 +664,34 @@ namespace SZMK
             try
             {
                 ForgetOrder();
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SettingMobile_TSM_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ADSettingsMobileApp_F Dialog = new ADSettingsMobileApp_F();
+
+                if (SystemArgs.MobileApplication.GetParametersConnect())
+                {
+                    String MyIP = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
+
+                    Dialog.IP_TB.Text = MyIP;
+                    Dialog.Port_TB.Text = SystemArgs.MobileApplication.Port;
+
+                    Zen.Barcode.CodeQrBarcodeDraw QrCode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
+                    Dialog.QR_PB.Image = QrCode.Draw($"{MyIP}_{SystemArgs.MobileApplication.Port}", 100);
+                }
+
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
             }
             catch (Exception E)
             {

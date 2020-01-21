@@ -177,7 +177,7 @@ namespace SZMK
                         long lenght = inputStream.Length;
                         long totalBytes = 0;
                         int readBytes = 0;
-                        byte[] buffer = new byte[2048];
+                        byte[] buffer = new byte[8192];
                         writer.Write(CloseConnect);
                         writer.Write(SystemArgs.User.Login);
                         writer.Write(OldFileName);
