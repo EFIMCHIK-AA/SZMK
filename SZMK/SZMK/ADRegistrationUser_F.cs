@@ -47,14 +47,14 @@ namespace SZMK
                         throw new Exception("Необходимо указать дату регистрации пользователя");
                     }
 
-                    if (String.IsNullOrEmpty(Name_TB.Text))
-                    {
-                        Name_TB.Focus();
-                        throw new Exception("Необходимо указать фамилию пользователя");
-                    }
                     if (String.IsNullOrEmpty(Surname_TB.Text))
                     {
                         Surname_TB.Focus();
+                        throw new Exception("Необходимо указать фамилию пользователя");
+                    }
+                    if (String.IsNullOrEmpty(Name_TB.Text))
+                    {
+                        Name_TB.Focus();
                         throw new Exception("Необходимо указать имя пользователя");
                     }
                                        
@@ -125,6 +125,11 @@ namespace SZMK
         private void CheckPass_CB_CheckedChanged(object sender, EventArgs e)
         {
             HashPassword_TB.UseSystemPasswordChar = !HashPassword_TB.UseSystemPasswordChar;
+        }
+
+        private void OK_B_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

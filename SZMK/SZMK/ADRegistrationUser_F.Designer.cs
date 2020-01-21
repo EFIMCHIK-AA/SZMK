@@ -47,9 +47,9 @@
             this.Cancel_B = new System.Windows.Forms.Button();
             this.OK_B = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.CheckPass_CB = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.ChanageNext_CB = new System.Windows.Forms.CheckBox();
+            this.CheckPass_CB = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -303,6 +303,7 @@
             this.OK_B.TabIndex = 66;
             this.OK_B.Text = "ОК";
             this.OK_B.UseVisualStyleBackColor = false;
+            this.OK_B.Click += new System.EventHandler(this.OK_B_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -349,20 +350,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(520, 381);
             this.tableLayoutPanel1.TabIndex = 70;
             // 
-            // CheckPass_CB
-            // 
-            this.CheckPass_CB.AutoSize = true;
-            this.CheckPass_CB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CheckPass_CB.Location = new System.Drawing.Point(2, 2);
-            this.CheckPass_CB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
-            this.CheckPass_CB.Name = "CheckPass_CB";
-            this.CheckPass_CB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.CheckPass_CB.Size = new System.Drawing.Size(140, 20);
-            this.CheckPass_CB.TabIndex = 69;
-            this.CheckPass_CB.Text = "&Показать пароль";
-            this.CheckPass_CB.UseVisualStyleBackColor = true;
-            this.CheckPass_CB.CheckedChanged += new System.EventHandler(this.CheckPass_CB_CheckedChanged);
-            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.AutoSize = true;
@@ -394,6 +381,20 @@
             this.ChanageNext_CB.TabIndex = 70;
             this.ChanageNext_CB.Text = "&Сменить при авторизации";
             this.ChanageNext_CB.UseVisualStyleBackColor = true;
+            // 
+            // CheckPass_CB
+            // 
+            this.CheckPass_CB.AutoSize = true;
+            this.CheckPass_CB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CheckPass_CB.Location = new System.Drawing.Point(2, 2);
+            this.CheckPass_CB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
+            this.CheckPass_CB.Name = "CheckPass_CB";
+            this.CheckPass_CB.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.CheckPass_CB.Size = new System.Drawing.Size(140, 20);
+            this.CheckPass_CB.TabIndex = 69;
+            this.CheckPass_CB.Text = "&Показать пароль";
+            this.CheckPass_CB.UseVisualStyleBackColor = true;
+            this.CheckPass_CB.CheckedChanged += new System.EventHandler(this.CheckPass_CB_CheckedChanged);
             // 
             // ADRegistrationUser_F
             // 

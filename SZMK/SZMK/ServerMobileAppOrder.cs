@@ -41,15 +41,15 @@ namespace SZMK
         }
         private void Server_DataReceived(object sender, SimpleTCP.Message e)
         {
-            try
+            if (CheckedUniqueList(e.MessageString))
             {
-                String Temp = e.MessageString.Replace(" ", "");
-                String ReplaceMark="";
-                String[] ValidationDataMatrix = Temp.Split('_');
-                String[] ExistingCharaterEnglish = new String[] { "A", "a", "B", "C", "c", "E", "e", "H", "K", "M", "O", "o", "P", "p", "T" };
-                String[] ExistingCharaterRussia = new String[] { "А", "а", "В", "С", "с", "Е", "е", "Н", "К", "М", "О", "о", "Р", "р", "Т" };
-                if (CheckedUniqueList(Temp))
+                try
                 {
+                    String Temp = e.MessageString.Replace(" ", "");
+                    String ReplaceMark = "";
+                    String[] ValidationDataMatrix = Temp.Split('_');
+                    String[] ExistingCharaterEnglish = new String[] { "A", "a", "B", "C", "c", "E", "e", "H", "K", "M", "O", "o", "P", "p", "T" };
+                    String[] ExistingCharaterRussia = new String[] { "А", "а", "В", "С", "с", "Е", "е", "Н", "К", "М", "О", "о", "Р", "р", "Т" };
                     if (ValidationDataMatrix.Length != 6)
                     {
                         throw new Exception("В DataMatrix менее 6 полей");
@@ -62,7 +62,7 @@ namespace SZMK
                     Int32 List = Convert.ToInt32(ValidationDataMatrix[1]);
                     if (SystemArgs.Request.CheckedNumberAndList(ValidationDataMatrix[0], List))
                     {
-                        if (SystemArgs.Request.CheckedNumberAndMark(ValidationDataMatrix[0],ReplaceMark))
+                        if (SystemArgs.Request.CheckedNumberAndMark(ValidationDataMatrix[0], ReplaceMark))
                         {
                             if (SystemArgs.ClientProgram.CheckMarks)
                             {
@@ -94,14 +94,14 @@ namespace SZMK
                     }
                     Load?.Invoke(_ScanSession);
                 }
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Неверный формат DataMatrix, лист должен быть целым числом", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception E)
-            {
-                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (FormatException)
+                {
+                    MessageBox.Show("Неверный формат DataMatrix, лист должен быть целым числом", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception E)
+                {
+                    MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         private bool CheckedLowerRegistery(String Mark)
@@ -117,16 +117,18 @@ namespace SZMK
             return true;
 
         }
+        List<String> UniqueList = new List<string>();
         private bool CheckedUniqueList(String Temp)
         {
-            foreach (var item in _ScanSession)
+            if (UniqueList.Contains(Temp))
             {
-                if (item.DataMatrix.Equals(Temp))
-                {
-                    return false;
-                }
+                return false;
             }
-            return true;
+            else
+            {
+                UniqueList.Add(Temp);
+                return true;
+            }
         }
         public bool Stop()
         {

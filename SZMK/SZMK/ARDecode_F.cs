@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace SZMK
 {
@@ -34,29 +35,56 @@ namespace SZMK
                 {
                     return;
                 }
-
+                DecodeFilesAsync(Opd);
+            }
+        }
+        private async void DecodeFilesAsync(OpenFileDialog Opd)
+        {
+            Add_B.Enabled = false;
+            Change_B.Enabled = false;
+            await Task.Run(() => DecodeFiles(Opd));
+        }
+        private void DecodeFiles(OpenFileDialog Opd)
+        {
+            try
+            {
                 Directory.CreateDirectory("TempFile");
-
                 Int32 CountFile = Opd.FileNames.Length;
                 Int32 i = 0;
-
                 foreach (String FileName in Opd.FileNames)
                 {
-                    Status_TB.AppendText($"Файл" +Environment.NewLine + SystemArgs.Path.GetFileName(FileName) + Environment.NewLine + "обрабатывается, пожалуйста подождите..." + Environment.NewLine);
-
-                    Status_TB.AppendText($">{i + 1}|{CountFile}<" + Environment.NewLine);
+                    Status_TB.Invoke((MethodInvoker)delegate ()
+                    {
+                        Status_TB.AppendText($"Файл" + Environment.NewLine + SystemArgs.Path.GetFileName(FileName) + Environment.NewLine + "обрабатывается, пожалуйста подождите..." + Environment.NewLine);
+                        Status_TB.AppendText($">{i + 1}|{CountFile}<" + Environment.NewLine);
+                    });
 
                     String CurrentInfoDataMatrix = "";
-                    CurrentInfoDataMatrix=SystemArgs.ByteScout.SendAndRead(SystemArgs.ByteScout.GetPathTempFile(FileName, i),SystemArgs.Path.GetFileName(FileName));
+                    CurrentInfoDataMatrix = SystemArgs.ByteScout.SendAndRead(SystemArgs.ByteScout.GetPathTempFile(FileName, i), SystemArgs.Path.GetFileName(FileName));
                     FileNames.Add(FileName);
                     i++;
                 }
                 DeleteFilesAndDirectory();
-                Status_TB.AppendText($"ОБРАБОТКА ЗАВЕРШЕНА!" + Environment.NewLine);
-                Status_TB.AppendText($">{i}|{CountFile}<" + Environment.NewLine);
+                Status_TB.Invoke((MethodInvoker)delegate ()
+                {
+                    Status_TB.AppendText($"ОБРАБОТКА ЗАВЕРШЕНА!" + Environment.NewLine);
+                    Status_TB.AppendText($">{i}|{CountFile}<" + Environment.NewLine);
+                });
+                Change_B.Invoke((MethodInvoker)delegate ()
+                {
+                    Change_B.Enabled = true;
+                });
+                Add_B.Invoke((MethodInvoker)delegate ()
+                {
+                    Add_B.Enabled = true;
+                });
             }
-        }
+            catch
+            {
+                return;
+            }
 
+         }
         private void ARDecode_F_Load(object sender, EventArgs e)
         {
             FileNames = new List<string>();
@@ -97,23 +125,32 @@ namespace SZMK
         }
         private void StatusFailText(String Path)
         {
-            Status_TB.AppendText($"Файл {SystemArgs.Path.GetFileName(Path)} неправильный формат DataMatrix" + Environment.NewLine);
+            Status_TB.Invoke((MethodInvoker)delegate ()
+            {
+                Status_TB.AppendText($"Файл {SystemArgs.Path.GetFileName(Path)} неправильный формат DataMatrix" + Environment.NewLine);
+            });
         }
         private void LoadToDGVAndTB(List<OrderScanSession> DecodeSession)
         {
-            Status_TB.AppendText($"Получены данные"+Environment.NewLine+ DecodeSession[DecodeSession.Count - 1].DataMatrix + Environment.NewLine);
-            Scan_DGV.Rows.Add();
-            Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = DecodeSession[DecodeSession.Count - 1].DataMatrix;
-            if (DecodeSession[DecodeSession.Count - 1].Unique)
-            {
-                Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Найден";
-                Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
-            }
-            else
-            {
-                Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Не найден";
-                Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Red;
-            }
+                Status_TB.Invoke((MethodInvoker)delegate ()
+                {
+                    Status_TB.AppendText($"Получены данные" + Environment.NewLine + DecodeSession[DecodeSession.Count - 1].DataMatrix + Environment.NewLine);
+                });
+                Scan_DGV.Invoke((MethodInvoker)delegate ()
+                {
+                    Scan_DGV.Rows.Add();
+                    Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = DecodeSession[DecodeSession.Count - 1].DataMatrix;
+                    if (DecodeSession[DecodeSession.Count - 1].Unique)
+                    {
+                        Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Найден";
+                        Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
+                    }
+                    else
+                    {
+                        Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Не найден";
+                        Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Red;
+                    }
+                });
         }
 
         private void CreateAct_TSM_Click(object sender, EventArgs e)

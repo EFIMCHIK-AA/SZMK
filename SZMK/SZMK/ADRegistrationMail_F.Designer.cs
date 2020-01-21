@@ -119,7 +119,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(5, 103);
+            this.label4.Location = new System.Drawing.Point(5, 79);
             this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 16);
@@ -129,8 +129,7 @@
             // Surname_TB
             // 
             this.Surname_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.Surname_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Surname_TB.Location = new System.Drawing.Point(136, 105);
+            this.Surname_TB.Location = new System.Drawing.Point(136, 81);
             this.Surname_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.Surname_TB.Name = "Surname_TB";
             this.Surname_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -142,7 +141,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(5, 79);
+            this.label3.Location = new System.Drawing.Point(5, 103);
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 16);
@@ -153,7 +152,7 @@
             // 
             this.Name_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Name_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Name_TB.Location = new System.Drawing.Point(136, 81);
+            this.Name_TB.Location = new System.Drawing.Point(136, 105);
             this.Name_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.Name_TB.Name = "Name_TB";
             this.Name_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -228,12 +227,12 @@
             this.tableLayoutPanel1.Controls.Add(this.DataReg_TB, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.AddressMail_TB, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.Name_TB, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.MiddleName_TB, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.Surname_TB, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.Name_TB, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.Surname_TB, 1, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -254,6 +253,7 @@
             this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.Cancel_B;
             this.ClientSize = new System.Drawing.Size(496, 262);
             this.Controls.Add(this.tableLayoutPanel1);

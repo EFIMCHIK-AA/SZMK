@@ -163,7 +163,6 @@ namespace SZMK
         {
             _DecodeSession.Clear();
         }
-
         public String SendAndRead(String FileName,String OldFileName)
         {
             TcpClient tcpClient = new TcpClient(_Server,Convert.ToInt32(_Port));

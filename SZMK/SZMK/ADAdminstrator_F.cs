@@ -234,7 +234,7 @@ namespace SZMK
                         UpdatePassword = false;
                     }
 
-                    User Temp = new User(Index + 1, Dialog.Surname_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Name_TB.Text, DateCreate, SystemArgs.Positions[Dialog.Position_CB.SelectedIndex].ID,
+                    User Temp = new User(Index + 1, Dialog.Name_TB.Text, Dialog.MiddleName_TB.Text, Dialog.Surname_TB.Text , DateCreate, SystemArgs.Positions[Dialog.Position_CB.SelectedIndex].ID,
                                         new List<Mail>(), Dialog.Login_TB.Text, Hash.GetSHA256(Dialog.HashPassword_TB.Text), UpdatePassword);
 
                     if(SystemArgs.Request.AddUser(Temp))
