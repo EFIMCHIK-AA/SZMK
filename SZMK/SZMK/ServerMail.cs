@@ -261,26 +261,29 @@ namespace SZMK
                 {
                     for(int i = 0; i < SystemArgs.UnLoadSpecific.ExecutorMails.Count(); i++) 
                     {
-                        m.To.Clear();
-                        for (int j = 0; j < SystemArgs.Mails.Count; j++)
+                        if (SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics.Where(p => !p.Finded).Count() != 0)
                         {
-                            if(SystemArgs.UnLoadSpecific.ExecutorMails[i].Executor.Equals(SystemArgs.Mails[j].Surname.Trim()+ SystemArgs.Mails[j].Name.First()+"."+ SystemArgs.Mails[j].MiddleName.First()+"." +
-                                ""))
+                            m.To.Clear();
+                            for (int j = 0; j < SystemArgs.Mails.Count; j++)
                             {
-                                m.To.Add(new MailAddress(SystemArgs.Mails[j].MailAddress));
+                                if (SystemArgs.UnLoadSpecific.ExecutorMails[i].Executor.Equals(SystemArgs.Mails[j].Surname.Trim() + SystemArgs.Mails[j].Name.First() + "." + SystemArgs.Mails[j].MiddleName.First() + "." +
+                                    ""))
+                                {
+                                    m.To.Add(new MailAddress(SystemArgs.Mails[j].MailAddress));
+                                }
                             }
+                            if (m.To.Count() == 0)
+                            {
+                                throw new Exception($"Email адрес для исполнителя {SystemArgs.UnLoadSpecific.ExecutorMails[i].Executor} не найден");
+                            }
+                            m.Subject = "Деталировка отсутствует от " + DateTime.Now.ToString();
+                            m.Body = CreateMessage(SystemArgs.UnLoadSpecific.ExecutorMails[i]);
+                            m.IsBodyHtml = true;
+                            SmtpClient smtp = new SmtpClient(SMTP, Convert.ToInt32(Port));
+                            smtp.Credentials = new NetworkCredential(Login, Password);
+                            smtp.EnableSsl = true;
+                            smtp.Send(m);
                         }
-                        if (m.To.Count() == 0)
-                        {
-                            throw new Exception($"Email адрес для исполнителя {SystemArgs.UnLoadSpecific.ExecutorMails[i].Executor} не найден");
-                        }
-                        m.Subject = "Деталировка отсутствует от " + DateTime.Now.ToString();
-                        m.Body = CreateMessage(SystemArgs.UnLoadSpecific.ExecutorMails[i]);
-                        m.IsBodyHtml = true;
-                        SmtpClient smtp = new SmtpClient(SMTP, Convert.ToInt32(Port));
-                        smtp.Credentials = new NetworkCredential(Login, Password);
-                        smtp.EnableSsl = true;
-                        smtp.Send(m);
                     }
                     
                 }
