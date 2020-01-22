@@ -43,7 +43,18 @@ namespace SZMK
                     }
                 }
             }
-            if (SystemArgs.UnLoadSpecific.ExecutorMails.Count() == 0)
+            bool flag = true;
+            for(int i = 0; i < SystemArgs.UnLoadSpecific.ExecutorMails.Count(); i++)
+            {
+                for(int j = 0; j < SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics.Count(); j++)
+                {
+                    if (!SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics[j].Finded)
+                    {
+                        flag = false;
+                    }
+                }
+            }
+            if (SystemArgs.UnLoadSpecific.ExecutorMails.Count() == 0||flag)
             {
                 Send_B.Enabled = false;
             }

@@ -83,7 +83,6 @@ namespace SZMK
             {
                 return;
             }
-
          }
         private void ARDecode_F_Load(object sender, EventArgs e)
         {
@@ -167,6 +166,12 @@ namespace SZMK
                 MessageBox.Show("Невозможно сформировать акт, нет данных", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+        }
+
+        private void ARDecode_F_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SystemArgs.ByteScout.Load -= LoadToDGVAndTB;
+            SystemArgs.ByteScout.Fail -= StatusFailText;
         }
     }
 }

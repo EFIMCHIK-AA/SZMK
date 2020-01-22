@@ -163,7 +163,7 @@ namespace SZMK
                                 Status TempStatus = (from p in SystemArgs.Statuses
                                                     where p.IDPosition==PositionID
                                                     select p).Single();
-                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], Convert.ToInt64(SplitDataMatrix[1]), SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4].Replace('.', ',')), Convert.ToDouble(SplitDataMatrix[5].Replace('.', ',')), TempStatus, SystemArgs.User, TempBlank);
+                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4].Replace('.', ',')), Convert.ToDouble(SplitDataMatrix[5].Replace('.', ',')), TempStatus, SystemArgs.User, TempBlank);
                                 if (SystemArgs.Excel.AddToRegistry(TempOrder))
                                 {
                                     if (SystemArgs.Request.InsertOrder(TempOrder))
@@ -220,7 +220,7 @@ namespace SZMK
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         String NewDataMatrix = Dialog.Number_TB.Text + "_" + Dialog.List_TB.Text + "_" + Dialog.Mark_TB.Text + "_" + Dialog.Executor_TB.Text + "_" + Dialog.Lenght_TB.Text + "_" + Dialog.Weight_TB.Text;
-                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Convert.ToInt64(Dialog.List_TB.Text), Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), Temp.Status, Temp.User, Temp.BlankOrder);
+                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), Temp.Status, Temp.User, Temp.BlankOrder);
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
                         {
                             SystemArgs.Orders.Remove(Temp);

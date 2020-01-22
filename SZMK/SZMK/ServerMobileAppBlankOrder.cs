@@ -118,32 +118,32 @@ namespace SZMK
                 {
                     if (Added)
                     {
-                        if (SystemArgs.Request.CheckedOrderAndStatus(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i])))
+                        if (SystemArgs.Request.CheckedOrderAndStatus(ValidationDataMatrix[1], ValidationDataMatrix[i]))
                         {
-                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]), 1));
+                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], 1));
                         }
-                        else if (SystemArgs.Request.CheckedOrderAndStatusForUpdate(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i])))
+                        else if (SystemArgs.Request.CheckedOrderAndStatusForUpdate(ValidationDataMatrix[1], ValidationDataMatrix[i]))
                         {
-                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]), 0));
+                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], 0));
                         }
                         else
                         {
-                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]), -1));
+                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], -1));
                         }
                     }
                     else
                     {
-                        if (SystemArgs.Request.CheckedOrderAndStatus(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i])) && SystemArgs.Request.FindedOrdersInAddBlankOrder(QRBlankOrder, ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i])))
+                        if (SystemArgs.Request.CheckedOrderAndStatus(ValidationDataMatrix[1], ValidationDataMatrix[i]) && SystemArgs.Request.FindedOrdersInAddBlankOrder(QRBlankOrder, ValidationDataMatrix[1], ValidationDataMatrix[i]))
                         {
-                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]), 1));
+                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], 1));
                         }
-                        else if (SystemArgs.Request.CheckedOrderAndStatusForUpdate(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i])) && SystemArgs.Request.FindedOrdersInAddBlankOrder(QRBlankOrder, ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i])))
+                        else if (SystemArgs.Request.CheckedOrderAndStatusForUpdate(ValidationDataMatrix[1], ValidationDataMatrix[i]) && SystemArgs.Request.FindedOrdersInAddBlankOrder(QRBlankOrder, ValidationDataMatrix[1], ValidationDataMatrix[i]))
                         {
-                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]), 0));
+                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], 0));
                         }
                         else
                         {
-                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], Convert.ToInt64(ValidationDataMatrix[i]), -1));
+                            _ScanSession[_ScanSession.Count - 1]._Order.Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], -1));
                         }
                     }
 

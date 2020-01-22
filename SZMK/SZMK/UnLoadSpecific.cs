@@ -101,7 +101,7 @@ namespace SZMK
                                 {
                                     if(ExecutorMails.Where(p=>p.Executor.Equals(SplitDataMatrix[3])).Count()!=0)
                                     {
-                                        foreach (var item in ExecutorMails)
+                                        foreach (var item in SystemArgs.UnLoadSpecific.ExecutorMails)
                                         {
                                             if (SplitDataMatrix[3].Equals(item.Executor))
                                             {

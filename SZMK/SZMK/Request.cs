@@ -688,9 +688,9 @@ namespace SZMK
                 throw new Exception(e.Message);
             }
         }
-        public bool FindedOrdersInAddBlankOrder(String QR, String Number, Int64 List)
+        public bool FindedOrdersInAddBlankOrder(String QR, String Number, String List)
         {
-            Int64 ID = SystemArgs.Orders.Where(p => p.Number == Number && p.List == List).Single().ID;
+            Int64 ID = SystemArgs.Orders.Where(p => p.Number == Number && p.List==List).Single().ID;
             Boolean flag = false;
             try
             {
@@ -991,7 +991,7 @@ namespace SZMK
                                             }
                                         }
                                     }
-                                    SystemArgs.Orders.Add(new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(4), Reader.GetString(3), Convert.ToInt64(Reader.GetString(5)), Reader.GetString(6), Convert.ToDouble(Reader.GetString(7)), Convert.ToDouble(Reader.GetString(8)), TempStatus, TempUser, TempBlank));
+                                    SystemArgs.Orders.Add(new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(4), Reader.GetString(3), Reader.GetString(5), Reader.GetString(6), Convert.ToDouble(Reader.GetString(7)), Convert.ToDouble(Reader.GetString(8)), TempStatus, TempUser, TempBlank));
                                 }
                             }
                         }
@@ -1229,7 +1229,7 @@ namespace SZMK
                 throw new Exception(e.Message);
             }
         }
-        public bool CheckedNumberAndList(String Number, Int64 List)
+        public bool CheckedNumberAndList(String Number, String List)
         {
             Boolean flag = false;
             try
@@ -1261,7 +1261,7 @@ namespace SZMK
                 throw new Exception(e.Message);
             }
         }
-        public bool CheckedOrderAndStatus(String Number, Int64 List)
+        public bool CheckedOrderAndStatus(String Number, String List)
         {
             Boolean flag = false;
             try
@@ -1302,7 +1302,7 @@ namespace SZMK
                 return flag;
             }
         }
-        public bool CheckedOrderAndStatusForUpdate(String Number, Int64 List)
+        public bool CheckedOrderAndStatusForUpdate(String Number, String List)
         {
             Boolean flag = false;
             try

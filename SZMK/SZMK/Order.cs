@@ -13,7 +13,7 @@ namespace SZMK
         private DateTime _DateCreate;
         private String _Number;
         private String _Executor;
-        private Int64 _List;
+        private String _List;
         private String _Mark;
         private Double _Lenght;
         private Double _Weight;
@@ -22,7 +22,7 @@ namespace SZMK
         private BlankOrder _BlankOrder;
 
 
-        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor, Int64 List, String Mark, Double Lenght, Double Weight, Status Status,User User, BlankOrder BlankOrder)
+        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor, String List, String Mark, Double Lenght, Double Weight, Status Status,User User, BlankOrder BlankOrder)
         {
             if (ID >= 0)
             {
@@ -65,13 +65,13 @@ namespace SZMK
                 throw new Exception("Пустое значение Исполнителя");
             }
 
-            if (List >= 0)
+            if (!String.IsNullOrEmpty(List))
             {
                 _List = List;
             }
             else
             {
-                throw new Exception("Значение листа меньше 0");
+                throw new Exception("Пустое значение листа");
             }
 
             if (!String.IsNullOrEmpty(Mark))
@@ -126,7 +126,7 @@ namespace SZMK
             }
         }
 
-        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя", -1, "Нет марки", -1, -1, null,null,null) { }
+        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя", "Нет листа", "Нет марки", -1, -1, null,null,null) { }
 
         public Int64 ID
         {
@@ -203,7 +203,7 @@ namespace SZMK
             }
         }
 
-        public Int64 List
+        public String List
         {
             get
             {
@@ -211,7 +211,7 @@ namespace SZMK
             }
             set
             {
-                if (value >= 0)
+                if (!String.IsNullOrEmpty(value))
                 {
                     _List = value;
                 }

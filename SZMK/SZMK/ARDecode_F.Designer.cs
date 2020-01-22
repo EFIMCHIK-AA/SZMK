@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.CreateAct_TSM = new System.Windows.Forms.ToolStripMenuItem();
@@ -164,8 +164,8 @@
             // 
             this.DataMatrixOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.DataMatrixOrder.DataPropertyName = "DataMatrix";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DataMatrixOrder.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DataMatrixOrder.DefaultCellStyle = dataGridViewCellStyle1;
             this.DataMatrixOrder.FillWeight = 75F;
             this.DataMatrixOrder.HeaderText = "Данные чертежа";
             this.DataMatrixOrder.Name = "DataMatrixOrder";
@@ -175,8 +175,8 @@
             // 
             this.Unique.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Unique.DataPropertyName = "Unique";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Unique.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Unique.DefaultCellStyle = dataGridViewCellStyle2;
             this.Unique.FillWeight = 25F;
             this.Unique.HeaderText = "Найдено";
             this.Unique.Name = "Unique";
@@ -308,6 +308,7 @@
             this.Name = "ARDecode_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Распознование";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ARDecode_F_FormClosing);
             this.Load += new System.EventHandler(this.ARDecode_F_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

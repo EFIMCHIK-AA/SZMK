@@ -59,8 +59,7 @@ namespace SZMK
                         ReplaceMark = ValidationDataMatrix[2].Replace(ExistingCharaterRussia[i], ExistingCharaterEnglish[i]);
                     }
                     Temp = Temp.Replace(ValidationDataMatrix[2], ReplaceMark);
-                    Int32 List = Convert.ToInt32(ValidationDataMatrix[1]);
-                    if (SystemArgs.Request.CheckedNumberAndList(ValidationDataMatrix[0], List))
+                    if (SystemArgs.Request.CheckedNumberAndList(ValidationDataMatrix[0], ValidationDataMatrix[1]))
                     {
                         if (SystemArgs.Request.CheckedNumberAndMark(ValidationDataMatrix[0], ReplaceMark))
                         {
@@ -90,13 +89,9 @@ namespace SZMK
                     else
                     {
                         _ScanSession.Add(new OrderScanSession(Temp, false));
-                        MessageBox.Show($"В заказе {ValidationDataMatrix[0]}, номер листа {List} уже существует. Чертеж не добавлен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"В заказе {ValidationDataMatrix[0]}, номер листа {ValidationDataMatrix[1]} уже существует. Чертеж не добавлен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     Load?.Invoke(_ScanSession);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Неверный формат DataMatrix, лист должен быть целым числом", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception E)
                 {

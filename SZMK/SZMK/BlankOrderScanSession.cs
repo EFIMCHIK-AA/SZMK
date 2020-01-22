@@ -11,10 +11,10 @@ namespace SZMK
         public struct NumberAndList
         {
             public String _Number;
-            public Int64 _List;
+            public String _List;
             public Int32 _Finded;
 
-            public NumberAndList(String Number, Int64 List, Int32 Finded)
+            public NumberAndList(String Number, String List, Int32 Finded)
             {
                 _Number = Number;
                 _List = List;
