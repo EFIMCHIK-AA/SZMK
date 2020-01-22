@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
+    /*Класс для создания листа хранения данных связной таблицы между справочником бланков заказов и чертежами*/
     public class BlankOrderOfOrders
     {
         public DateTime _DateCreate;

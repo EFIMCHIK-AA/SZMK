@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
+    /*Класс обертка созданный использования при создании листа с сессией сканирования бланков заказов*/
     public class BlankOrderScanSession
     {
         public struct NumberAndList

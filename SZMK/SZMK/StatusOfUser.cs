@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
+    /*Данный класс описывает структуру связной таблицы, в которую добавляются данные при добавлении статуса чертежу*/
     public class StatusOfUser
     {
         private DateTime _DateCreate;

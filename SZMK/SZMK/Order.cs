@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
+    /*Класс реализует объек чертежа со всеми полями присущими чертеду*/
     public class Order
     {
         private Int64 _ID;

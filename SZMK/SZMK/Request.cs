@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
+    /*Класс реализованный для выполненя запросов к базе данных, практически все запросы к базе реализованы в этом классе*/
     public class Request
     {
         private String _ConnectString;

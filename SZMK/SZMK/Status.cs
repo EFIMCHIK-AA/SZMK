@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
+    /*Данный класс описывает справочник статусов, в котором содержится id, id должности к которой он принадлежит, а также наименование самого статуса*/
     public class Status
     {
         private Int64 _ID;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
+    /*Класс обертка для создания листа с данными отсканированных чертежей в текущей сессии*/
     public class OrderScanSession
     {
         private String _DateMatrix;

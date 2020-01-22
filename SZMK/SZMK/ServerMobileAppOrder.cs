@@ -7,6 +7,8 @@ using System.Text;
 
 namespace SZMK
 {
+    /*Данный класс описывает сервер для получения данных от клиентского мобильного приложения после сканирования чертежей, 
+     а также реализует проверки на уникальность полученных данных, замену одинаковопишущихся букв на английский алфавит, проверки на формат полученных данных*/
     public class ServerMobileAppOrder
     {
         SimpleTcpServer ServerTCP;
@@ -72,7 +74,7 @@ namespace SZMK
                                 else
                                 {
                                     _ScanSession.Add(new OrderScanSession(Temp, false));
-                                    throw new Exception($"Наименование марки «{ReplaceMark}» не допускается");
+                                    MessageBox.Show($"Наименование марки «{ReplaceMark}» не допускается", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                             else

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
+    /*Класс для работы с Excel файлами в нем реализуется создание актов по итогу сканирования, а также отчетов*/
     public class Excel
     {
         public Boolean CreateAndExportActs(List<OrderScanSession> ScanSession,Boolean Added)

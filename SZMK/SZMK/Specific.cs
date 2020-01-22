@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
+    /*Класс объект детали, хранящий информацию о детали с соответствующими полями*/
     public class Specific
     {
         private String _Number;
-        private Int64 _List;
+        private String _List;
         private Int64 _NumberSpecific;
         private Boolean _Finded;
-        public Specific(String Number, Int64 List, Int64 NumberSpecific, Boolean Finded)
+        public Specific(String Number, String List, Int64 NumberSpecific, Boolean Finded)
         {
             if (!String.IsNullOrEmpty(Number))
             {
@@ -22,7 +23,7 @@ namespace SZMK
             {
                 throw new Exception("Не задан номер заказа");
             }
-            if (List >= 0)
+            if (!String.IsNullOrEmpty(List))
             {
                 _List = List;
             }
@@ -48,13 +49,13 @@ namespace SZMK
             }
             set
             {
-                if (!String.IsNullOrEmpty(Number))
+                if (!String.IsNullOrEmpty(value))
                 {
                     _Number = value;
                 }
             }
         }
-        public Int64 List
+        public String List
         {
             get
             {
@@ -62,7 +63,7 @@ namespace SZMK
             }
             set
             {
-                if (value >= 0)
+                if (!String.IsNullOrEmpty(value))
                 {
                     _List = value;
                 }
@@ -79,20 +80,6 @@ namespace SZMK
                 if (value >= 0)
                 {
                     _NumberSpecific = value;
-                }
-            }
-        }
-        public String FindedView
-        {
-            get
-            {
-                if (_Finded)
-                {
-                    return "Найдено";
-                }
-                else
-                {
-                    return "Не найдено";
                 }
             }
         }

@@ -5,9 +5,11 @@ using OfficeOpenXml;
 using System.Xml.Linq;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SZMK
 {
+    /*Класс для определения выгрузки деталей с методом проверки а также структурой для хранения исполнителя деталей и все детали в ней*/
     public class UnLoadSpecific
     {
         public struct ExecutorMail
@@ -64,15 +66,23 @@ namespace SZMK
             {
                 String[] SplitDataMatrix = ScanSession[i].DataMatrix.Split('_');
                 String pathSpecific = SystemArgs.ClientProgram.ModelsPath;
+                String[] directories = Directory.GetDirectories(pathSpecific);
                 if (Directory.Exists(pathSpecific + "\\" + SplitDataMatrix[0]))
                 {
                     pathSpecific = pathSpecific + "\\" + SplitDataMatrix[0];
                 }
-                else if (Directory.Exists(pathSpecific + "\\" + SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('(')) + @"\" + SplitDataMatrix[0]))
+                else 
                 {
-                    pathSpecific = pathSpecific + "\\" + SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('(')) + @"\" + SplitDataMatrix[0];
+                    foreach (var directory in directories)
+                    {
+                        if (directory.IndexOf(SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('('))) != -1)
+                        {
+                            pathSpecific = directory + "\\" + SplitDataMatrix[0];
+                            break;
+                        }
+                    }
                 }
-                else
+                if(SystemArgs.ClientProgram.ModelsPath.Equals(pathSpecific))
                 {
                     throw new Exception("Папки с номером заказа " + SplitDataMatrix[0] + " не существует");
                 }
@@ -93,7 +103,7 @@ namespace SZMK
                     }
                     for (int j = 0; j < Temp.Count; j++)
                     {
-                        if (Temp[j]._List == SplitDataMatrix[1])
+                        if (Temp[j]._List.Equals(SplitDataMatrix[1]))
                         {
                             if (Temp[j]._Detail != null)
                             {
@@ -105,14 +115,14 @@ namespace SZMK
                                         {
                                             if (SplitDataMatrix[3].Equals(item.Executor))
                                             {
-                                                item._Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(Temp[j]._List), Convert.ToInt64(Temp[j]._Detail), true));
+                                                item._Specifics.Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), true));
                                             }
                                         }
                                     }
                                     else
                                     {
                                         ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
-                                        ExecutorMails[ExecutorMails.Count() - 1]._Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(Temp[j]._List),Convert.ToInt64(Temp[j]._Detail),true));
+                                        ExecutorMails[ExecutorMails.Count() - 1]._Specifics.Add(new Specific(SplitDataMatrix[0], Temp[j]._List,Convert.ToInt64(Temp[j]._Detail),true));
                                     }
                                 }
                                 else
@@ -123,14 +133,14 @@ namespace SZMK
                                         {
                                             if (SplitDataMatrix[3].Equals(item.Executor))
                                             {
-                                                item._Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(Temp[j]._List), Convert.ToInt64(Temp[j]._Detail), false));
+                                                item._Specifics.Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
                                             }
                                         }
                                     }
                                     else
                                     {
                                         ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
-                                        ExecutorMails[ExecutorMails.Count() - 1]._Specifics.Add(new Specific(SplitDataMatrix[0], Convert.ToInt64(Temp[j]._List), Convert.ToInt64(Temp[j]._Detail), false));
+                                        ExecutorMails[ExecutorMails.Count() - 1]._Specifics.Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
                                     }
                                 }
                             }

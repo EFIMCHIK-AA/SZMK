@@ -37,5 +37,10 @@ namespace SZMK
                 User_CB.DataSource = Users;
             }
         }
+
+        private void PDOSearchParam_F_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

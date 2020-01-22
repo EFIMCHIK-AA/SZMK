@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
+    /*Класс объект бланка заказа со всеми присущими ему полями*/
     public class BlankOrder
     {
         private Int64 _ID;

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
+    /*Данный класс описывает проверку всех шаблонных файлов на их наличие в нужной директории,
+     Проверка вызывается после создания объекта класса*/
     public class Template
     {
         public Template()
