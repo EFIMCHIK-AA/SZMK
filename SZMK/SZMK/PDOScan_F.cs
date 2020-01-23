@@ -38,6 +38,7 @@ namespace SZMK
         {
             Scan_DGV.Invoke((MethodInvoker)delegate ()
             {
+                SessionCount_TB.Text = ScanSessions.Count().ToString();
                 Scan_DGV.Rows.Add();
                 if (ScanSessions[ScanSessions.Count - 1].Added)
                 {

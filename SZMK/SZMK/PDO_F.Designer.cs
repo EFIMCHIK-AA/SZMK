@@ -43,6 +43,8 @@
             this.DeleteOrder_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ReportDate_TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.настройкиМобильногоПриложенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SettingMobile_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.AddOrder_TSB = new System.Windows.Forms.ToolStripButton();
             this.ChangeOrder_TSB = new System.Windows.Forms.ToolStripButton();
@@ -87,8 +89,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.BlankOrder_TB = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.SettingMobile_TSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.настройкиМобильногоПриложенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -154,6 +154,21 @@
             this.ReportDate_TSM.Size = new System.Drawing.Size(169, 22);
             this.ReportDate_TSM.Text = "По дате создания";
             this.ReportDate_TSM.Click += new System.EventHandler(this.ReportDate_TSM_Click);
+            // 
+            // настройкиМобильногоПриложенияToolStripMenuItem
+            // 
+            this.настройкиМобильногоПриложенияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SettingMobile_TSM});
+            this.настройкиМобильногоПриложенияToolStripMenuItem.Name = "настройкиМобильногоПриложенияToolStripMenuItem";
+            this.настройкиМобильногоПриложенияToolStripMenuItem.Size = new System.Drawing.Size(157, 20);
+            this.настройкиМобильногоПриложенияToolStripMenuItem.Text = "Мобильное приложение";
+            // 
+            // SettingMobile_TSM
+            // 
+            this.SettingMobile_TSM.Name = "SettingMobile_TSM";
+            this.SettingMobile_TSM.Size = new System.Drawing.Size(180, 22);
+            this.SettingMobile_TSM.Text = "Настройки";
+            this.SettingMobile_TSM.Click += new System.EventHandler(this.SettingMobile_TSM_Click);
             // 
             // toolStrip1
             // 
@@ -755,21 +770,6 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "Статус чертежа";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // SettingMobile_TSM
-            // 
-            this.SettingMobile_TSM.Name = "SettingMobile_TSM";
-            this.SettingMobile_TSM.Size = new System.Drawing.Size(180, 22);
-            this.SettingMobile_TSM.Text = "Настроки";
-            this.SettingMobile_TSM.Click += new System.EventHandler(this.SettingMobile_TSM_Click);
-            // 
-            // настройкиМобильногоПриложенияToolStripMenuItem
-            // 
-            this.настройкиМобильногоПриложенияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SettingMobile_TSM});
-            this.настройкиМобильногоПриложенияToolStripMenuItem.Name = "настройкиМобильногоПриложенияToolStripMenuItem";
-            this.настройкиМобильногоПриложенияToolStripMenuItem.Size = new System.Drawing.Size(157, 20);
-            this.настройкиМобильногоПриложенияToolStripMenuItem.Text = "Мобильное приложение";
             // 
             // PDO_F
             // 

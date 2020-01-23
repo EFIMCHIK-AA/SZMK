@@ -93,6 +93,7 @@ namespace SZMK
         {
             Scan_DGV.Invoke((MethodInvoker)delegate ()
             {
+                SessionCount_TB.Text = ScanSessions.Count().ToString();
                 LoadStatusOperation(ScanSessions[ScanSessions.Count - 1].DataMatrix);
                 Scan_DGV.Rows.Add();
                 Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = ScanSessions[ScanSessions.Count - 1].DataMatrix;

@@ -28,13 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.Status_TB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.ServerStatus_TB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,6 +42,9 @@
             this.Unique = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cancel_B = new System.Windows.Forms.Button();
             this.Add_B = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Status_TB = new System.Windows.Forms.TextBox();
+            this.SessionCount_TB = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Scan_DGV)).BeginInit();
             this.SuspendLayout();
@@ -64,27 +66,31 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.77551F));
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.Status_TB, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.label5, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.ServerStatus_TB, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.Scan_DGV, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.Cancel_B, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.Add_B, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.Status_TB, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.SessionCount_TB, 1, 6);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 25);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowCount = 10;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 536);
-            this.tableLayoutPanel1.TabIndex = 4;
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 579);
+            this.tableLayoutPanel1.TabIndex = 6;
             // 
             // label2
             // 
@@ -114,21 +120,6 @@
             this.label4.Text = "Позиции";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Status_TB
-            // 
-            this.Status_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.Status_TB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Status_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Status_TB.Location = new System.Drawing.Point(483, 250);
-            this.Status_TB.Margin = new System.Windows.Forms.Padding(3, 0, 5, 5);
-            this.Status_TB.Multiline = true;
-            this.Status_TB.Name = "Status_TB";
-            this.Status_TB.ReadOnly = true;
-            this.Status_TB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Status_TB.Size = new System.Drawing.Size(296, 281);
-            this.Status_TB.TabIndex = 13;
-            this.Status_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
@@ -140,7 +131,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(296, 35);
             this.label5.TabIndex = 20;
-            this.label5.Text = "Статус операции";
+            this.label5.Text = "Количество бланков";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ServerStatus_TB
@@ -188,18 +179,16 @@
             this.Scan_DGV.Name = "Scan_DGV";
             this.Scan_DGV.ReadOnly = true;
             this.Scan_DGV.RowHeadersVisible = false;
-            this.tableLayoutPanel1.SetRowSpan(this.Scan_DGV, 6);
-            this.Scan_DGV.Size = new System.Drawing.Size(472, 476);
+            this.tableLayoutPanel1.SetRowSpan(this.Scan_DGV, 8);
+            this.Scan_DGV.Size = new System.Drawing.Size(472, 518);
             this.Scan_DGV.TabIndex = 10;
-            this.Scan_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Scan_DGV_CellFormatting);
-            this.Scan_DGV.SelectionChanged += new System.EventHandler(this.Scan_DGV_SelectionChanged);
             // 
             // DataMatrixOrder
             // 
             this.DataMatrixOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.DataMatrixOrder.DataPropertyName = "DataMatrix";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DataMatrixOrder.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DataMatrixOrder.DefaultCellStyle = dataGridViewCellStyle1;
             this.DataMatrixOrder.FillWeight = 75F;
             this.DataMatrixOrder.HeaderText = "Данные чертежа";
             this.DataMatrixOrder.Name = "DataMatrixOrder";
@@ -210,8 +199,8 @@
             // 
             this.Unique.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Unique.DataPropertyName = "Unique";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Unique.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Unique.DefaultCellStyle = dataGridViewCellStyle2;
             this.Unique.FillWeight = 25F;
             this.Unique.HeaderText = "Найдено";
             this.Unique.Name = "Unique";
@@ -236,7 +225,6 @@
             this.Cancel_B.TabIndex = 15;
             this.Cancel_B.Text = "Отменить";
             this.Cancel_B.UseVisualStyleBackColor = false;
-            this.Cancel_B.Click += new System.EventHandler(this.Cancel_B_Click);
             // 
             // Add_B
             // 
@@ -255,21 +243,63 @@
             this.Add_B.TabIndex = 19;
             this.Add_B.Text = "Добавить";
             this.Add_B.UseVisualStyleBackColor = false;
-            this.Add_B.Click += new System.EventHandler(this.Add_B_Click);
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(483, 280);
+            this.label3.Margin = new System.Windows.Forms.Padding(3, 10, 5, 10);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(296, 35);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Статус операции";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Status_TB
+            // 
+            this.Status_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Status_TB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Status_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Status_TB.Location = new System.Drawing.Point(483, 325);
+            this.Status_TB.Margin = new System.Windows.Forms.Padding(3, 0, 5, 5);
+            this.Status_TB.Multiline = true;
+            this.Status_TB.Name = "Status_TB";
+            this.Status_TB.ReadOnly = true;
+            this.Status_TB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.Status_TB.Size = new System.Drawing.Size(296, 248);
+            this.Status_TB.TabIndex = 13;
+            this.Status_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // SessionCount_TB
+            // 
+            this.SessionCount_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.SessionCount_TB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SessionCount_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SessionCount_TB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SessionCount_TB.Location = new System.Drawing.Point(483, 250);
+            this.SessionCount_TB.Margin = new System.Windows.Forms.Padding(3, 0, 5, 0);
+            this.SessionCount_TB.Name = "SessionCount_TB";
+            this.SessionCount_TB.ReadOnly = true;
+            this.SessionCount_TB.Size = new System.Drawing.Size(296, 20);
+            this.SessionCount_TB.TabIndex = 24;
+            this.SessionCount_TB.Text = "0";
+            this.SessionCount_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // PDOScan_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(784, 604);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(800, 600);
+            this.MaximumSize = new System.Drawing.Size(800, 643);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(800, 600);
+            this.MinimumSize = new System.Drawing.Size(800, 643);
             this.Name = "PDOScan_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Сканирование бланка заказа";
@@ -288,14 +318,16 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        public System.Windows.Forms.TextBox Status_TB;
         private System.Windows.Forms.Label label5;
         public System.Windows.Forms.TextBox ServerStatus_TB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView Scan_DGV;
-        private System.Windows.Forms.Button Cancel_B;
-        private System.Windows.Forms.Button Add_B;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataMatrixOrder;
         private System.Windows.Forms.DataGridViewTextBoxColumn Unique;
+        private System.Windows.Forms.Button Cancel_B;
+        private System.Windows.Forms.Button Add_B;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.TextBox Status_TB;
+        public System.Windows.Forms.TextBox SessionCount_TB;
     }
 }
