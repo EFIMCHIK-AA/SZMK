@@ -81,7 +81,7 @@ namespace SZMK
             }
             catch
             {
-                return;
+
             }
          }
         private void ARDecode_F_Load(object sender, EventArgs e)

@@ -66,7 +66,7 @@ namespace SZMK
                             {
                                 int rowCntActUnique = wsUnique.Dimension.End.Row;
                                 wsUnique.Cells[rowCntActUnique + 1, 1].Value = SplitDataMatrix[0];
-                                wsUnique.Cells[rowCntActUnique + 1, 2].Value = Convert.ToInt64(SplitDataMatrix[1]);
+                                wsUnique.Cells[rowCntActUnique + 1, 2].Value = SplitDataMatrix[1];
                                 wsUnique.Cells[rowCntActUnique + 1, 3].Value = SplitDataMatrix[2];
                                 wsUnique.Cells[rowCntActUnique + 1, 4].Value = SplitDataMatrix[3];
                                 wsUnique.Cells[rowCntActUnique + 1, 5].Value = Convert.ToDouble(SplitDataMatrix[4]);
@@ -79,7 +79,7 @@ namespace SZMK
                             {
                                 int rowCntActNoUnique = wsNoUnique.Dimension.End.Row;
                                 wsNoUnique.Cells[rowCntActNoUnique + 1, 1].Value = SplitDataMatrix[0];
-                                wsNoUnique.Cells[rowCntActNoUnique + 1, 2].Value = Convert.ToInt64(SplitDataMatrix[1]);
+                                wsNoUnique.Cells[rowCntActNoUnique + 1, 2].Value = SplitDataMatrix[1];
                                 wsNoUnique.Cells[rowCntActNoUnique + 1, 3].Value = SplitDataMatrix[2];
                                 wsNoUnique.Cells[rowCntActNoUnique + 1, 4].Value = SplitDataMatrix[3];
                                 wsNoUnique.Cells[rowCntActNoUnique + 1, 5].Value = Convert.ToDouble(SplitDataMatrix[4]);
@@ -90,10 +90,10 @@ namespace SZMK
                             }
                         }
                         int lastline = wsUnique.Dimension.End.Row;
-                        wsUnique.Cells["A2:P" + lastline].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        wsUnique.Cells["A2:P" + lastline].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        wsUnique.Cells["A2:P" + lastline].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        wsUnique.Cells["A2:P" + lastline].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        wsUnique.Cells["A2:I" + lastline].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        wsUnique.Cells["A2:I" + lastline].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        wsUnique.Cells["A2:I" + lastline].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        wsUnique.Cells["A2:I" + lastline].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                         wsUnique.Cells[lastline + 2, 6].Value = "Принял";
                         wsUnique.Cells[lastline + 3, 6].Value = "Сдал";
                         wsUnique.Cells[lastline + 2, 8].Value = "______________";
@@ -102,10 +102,10 @@ namespace SZMK
                         wsUnique.Cells[lastline + 3, 9].Value = "/______________/";
                         wbUnique.Save();
                         lastline = wsNoUnique.Dimension.End.Row;
-                        wsNoUnique.Cells["A2:P" + lastline].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        wsNoUnique.Cells["A2:P" + lastline].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        wsNoUnique.Cells["A2:P" + lastline].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        wsNoUnique.Cells["A2:P" + lastline].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        wsNoUnique.Cells["A2:I" + lastline].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        wsNoUnique.Cells["A2:I" + lastline].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        wsNoUnique.Cells["A2:I" + lastline].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        wsNoUnique.Cells["A2:I" + lastline].Style.Border.Right.Style = ExcelBorderStyle.Thin;
                         wsNoUnique.Cells[lastline + 2, 6].Value = "Принял";
                         wsNoUnique.Cells[lastline + 3, 6].Value = "Сдал";
                         wsNoUnique.Cells[lastline + 2, 8].Value = "______________";
@@ -168,7 +168,7 @@ namespace SZMK
                             {
                                 WS.Cells[i + rowCntReport + 1, 2].Value = Report[i].BlankOrder.QR;
                             }
-                            WS.Cells[i + rowCntReport + 1, 3].Value = Report[i].List.ToString();
+                            WS.Cells[i + rowCntReport + 1, 3].Value = Report[i].List;
                             WS.Cells[i + rowCntReport + 1, 4].Value = Report[i].Mark;
                             WS.Cells[i + rowCntReport + 1, 5].Value = Report[i].Executor;
                             WS.Cells[i + rowCntReport + 1, 6].Value = Report[i].Lenght.ToString();

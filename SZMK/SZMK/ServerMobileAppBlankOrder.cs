@@ -61,7 +61,7 @@ namespace SZMK
         {
             try
             {
-                String Temp = e.MessageString.Replace(" ", "");
+                String Temp = e.MessageString.Replace("\u00a0", "").Replace(" ","");
                 String[] ValidationDataMatrix = Temp.Split('_');
                 if (CheckedUniqueList(Temp))
                 {
