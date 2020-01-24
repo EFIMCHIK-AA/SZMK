@@ -280,3 +280,4 @@ C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.AVTChangePassword_F.resource
 C:\Users\Unix\Desktop\SZMK\SZMK\SZMK\obj\Debug\SZMK.AVTAutorization_F.resources
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.AVTChangePassword_F.resources
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.AVTAutorization_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.ARNotDecode_F.resources

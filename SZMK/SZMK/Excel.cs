@@ -152,7 +152,7 @@ namespace SZMK
 
                     if (SaveReport.FileName.IndexOf(@":\") != -1)
                     {
-                        List<Order> Report = SystemArgs.Orders.Where(p => (p.DateCreate >= First) && (p.DateCreate <= Second)).ToList();
+                        List<Order> Report = SystemArgs.Orders.Where(p => (p.DateCreate >= First) && (p.DateCreate <= Second.AddSeconds(86399))).ToList();
                         for (Int32 i = 0; i < Report.Count; i++)
                         {
                             List<StatusOfUser> OrderStatuses = (from p in Statuses

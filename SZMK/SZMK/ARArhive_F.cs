@@ -54,7 +54,7 @@ namespace SZMK
         {
             if (AddOrder())
             {
-                Display(SystemArgs.Orders);
+                RefreshOrder();
             }
         }
 
@@ -62,7 +62,7 @@ namespace SZMK
         {
             if (ChangeOrder())
             {
-                Display(SystemArgs.Orders);
+                RefreshOrder();
             }
         }
 
@@ -70,7 +70,7 @@ namespace SZMK
         {
             if (DeleteOrder())
             {
-                Display(SystemArgs.Orders);
+                RefreshOrder();
             }
         }
 
@@ -78,7 +78,7 @@ namespace SZMK
         {
             if (AddOrder())
             {
-                Display(SystemArgs.Orders);
+                RefreshOrder();
             }
         }
 
@@ -86,7 +86,7 @@ namespace SZMK
         {
             if (ChangeOrder())
             {
-                Display(SystemArgs.Orders);
+                RefreshOrder();
             }
         }
 
@@ -94,7 +94,7 @@ namespace SZMK
         {
             if (DeleteOrder())
             {
-                Display(SystemArgs.Orders);
+                RefreshOrder();
             }
         }
 
@@ -120,7 +120,7 @@ namespace SZMK
         private void Reset_TSB_Click(object sender, EventArgs e)
         {
             ResetSearch();
-            Display(SystemArgs.Orders);
+            RefreshOrder();
         }
 
         private void AdvancedSearch_TSB_Click(object sender, EventArgs e)
@@ -425,7 +425,7 @@ namespace SZMK
         private void FilterCB_TSB_SelectedIndexChanged(object sender, EventArgs e)
         {
             ResetSearch();
-            Display(SystemArgs.Orders);
+            RefreshOrder();
         }
         private void ItemsFilter()
         {
@@ -527,8 +527,10 @@ namespace SZMK
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
                     Result = SystemArgs.Orders;
-
-                    Result = Result.Where(p => (p.DateCreate >= Dialog.First_DP.Value.Date) && (p.DateCreate <= Dialog.Second_DP.Value.Date)).ToList();
+                    if (Dialog.DateEnable_CB.Checked)
+                    {
+                        Result = Result.Where(p => (p.DateCreate >= Dialog.First_DP.Value.Date) && (p.DateCreate <= Dialog.Second_DP.Value.Date.AddSeconds(86399))).ToList();
+                    }
 
                     if (Dialog.Executor_TB.Text.Trim() != String.Empty)
                     {

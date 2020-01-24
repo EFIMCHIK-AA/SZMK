@@ -50,7 +50,7 @@ namespace SZMK
         {
             if (AddOrder())
             {
-                Display(SystemArgs.Orders);
+                RefreshOrder();
             }
         }
 
@@ -58,14 +58,14 @@ namespace SZMK
         {
             if (ChangeOrder())
             {
-                Display(SystemArgs.Orders);
+                RefreshOrder();
             }
         }
         private void DeleteOrder_TSB_Click(object sender, EventArgs e)
         {
             if (DeleteOrder())
             {
-                Display(SystemArgs.Orders);
+                RefreshOrder();
             }
         }
 
@@ -73,14 +73,14 @@ namespace SZMK
         {
             if (AddOrder())
             {
-                Display(SystemArgs.Orders);
+                RefreshOrder();
             }
         }
         private void ChangeOrder_TSM_Click(object sender, EventArgs e)
         {
             if (ChangeOrder())
             {
-                Display(SystemArgs.Orders);
+                RefreshOrder();
             }
         }
 
@@ -88,7 +88,7 @@ namespace SZMK
         {
             if (DeleteOrder())
             {
-                Display(SystemArgs.Orders);
+                RefreshOrder();
             }
         }
 
@@ -114,7 +114,7 @@ namespace SZMK
         private void Reset_TSB_Click(object sender, EventArgs e)
         {
             ResetSearch();
-            Display(SystemArgs.Orders);
+            RefreshOrder();
         }
 
         private void AdvancedSearch_TSB_Click(object sender, EventArgs e)
@@ -163,7 +163,7 @@ namespace SZMK
                                 Status TempStatus = (from p in SystemArgs.Statuses
                                                     where p.IDPosition==PositionID
                                                     select p).Single();
-                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4].Replace('.', ',')), Convert.ToDouble(SplitDataMatrix[5].Replace('.', ',')), TempStatus, SystemArgs.User, TempBlank);
+                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, SystemArgs.User, TempBlank);
                                 if (SystemArgs.Excel.AddToRegistry(TempOrder))
                                 {
                                     if (SystemArgs.Request.InsertOrder(TempOrder))
@@ -361,7 +361,7 @@ namespace SZMK
         private void FilterCB_TSB_SelectedIndexChanged(object sender, EventArgs e)
         {
             ResetSearch();
-            Display(SystemArgs.Orders);
+            RefreshOrder();
         }
         private void ItemsFilter()
         {
@@ -468,7 +468,10 @@ namespace SZMK
                 {
                     Result = SystemArgs.Orders;
 
-                    Result = Result.Where(p => (p.DateCreate >= Dialog.First_DP.Value.Date) && (p.DateCreate <= Dialog.Second_DP.Value.Date)).ToList();
+                    if (Dialog.DateEnable_CB.Checked)
+                    {
+                        Result = Result.Where(p => (p.DateCreate >= Dialog.First_DP.Value.Date) && (p.DateCreate <= Dialog.Second_DP.Value.Date.AddSeconds(86399))).ToList();
+                    }
 
                     if (Dialog.Executor_TB.Text.Trim() != String.Empty)
                     {

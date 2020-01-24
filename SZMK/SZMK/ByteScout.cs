@@ -256,6 +256,7 @@ namespace SZMK
             string path = @"TempFile\" + Index + ".jpg";
             CroppedImage = new Bitmap(CroppedImage, new Size(source.Width / 5, source.Height / 5));
             CroppedImage.Save(path);
+            source.Dispose();
             CroppedImage.Dispose();
             myImage.Dispose();
             return path;
@@ -269,6 +270,8 @@ namespace SZMK
             }
             else
             {
+                String[] Temp = DataMatrix.Split('_');
+                DataMatrix = Temp[0] + "_" + Temp[1] + "_" + Temp[2] + "_" + Temp[3] + "_" + Temp[4].Replace(".",",") + "_" + Temp[5].Replace(".", ",");
                 if (CheckedUniqueList(DataMatrix))
                 {
                     Int64 IDStatus = (from p in SystemArgs.Statuses

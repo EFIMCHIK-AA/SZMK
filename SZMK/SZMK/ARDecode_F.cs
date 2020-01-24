@@ -16,7 +16,8 @@ namespace SZMK
             InitializeComponent();
         }
         public List<String> FileNames;
-
+        private List<String> FailFileNames;
+        private int FailCount = 0;
         private void Change_B_Click(object sender, EventArgs e)
         {
             OpenFileDialog Opd = new OpenFileDialog
@@ -35,6 +36,8 @@ namespace SZMK
                 {
                     return;
                 }
+                FailCount = 0;
+                FailFileNames = new List<string>();
                 DecodeFilesAsync(Opd);
             }
         }
@@ -78,12 +81,25 @@ namespace SZMK
                 {
                     Add_B.Enabled = true;
                 });
+                if (FailCount > 0)
+                {
+                    ARNotDecode_F Dialog = new ARNotDecode_F();
+                    Dialog.DecodeFiles_TB.Text = (Opd.FileNames.Length - FailCount).ToString() + "/" + Opd.FileNames.Length.ToString();
+                    foreach (String item in FailFileNames)
+                    {
+                        Dialog.Report_DGV.Rows.Add();
+                        Dialog.Report_DGV[0, Dialog.Report_DGV.Rows.Count - 1].Value = item;
+                    }
+                    Dialog.ShowDialog();
+                }
+
             }
-            catch
+            catch (Exception e)
             {
+                SystemArgs.PrintLog(e.Message);
                 return;
             }
-         }
+        }
         private void ARDecode_F_Load(object sender, EventArgs e)
         {
             FileNames = new List<string>();
@@ -127,6 +143,8 @@ namespace SZMK
             Status_TB.Invoke((MethodInvoker)delegate ()
             {
                 Status_TB.AppendText($"Файл {SystemArgs.Path.GetFileName(Path)} неправильный формат DataMatrix" + Environment.NewLine);
+                FailFileNames.Add(SystemArgs.Path.GetFileName(Path));
+                FailCount++;
             });
         }
         private void LoadToDGVAndTB(List<OrderScanSession> DecodeSession)

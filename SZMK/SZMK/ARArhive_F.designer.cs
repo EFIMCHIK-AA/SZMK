@@ -166,7 +166,7 @@
             // SettingMobile_TSM
             // 
             this.SettingMobile_TSM.Name = "SettingMobile_TSM";
-            this.SettingMobile_TSM.Size = new System.Drawing.Size(180, 22);
+            this.SettingMobile_TSM.Size = new System.Drawing.Size(134, 22);
             this.SettingMobile_TSM.Text = "Настройки";
             this.SettingMobile_TSM.Click += new System.EventHandler(this.SettingMobile_TSM_Click);
             // 

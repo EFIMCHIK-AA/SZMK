@@ -37,5 +37,26 @@ namespace SZMK
                 User_CB.DataSource = Users;
             }
         }
+
+        private void OPPSearchParam_F_Load(object sender, EventArgs e)
+        {
+            First_DP.Enabled = false;
+            Second_DP.Enabled = false;
+        }
+        private void DateEnable_CB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (DateEnable_CB.Checked)
+            {
+                DateEnable_CB.Text = "Выключить";
+                First_DP.Enabled = true;
+                Second_DP.Enabled = true;
+            }
+            else
+            {
+                DateEnable_CB.Text = "Включить";
+                First_DP.Enabled = false;
+                Second_DP.Enabled = false;
+            }
+        }
     }
 }

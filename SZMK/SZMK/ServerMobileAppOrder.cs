@@ -60,7 +60,7 @@ namespace SZMK
                     {
                         ReplaceMark = ValidationDataMatrix[2].Replace(ExistingCharaterRussia[i], ExistingCharaterEnglish[i]);
                     }
-                    Temp = Temp.Replace(ValidationDataMatrix[2], ReplaceMark);
+                    Temp= ValidationDataMatrix[0] + "_" + ValidationDataMatrix[1] + "_" + ReplaceMark + "_" + ValidationDataMatrix[3] + "_" + ValidationDataMatrix[4].Replace(".", ",") + "_" + ValidationDataMatrix[5].Replace(".", ",");
                     if (SystemArgs.Request.CheckedNumberAndList(ValidationDataMatrix[0], ValidationDataMatrix[1]))
                     {
                         if (SystemArgs.Request.CheckedNumberAndMark(ValidationDataMatrix[0], ReplaceMark))

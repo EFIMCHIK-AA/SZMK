@@ -122,6 +122,12 @@
     <Compile Include="ARDecode_F.Designer.cs">
       <DependentUpon>ARDecode_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="ARNotDecode_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ARNotDecode_F.Designer.cs">
+      <DependentUpon>ARNotDecode_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="ARReportOrderOfDate_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -353,6 +359,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ARDecode_F.resx">
       <DependentUpon>ARDecode_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ARNotDecode_F.resx">
+      <DependentUpon>ARNotDecode_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ARReportOrderOfDate_F.resx">
       <DependentUpon>ARReportOrderOfDate_F.cs</DependentUpon>
