@@ -21,9 +21,10 @@ namespace SZMK
         private Status _Status;
         private User _User;
         private BlankOrder _BlankOrder;
+        private Boolean _Canceled;
 
 
-        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor, String List, String Mark, Double Lenght, Double Weight, Status Status,User User, BlankOrder BlankOrder)
+        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor, String List, String Mark, Double Lenght, Double Weight, Status Status,User User, BlankOrder BlankOrder, Boolean Cancelen)
         {
             if (ID >= 0)
             {
@@ -101,7 +102,8 @@ namespace SZMK
             {
                 throw new Exception("Значение веса меньше 0");
             }
-            if (Status!=null)
+
+            if (Status != null)
             {
                 _Status = Status;
             }
@@ -109,6 +111,7 @@ namespace SZMK
             {
                 throw new Exception("Пустое значение статуса");
             }
+
             if (User != null)
             {
                 _User = User;
@@ -117,7 +120,8 @@ namespace SZMK
             {
                 throw new Exception("Пустое значение бланка заказа");
             }
-            if (BlankOrder!=null)
+
+            if (BlankOrder != null)
             {
                 _BlankOrder = BlankOrder;
             }
@@ -125,9 +129,11 @@ namespace SZMK
             {
                 throw new Exception("Пустое значение бланка заказа");
             }
+
+            _Canceled = Cancelen;
         }
 
-        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя", "Нет листа", "Нет марки", -1, -1, null,null,null) { }
+        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя", "Нет листа", "Нет марки", -1, -1, null, null, null, false) { }
 
         public Int64 ID
         {
@@ -263,6 +269,7 @@ namespace SZMK
                 }
             }
         }
+
         public Status Status
         {
             get
@@ -277,6 +284,7 @@ namespace SZMK
                 }
             }
         }
+
         public String StatusView
         {
             get
@@ -284,6 +292,7 @@ namespace SZMK
                 return _Status.ToString();
             }
         }
+
         public String StatusDate
         {
             get
@@ -291,6 +300,7 @@ namespace SZMK
                 return SystemArgs.Request.GetStatusOfUserDate(_ID,_Status.ID).ToString();
             }
         }
+
         public User User
         {
             get
@@ -305,6 +315,7 @@ namespace SZMK
                 }
             }
         }
+
         public String BlankOrderView
         {
             get
@@ -319,6 +330,7 @@ namespace SZMK
                 }
             }
         }
+
         public BlankOrder BlankOrder
         {
             get
@@ -331,6 +343,18 @@ namespace SZMK
                 {
                     _BlankOrder = value;
                 }
+            }
+        }
+
+        public Boolean Canceled
+        {
+            get
+            {
+                return _Canceled;
+            }
+            set
+            {
+                _Canceled = value;
             }
         }
         public String SearchString() => $"{_DataMatrix}_{_Status.Name}_{_BlankOrder}_{_DateCreate.ToString()}_{_User.Name}_{_User.MiddleName}_{_User.Surname}_{SystemArgs.Request.GetStatusOfUserDate(_ID, _Status.ID).ToString()}";

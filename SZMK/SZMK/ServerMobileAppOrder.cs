@@ -49,22 +49,61 @@ namespace SZMK
                 {
                     String Temp = e.MessageString.Replace(" ", "");
                     String ReplaceMark = "";
+
                     String[] ValidationDataMatrix = Temp.Split('_');
                     String[] ExistingCharaterEnglish = new String[] { "A", "a", "B", "C", "c", "E", "e", "H", "K", "M", "O", "o", "P", "p", "T" };
                     String[] ExistingCharaterRussia = new String[] { "А", "а", "В", "С", "с", "Е", "е", "Н", "К", "М", "О", "о", "Р", "р", "Т" };
+
                     if (ValidationDataMatrix.Length != 6)
                     {
                         throw new Exception("В DataMatrix менее 6 полей");
                     }
+
                     for (int i = 0; i < ExistingCharaterRussia.Length; i++)
                     {
                         ReplaceMark = ValidationDataMatrix[2].Replace(ExistingCharaterRussia[i], ExistingCharaterEnglish[i]);
                     }
-                    Temp= ValidationDataMatrix[0] + "_" + ValidationDataMatrix[1] + "_" + ReplaceMark + "_" + ValidationDataMatrix[3] + "_" + ValidationDataMatrix[4].Replace(".", ",") + "_" + ValidationDataMatrix[5].Replace(".", ",");
-                    if (SystemArgs.Request.CheckedNumberAndList(ValidationDataMatrix[0], ValidationDataMatrix[1]))
+
+                    Temp = ValidationDataMatrix[0] + "_" + ValidationDataMatrix[1] + "_" + ReplaceMark + "_" + ValidationDataMatrix[3] + "_" + ValidationDataMatrix[4].Replace(".", ",") + "_" + ValidationDataMatrix[5].Replace(".", ",");
+
+                    Int32 IndexException = SystemArgs.Request.CheckedNumberAndList(ValidationDataMatrix[0], ValidationDataMatrix[1]);
+
+                    switch (IndexException)
                     {
-                        if (SystemArgs.Request.CheckedNumberAndMark(ValidationDataMatrix[0], ReplaceMark))
-                        {
+                        case -1:
+                            _ScanSession.Add(new OrderScanSession(Temp, false));
+                            MessageBox.Show($"В заказе {ValidationDataMatrix[0]}, номер листа {ValidationDataMatrix[1]} уже существует. Чертеж не добавлен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Load?.Invoke(_ScanSession);
+                            break;
+                        case 0:
+                            if (SystemArgs.Request.CheckedNumberAndMark(ValidationDataMatrix[0], ReplaceMark))
+                            {
+                                if (SystemArgs.ClientProgram.CheckMarks)
+                                {
+                                    if (CheckedLowerRegistery(ReplaceMark))
+                                    {
+                                        _ScanSession.Add(new OrderScanSession(Temp, true));
+                                    }
+                                    else
+                                    {
+                                        _ScanSession.Add(new OrderScanSession(Temp, false));
+                                        MessageBox.Show($"Наименование марки «{ReplaceMark}» не допускается", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                }
+                                else
+                                {
+                                    _ScanSession.Add(new OrderScanSession(Temp, true));
+                                }
+                            }
+                            else
+                            {
+                                _ScanSession.Add(new OrderScanSession(Temp, false));
+                                MessageBox.Show($"В заказе {ValidationDataMatrix[0]}, марка {ReplaceMark} уже существует. Чертеж не добавлен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            Load?.Invoke(_ScanSession);
+                            break;
+                        case 1:
                             if (SystemArgs.ClientProgram.CheckMarks)
                             {
                                 if (CheckedLowerRegistery(ReplaceMark))
@@ -81,19 +120,10 @@ namespace SZMK
                             {
                                 _ScanSession.Add(new OrderScanSession(Temp, true));
                             }
-                        }
-                        else
-                        {
-                            _ScanSession.Add(new OrderScanSession(Temp, false));
-                            MessageBox.Show($"В заказе {ValidationDataMatrix[0]}, марка {ReplaceMark} уже существует. Чертеж не добавлен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+
+                            Load?.Invoke(_ScanSession);
+                            break;
                     }
-                    else
-                    {
-                        _ScanSession.Add(new OrderScanSession(Temp, false));
-                        MessageBox.Show($"В заказе {ValidationDataMatrix[0]}, номер листа {ValidationDataMatrix[1]} уже существует. Чертеж не добавлен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    Load?.Invoke(_ScanSession);
                 }
                 catch (Exception E)
                 {

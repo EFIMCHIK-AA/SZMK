@@ -12,9 +12,11 @@ namespace SZMK
         private Int64 _ID;
         private Int64 _IDPosition;
         private String _Name;
+
         public Status(Int64 ID,Int64 IDPosition, String Name)
         {
-                _ID = ID;
+            _ID = ID;
+
             if (IDPosition >= 0)
             {
                 _IDPosition = IDPosition;
@@ -33,7 +35,9 @@ namespace SZMK
                 throw new Exception("Пустое значение наименования статуса");
             }
         }
-        public Status() : this(0,0,"Нет наименования статуса") { }
+
+        public Status() : this(0, 0, "Нет наименования статуса") { }
+
         public Int64 ID
         {
             get
@@ -45,6 +49,7 @@ namespace SZMK
                     _ID = value;
             }
         }
+
         public Int64 IDPosition
         {
             get
@@ -59,6 +64,7 @@ namespace SZMK
                 }
             }
         }
+
         public String Name
         {
             get

@@ -129,13 +129,17 @@ namespace SZMK
             try
             {
                 SystemArgs.ServerMobileAppOrder = new ServerMobileAppOrder();//Сервер мобильного приложения
+
                 Int64 IndexOrder = -1;
+
                 KBScan_F Dialog = new KBScan_F();
+
                 if (SystemArgs.ServerMobileAppOrder.Start())
                 {
                     Dialog.ServerStatus_TB.Text = "Запущен";
                     Dialog.ServerStatus_TB.BackColor = Color.FromArgb(233, 245, 255);
                     Dialog.Status_TB.AppendText($"Ожидание данных" + Environment.NewLine);
+
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         for(int i = 0; i < SystemArgs.ServerMobileAppOrder._ScanSession.Count; i++)
@@ -157,13 +161,35 @@ namespace SZMK
                                         }
                                     }
                                 }
+
                                 String[] SplitDataMatrix = SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix.Split('_');
+
+                                String[] ListCanceled = SplitDataMatrix[1].Split('и');
+
+                                if (ListCanceled.Length != 1)
+                                {
+                                   List<Order> CanceledOrders = SystemArgs.Orders.Where(p => p.List.IndexOf(ListCanceled[0])!=-1 && p.Number == SplitDataMatrix[0]).ToList();
+
+                                    if(CanceledOrders.Count() >= 1)
+                                    {
+                                        for (Int32 j = 0; j < CanceledOrders.Count; j++)
+                                        {
+                                            CanceledOrders[j].Canceled = true;
+                                            SystemArgs.Request.CanceledOrder(CanceledOrders[j]);
+                                        }
+                                    }
+                                }
+
                                 BlankOrder TempBlank = new BlankOrder();
+
                                 Int64 PositionID = SystemArgs.User.GetPosition().ID;
+
                                 Status TempStatus = (from p in SystemArgs.Statuses
-                                                    where p.IDPosition==PositionID
+                                                    where p.IDPosition == PositionID
                                                     select p).Single();
-                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, SystemArgs.User, TempBlank);
+
+                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, SystemArgs.User, TempBlank, false);
+
                                 if (SystemArgs.Excel.AddToRegistry(TempOrder))
                                 {
                                     if (SystemArgs.Request.InsertOrder(TempOrder))
@@ -220,7 +246,9 @@ namespace SZMK
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         String NewDataMatrix = Dialog.Number_TB.Text + "_" + Dialog.List_TB.Text + "_" + Dialog.Mark_TB.Text + "_" + Dialog.Executor_TB.Text + "_" + Dialog.Lenght_TB.Text + "_" + Dialog.Weight_TB.Text;
-                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), Temp.Status, Temp.User, Temp.BlankOrder);
+
+                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), Temp.Status, Temp.User, Temp.BlankOrder, Temp.Canceled);
+                        
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
                         {
                             SystemArgs.Orders.Remove(Temp);
@@ -289,33 +317,56 @@ namespace SZMK
         {
             try
             {
-                if (Filter())
+                if (FilterCB_TSB.SelectedIndex >= 0)
                 {
-                    View = new BindingListView<Order>(List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID).ToList());
-                    Order_DGV.DataSource = null;
-                    Order_DGV.DataSource = View;
-                    CountOrder_TB.Text = View.Count.ToString();
-                    if (View.Count > 0)
-                    {
-                        EnableButton(true);
-                    }
-                    else
-                    {
-                        EnableButton(false);
-                    }
-                    ForgetOrder();
-                }
-                else
-                {
-                    View = new BindingListView<Order>(List);
-                    Order_DGV.DataSource = null;
-                    Order_DGV.DataSource = View;
-                    CountOrder_TB.Text = View.Count.ToString();
-                    EnableButton(false);
+                    Int32 Index = FilterCB_TSB.SelectedIndex;
 
+                    switch (Index)
+                    {
+                        case 1:
+                            View = new BindingListView<Order>(List.Where(p => !p.Canceled).ToList());
+
+                            Order_DGV.DataSource = null;
+                            Order_DGV.DataSource = View;
+
+                            CountOrder_TB.Text = View.Count.ToString();
+
+                            EnableButton(false);
+                            break;
+                        case 2:
+                            View = new BindingListView<Order>(List.Where(p => p.Canceled).ToList());
+
+                            Order_DGV.DataSource = null;
+                            Order_DGV.DataSource = View;
+
+                            CountOrder_TB.Text = View.Count.ToString();
+
+                            EnableButton(false);
+
+                            break;
+                        default:
+                            View = new BindingListView<Order>(List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID && !p.Canceled).ToList());
+
+                            Order_DGV.DataSource = null;
+                            Order_DGV.DataSource = View;
+
+                            CountOrder_TB.Text = View.Count.ToString();
+
+                            if (View.Count > 0)
+                            {
+                                EnableButton(true);
+                            }
+                            else
+                            {
+                                EnableButton(false);
+                            }
+
+                            ForgetOrder();
+                            break;
+                    }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -367,19 +418,10 @@ namespace SZMK
         {
             FilterCB_TSB.Items.Add("Текущий статус");
             FilterCB_TSB.Items.Add("Все статусы");
+            FilterCB_TSB.Items.Add("Аннулированные");
             FilterCB_TSB.SelectedIndex = 0;
         }
-        private bool Filter()
-        {
-            if (FilterCB_TSB.SelectedIndex == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+
         private List<Order> ResultSearch(String TextSearch)
         {
             List<Order> Result = new List<Order>();

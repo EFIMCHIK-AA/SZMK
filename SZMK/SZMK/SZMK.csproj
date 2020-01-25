@@ -514,6 +514,7 @@
     <None Include="Resources\LOAD1.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Canceled.png" />
     <Content Include="Resources\icons8-создать-новый-40.png" />
     <None Include="Resources\icons8-создать-новый-401.png" />
   </ItemGroup>

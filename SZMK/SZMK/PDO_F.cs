@@ -245,7 +245,7 @@ namespace SZMK
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         String NewDataMatrix = Dialog.Number_TB.Text + "_" + Dialog.List_TB.Text + "_" + Dialog.Mark_TB.Text + "_" + Dialog.Executor_TB.Text + "_" + Dialog.Lenght_TB.Text + "_" + Dialog.Weight_TB.Text;
-                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), Temp.User, Temp.BlankOrder);
+                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), Temp.User, Temp.BlankOrder, Temp.Canceled);
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
                         {
                             if (Dialog.Status_CB.SelectedIndex != 0)
@@ -318,30 +318,53 @@ namespace SZMK
         {
             try
             {
-                if (Filter())
+                if (FilterCB_TSB.SelectedIndex >= 0)
                 {
-                    View = new BindingListView<Order>(List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID).ToList());
-                    Order_DGV.DataSource = null;
-                    Order_DGV.DataSource = View;
-                    CountOrder_TB.Text = View.Count.ToString();
-                    if (View.Count > 0)
-                    {
-                        EnableButton(true);
-                    }
-                    else
-                    {
-                        EnableButton(false);
-                    }
-                    ForgetOrder();
-                }
-                else
-                {
-                    View = new BindingListView<Order>(List);
-                    Order_DGV.DataSource = null;
-                    Order_DGV.DataSource = View;
-                    CountOrder_TB.Text = View.Count.ToString();
-                    EnableButton(false);
+                    Int32 Index = FilterCB_TSB.SelectedIndex;
 
+                    switch (Index)
+                    {
+                        case 1:
+                            View = new BindingListView<Order>(List.Where(p => !p.Canceled).ToList());
+
+                            Order_DGV.DataSource = null;
+                            Order_DGV.DataSource = View;
+
+                            CountOrder_TB.Text = View.Count.ToString();
+
+                            EnableButton(false);
+                            break;
+                        case 2:
+                            View = new BindingListView<Order>(List.Where(p => p.Canceled).ToList());
+
+                            Order_DGV.DataSource = null;
+                            Order_DGV.DataSource = View;
+
+                            CountOrder_TB.Text = View.Count.ToString();
+
+                            EnableButton(false);
+
+                            break;
+                        default:
+                            View = new BindingListView<Order>(List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID && !p.Canceled).ToList());
+
+                            Order_DGV.DataSource = null;
+                            Order_DGV.DataSource = View;
+
+                            CountOrder_TB.Text = View.Count.ToString();
+
+                            if (View.Count > 0)
+                            {
+                                EnableButton(true);
+                            }
+                            else
+                            {
+                                EnableButton(false);
+                            }
+
+                            ForgetOrder();
+                            break;
+                    }
                 }
             }
             catch (Exception e)
@@ -390,23 +413,15 @@ namespace SZMK
             ResetSearch();
             RefreshOrder();
         }
+
         private void ItemsFilter()
         {
             FilterCB_TSB.Items.Add("Текущий статус");
             FilterCB_TSB.Items.Add("Все статусы");
+            FilterCB_TSB.Items.Add("Аннулированные");
             FilterCB_TSB.SelectedIndex = 0;
         }
-        private bool Filter()
-        {
-            if (FilterCB_TSB.SelectedIndex == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+
         private List<Order> ResultSearch(String TextSearch)
         {
             List<Order> Result = new List<Order>();

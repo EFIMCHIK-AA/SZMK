@@ -27,8 +27,10 @@ namespace SZMK
                 Order_DGV.AutoGenerateColumns = false;
                 Order_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 Order_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
                 Load_F Dialog = new Load_F();
                 Dialog.Show();
+
                 SystemArgs.ByteScout = new ByteScout();
                 SystemArgs.ClientProgram = new ClientProgram();
                 SystemArgs.MobileApplication = new MobileApplication();
@@ -37,6 +39,7 @@ namespace SZMK
                 SystemArgs.Statuses = new List<Status>();
                 SystemArgs.Excel = new Excel();
                 SystemArgs.Template = new Template();
+
                 ItemsFilter();
                 RefreshOrder();
 
@@ -146,24 +149,30 @@ namespace SZMK
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         ARDecodeReport_F Report = new ARDecodeReport_F();
+
                         for (int i = 0; i < SystemArgs.ByteScout._DecodeSession.Count; i++)
                         {
                             if (SystemArgs.ByteScout._DecodeSession[i].Unique)
                             {
                                 Int64 PositionID = SystemArgs.User.GetPosition().ID;
+
                                 Status TempStatus = (from p in SystemArgs.Statuses
                                                      where p.IDPosition == PositionID
                                                      select p).Single();
+
                                 Order Temp = SystemArgs.Orders.Where(p => p.DataMatrix == SystemArgs.ByteScout._DecodeSession[i].DataMatrix).Single();
                                 Order NewOrder = Temp;
+
                                 NewOrder.Status = TempStatus;
                                 NewOrder.User = SystemArgs.User;
+
                                 if (SystemArgs.Excel.AddToRegistry(NewOrder))
                                 {
                                     if (SystemArgs.Request.InsertStatus(NewOrder))
                                     {
                                         SystemArgs.Orders.Remove(Temp);
                                         SystemArgs.Orders.Add(NewOrder);
+
                                         Report.Report_DGV.Rows.Add();
                                         Report.Report_DGV[0, Report.Report_DGV.Rows.Count - 1].Value = NewOrder.DataMatrix;
                                         Report.Report_DGV[1, Report.Report_DGV.Rows.Count - 1].Value = CopyFileToArhive(NewOrder.DataMatrix, Dialog.FileNames[i]);
@@ -179,6 +188,7 @@ namespace SZMK
                                 }
                             }
                         }
+
                         Report.ShowDialog();
                     }
 
@@ -282,7 +292,7 @@ namespace SZMK
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         String NewDataMatrix = Dialog.Number_TB.Text + "_" + Dialog.List_TB.Text + "_" + Dialog.Mark_TB.Text + "_" + Dialog.Executor_TB.Text + "_" + Dialog.Lenght_TB.Text + "_" + Dialog.Weight_TB.Text;
-                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), Temp.User, Temp.BlankOrder);
+                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), Temp.User, Temp.BlankOrder, Temp.Canceled);
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
                         {
                             if (Dialog.Status_CB.SelectedIndex != 0)
@@ -355,37 +365,61 @@ namespace SZMK
         {
             try
             {
-                if (Filter())
+                if (FilterCB_TSB.SelectedIndex >= 0)
                 {
-                    View = new BindingListView<Order>(List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID).ToList());
-                    Order_DGV.DataSource = null;
-                    Order_DGV.DataSource = View;
-                    CountOrder_TB.Text = View.Count.ToString();
-                    if (View.Count > 0)
-                    {
-                        EnableButton(true);
-                    }
-                    else
-                    {
-                        EnableButton(false);
-                    }
-                    ForgetOrder();
-                }
-                else
-                {
-                    View = new BindingListView<Order>(List);
-                    Order_DGV.DataSource = null;
-                    Order_DGV.DataSource = View;
-                    CountOrder_TB.Text = View.Count.ToString();
-                    EnableButton(false);
+                    Int32 Index = FilterCB_TSB.SelectedIndex;
 
-                }
+                    switch(Index)
+                    {
+                        case 1:
+                            View = new BindingListView<Order>(List.Where(p => !p.Canceled).ToList());
+
+                            Order_DGV.DataSource = null;
+                            Order_DGV.DataSource = View;
+
+                            CountOrder_TB.Text = View.Count.ToString();
+
+                            EnableButton(false);
+                            break;
+                        case 2:
+                            View = new BindingListView<Order>(List.Where(p => p.Canceled).ToList());
+
+                            Order_DGV.DataSource = null;
+                            Order_DGV.DataSource = View;
+
+                            CountOrder_TB.Text = View.Count.ToString();
+
+                            EnableButton(false);
+
+                            break;
+                        default:
+                            View = new BindingListView<Order>(List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID && !p.Canceled).ToList());
+
+                            Order_DGV.DataSource = null;
+                            Order_DGV.DataSource = View;
+
+                            CountOrder_TB.Text = View.Count.ToString();
+
+                            if (View.Count > 0)
+                            {
+                                EnableButton(true);
+                            }
+                            else
+                            {
+                                EnableButton(false);
+                            }
+
+                            ForgetOrder();
+                            break;         
+                    }
+                }      
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ForgetOrder()
         {
             for (int i = 0; i < Order_DGV.RowCount; i++)
@@ -400,6 +434,7 @@ namespace SZMK
                 }
             }
         }
+
         private void Order_DGV_SelectionChanged(object sender, EventArgs e)
         {
             if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex < View.Count())
@@ -413,37 +448,32 @@ namespace SZMK
                 Selection(null, false);
             }
         }
+
         private void ARArhive_F_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
+
         private void Order_DGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             e.CellStyle.SelectionBackColor = Color.FromArgb(112, 238, 226);
             e.CellStyle.SelectionForeColor = Color.Black;
         }
+
         private void FilterCB_TSB_SelectedIndexChanged(object sender, EventArgs e)
         {
             ResetSearch();
             RefreshOrder();
         }
+
         private void ItemsFilter()
         {
             FilterCB_TSB.Items.Add("Текущий статус");
             FilterCB_TSB.Items.Add("Все статусы");
+            FilterCB_TSB.Items.Add("Аннулированные");
             FilterCB_TSB.SelectedIndex = 0;
         }
-        private bool Filter()
-        {
-            if (FilterCB_TSB.SelectedIndex == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+
         private List<Order> ResultSearch(String TextSearch)
         {
             List<Order> Result = new List<Order>();
@@ -463,6 +493,7 @@ namespace SZMK
 
             return Result;
         }
+
         private bool Search()
         {
             try
@@ -495,6 +526,7 @@ namespace SZMK
                 return false;
             }
         }
+
         List<Order> Result;
 
         private void ResetSearch()
@@ -506,6 +538,7 @@ namespace SZMK
                 Result.Clear();
             }
         }
+
         private bool SearchParam()
         {
             try
@@ -668,6 +701,7 @@ namespace SZMK
                 SystemArgs.Request.GetAllOrders();
 
                 Display(SystemArgs.Orders);
+
                 return true;
             }
             catch
@@ -676,6 +710,7 @@ namespace SZMK
                 {
                     Display(Temp);
                 }
+
                 throw;
             }
         }
@@ -724,6 +759,35 @@ namespace SZMK
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
 
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CanceledOrder_TSB_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if(MessageBox.Show("Вы действительно хотите аннулировать чертеж?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                {
+                    if (Order_DGV.CurrentCell.RowIndex >= 0)
+                    {
+                        Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
+
+                        Temp.Canceled = true;
+
+                        if (SystemArgs.Request.CanceledOrder(Temp))
+                        {
+                            Display(SystemArgs.Orders);
+                        }
+                        else
+                        {
+                            throw new Exception("Произошла ошибка при аннулировании чертежа");
+                        }
+                    }
                 }
             }
             catch (Exception E)

@@ -830,6 +830,32 @@ namespace SZMK
                 return false;
             }
         }
+
+        public  bool CanceledOrder(Order Order)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"UPDATE public.\"Orders\" SET \"Canceled\" = {Order.Canceled}" +
+                                                           $" WHERE \"ID\" = {Order.ID};", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool GetAllBlankOrder()
         {
             try
@@ -869,8 +895,8 @@ namespace SZMK
                     Connect.Open();
 
                     using (var Command = new NpgsqlCommand($"INSERT INTO public.\"Orders\"(" +
-                                                            "\"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\")" +
-                                                            $"VALUES('{Order.DateCreate}', '{Order.DataMatrix}', '{Order.Executor}', '{Order.Number}', '{Order.List}', '{Order.Mark}', '{Order.Lenght}', '{Order.Weight}');", Connect))
+                                                            "\"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\" )" +
+                                                            $"VALUES('{Order.DateCreate}', '{Order.DataMatrix}', '{Order.Executor}', '{Order.Number}', '{Order.List}', '{Order.Mark}', '{Order.Lenght}', '{Order.Weight}', {Order.Canceled});", Connect))
                     {
                         Command.ExecuteNonQuery();
                     }
@@ -908,6 +934,7 @@ namespace SZMK
                 return false;
             }
         }
+
         public bool UpdateOrder(Order Order)
         {
             try
@@ -916,7 +943,7 @@ namespace SZMK
                 {
                     Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"UPDATE public.\"Orders\" SET \"DataMatrix\" = '{Order.DataMatrix}', \"Executor\" = '{Order.Executor}', \"Number\" = '{Order.Number}', \"List\" = '{Order.List}', \"Mark\" = '{Order.Mark}', \"Lenght\" = '{Order.Lenght}', \"Weight\" = '{Order.Weight}' WHERE \"ID\" = '{Order.ID}'; ", Connect))
+                    using (var Command = new NpgsqlCommand($"UPDATE public.\"Orders\" SET \"DataMatrix\" = '{Order.DataMatrix}', \"Executor\" = '{Order.Executor}', \"Number\" = '{Order.Number}', \"List\" = '{Order.List}', \"Mark\" = '{Order.Mark}', \"Lenght\" = '{Order.Lenght}', \"Weight\" = '{Order.Weight}', \"Canceled\" = '{Order.Canceled}' WHERE \"ID\" = '{Order.ID}'; ", Connect))
                     {
                         Command.ExecuteNonQuery();
                     }
@@ -931,6 +958,8 @@ namespace SZMK
                 return false;
             }
         }
+
+
         public bool GetAllOrders()
         {
             try
@@ -939,11 +968,13 @@ namespace SZMK
                 {
                     List<StatusOfUser> StatusOfUsers = new List<StatusOfUser>();
                     List<BlankOrderOfOrders> BlankOrderofOrders = new List<BlankOrderOfOrders>();
+
                     if (GetAllStatusOfUser(StatusOfUsers) && GetAllBlankOrderofOrders(BlankOrderofOrders))
                     {
                         Connect.Open();
 
-                        using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\" FROM public.\"Orders\";", Connect))
+                        using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\"" +
+                                                                $" FROM public.\"Orders\";", Connect))
                         {
                             using (var Reader = Command.ExecuteReader())
                             {
@@ -956,7 +987,9 @@ namespace SZMK
                                                                    select p).ToList();
                                     Int64 UserID = -1;
                                     Int64 MaxIDStatus = -1;
+
                                     Status TempStatus = new Status();
+
                                     foreach (Status item in SystemArgs.Statuses)
                                     {
                                         foreach (StatusOfUser StatusOfUser in StatusID)
@@ -969,10 +1002,13 @@ namespace SZMK
                                             }
                                         }
                                     }
+
                                     User TempUser = (from p in SystemArgs.Users
                                                      where p.ID == UserID
                                                      select p).Single();
+
                                     BlankOrder TempBlank = new BlankOrder();
+
                                     if (BlankOrderofOrders.Count > 0)
                                     {
                                         List<BlankOrderOfOrders> BlankOrderID = (from p in BlankOrderofOrders
@@ -992,7 +1028,8 @@ namespace SZMK
                                             }
                                         }
                                     }
-                                    SystemArgs.Orders.Add(new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(4), Reader.GetString(3), Reader.GetString(5), Reader.GetString(6), Convert.ToDouble(Reader.GetString(7)), Convert.ToDouble(Reader.GetString(8)), TempStatus, TempUser, TempBlank));
+
+                                    SystemArgs.Orders.Add(new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(4), Reader.GetString(3), Reader.GetString(5), Reader.GetString(6), Convert.ToDouble(Reader.GetString(7)), Convert.ToDouble(Reader.GetString(8)), TempStatus, TempUser, TempBlank, Reader.GetBoolean(9)));
                                 }
                             }
                         }
@@ -1042,11 +1079,11 @@ namespace SZMK
                 return false;
             }
         }
+
         public bool GetAllStatusOfUser(List<StatusOfUser> StatusOfUsers)
         {
             try
             {
-
                 using (var Connect = new NpgsqlConnection(_ConnectString))
                 {
                     Connect.Open();
@@ -1072,6 +1109,7 @@ namespace SZMK
                 return false;
             }
         }
+
         public DateTime GetStatusOfUserDate(Int64 IDOrder,Int64 IDStatus)
         {
             try
@@ -1102,6 +1140,7 @@ namespace SZMK
                 throw new Exception("Ошибка получения даты обновления статуса");
             }
         }
+
         public Int64 GetIDOrder(String DataMatrix)
         {
             Int64 ID = 0;
@@ -1131,6 +1170,7 @@ namespace SZMK
                 throw new Exception("Ошибка получения ID чертежа");
             }
         }
+
         public bool CheckedStatusOrderDB(Int64 IDStatus, String DataMatrix)
         {
             Int64 IDOrder = GetIDOrder(DataMatrix);
@@ -1207,6 +1247,7 @@ namespace SZMK
                 using (var Connect = new NpgsqlConnection(_ConnectString))
                 {
                     Connect.Open();
+
                     using (var Command = new NpgsqlCommand($"SELECT COUNT(\"Orders\".\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"Mark\"='{Mark}';", Connect))
                     {
                         using (var reader = Command.ExecuteReader())
@@ -1223,6 +1264,7 @@ namespace SZMK
 
                     Connect.Close();
                 }
+
                 return flag;
             }
             catch(Exception e)
@@ -1230,24 +1272,58 @@ namespace SZMK
                 throw new Exception(e.Message);
             }
         }
-        public bool CheckedNumberAndList(String Number, String List)
+
+        public Int32 CheckedNumberAndList(String Number, String List)
         {
-            Boolean flag = false;
             try
             {
+                Int32 flag = -1;
+
+                String[] Temp = List.Split('и');
+
                 using (var Connect = new NpgsqlConnection(_ConnectString))
                 {
                     Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"SELECT COUNT(\"Orders\".\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{List}';", Connect))
+                    if (Temp.Length == 1)
                     {
-                        using (var reader = Command.ExecuteReader())
+                        using (var Command = new NpgsqlCommand($"SELECT COUNT(\"Orders\".\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{List}';", Connect))
                         {
-                            while (reader.Read())
+                            using (var reader = Command.ExecuteReader())
                             {
-                                if (reader.GetInt64(0) == 0)
+                                while (reader.Read())
                                 {
-                                    flag = true;
+                                    if (reader.GetInt64(0) == 0)
+                                    {
+                                        flag = 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        using (var Command = new NpgsqlCommand($"SELECT COUNT(\"Orders\".\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{Temp[0]}';", Connect))
+                        {
+                            using (var reader = Command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    if (reader.GetInt64(0) == 0)
+                                    {
+                                        if (MessageBox.Show("Заменяемый чертеж отсутсвует. Добавить новый?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                                        {
+                                            flag = 1;
+                                        }
+                                        else
+                                        {
+                                            flag = 2;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        flag = 1;
+                                    }
                                 }
                             }
                         }
@@ -1255,6 +1331,7 @@ namespace SZMK
 
                     Connect.Close();
                 }
+
                 return flag;
             }
             catch(Exception e)
@@ -1262,6 +1339,9 @@ namespace SZMK
                 throw new Exception(e.Message);
             }
         }
+
+        
+
         public bool CheckedOrderAndStatus(String Number, String List)
         {
             Boolean flag = false;

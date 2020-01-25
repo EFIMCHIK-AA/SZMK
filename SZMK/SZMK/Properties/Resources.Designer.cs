@@ -63,6 +63,16 @@ namespace SZMK.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Canceled {
+            get {
+                object obj = ResourceManager.GetObject("Canceled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_добавить_свойство_40 {
             get {
                 object obj = ResourceManager.GetObject("icons8-добавить-свойство-40", resourceCulture);
