@@ -27,6 +27,7 @@ namespace SZMK
             SystemArgs.UnLoadSpecific = new UnLoadSpecific();
             SystemArgs.ServerMail = new ServerMail();
             SystemArgs.ServerMobileAppOrder.Load += LoadToDGV;
+            EnableButton(false);
         }
 
         private void CheckedUnloading_TSM_Click(object sender, EventArgs e)
@@ -79,7 +80,6 @@ namespace SZMK
         private void Cancel_B_Click(object sender, EventArgs e)
         {
             ClosedServer();
-
         }
         private void ClosedServer()
         {
@@ -117,12 +117,35 @@ namespace SZMK
         private void Scan_DGV_SelectionChanged(object sender, EventArgs e)
         {
             Scan_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            if (Scan_DGV.Rows.Count > 0)
+            {
+                EnableButton(true);
+            }
+            else
+            {
+                EnableButton(false);
+            }
         }
 
         private void Scan_DGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             e.CellStyle.SelectionBackColor = Color.FromArgb(112, 238, 226);
             e.CellStyle.SelectionForeColor = Color.Black;
+        }
+        private void EnableButton(Boolean flag)
+        {
+            if (flag)
+            {
+                Add_B.Enabled = true;
+                CreateAct_TSM.Enabled = true;
+                CheckedUnloading_TSM.Enabled = true;
+            }
+            else
+            {
+                Add_B.Enabled = false;
+                CreateAct_TSM.Enabled = false;
+                CheckedUnloading_TSM.Enabled = false;
+            }
         }
     }
 }

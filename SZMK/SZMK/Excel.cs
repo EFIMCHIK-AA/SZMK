@@ -144,8 +144,6 @@ namespace SZMK
 
                 try
                 {
-                    List<StatusOfUser> Statuses = new List<StatusOfUser>();
-                    SystemArgs.Request.GetAllStatusOfUser(Statuses);
                     ExcelPackage WB = new ExcelPackage(new System.IO.FileInfo(SaveReport.FileName));
                     ExcelWorksheet WS = WB.Workbook.Worksheets[1];
                     var rowCntReport = WS.Dimension.End.Row;
@@ -155,7 +153,7 @@ namespace SZMK
                         List<Order> Report = SystemArgs.Orders.Where(p => (p.DateCreate >= First) && (p.DateCreate <= Second.AddSeconds(86399))).ToList();
                         for (Int32 i = 0; i < Report.Count; i++)
                         {
-                            List<StatusOfUser> OrderStatuses = (from p in Statuses
+                            List<StatusOfOrder> OrderStatuses = (from p in SystemArgs.StatusOfOrders
                                                                 where p.IDOrder == Report[i].ID
                                                                 orderby p.IDStatus
                                                                 select p).ToList();

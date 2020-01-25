@@ -30,7 +30,7 @@ namespace SZMK
             ServerTCP.Delimiter = 0x13;
             ServerTCP.DataReceived += Server_DataReceived;
             ServerTCP.StringEncoder = Encoding.UTF8;
-            IPAddress ip = IPAddress.Parse(Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString());
+            IPAddress ip = IPAddress.Parse(Dns.GetHostAddresses(Dns.GetHostName())[0].ToString());
             ServerTCP.Start(ip, Convert.ToInt32(SystemArgs.MobileApplication.Port));
             if (ServerTCP.IsStarted)
             {
@@ -66,17 +66,12 @@ namespace SZMK
 
                     Temp = ValidationDataMatrix[0] + "_" + ValidationDataMatrix[1] + "_" + ReplaceMark + "_" + ValidationDataMatrix[3] + "_" + ValidationDataMatrix[4].Replace(".", ",") + "_" + ValidationDataMatrix[5].Replace(".", ",");
 
-                    Int32 IndexException = SystemArgs.Request.CheckedNumberAndList(ValidationDataMatrix[0], ValidationDataMatrix[1]);
+                    Int32 IndexException = SystemArgs.RequestLinq.CheckedNumberAndList(ValidationDataMatrix[0], ValidationDataMatrix[1]);
 
                     switch (IndexException)
                     {
-                        case -1:
-                            _ScanSession.Add(new OrderScanSession(Temp, false));
-                            MessageBox.Show($"В заказе {ValidationDataMatrix[0]}, номер листа {ValidationDataMatrix[1]} уже существует. Чертеж не добавлен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            Load?.Invoke(_ScanSession);
-                            break;
                         case 0:
-                            if (SystemArgs.Request.CheckedNumberAndMark(ValidationDataMatrix[0], ReplaceMark))
+                            if (SystemArgs.RequestLinq.CheckedNumberAndMark(ValidationDataMatrix[0], ReplaceMark))
                             {
                                 if (SystemArgs.ClientProgram.CheckMarks)
                                 {
@@ -104,6 +99,11 @@ namespace SZMK
                             Load?.Invoke(_ScanSession);
                             break;
                         case 1:
+                            _ScanSession.Add(new OrderScanSession(Temp, false));
+                            MessageBox.Show($"В заказе {ValidationDataMatrix[0]}, номер листа {ValidationDataMatrix[1]} уже существует. Чертеж не добавлен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Load?.Invoke(_ScanSession);
+                            break;
+                        case 2:
                             if (SystemArgs.ClientProgram.CheckMarks)
                             {
                                 if (CheckedLowerRegistery(ReplaceMark))
@@ -122,6 +122,8 @@ namespace SZMK
                             }
 
                             Load?.Invoke(_ScanSession);
+                            break;
+                        default:
                             break;
                     }
                 }

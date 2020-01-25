@@ -6,6 +6,7 @@ using System.Data;
 using System.IO;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SZMK
 {
@@ -43,8 +44,7 @@ namespace SZMK
         }
         private async void DecodeFilesAsync(OpenFileDialog Opd)
         {
-            Add_B.Enabled = false;
-            Change_B.Enabled = false;
+            EnableButton(false);
             await Task.Run(() => DecodeFiles(Opd));
         }
         private void DecodeFiles(OpenFileDialog Opd)
@@ -75,11 +75,7 @@ namespace SZMK
                 });
                 Change_B.Invoke((MethodInvoker)delegate ()
                 {
-                    Change_B.Enabled = true;
-                });
-                Add_B.Invoke((MethodInvoker)delegate ()
-                {
-                    Add_B.Enabled = true;
+                    EnableButton(true);
                 });
                 if (FailCount > 0)
                 {
@@ -92,11 +88,22 @@ namespace SZMK
                     }
                     Dialog.ShowDialog();
                 }
-
+                if (SystemArgs.ByteScout._DecodeSession.Where(p => p.Unique).Count() == 0)
+                {
+                    Add_B.Invoke((MethodInvoker)delegate ()
+                    {
+                        Add_B.Enabled = false;
+                    });
+                }
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 SystemArgs.PrintLog(e.Message);
+                MessageBox.Show(e.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Add_B.Invoke((MethodInvoker)delegate ()
+                {
+                    Add_B.Enabled = true;
+                });
                 return;
             }
         }
@@ -107,6 +114,8 @@ namespace SZMK
             Scan_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             SystemArgs.ByteScout.Load += LoadToDGVAndTB;
             SystemArgs.ByteScout.Fail += StatusFailText;
+            EnableButton(false);
+            Change_B.Enabled = true;
         }
 
         private void Scan_DGV_SelectionChanged(object sender, EventArgs e)
@@ -190,6 +199,21 @@ namespace SZMK
         {
             SystemArgs.ByteScout.Load -= LoadToDGVAndTB;
             SystemArgs.ByteScout.Fail -= StatusFailText;
+        }
+        private void EnableButton(Boolean flag)
+        {
+            if (flag)
+            {
+                Add_B.Enabled = true;
+                Change_B.Enabled = true;
+                CreateAct_TSM.Enabled = true;
+            }
+            else
+            {
+                Add_B.Enabled = false;
+                Change_B.Enabled = false;
+                CreateAct_TSM.Enabled = false;
+            }
         }
     }
 }

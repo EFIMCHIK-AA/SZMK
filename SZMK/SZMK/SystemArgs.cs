@@ -14,6 +14,7 @@ namespace SZMK
         static public ClientProgram ClientProgram; // Конфигурация клиентского программного обеспечения
         static public ByteScout ByteScout; // Конфигурация программы распознавания
         static public Request Request; //Слой запросов к базе данных
+        static public RequestLinq RequestLinq; //Слой запросов Linq к полученным из БД данным
         static public DataBase DataBase; //Конфигурация базы данных
         static public Template Template;//Проверка шаблонов
         static public ServerMail ServerMail; //Конфигурация почтового сервера
@@ -21,6 +22,8 @@ namespace SZMK
         static public List<Position> Positions; //Общий список должностей
         static public List<User> Users; //общий список пользователей в системе
         static public List<Order> Orders; // Общий список заказов
+        static public List<BlankOrderOfOrder> BlankOrderOfOrders; //Общий список всех присвоенных бланков заказов к чертежам
+        static public List<StatusOfOrder> StatusOfOrders; //Общий список всех присвоенных статусов к чертежам
         static public ServerMobileAppOrder ServerMobileAppOrder; //Сервер для получения данных с мобильного ПО чертежей
         static public ServerMobileAppBlankOrder ServerMobileAppBlankOrder; //Сервер для получения данных с мобильного ПО бланков заказов
         static public Excel Excel;//Формирование Актов при добавлении чертежей

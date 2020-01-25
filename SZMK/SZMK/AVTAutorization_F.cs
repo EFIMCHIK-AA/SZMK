@@ -174,6 +174,7 @@ namespace SZMK
                 SystemArgs.Path = new Path(); //Системные пути
                 SystemArgs.DataBase = new DataBase(); //Конфигурация базы данных
                 SystemArgs.Request = new Request(); //Слой запросов к базе данных
+                SystemArgs.RequestLinq = new RequestLinq(); //Слой запросов linq к полученным данным из БД
 
                 if (SystemArgs.DataBase.CheckConnect(SystemArgs.DataBase.ToString()))
                 {

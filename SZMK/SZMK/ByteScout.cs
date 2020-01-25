@@ -274,10 +274,7 @@ namespace SZMK
                 DataMatrix = Temp[0] + "_" + Temp[1] + "_" + Temp[2] + "_" + Temp[3] + "_" + Temp[4].Replace(".",",") + "_" + Temp[5].Replace(".", ",");
                 if (CheckedUniqueList(DataMatrix))
                 {
-                    Int64 IDStatus = (from p in SystemArgs.Statuses
-                                      where p.IDPosition == SystemArgs.User.GetPosition().ID
-                                      select p.ID).Single();
-                    if (SystemArgs.Request.CheckedStatusOrderDB(IDStatus,DataMatrix))
+                    if (SystemArgs.RequestLinq.CheckedStatusOrderDB(SystemArgs.User.IDStatus,DataMatrix))
                     {
                         _DecodeSession.Add(new OrderScanSession(DataMatrix, true));
                     }

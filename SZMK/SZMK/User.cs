@@ -277,7 +277,13 @@ namespace SZMK
                 return _Mails;
             }
         }
-
+        public Int64 IDStatus
+        {
+            get
+            {
+                return SystemArgs.Statuses.Where(p => p.IDPosition == _Position.ID).Select(p => p.ID).Single();
+            }
+        }
         public override String ToString()
         {
             return _Login;

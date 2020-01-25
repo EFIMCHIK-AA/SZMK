@@ -140,7 +140,7 @@
     <Compile Include="ARSearchParam_F.Designer.cs">
       <DependentUpon>ARSearchParam_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="BlankOrderOfOrders.cs" />
+    <Compile Include="BlankOrderOfOrder.cs" />
     <Compile Include="BlankOrderScanSession.cs" />
     <Compile Include="ByteScout.cs" />
     <Compile Include="AVTChangePassword_F.cs">
@@ -256,6 +256,7 @@
     <Compile Include="KBSearchParam_F.Designer.cs">
       <DependentUpon>KBSearchParam_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="RequestLinq.cs" />
     <Compile Include="ServerMobileAppBlankOrder.cs" />
     <Compile Include="Specific.cs" />
     <Compile Include="Status.cs" />
@@ -340,7 +341,7 @@
     <Compile Include="ADSettingsProgram_F.Designer.cs">
       <DependentUpon>ADSettingsProgram_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatusOfUser.cs" />
+    <Compile Include="StatusOfOrder.cs" />
     <Compile Include="SystemArgs.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="UnLoadSpecific.cs" />

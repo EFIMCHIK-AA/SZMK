@@ -297,7 +297,7 @@ namespace SZMK
         {
             get
             {
-                return SystemArgs.Request.GetStatusOfUserDate(_ID,_Status.ID).ToString();
+                return SystemArgs.StatusOfOrders.Where(p => p.IDOrder == _ID && p.IDStatus == _Status.ID).Select(p => p.DateCreate).ToString();
             }
         }
 
@@ -357,6 +357,6 @@ namespace SZMK
                 _Canceled = value;
             }
         }
-        public String SearchString() => $"{_DataMatrix}_{_Status.Name}_{_BlankOrder}_{_DateCreate.ToString()}_{_User.Name}_{_User.MiddleName}_{_User.Surname}_{SystemArgs.Request.GetStatusOfUserDate(_ID, _Status.ID).ToString()}";
+        public String SearchString() => $"{_DataMatrix}_{_Status.Name}_{_BlankOrder}_{_DateCreate.ToString()}_{_User.Name}_{_User.MiddleName}_{_User.Surname}_{SystemArgs.StatusOfOrders.Where(p => p.IDOrder == _ID && p.IDStatus == _Status.ID).Select(p => p.DateCreate).ToString()}";
     }
 }

@@ -584,7 +584,7 @@ namespace SZMK
 
                 if (SystemArgs.MobileApplication.GetParametersConnect())
                 {
-                    String MyIP = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
+                    String MyIP = Dns.GetHostAddresses(Dns.GetHostName())[0].ToString();
 
                     Dialog.IP_TB.Text = MyIP;
                     Dialog.Port_TB.Text = SystemArgs.MobileApplication.Port;

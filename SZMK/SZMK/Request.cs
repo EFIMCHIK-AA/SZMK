@@ -585,147 +585,7 @@ namespace SZMK
                 return false;
             }
         }
-        Int64 IndexBlankOrder = -1;
-        public bool CompareBlankOrder(List<Order> Orders, String QR)
-        {
-            try
-            {
-                if (SelectBlankOrder(QR))
-                {
-                    if (InsertBlankOrderOfOrders(Orders))
-                    {
-                        return true;
-                    }
-                }
-                else if (GetOldIDBlankOrder(Orders))
-                {
-                    if (UpdateBlankOrder(QR))
-                    {
-                        if (InsertBlankOrderOfOrders(Orders))
-                        {
-                            return true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (InsertBlankOrder(QR))
-                    {
-                        if (SelectBlankOrder(QR))
-                        {
-                            if (InsertBlankOrderOfOrders(Orders))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                return false;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        private bool SelectOrderInBlankOrder(Int64 IDOrder)
-        {
-            Boolean flag = false;
-            try
-            {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
-
-                    using (var Command = new NpgsqlCommand($"SELECT COUNT(\"AddBlank\".\"ID_Order\") AS \"Count\" FROM \"AddBlank\" WHERE \"ID_Order\"='{IDOrder}';", Connect))
-                    {
-                        using (var reader = Command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                if (reader.GetInt64(0) == 1)
-                                {
-                                    flag = true;
-                                }
-                            }
-                        }
-                    }
-
-                    Connect.Close();
-                }
-                return flag;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-        private bool SelectBlankOrder(String QR)
-        {
-            Boolean flag = false;
-            try
-            {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
-
-                    using (var Command = new NpgsqlCommand($"SELECT \"ID\" FROM public.\"BlankOrder\" WHERE \"BlankOrder\".\"QR\"='{QR}';", Connect))
-                    {
-                        using (var reader = Command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                IndexBlankOrder = reader.GetInt64(0);
-                                flag = true;
-                            }
-                        }
-                    }
-
-                    Connect.Close();
-                }
-                return flag;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-        public bool FindedOrdersInAddBlankOrder(String QR, String Number, String List)
-        {
-            Int64 ID = SystemArgs.Orders.Where(p => p.Number == Number && p.List==List).Single().ID;
-            Boolean flag = false;
-            try
-            {
-                if (SelectBlankOrder(QR))
-                {
-                    using (var Connect = new NpgsqlConnection(_ConnectString))
-                    {
-                        Connect.Open();
-
-                        using (var Command = new NpgsqlCommand($"SELECT COUNT(\"ID_BlankOrder\") FROM public.\"AddBlank\" WHERE \"ID_BlankOrder\"='{IndexBlankOrder}' AND \"ID_Order\"='{ID}';", Connect))
-                        {
-                            using (var reader = Command.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    if (reader.GetInt64(0) == 1)
-                                    {
-                                        flag = true;
-                                    }
-                                }
-                            }
-                        }
-
-                        Connect.Close();
-                    }
-                }
-                return flag;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-        private bool InsertBlankOrder(String QR)
+        public bool InsertBlankOrder(String QR)
         {
             try
             {
@@ -747,7 +607,7 @@ namespace SZMK
                 return false;
             }
         }
-        private bool InsertBlankOrderOfOrders(List<Order> Orders)
+        public bool InsertBlankOrderOfOrders(List<Order> Orders,String QR)
         {
             try
             {
@@ -756,9 +616,9 @@ namespace SZMK
                     Connect.Open();
                     foreach (Order order in Orders)
                     {
-                        if (!SelectOrderInBlankOrder(order.ID))
+                        if (!SystemArgs.RequestLinq.SelectOrderInBlankOrder(order.ID))
                         {
-                            using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddBlank\"(\"DateCreate\", \"ID_BlankOrder\", \"ID_Order\") VALUES('{DateTime.Now}', '{IndexBlankOrder}', '{order.ID}')", Connect))
+                            using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddBlank\"(\"DateCreate\", \"ID_BlankOrder\", \"ID_Order\") VALUES('{DateTime.Now}', '{SystemArgs.RequestLinq.GetIDBlankOrder(QR)}', '{order.ID}')", Connect))
                             {
                                 Command.ExecuteNonQuery();
                             }
@@ -775,39 +635,7 @@ namespace SZMK
                 return false;
             }
         }
-        private bool GetOldIDBlankOrder(List<Order> Orders)
-        {
-            Boolean flag = false;
-            try
-            {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
-                    foreach (Order order in Orders)
-                    {
-                        using (var Command = new NpgsqlCommand($"SELECT \"ID_BlankOrder\"FROM public.\"AddBlank\" WHERE \"AddBlank\".\"ID_Order\"='{order.ID}';", Connect))
-                        {
-                            using (var reader = Command.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    IndexBlankOrder = reader.GetInt64(0);
-                                    flag = true;
-                                }
-                            }
-                        }
-                    }
-
-                    Connect.Close();
-                }
-                return flag;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-        private bool UpdateBlankOrder(String QR)
+        public bool UpdateBlankOrder(String QR)
         {
             try
             {
@@ -815,7 +643,7 @@ namespace SZMK
                 {
                     Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"UPDATE public.\"BlankOrder\" SET \"QR\" = '{QR}' WHERE \"BlankOrder\".\"ID\" = '{IndexBlankOrder}'; ", Connect))
+                    using (var Command = new NpgsqlCommand($"UPDATE public.\"BlankOrder\" SET \"QR\" = '{QR}' WHERE \"BlankOrder\".\"ID\" = '{SystemArgs.RequestLinq.GetIDBlankOrder(QR)}'; ", Connect))
                     {
                         Command.ExecuteNonQuery();
                     }
@@ -966,10 +794,7 @@ namespace SZMK
             {
                 using (var Connect = new NpgsqlConnection(_ConnectString))
                 {
-                    List<StatusOfUser> StatusOfUsers = new List<StatusOfUser>();
-                    List<BlankOrderOfOrders> BlankOrderofOrders = new List<BlankOrderOfOrders>();
-
-                    if (GetAllStatusOfUser(StatusOfUsers) && GetAllBlankOrderofOrders(BlankOrderofOrders))
+                    if (GetAllStatusOfUser() && GetAllBlankOrderofOrders())
                     {
                         Connect.Open();
 
@@ -982,8 +807,8 @@ namespace SZMK
                                 {
                                     Int64 ID = Reader.GetInt64(0);
 
-                                    List<StatusOfUser> StatusID = (from p in StatusOfUsers
-                                                                   where p.IDOrder == ID
+                                    List<StatusOfOrder> StatusID = (from p in SystemArgs.StatusOfOrders
+                                                                    where p.IDOrder == ID
                                                                    select p).ToList();
                                     Int64 UserID = -1;
                                     Int64 MaxIDStatus = -1;
@@ -992,7 +817,7 @@ namespace SZMK
 
                                     foreach (Status item in SystemArgs.Statuses)
                                     {
-                                        foreach (StatusOfUser StatusOfUser in StatusID)
+                                        foreach (StatusOfOrder StatusOfUser in StatusID)
                                         {
                                             if (item.ID == StatusOfUser.IDStatus && StatusOfUser.IDStatus > MaxIDStatus)
                                             {
@@ -1009,14 +834,14 @@ namespace SZMK
 
                                     BlankOrder TempBlank = new BlankOrder();
 
-                                    if (BlankOrderofOrders.Count > 0)
+                                    if (SystemArgs.BlankOrderOfOrders.Count > 0)
                                     {
-                                        List<BlankOrderOfOrders> BlankOrderID = (from p in BlankOrderofOrders
-                                                                                 where p.IDOrder == ID
+                                        List<BlankOrderOfOrder> BlankOrderID = (from p in SystemArgs.BlankOrderOfOrders
+                                                                                where p.IDOrder == ID
                                                                                  select p).ToList();
                                         if (BlankOrderID.Count() > 0)
                                         {
-                                            foreach (BlankOrderOfOrders ID_Blank in BlankOrderID)
+                                            foreach (BlankOrderOfOrder ID_Blank in BlankOrderID)
                                             {
                                                 foreach (BlankOrder item in SystemArgs.BlankOrders)
                                                 {
@@ -1049,7 +874,7 @@ namespace SZMK
                 return false;
             }
         }
-        private bool GetAllBlankOrderofOrders(List<BlankOrderOfOrders> BlankOrderofOrders)
+        private bool GetAllBlankOrderofOrders()
         {
             try
             {
@@ -1064,7 +889,7 @@ namespace SZMK
                         {
                             while (Reader.Read())
                             {
-                                BlankOrderofOrders.Add(new BlankOrderOfOrders(Reader.GetDateTime(0), Reader.GetInt64(1), Reader.GetInt64(2)));
+                                SystemArgs.BlankOrderOfOrders.Add(new BlankOrderOfOrder(Reader.GetDateTime(0), Reader.GetInt64(1), Reader.GetInt64(2)));
                             }
                         }
                     }
@@ -1080,7 +905,7 @@ namespace SZMK
             }
         }
 
-        public bool GetAllStatusOfUser(List<StatusOfUser> StatusOfUsers)
+        public bool GetAllStatusOfUser()
         {
             try
             {
@@ -1094,7 +919,7 @@ namespace SZMK
                         {
                             while (Reader.Read())
                             {
-                                StatusOfUsers.Add(new StatusOfUser(Reader.GetDateTime(0), Reader.GetInt64(1), Reader.GetInt64(2), Reader.GetInt64(3)));
+                                SystemArgs.StatusOfOrders.Add(new StatusOfOrder(Reader.GetDateTime(0), Reader.GetInt64(1), Reader.GetInt64(2), Reader.GetInt64(3)));
                             }
                         }
                     }
@@ -1103,321 +928,6 @@ namespace SZMK
                 }
 
                 return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public DateTime GetStatusOfUserDate(Int64 IDOrder,Int64 IDStatus)
-        {
-            try
-            {
-                DateTime Temp = DateTime.Now;
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
-
-                    using (var Command = new NpgsqlCommand($"SELECT \"DateCreate\"FROM public.\"AddStatus\" WHERE \"ID_Order\"='{IDOrder}' AND \"ID_Status\"='{IDStatus}';", Connect))
-                    {
-                        using (var Reader = Command.ExecuteReader())
-                        {
-                            while (Reader.Read())
-                            {
-                                Temp = Reader.GetDateTime(0);
-                            }
-                        }
-                    }
-
-                    Connect.Close();
-                }
-
-                return Temp;
-            }
-            catch
-            {
-                throw new Exception("Ошибка получения даты обновления статуса");
-            }
-        }
-
-        public Int64 GetIDOrder(String DataMatrix)
-        {
-            Int64 ID = 0;
-            try
-            {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
-
-                    using (var Command = new NpgsqlCommand($"SELECT \"ID\" FROM public.\"Orders\" WHERE \"DataMatrix\"='{DataMatrix}';", Connect))
-                    {
-                        using (var reader = Command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                ID = reader.GetInt64(0);
-                            }
-                        }
-                    }
-
-                    Connect.Close();
-                }
-                return ID;
-            }
-            catch
-            {
-                throw new Exception("Ошибка получения ID чертежа");
-            }
-        }
-
-        public bool CheckedStatusOrderDB(Int64 IDStatus, String DataMatrix)
-        {
-            Int64 IDOrder = GetIDOrder(DataMatrix);
-            Boolean flag = false;
-            try
-            {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
-
-                    using (var Command = new NpgsqlCommand($"SELECT MAX(\"ID_Status\") FROM public.\"AddStatus\" WHERE \"ID_Order\"='{IDOrder}';", Connect))
-                    {
-                        using (var reader = Command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                if (reader.GetInt64(0) == IDStatus - 1)
-                                {
-
-                                    flag = true;
-                                }
-                            }
-                        }
-                    }
-
-                    Connect.Close();
-                }
-                return flag;
-            }
-            catch
-            {
-                return flag;
-            }
-        }
-        public bool CheckedStatusExistingOrder(Int64 IDStatus, String DataMatrix)
-        {
-            Int64 IDOrder = GetIDOrder(DataMatrix);
-            Boolean flag = false;
-            try
-            {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
-
-                    using (var Command = new NpgsqlCommand($"SELECT MAX(\"ID_Status\") FROM public.\"AddStatus\" WHERE \"ID_Order\"='{IDOrder}';", Connect))
-                    {
-                        using (var reader = Command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                if (reader.GetInt64(0) > IDStatus - 1)
-                                {
-
-                                    flag = true;
-                                }
-                            }
-                        }
-                    }
-
-                    Connect.Close();
-                }
-                return flag;
-            }
-            catch
-            {
-                return flag;
-            }
-        }
-        public bool CheckedNumberAndMark(String Number, String Mark)
-        {
-            Boolean flag = true;
-            try
-            {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
-
-                    using (var Command = new NpgsqlCommand($"SELECT COUNT(\"Orders\".\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"Mark\"='{Mark}';", Connect))
-                    {
-                        using (var reader = Command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                if (reader.GetInt64(0) != 0)
-                                {
-                                    flag = false;
-                                }
-                            }
-                        }
-                    }
-
-                    Connect.Close();
-                }
-
-                return flag;
-            }
-            catch(Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-
-        public Int32 CheckedNumberAndList(String Number, String List)
-        {
-            try
-            {
-                Int32 flag = -1;
-
-                String[] Temp = List.Split('и');
-
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
-
-                    if (Temp.Length == 1)
-                    {
-                        using (var Command = new NpgsqlCommand($"SELECT COUNT(\"Orders\".\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{List}';", Connect))
-                        {
-                            using (var reader = Command.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    if (reader.GetInt64(0) == 0)
-                                    {
-                                        flag = 0;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        using (var Command = new NpgsqlCommand($"SELECT COUNT(\"Orders\".\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{Temp[0]}';", Connect))
-                        {
-                            using (var reader = Command.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    if (reader.GetInt64(0) == 0)
-                                    {
-                                        if (MessageBox.Show("Заменяемый чертеж отсутсвует. Добавить новый?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-                                        {
-                                            flag = 1;
-                                        }
-                                        else
-                                        {
-                                            flag = 2;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        flag = 1;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    Connect.Close();
-                }
-
-                return flag;
-            }
-            catch(Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-
-        
-
-        public bool CheckedOrderAndStatus(String Number, String List)
-        {
-            Boolean flag = false;
-            try
-            {
-                Int64 IDStatus = (from p in SystemArgs.Statuses
-                                  where p.IDPosition == SystemArgs.User.GetPosition().ID
-                                  select p.ID).Single();
-                String DataMatrix = (from p in SystemArgs.Orders
-                                     where (p.Number == Number) && (p.List == List)
-                                     select p.DataMatrix).Single();
-                if (CheckedStatusOrderDB(IDStatus, DataMatrix))
-                {
-                    using (var Connect = new NpgsqlConnection(_ConnectString))
-                    {
-                        Connect.Open();
-
-                        using (var Command = new NpgsqlCommand($"SELECT Count(\"DataMatrix\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{List}';", Connect))
-                        {
-                            using (var reader = Command.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    if (reader.GetInt64(0) == 1)
-                                    {
-                                        flag = true;
-                                    }
-                                }
-                            }
-                        }
-
-                        Connect.Close();
-                    }
-                }
-                return flag;
-            }
-            catch
-            {
-                return flag;
-            }
-        }
-        public bool CheckedOrderAndStatusForUpdate(String Number, String List)
-        {
-            Boolean flag = false;
-            try
-            {
-                Int64 IDStatus = (from p in SystemArgs.Statuses
-                                  where p.IDPosition == SystemArgs.User.GetPosition().ID
-                                  select p.ID).Single();
-                String DataMatrix = (from p in SystemArgs.Orders
-                                     where (p.Number == Number) && (p.List == List)
-                                     select p.DataMatrix).Single();
-                if (CheckedStatusExistingOrder(IDStatus, DataMatrix))
-                {
-                    using (var Connect = new NpgsqlConnection(_ConnectString))
-                    {
-                        Connect.Open();
-
-                        using (var Command = new NpgsqlCommand($"SELECT Count(\"DataMatrix\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{List}';", Connect))
-                        {
-                            using (var reader = Command.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    if (reader.GetInt64(0) == 1)
-                                    {
-                                        flag = true;
-                                    }
-                                }
-                            }
-                        }
-
-                        Connect.Close();
-                    }
-                }
-                return flag;
             }
             catch
             {

@@ -188,8 +188,10 @@ namespace SZMK
                                 }
                             }
                         }
-
-                        Report.ShowDialog();
+                        if (SystemArgs.ByteScout._DecodeSession.Where(p => p.Unique).Count() != 0)
+                        {
+                            Report.ShowDialog();
+                        }
                     }
 
                     SystemArgs.ByteScout.ClearData();
@@ -379,7 +381,7 @@ namespace SZMK
 
                             CountOrder_TB.Text = View.Count.ToString();
 
-                            EnableButton(false);
+                            VisibleButton(false);
                             break;
                         case 2:
                             View = new BindingListView<Order>(List.Where(p => p.Canceled).ToList());
@@ -389,7 +391,12 @@ namespace SZMK
 
                             CountOrder_TB.Text = View.Count.ToString();
 
-                            EnableButton(false);
+                            VisibleButton(false);
+                            if (View.Count > 0)
+                            {
+                                CanceledOrder_TSB.Text = "Восстановить";
+                                CanceledOrder_TSB.Visible = true;
+                            }
 
                             break;
                         default:
@@ -402,11 +409,11 @@ namespace SZMK
 
                             if (View.Count > 0)
                             {
-                                EnableButton(true);
+                                VisibleButton(true);
                             }
                             else
                             {
-                                EnableButton(false);
+                                VisibleButton(false);
                             }
 
                             ForgetOrder();
@@ -639,21 +646,23 @@ namespace SZMK
                 return false;
             }
         }
-        private void EnableButton(Boolean Enable)
+        private void VisibleButton(Boolean Enable)
         {
             if (Enable)
             {
-                ChangeOrder_TSB.Enabled = true;
-                DeleteOrder_TSB.Enabled = true;
-                ChangeOrder_TSM.Enabled = true;
-                DeleteOrder_TSM.Enabled = true;
+                ChangeOrder_TSB.Visible = true;
+                DeleteOrder_TSB.Visible = true;
+                ChangeOrder_TSM.Visible = true;
+                DeleteOrder_TSM.Visible = true;
+                CanceledOrder_TSB.Visible = true;
             }
             else
             {
-                ChangeOrder_TSB.Enabled = false;
-                DeleteOrder_TSB.Enabled = false;
-                ChangeOrder_TSM.Enabled = false;
-                DeleteOrder_TSM.Enabled = false;
+                ChangeOrder_TSB.Visible = false;
+                DeleteOrder_TSB.Visible = false;
+                ChangeOrder_TSM.Visible = false;
+                DeleteOrder_TSM.Visible = false;
+                CanceledOrder_TSB.Visible = false;
             }
         }
         private void Selection(Order Temp, bool flag)
@@ -747,7 +756,7 @@ namespace SZMK
 
                 if (SystemArgs.MobileApplication.GetParametersConnect())
                 {
-                    String MyIP = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
+                    String MyIP = Dns.GetHostAddresses(Dns.GetHostName())[0].ToString();
 
                     Dialog.IP_TB.Text = MyIP;
                     Dialog.Port_TB.Text = SystemArgs.MobileApplication.Port;
@@ -777,7 +786,7 @@ namespace SZMK
                     {
                         Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
 
-                        Temp.Canceled = true;
+                        Temp.Canceled = !Temp.Canceled;
 
                         if (SystemArgs.Request.CanceledOrder(Temp))
                         {

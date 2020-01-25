@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
-    /*Класс для создания листа хранения данных связной таблицы между справочником бланков заказов и чертежами*/
-    public class BlankOrderOfOrders
+    /*Данный класс описывает структуру связной таблицы, в которую добавляются данные при добавлении статуса чертежу*/
+    public class StatusOfOrder
     {
-        public DateTime _DateCreate;
-        public Int64 _IDBlankOrder;
-        public Int64 _IDOrder;
+        private DateTime _DateCreate;
+        private Int64 _IDStatus;
+        private Int64 _IDOrder;
+        private Int64 _IDUser;
 
-        public BlankOrderOfOrders(DateTime DateCreate, Int64 IDBlankOrder, Int64 IDOrder)
+        public StatusOfOrder(DateTime DateCreate, Int64 IDStatus, Int64 IDOrder, Int64 IDUser)
         {
             if (DateCreate != null)
             {
@@ -23,13 +24,13 @@ namespace SZMK
             {
                 throw new Exception("Пустое значение даты добавления статуса");
             }
-            if (IDBlankOrder >= 0)
+            if (IDStatus >= 0)
             {
-                _IDBlankOrder = IDBlankOrder;
+                _IDStatus = IDStatus;
             }
             else
             {
-                throw new Exception("ИД бланка заказа должен быть больше 0");
+                throw new Exception("ИД статуса должен быть больше 0");
             }
             if (IDOrder >= 0)
             {
@@ -39,8 +40,16 @@ namespace SZMK
             {
                 throw new Exception("ИД чертежа должен быть больше 0");
             }
+            if (IDUser >= 0)
+            {
+                _IDUser = IDUser;
+            }
+            else
+            {
+                throw new Exception("ИД пользователя должен быть больше 0");
+            }
         }
-        public BlankOrderOfOrders() : this(DateTime.Now, -1, -1) { }
+        public StatusOfOrder() : this(DateTime.Now, -1, -1,-1) { }
         public DateTime DateCreate
         {
             get
@@ -56,18 +65,18 @@ namespace SZMK
                 }
             }
         }
-        public Int64 IDBlankOrder
+        public Int64 IDStatus
         {
             get
             {
-                return _IDBlankOrder;
+                return _IDStatus;
             }
 
             set
             {
                 if (value >= 0)
                 {
-                    _IDBlankOrder = value;
+                    _IDStatus = value;
                 }
             }
         }
@@ -83,6 +92,21 @@ namespace SZMK
                 if (value >= 0)
                 {
                     _IDOrder = value;
+                }
+            }
+        }
+        public Int64 IDUser
+        {
+            get
+            {
+                return _IDUser;
+            }
+
+            set
+            {
+                if (value >= 0)
+                {
+                    _IDUser = value;
                 }
             }
         }
