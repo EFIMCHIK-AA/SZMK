@@ -24,14 +24,14 @@ namespace SZMK
             Report_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             for(int i = 0; i < SystemArgs.UnLoadSpecific.ExecutorMails.Count(); i++)
             {
-                for (int j = 0; j < SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics.Count(); j++)
+                for (int j = 0; j < SystemArgs.UnLoadSpecific.ExecutorMails[i].GetSpecific().Count(); j++)
                 {
                     Report_DGV.Rows.Add();
-                    Report_DGV[0, Report_DGV.Rows.Count-1].Value = SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics[j].Number;
-                    Report_DGV[1, Report_DGV.Rows.Count - 1].Value = SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics[j].List;
+                    Report_DGV[0, Report_DGV.Rows.Count-1].Value = SystemArgs.UnLoadSpecific.ExecutorMails[i][j].Number;
+                    Report_DGV[1, Report_DGV.Rows.Count - 1].Value = SystemArgs.UnLoadSpecific.ExecutorMails[i][j].List;
                     Report_DGV[2, Report_DGV.Rows.Count - 1].Value = SystemArgs.UnLoadSpecific.ExecutorMails[i].Executor;
-                    Report_DGV[3, Report_DGV.Rows.Count - 1].Value = SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics[j].NumberSpecific;
-                    if (SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics[j].Finded)
+                    Report_DGV[3, Report_DGV.Rows.Count - 1].Value = SystemArgs.UnLoadSpecific.ExecutorMails[i][j].NumberSpecific;
+                    if (SystemArgs.UnLoadSpecific.ExecutorMails[i][j].Finded)
                     {
                         Report_DGV[4, Report_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
                         Report_DGV[4, Report_DGV.Rows.Count - 1].Value = "Найдено";
@@ -46,9 +46,9 @@ namespace SZMK
             bool flag = true;
             for(int i = 0; i < SystemArgs.UnLoadSpecific.ExecutorMails.Count(); i++)
             {
-                for(int j = 0; j < SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics.Count(); j++)
+                for(int j = 0; j < SystemArgs.UnLoadSpecific.ExecutorMails[i].GetSpecific().Count(); j++)
                 {
-                    if (!SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics[j].Finded)
+                    if (!SystemArgs.UnLoadSpecific.ExecutorMails[i][j].Finded)
                     {
                         flag = false;
                     }

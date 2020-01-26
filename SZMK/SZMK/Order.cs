@@ -297,7 +297,14 @@ namespace SZMK
         {
             get
             {
-                return SystemArgs.StatusOfOrders.Where(p => p.IDOrder == _ID && p.IDStatus == _Status.ID).Select(p => p.DateCreate).ToString();
+                if(SystemArgs.StatusOfOrders.Where(p => p.IDOrder == _ID && p.IDStatus == _Status.ID).Select(p => p.DateCreate).Count() == 1)
+                {
+                    return SystemArgs.StatusOfOrders.Where(p => p.IDOrder == _ID && p.IDStatus == _Status.ID).Select(p => p.DateCreate).Single().ToString();
+                }
+                else
+                {
+                    return "";
+                }
             }
         }
 

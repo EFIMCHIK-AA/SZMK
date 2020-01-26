@@ -31,6 +31,8 @@ namespace SZMK
                 SystemArgs.Orders = new List<Order>();
                 SystemArgs.BlankOrders = new List<BlankOrder>();
                 SystemArgs.Statuses = new List<Status>();
+                SystemArgs.BlankOrderOfOrders = new List<BlankOrderOfOrder>();
+                SystemArgs.StatusOfOrders = new List<StatusOfOrder>();
                 SystemArgs.Excel = new Excel();
                 SystemArgs.Template = new Template();
                 ItemsFilter();
@@ -142,9 +144,9 @@ namespace SZMK
 
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
-                        for(int i = 0; i < SystemArgs.ServerMobileAppOrder._ScanSession.Count; i++)
+                        for(int i = 0; i < SystemArgs.ServerMobileAppOrder.GetScanSessions().Count; i++)
                         {
-                            if (SystemArgs.ServerMobileAppOrder._ScanSession[i].Unique)
+                            if (SystemArgs.ServerMobileAppOrder[i].Unique)
                             {
                                 using (var Connect = new NpgsqlConnection(SystemArgs.DataBase.ToString()))
                                 {
@@ -162,7 +164,7 @@ namespace SZMK
                                     }
                                 }
 
-                                String[] SplitDataMatrix = SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix.Split('_');
+                                String[] SplitDataMatrix = SystemArgs.ServerMobileAppOrder[i].DataMatrix.Split('_');
 
                                 String[] ListCanceled = SplitDataMatrix[1].Split('и');
 
@@ -188,7 +190,7 @@ namespace SZMK
                                                     where p.IDPosition == PositionID
                                                     select p).Single();
 
-                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, SystemArgs.User, TempBlank, false);
+                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, SystemArgs.User, TempBlank, false);
 
                                 if (SystemArgs.Excel.AddToRegistry(TempOrder))
                                 {
@@ -199,12 +201,12 @@ namespace SZMK
                                     }
                                     else
                                     {
-                                        MessageBox.Show("Ошибка при добавлении в базу данных DataMatrix: " + SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show("Ошибка при добавлении в базу данных DataMatrix: " + SystemArgs.ServerMobileAppOrder[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Ошибка добавления данных в реестр, добавление в базу данных " +SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix+ " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show("Ошибка добавления данных в реестр, добавление в базу данных " +SystemArgs.ServerMobileAppOrder[i].DataMatrix+ " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
 
                             }
@@ -617,6 +619,16 @@ namespace SZMK
                 Mark_TB.Text = Temp.Mark;
                 Lenght_TB.Text = Temp.Lenght.ToString();
                 Weight_TB.Text = Temp.Weight.ToString();
+                if (Temp.Canceled)
+                {
+                    Canceled_TB.BackColor = Color.Orange;
+                    Canceled_TB.Text = "Да";
+                }
+                else
+                {
+                    Canceled_TB.BackColor = Color.Lime;
+                    Canceled_TB.Text = "Нет";
+                }
                 BlankOrder_TB.Text = Temp.BlankOrder.QR;
                 Status_TB.Text = Temp.Status.Name;
             }
@@ -629,6 +641,8 @@ namespace SZMK
                 Mark_TB.Text = String.Empty;
                 Lenght_TB.Text = String.Empty;
                 Weight_TB.Text = String.Empty;
+                Canceled_TB.BackColor = Color.FromArgb(233, 245, 255);
+                Canceled_TB.Text = String.Empty;
                 BlankOrder_TB.Text = String.Empty;
                 Status_TB.Text = String.Empty;
             }
@@ -645,6 +659,9 @@ namespace SZMK
                 SystemArgs.Orders.Clear();
                 SystemArgs.Statuses.Clear();
                 SystemArgs.BlankOrders.Clear();
+                SystemArgs.StatusOfOrders.Clear();
+                SystemArgs.BlankOrderOfOrders.Clear();
+
                 SystemArgs.Request.GetAllBlankOrder();
                 SystemArgs.Request.GetAllStatus();
                 SystemArgs.Request.GetAllOrders();

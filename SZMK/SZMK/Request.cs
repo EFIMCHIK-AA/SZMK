@@ -635,7 +635,7 @@ namespace SZMK
                 return false;
             }
         }
-        public bool UpdateBlankOrder(String QR)
+        public bool UpdateBlankOrder(String QR, List<Order> Orders)
         {
             try
             {
@@ -643,7 +643,7 @@ namespace SZMK
                 {
                     Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"UPDATE public.\"BlankOrder\" SET \"QR\" = '{QR}' WHERE \"BlankOrder\".\"ID\" = '{SystemArgs.RequestLinq.GetIDBlankOrder(QR)}'; ", Connect))
+                    using (var Command = new NpgsqlCommand($"UPDATE public.\"BlankOrder\" SET \"QR\" = '{QR}' WHERE \"BlankOrder\".\"ID\" = '{SystemArgs.RequestLinq.GetOldIDBlankOrder(Orders)}'; ", Connect))
                     {
                         Command.ExecuteNonQuery();
                     }

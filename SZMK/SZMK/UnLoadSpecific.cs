@@ -15,7 +15,7 @@ namespace SZMK
         public struct ExecutorMail
         {
             private String _Executor;
-            public List<Specific> _Specifics;
+            private List<Specific> _Specifics;
             public ExecutorMail(String Executor)
             {
                 if (!String.IsNullOrEmpty(Executor))
@@ -41,6 +41,24 @@ namespace SZMK
                         _Executor = value;
                     }
                 }
+            }
+            public Specific this[Int32 Index]
+            {
+                get
+                {
+                    return _Specifics[Index];
+                }
+                set
+                {
+                    if (value != null)
+                    {
+                        _Specifics[Index] = value;
+                    }
+                }
+            }
+            public List<Specific> GetSpecific()
+            {
+                return _Specifics;
             }
         }
         struct Unloading
@@ -115,14 +133,14 @@ namespace SZMK
                                         {
                                             if (SplitDataMatrix[3].Equals(item.Executor))
                                             {
-                                                item._Specifics.Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), true));
+                                                item.GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), true));
                                             }
                                         }
                                     }
                                     else
                                     {
                                         ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
-                                        ExecutorMails[ExecutorMails.Count() - 1]._Specifics.Add(new Specific(SplitDataMatrix[0], Temp[j]._List,Convert.ToInt64(Temp[j]._Detail),true));
+                                        ExecutorMails[ExecutorMails.Count() - 1].GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List,Convert.ToInt64(Temp[j]._Detail),true));
                                     }
                                 }
                                 else
@@ -133,14 +151,14 @@ namespace SZMK
                                         {
                                             if (SplitDataMatrix[3].Equals(item.Executor))
                                             {
-                                                item._Specifics.Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
+                                                item.GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
                                             }
                                         }
                                     }
                                     else
                                     {
                                         ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
-                                        ExecutorMails[ExecutorMails.Count() - 1]._Specifics.Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
+                                        ExecutorMails[ExecutorMails.Count() - 1].GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
                                     }
                                 }
                             }

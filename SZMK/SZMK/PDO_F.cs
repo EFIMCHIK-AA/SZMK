@@ -31,6 +31,8 @@ namespace SZMK
                 SystemArgs.Orders = new List<Order>();
                 SystemArgs.BlankOrders = new List<BlankOrder>();
                 SystemArgs.Statuses = new List<Status>();
+                SystemArgs.BlankOrderOfOrders = new List<BlankOrderOfOrder>();
+                SystemArgs.StatusOfOrders = new List<StatusOfOrder>();
                 SystemArgs.Excel = new Excel();
                 SystemArgs.Template = new Template();
                 ItemsFilter();
@@ -143,9 +145,9 @@ namespace SZMK
                     Dialog.Status_TB.AppendText($"Ожидание QR" + Environment.NewLine);
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
-                        for (int i = 0; i < SystemArgs.ServerMobileAppBlankOrder._ScanSession.Count; i++)
+                        for (int i = 0; i < SystemArgs.ServerMobileAppBlankOrder.GetScanSessions().Count; i++)
                         {
-                            if (SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].Added)
+                            if (SystemArgs.ServerMobileAppBlankOrder[i].Added)
                             {
                                 using (var Connect = new NpgsqlConnection(SystemArgs.DataBase.ToString()))
                                 {
@@ -166,11 +168,11 @@ namespace SZMK
                                 Status TempStatus = (from p in SystemArgs.Statuses
                                                      where p.IDPosition == PositionID
                                                      select p).Single();
-                                foreach(BlankOrderScanSession.NumberAndList NumberAndList in SystemArgs.ServerMobileAppBlankOrder._ScanSession[i]._Order)
+                                foreach(BlankOrderScanSession.NumberAndList NumberAndList in SystemArgs.ServerMobileAppBlankOrder[i].GetNumberAndLists())
                                 {
-                                    Order Temp = SystemArgs.Orders.Where(p => p.Number == NumberAndList._Number && p.List == NumberAndList._List).Single();
+                                    Order Temp = SystemArgs.Orders.Where(p => p.Number == NumberAndList.Number && p.List == NumberAndList.List).Single();
                                     Order NewOrder = Temp;
-                                    NewBlankOrder = new BlankOrder(IndexBlankOrder, DateTime.Now, SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].QRBlankOrder);
+                                    NewBlankOrder = new BlankOrder(IndexBlankOrder, DateTime.Now, SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder);
                                     if (NewOrder.Status.ID < TempStatus.ID)
                                     {
                                         NewOrder.Status = TempStatus;
@@ -187,12 +189,12 @@ namespace SZMK
                                         }
                                         else
                                         {
-                                            MessageBox.Show("Ошибка при добавлении в базу данных бланка заказа: " + SystemArgs.ServerMobileAppBlankOrder._ScanSession[i].QRBlankOrder, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            MessageBox.Show("Ошибка при добавлении в базу данных бланка заказа: " + SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         }
                                     }
                                     else
                                     {
-                                        MessageBox.Show("Ошибка добавления данных в реестр, добавление бланка заказа и обновление статуса " + SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix + " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show("Ошибка добавления данных в реестр, добавление бланка заказа и обновление статуса " + SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder + " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     }
                                 }
 
@@ -613,6 +615,16 @@ namespace SZMK
                 Mark_TB.Text = Temp.Mark;
                 Lenght_TB.Text = Temp.Lenght.ToString();
                 Weight_TB.Text = Temp.Weight.ToString();
+                if (Temp.Canceled)
+                {
+                    Canceled_TB.BackColor = Color.Orange;
+                    Canceled_TB.Text = "Да";
+                }
+                else
+                {
+                    Canceled_TB.BackColor = Color.Lime;
+                    Canceled_TB.Text = "Нет";
+                }
                 BlankOrder_TB.Text = Temp.BlankOrder.QR;
                 Status_TB.Text = Temp.Status.Name;
             }
@@ -625,6 +637,8 @@ namespace SZMK
                 Mark_TB.Text = String.Empty;
                 Lenght_TB.Text = String.Empty;
                 Weight_TB.Text = String.Empty;
+                Canceled_TB.BackColor = Color.FromArgb(233, 245, 255);
+                Canceled_TB.Text = String.Empty;
                 BlankOrder_TB.Text = String.Empty;
                 Status_TB.Text = String.Empty;
             }
@@ -641,6 +655,8 @@ namespace SZMK
                 SystemArgs.Orders.Clear();
                 SystemArgs.Statuses.Clear();
                 SystemArgs.BlankOrders.Clear();
+                SystemArgs.StatusOfOrders.Clear();
+                SystemArgs.BlankOrderOfOrders.Clear();
 
                 SystemArgs.Request.GetAllBlankOrder();
                 SystemArgs.Request.GetAllStatus();

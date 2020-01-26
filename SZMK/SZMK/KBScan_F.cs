@@ -32,10 +32,10 @@ namespace SZMK
 
         private void CheckedUnloading_TSM_Click(object sender, EventArgs e)
         {
-            if(SystemArgs.ServerMobileAppOrder._ScanSession.Count!=0)
+            if(SystemArgs.ServerMobileAppOrder.GetScanSessions().Count!=0)
                 try
                 {
-                    SystemArgs.UnLoadSpecific.ChekedUnloading(SystemArgs.ServerMobileAppOrder._ScanSession);
+                    SystemArgs.UnLoadSpecific.ChekedUnloading(SystemArgs.ServerMobileAppOrder.GetScanSessions());
                     KBScanUnloadSpecific Dialog = new KBScanUnloadSpecific();
                     Dialog.ShowDialog();
                 }
@@ -53,9 +53,9 @@ namespace SZMK
 
         private void CreateAct_TSM_Click(object sender, EventArgs e)
         {
-            if (SystemArgs.ServerMobileAppOrder._ScanSession.Count != 0)
+            if (SystemArgs.ServerMobileAppOrder.GetScanSessions().Count != 0)
             {
-                if (SystemArgs.Excel.CreateAndExportActs(SystemArgs.ServerMobileAppOrder._ScanSession,true))
+                if (SystemArgs.Excel.CreateAndExportActs(SystemArgs.ServerMobileAppOrder.GetScanSessions(), true))
                 {
                     MessageBox.Show("Акты успешно сформированы и сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 };

@@ -263,7 +263,7 @@ namespace SZMK
                 {
                     for(int i = 0; i < SystemArgs.UnLoadSpecific.ExecutorMails.Count(); i++) 
                     {
-                        if (SystemArgs.UnLoadSpecific.ExecutorMails[i]._Specifics.Where(p => !p.Finded).Count() != 0)
+                        if (SystemArgs.UnLoadSpecific.ExecutorMails[i].GetSpecific().Where(p => !p.Finded).Count() != 0)
                         {
                             m.To.Clear();
                             for (int j = 0; j < SystemArgs.Mails.Count; j++)
@@ -310,7 +310,7 @@ namespace SZMK
                                     $"<td> Фамилия разработчика</td>" +
                                     $"<td> № детали</td>" +
                                     $"</tr>";
-                foreach(var Specifics in Executor._Specifics)
+                foreach(var Specifics in Executor.GetSpecific())
                 {
                     if (!Specifics.Finded)
                     {

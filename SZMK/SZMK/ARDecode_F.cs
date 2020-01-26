@@ -62,9 +62,8 @@ namespace SZMK
                         Status_TB.AppendText($">{i + 1}|{CountFile}<" + Environment.NewLine);
                     });
 
-                    String CurrentInfoDataMatrix = "";
-                    CurrentInfoDataMatrix = SystemArgs.ByteScout.SendAndRead(SystemArgs.ByteScout.GetPathTempFile(FileName, i), SystemArgs.Path.GetFileName(FileName));
                     FileNames.Add(FileName);
+                    SystemArgs.ByteScout.SendAndRead(SystemArgs.ByteScout.GetPathTempFile(FileName, i), FileName);
                     i++;
                 }
                 DeleteFilesAndDirectory();
@@ -88,7 +87,7 @@ namespace SZMK
                     }
                     Dialog.ShowDialog();
                 }
-                if (SystemArgs.ByteScout._DecodeSession.Where(p => p.Unique).Count() == 0)
+                if (SystemArgs.ByteScout.GetDecodeSession().Where(p => p.Unique).Count() == 0)
                 {
                     Add_B.Invoke((MethodInvoker)delegate ()
                     {
@@ -153,6 +152,7 @@ namespace SZMK
             {
                 Status_TB.AppendText($"Файл {SystemArgs.Path.GetFileName(Path)} неправильный формат DataMatrix" + Environment.NewLine);
                 FailFileNames.Add(SystemArgs.Path.GetFileName(Path));
+                FileNames.Remove(Path);
                 FailCount++;
             });
         }
@@ -181,9 +181,9 @@ namespace SZMK
 
         private void CreateAct_TSM_Click(object sender, EventArgs e)
         {
-            if (SystemArgs.ByteScout._DecodeSession.Count != 0)
+            if (SystemArgs.ByteScout.GetDecodeSession().Count != 0)
             {
-                if (SystemArgs.Excel.CreateAndExportActs(SystemArgs.ByteScout._DecodeSession, false))
+                if (SystemArgs.Excel.CreateAndExportActs(SystemArgs.ByteScout.GetDecodeSession(), false))
                 {
                     MessageBox.Show("Акты успешно сформированы и сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 };

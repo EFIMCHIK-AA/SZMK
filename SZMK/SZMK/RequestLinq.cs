@@ -21,7 +21,7 @@ namespace SZMK
         {
             try
             {
-                if (SystemArgs.Orders.Where(p => p.Number == Number && p.List == List).Count() == 1&&CheckedStatusOrderDB(SystemArgs.User.IDStatus,GetDataMatrixIsNumberAndList(Number,List)))
+                if (SystemArgs.Orders.Where(p => p.Number == Number && p.List == List).Count() == 1 && CheckedStatusOrderDB(SystemArgs.User.IDStatus,GetDataMatrixIsNumberAndList(Number,List)))
                 {
                     return true;
                 }
@@ -120,8 +120,10 @@ namespace SZMK
                 }
                 else if (GetOldIDBlankOrder(Orders)!=-1)
                 {
-                    if (SystemArgs.Request.UpdateBlankOrder(QR))
+                    if (SystemArgs.Request.UpdateBlankOrder(QR,Orders))
                     {
+                        SystemArgs.BlankOrders.Clear();
+                        SystemArgs.Request.GetAllBlankOrder();
                         if (SystemArgs.Request.InsertBlankOrderOfOrders(Orders, QR))
                         {
                             return true;
@@ -132,6 +134,8 @@ namespace SZMK
                 {
                     if (SystemArgs.Request.InsertBlankOrder(QR))
                     {
+                        SystemArgs.BlankOrders.Clear();
+                        SystemArgs.Request.GetAllBlankOrder();
                         if (GetIDBlankOrder(QR) != -1)
                         {
                             if (SystemArgs.Request.InsertBlankOrderOfOrders(Orders, QR))
@@ -196,7 +200,7 @@ namespace SZMK
                 return false;
             }
         }
-        private Int64 GetOldIDBlankOrder(List<Order> Orders)
+        public Int64 GetOldIDBlankOrder(List<Order> Orders)
         {
             try
             {
@@ -220,35 +224,34 @@ namespace SZMK
             try
             {
                 String[] Temp = List.Split('и');
-                if (Temp.Length==1)
+                if (SystemArgs.Orders.Where(p => p.Number == Number && p.List == List).Count() == 0)
                 {
-                    if(SystemArgs.Orders.Where(p => p.Number == Number && p.List == List).Count() == 0)
+                    if (Temp.Length != 1)
                     {
-                        return 0;
+                        if (SystemArgs.Orders.Where(p => p.Number == Number && p.List == Temp[0]).Count() == 0)
+                        {
+                            if (MessageBox.Show("Заменяемый чертеж отсутсвует. Добавить новый?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                            {
+                                return 2;
+                            }
+                            else
+                            {
+                                return -1;
+                            }
+                        }
+                        else
+                        {
+                            return 2;
+                        }
                     }
                     else
                     {
-                        return 1;
+                        return 0;
                     }
                 }
                 else
                 {
-                    if (SystemArgs.Orders.Where(p => p.Number == Number && p.List == Temp[0]).Count() == 0)
-                    {
-                        if (MessageBox.Show("Заменяемый чертеж отсутсвует. Добавить новый?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-                        {
-                            return 2;
-                        }
-                        else
-                        {
-                            return -1;
-                        }
-                    }
-                    else
-                    {
-                        return 2;
-                    }
-
+                    return 1;
                 }
             }
             catch 

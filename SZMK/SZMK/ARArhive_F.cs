@@ -37,6 +37,8 @@ namespace SZMK
                 SystemArgs.Orders = new List<Order>();
                 SystemArgs.BlankOrders = new List<BlankOrder>();
                 SystemArgs.Statuses = new List<Status>();
+                SystemArgs.BlankOrderOfOrders = new List<BlankOrderOfOrder>();
+                SystemArgs.StatusOfOrders = new List<StatusOfOrder>();
                 SystemArgs.Excel = new Excel();
                 SystemArgs.Template = new Template();
 
@@ -150,9 +152,9 @@ namespace SZMK
                     {
                         ARDecodeReport_F Report = new ARDecodeReport_F();
 
-                        for (int i = 0; i < SystemArgs.ByteScout._DecodeSession.Count; i++)
+                        for (int i = 0; i < SystemArgs.ByteScout.GetDecodeSession().Count; i++)
                         {
-                            if (SystemArgs.ByteScout._DecodeSession[i].Unique)
+                            if (SystemArgs.ByteScout[i].Unique)
                             {
                                 Int64 PositionID = SystemArgs.User.GetPosition().ID;
 
@@ -160,7 +162,7 @@ namespace SZMK
                                                      where p.IDPosition == PositionID
                                                      select p).Single();
 
-                                Order Temp = SystemArgs.Orders.Where(p => p.DataMatrix == SystemArgs.ByteScout._DecodeSession[i].DataMatrix).Single();
+                                Order Temp = SystemArgs.Orders.Where(p => p.DataMatrix == SystemArgs.ByteScout[i].DataMatrix).Single();
                                 Order NewOrder = Temp;
 
                                 NewOrder.Status = TempStatus;
@@ -179,16 +181,16 @@ namespace SZMK
                                     }
                                     else
                                     {
-                                        MessageBox.Show("Ошибка при добавлении в базу данных статуса для: " + SystemArgs.ByteScout._DecodeSession[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show("Ошибка при добавлении в базу данных статуса для: " + SystemArgs.ByteScout[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Ошибка добавления данных в реестр, перемещение и обновление статуса " + SystemArgs.ServerMobileAppOrder._ScanSession[i].DataMatrix+" не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show("Ошибка добавления данных в реестр, перемещение и обновление статуса " + SystemArgs.ByteScout[i].DataMatrix + " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                             }
                         }
-                        if (SystemArgs.ByteScout._DecodeSession.Where(p => p.Unique).Count() != 0)
+                        if (SystemArgs.ByteScout.GetDecodeSession().Where(p => p.Unique).Count() != 0)
                         {
                             Report.ShowDialog();
                         }
@@ -410,10 +412,12 @@ namespace SZMK
                             if (View.Count > 0)
                             {
                                 VisibleButton(true);
+                                CanceledOrder_TSB.Text = "Аннулировать";
                             }
                             else
                             {
                                 VisibleButton(false);
+                                CanceledOrder_TSB.Text = "Аннулировать";
                             }
 
                             ForgetOrder();
@@ -676,6 +680,16 @@ namespace SZMK
                 Mark_TB.Text = Temp.Mark;
                 Lenght_TB.Text = Temp.Lenght.ToString();
                 Weight_TB.Text = Temp.Weight.ToString();
+                if (Temp.Canceled)
+                {
+                    Canceled_TB.BackColor = Color.Orange;
+                    Canceled_TB.Text = "Да";
+                }
+                else
+                {
+                    Canceled_TB.BackColor = Color.Lime;
+                    Canceled_TB.Text = "Нет";
+                }
                 BlankOrder_TB.Text = Temp.BlankOrder.QR;
                 Status_TB.Text = Temp.Status.Name;
             }
@@ -688,6 +702,8 @@ namespace SZMK
                 Mark_TB.Text = String.Empty;
                 Lenght_TB.Text = String.Empty;
                 Weight_TB.Text = String.Empty;
+                Canceled_TB.BackColor = Color.FromArgb(233, 245, 255);
+                Canceled_TB.Text = String.Empty;
                 BlankOrder_TB.Text = String.Empty;
                 Status_TB.Text = String.Empty;
             }
@@ -704,6 +720,8 @@ namespace SZMK
                 SystemArgs.Orders.Clear();
                 SystemArgs.Statuses.Clear();
                 SystemArgs.BlankOrders.Clear();
+                SystemArgs.StatusOfOrders.Clear();
+                SystemArgs.BlankOrderOfOrders.Clear();
 
                 SystemArgs.Request.GetAllBlankOrder();
                 SystemArgs.Request.GetAllStatus();
@@ -780,7 +798,7 @@ namespace SZMK
         {
             try
             {
-                if(MessageBox.Show("Вы действительно хотите аннулировать чертеж?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                if(MessageBox.Show("Изменить статус аннулирования чертежа?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                 {
                     if (Order_DGV.CurrentCell.RowIndex >= 0)
                     {

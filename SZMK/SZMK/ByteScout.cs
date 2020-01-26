@@ -20,7 +20,7 @@ namespace SZMK
         public event LoadData Load;
         public delegate void FailData(String FileName);
         public event FailData Fail;
-        public List<OrderScanSession> _DecodeSession;
+        private List<OrderScanSession> _DecodeSession;
 
         public ByteScout()
         {
@@ -32,6 +32,24 @@ namespace SZMK
             _DecodeSession = new List<OrderScanSession>();
         }
 
+        public OrderScanSession this[Int32 Index]
+        {
+            get
+            {
+                return _DecodeSession[Index];
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _DecodeSession[Index] = value;
+                }
+            }
+        }
+        public List<OrderScanSession> GetDecodeSession()
+        {
+            return _DecodeSession;
+        }
         public bool GetParametersConnect()
         {
             try

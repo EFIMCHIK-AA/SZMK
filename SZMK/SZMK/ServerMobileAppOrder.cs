@@ -14,11 +14,29 @@ namespace SZMK
         SimpleTcpServer ServerTCP;
         public delegate void LoadData(List<OrderScanSession> ScanSession);
         public event LoadData Load;
-        public List<OrderScanSession> _ScanSession;
+        private List<OrderScanSession> _ScanSession;
 
         public ServerMobileAppOrder()
         {
             _ScanSession = new List<OrderScanSession>();
+        }
+        public OrderScanSession this[Int32 Index]
+        {
+            get
+            {
+                return _ScanSession[Index];
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _ScanSession[Index] = value;
+                }
+            }
+        }
+        public List<OrderScanSession> GetScanSessions()
+        {
+            return _ScanSession;
         }
         public void ClearData()
         {

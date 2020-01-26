@@ -48,7 +48,7 @@ namespace SZMK
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "QR бланка заказа";
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.AliceBlue;
                 }
-                else if (ScanSessions[ScanSessions.Count - 1]._Order.Where(p => p._Finded == -1).Count() == 0)
+                else if (ScanSessions[ScanSessions.Count - 1].GetNumberAndLists().Where(p => p.Finded == -1).Count() == 0)
                 {
                     Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = ScanSessions[ScanSessions.Count - 1].QRBlankOrder;
                     Scan_DGV[0, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Orange;
@@ -62,17 +62,17 @@ namespace SZMK
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "QR бланка заказа";
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.AliceBlue;
                 }
-                foreach (BlankOrderScanSession.NumberAndList Order in ScanSessions[ScanSessions.Count - 1]._Order)
+                foreach (BlankOrderScanSession.NumberAndList Order in ScanSessions[ScanSessions.Count - 1].GetNumberAndLists())
                 {
                     Scan_DGV.Rows.Add();
-                    String TextOrder = "Заказ №" + Order._Number + " Лист №" + Order._List.ToString();
+                    String TextOrder = "Заказ №" + Order.Number + " Лист №" + Order.List.ToString();
                     Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = TextOrder;
-                    if (Order._Finded == 1)
+                    if (Order.Finded == 1)
                     {
                         Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Найден";
                         Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
                     }
-                    else if (Order._Finded == 0)
+                    else if (Order.Finded == 0)
                     {
                         Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Уже подтвержден";
                         Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Orange;
