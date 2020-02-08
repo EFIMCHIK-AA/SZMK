@@ -16,8 +16,11 @@ namespace SZMK
         private String _ProgramPath;
         private String _Port;
         private String _Server;
+        private Boolean _NeedChecked;
         public delegate void LoadData(List<OrderScanSession> ScanSession);
         public event LoadData Load;
+        public delegate void RenameData(String result,String Path);
+        public event RenameData Rename;
         public delegate void FailData(String FileName);
         public event FailData Fail;
         private List<OrderScanSession> _DecodeSession;
@@ -49,6 +52,17 @@ namespace SZMK
         public List<OrderScanSession> GetDecodeSession()
         {
             return _DecodeSession;
+        }
+        public Boolean NeedChecked
+        {
+            get
+            {
+                return _NeedChecked;
+            }
+            set
+            {
+                _NeedChecked = value;
+            }
         }
         public bool GetParametersConnect()
         {
@@ -218,15 +232,25 @@ namespace SZMK
                         }
                         while (outputStream.DataAvailable);
                         responseData = completeMessage.ToString();
-                        if (AddDecodeSession(responseData.Replace(" ","")))
+                        if (_NeedChecked)
                         {
-                            Load?.Invoke(_DecodeSession);
+                            if (AddDecodeSession(responseData.Replace(" ", "")))
+                            {
+                                Load?.Invoke(_DecodeSession);
+                            }
+                            else
+                            {
+                                Fail?.Invoke(OldFileName);
+                            }
                         }
-                        else
+                        else if (responseData.Split('_').Length != 6)
                         {
                             Fail?.Invoke(OldFileName);
                         }
-
+                        else
+                        {
+                            Rename?.Invoke(responseData,OldFileName);
+                        }
                     }
                 }
             }
@@ -270,9 +294,9 @@ namespace SZMK
         {
             Image myImage = Image.FromFile(FileName);
             Bitmap source = new Bitmap(myImage);
-            Bitmap CroppedImage = source.Clone(new System.Drawing.Rectangle(source.Width / 2, source.Height / 2, source.Width / 2, source.Height / 2), source.PixelFormat);
+            Bitmap CroppedImage = source.Clone(new System.Drawing.Rectangle(source.Width-3136, source.Height-2400, 3136, 2400), source.PixelFormat);
             string path = @"TempFile\" + Index + ".jpg";
-            CroppedImage = new Bitmap(CroppedImage, new Size(source.Width / 5, source.Height / 5));
+            CroppedImage = new Bitmap(CroppedImage, new Size(source.Width / 8, source.Height / 80));
             CroppedImage.Save(path);
             source.Dispose();
             CroppedImage.Dispose();

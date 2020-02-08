@@ -557,9 +557,9 @@ namespace SZMK
 
                 return true;
             }
-            catch
+            catch (Exception E)
             {
-                return false;
+                throw new Exception(E.ToString());
             }
         }
         public bool DeleteStatus(Order Order)
@@ -709,9 +709,9 @@ namespace SZMK
 
                 return true;
             }
-            catch
+            catch (Exception E)
             {
-                return false;
+                throw new Exception(E.ToString());
             }
         }
         public bool InsertOrder(Order Order)
@@ -869,9 +869,9 @@ namespace SZMK
 
                 return true;
             }
-            catch
+            catch (Exception E)
             {
-                return false;
+                throw new Exception(E.ToString());
             }
         }
         private bool GetAllBlankOrderofOrders()
@@ -899,9 +899,9 @@ namespace SZMK
 
                 return true;
             }
-            catch
+            catch (Exception E)
             {
-                return false;
+                throw new Exception(E.ToString());
             }
         }
 
@@ -929,9 +929,9 @@ namespace SZMK
 
                 return true;
             }
-            catch
+            catch (Exception E)
             {
-                return false;
+                throw new Exception(E.ToString());
             }
         }
     } 

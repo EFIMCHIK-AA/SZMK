@@ -58,7 +58,6 @@
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Order_DGV = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.StatusDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,6 +65,7 @@
             this.List = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.RefreshStatus_B = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -91,6 +91,7 @@
             this.Weight_TB = new System.Windows.Forms.TextBox();
             this.Canceled_TB = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.SelectionReport_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -145,7 +146,8 @@
             // отчетToolStripMenuItem
             // 
             this.отчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ReportDate_TSM});
+            this.ReportDate_TSM,
+            this.SelectionReport_TSM});
             this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
             this.отчетToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.отчетToolStripMenuItem.Text = "Отчет";
@@ -153,7 +155,7 @@
             // ReportDate_TSM
             // 
             this.ReportDate_TSM.Name = "ReportDate_TSM";
-            this.ReportDate_TSM.Size = new System.Drawing.Size(169, 22);
+            this.ReportDate_TSM.Size = new System.Drawing.Size(218, 22);
             this.ReportDate_TSM.Text = "По дате создания";
             this.ReportDate_TSM.Click += new System.EventHandler(this.ReportDate_TSM_Click);
             // 
@@ -333,7 +335,6 @@
             this.Order_DGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Order_DGV.Location = new System.Drawing.Point(5, 55);
             this.Order_DGV.Margin = new System.Windows.Forms.Padding(5, 0, 3, 5);
-            this.Order_DGV.MultiSelect = false;
             this.Order_DGV.Name = "Order_DGV";
             this.Order_DGV.ReadOnly = true;
             this.Order_DGV.RowHeadersVisible = false;
@@ -342,22 +343,6 @@
             this.Order_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Order_DGV_CellFormatting);
             this.Order_DGV.SelectionChanged += new System.EventHandler(this.Order_DGV_SelectionChanged);
             this.Order_DGV.Sorted += new System.EventHandler(this.Order_DGV_Sorted);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label1.Location = new System.Drawing.Point(5, 10);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 10, 3, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(882, 35);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Список чертежей";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // StatusDate
             // 
@@ -435,6 +420,22 @@
             this.Weight.HeaderText = "Вес";
             this.Weight.Name = "Weight";
             this.Weight.ReadOnly = true;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.label1.Location = new System.Drawing.Point(5, 10);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 10, 3, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(882, 35);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Список чертежей";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel2
             // 
@@ -798,6 +799,13 @@
             this.label13.TabIndex = 59;
             this.label13.Text = "Длина";
             // 
+            // SelectionReport_TSM
+            // 
+            this.SelectionReport_TSM.Name = "SelectionReport_TSM";
+            this.SelectionReport_TSM.Size = new System.Drawing.Size(218, 22);
+            this.SelectionReport_TSM.Text = "По выбранным позициям";
+            this.SelectionReport_TSM.Click += new System.EventHandler(this.SelectionReport_TSM_Click);
+            // 
             // OPP_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -885,5 +893,6 @@
         private System.Windows.Forms.TextBox Weight_TB;
         private System.Windows.Forms.TextBox Canceled_TB;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ToolStripMenuItem SelectionReport_TSM;
     }
 }

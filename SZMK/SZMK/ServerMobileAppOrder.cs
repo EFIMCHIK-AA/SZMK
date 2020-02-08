@@ -48,7 +48,7 @@ namespace SZMK
             ServerTCP.Delimiter = 0x13;
             ServerTCP.DataReceived += Server_DataReceived;
             ServerTCP.StringEncoder = Encoding.UTF8;
-            IPAddress ip = IPAddress.Parse(Dns.GetHostAddresses(Dns.GetHostName())[0].ToString());
+            IPAddress ip = IPAddress.Parse(Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString());
             ServerTCP.Start(ip, Convert.ToInt32(SystemArgs.MobileApplication.Port));
             if (ServerTCP.IsStarted)
             {
@@ -80,6 +80,22 @@ namespace SZMK
                     for (int i = 0; i < ExistingCharaterRussia.Length; i++)
                     {
                         ReplaceMark = ValidationDataMatrix[2].Replace(ExistingCharaterRussia[i], ExistingCharaterEnglish[i]);
+                    }
+
+                    String[] Splitter = ValidationDataMatrix[1].Split('и');
+
+                    while(Splitter[0][0] == '0')
+                    {
+                        Splitter[0] = Splitter[0].Remove(0, 1);
+                    }
+
+                    if (Splitter.Length != 1)
+                    {
+                        ValidationDataMatrix[1] = Splitter[0]+"и" + Splitter[1];
+                    }
+                    else
+                    {
+                        ValidationDataMatrix[1] = Splitter[0];
                     }
 
                     Temp = ValidationDataMatrix[0] + "_" + ValidationDataMatrix[1] + "_" + ReplaceMark + "_" + ValidationDataMatrix[3] + "_" + ValidationDataMatrix[4].Replace(".", ",") + "_" + ValidationDataMatrix[5].Replace(".", ",");
@@ -140,8 +156,6 @@ namespace SZMK
                             }
 
                             Load?.Invoke(_ScanSession);
-                            break;
-                        default:
                             break;
                     }
                 }

@@ -95,10 +95,8 @@ namespace SZMK
                     });
                 }
             }
-            catch(Exception e)
+            catch
             {
-                SystemArgs.PrintLog(e.Message);
-                MessageBox.Show(e.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Add_B.Invoke((MethodInvoker)delegate ()
                 {
                     Add_B.Enabled = true;
@@ -113,6 +111,7 @@ namespace SZMK
             Scan_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             SystemArgs.ByteScout.Load += LoadToDGVAndTB;
             SystemArgs.ByteScout.Fail += StatusFailText;
+            SystemArgs.ByteScout.NeedChecked = true;
             EnableButton(false);
             Change_B.Enabled = true;
         }

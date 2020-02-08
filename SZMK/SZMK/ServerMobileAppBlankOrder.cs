@@ -64,7 +64,7 @@ namespace SZMK
             ServerTCP.Delimiter = 0x13;
             ServerTCP.DataReceived += Server_DataReceived;
             ServerTCP.StringEncoder = Encoding.UTF8;
-            IPAddress ip = IPAddress.Parse(Dns.GetHostAddresses(Dns.GetHostName())[0].ToString());
+            IPAddress ip = IPAddress.Parse(Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString());
             ServerTCP.Start(ip, Convert.ToInt32(SystemArgs.MobileApplication.Port));
             if (ServerTCP.IsStarted)
             {

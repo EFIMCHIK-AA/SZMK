@@ -228,7 +228,7 @@ namespace SZMK
                 {
                     if (Temp.Length != 1)
                     {
-                        if (SystemArgs.Orders.Where(p => p.Number == Number && p.List == Temp[0]).Count() == 0)
+                        if (SystemArgs.Orders.Where(p => p.Number == Number && (p.List == Temp[0]||p.List.IndexOf(Temp[0]+"и")==0)).Count() == 0)
                         {
                             if (MessageBox.Show("Заменяемый чертеж отсутсвует. Добавить новый?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                             {

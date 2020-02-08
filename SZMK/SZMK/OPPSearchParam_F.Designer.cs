@@ -420,6 +420,7 @@
             this.Status_CB.Name = "Status_CB";
             this.Status_CB.Size = new System.Drawing.Size(491, 21);
             this.Status_CB.TabIndex = 16;
+            this.Status_CB.SelectedIndexChanged += new System.EventHandler(this.Status_CB_SelectedIndexChanged);
             // 
             // User_CB
             // 

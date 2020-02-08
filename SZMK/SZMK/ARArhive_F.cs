@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Threading;
 using Npgsql;
 using System.IO;
+using System.Data;
 using Equin.ApplicationFramework;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -51,8 +52,10 @@ namespace SZMK
             }
             catch (Exception E)
             {
-                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if(MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
+                {
+                    Environment.Exit(0);
+                }
             }
         }
         private void AddOrder_TSB_Click(object sender, EventArgs e)
@@ -151,6 +154,7 @@ namespace SZMK
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         ARDecodeReport_F Report = new ARDecodeReport_F();
+                        Report.Report_DGV.RowCount = 0;
 
                         for (int i = 0; i < SystemArgs.ByteScout.GetDecodeSession().Count; i++)
                         {
@@ -175,7 +179,7 @@ namespace SZMK
                                         SystemArgs.Orders.Remove(Temp);
                                         SystemArgs.Orders.Add(NewOrder);
 
-                                        Report.Report_DGV.Rows.Add();
+                                        Report.Report_DGV.RowCount++;
                                         Report.Report_DGV[0, Report.Report_DGV.Rows.Count - 1].Value = NewOrder.DataMatrix;
                                         Report.Report_DGV[1, Report.Report_DGV.Rows.Count - 1].Value = CopyFileToArhive(NewOrder.DataMatrix, Dialog.FileNames[i]);
                                     }
@@ -194,6 +198,10 @@ namespace SZMK
                         {
                             Report.ShowDialog();
                         }
+                        else
+                        {
+                            Report.Dispose();
+                        }
                     }
 
                     SystemArgs.ByteScout.ClearData();
@@ -207,6 +215,7 @@ namespace SZMK
             }
             catch (Exception E)
             {
+                SystemArgs.PrintLog(E.ToString());
                 MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
@@ -274,7 +283,7 @@ namespace SZMK
         {
             try
             {
-                if (Order_DGV.CurrentCell.RowIndex >= 0)
+                if (Order_DGV.CurrentCell.RowIndex >= 0 && Order_DGV.SelectedRows.Count == 1)
                 {
                     Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
                     ARChangeOrder_F Dialog = new ARChangeOrder_F(Temp);
@@ -320,7 +329,7 @@ namespace SZMK
                 }
                 else
                 {
-                    throw new Exception("Необходимо выбрать объект");
+                    throw new Exception("Необходимо выбрать один объект");
                 }
             }
             catch (Exception E)
@@ -333,11 +342,11 @@ namespace SZMK
         {
             try
             {
-                if (Order_DGV.CurrentCell.RowIndex >= 0)
+                if (Order_DGV.CurrentCell.RowIndex >= 0 && Order_DGV.SelectedRows.Count == 1)
                 {
                     Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
 
-                    if (MessageBox.Show("Вы действительно хотите удалить пользователя?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    if (MessageBox.Show("Вы действительно хотите удалить чертеж?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
                         if (SystemArgs.Request.DeleteOrder(Temp))
                         {
@@ -356,7 +365,7 @@ namespace SZMK
                 }
                 else
                 {
-                    throw new Exception("Необходимо выбрать объект");
+                    throw new Exception("Необходимо выбрать один объект");
                 }
             }
             catch (Exception E)
@@ -373,7 +382,7 @@ namespace SZMK
                 {
                     Int32 Index = FilterCB_TSB.SelectedIndex;
 
-                    switch(Index)
+                    switch (Index)
                     {
                         case 1:
                             View = new BindingListView<Order>(List.Where(p => !p.Canceled).ToList());
@@ -421,9 +430,9 @@ namespace SZMK
                             }
 
                             ForgetOrder();
-                            break;         
+                            break;
                     }
-                }      
+                }
             }
             catch (Exception e)
             {
@@ -731,13 +740,13 @@ namespace SZMK
 
                 return true;
             }
-            catch
+            catch(Exception E)
             {
                 if (Temp != null)
                 {
                     Display(Temp);
                 }
-
+                SystemArgs.PrintLog(E.ToString());
                 throw;
             }
         }
@@ -774,7 +783,7 @@ namespace SZMK
 
                 if (SystemArgs.MobileApplication.GetParametersConnect())
                 {
-                    String MyIP = Dns.GetHostAddresses(Dns.GetHostName())[0].ToString();
+                    String MyIP = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
 
                     Dialog.IP_TB.Text = MyIP;
                     Dialog.Port_TB.Text = SystemArgs.MobileApplication.Port;
@@ -798,9 +807,9 @@ namespace SZMK
         {
             try
             {
-                if(MessageBox.Show("Изменить статус аннулирования чертежа?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                if (Order_DGV.CurrentCell.RowIndex >= 0 && Order_DGV.SelectedRows.Count == 1)
                 {
-                    if (Order_DGV.CurrentCell.RowIndex >= 0)
+                    if (MessageBox.Show("Изменить статус аннулирования чертежа?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
                         Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
 
@@ -816,10 +825,90 @@ namespace SZMK
                         }
                     }
                 }
+                else
+                {
+                    throw new Exception("Необходимо выбрать один объект");
+                }
             }
             catch (Exception E)
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SelectionReport_TSM_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Order> Report = new List<Order>();
+                if (Order_DGV.CurrentCell.RowIndex >= 0)
+                {
+                    for (int i = 0; i < Order_DGV.SelectedRows.Count; i++)
+                    {
+                        Report.Add((Order)(View[Order_DGV.SelectedRows[i].Index]));
+                    }
+                    if (SystemArgs.Excel.ReportOrderOfSelect(Report))
+                    {
+                        MessageBox.Show("Отчет успешно сформирован", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибка формирования отчета", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Необходимо выбрать объекты");
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void RenameOrder_TSM_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ARRenameOrder_F Dialog = new ARRenameOrder_F();
+
+                if (SystemArgs.ByteScout.CheckConnect())
+                {
+                    Dialog.ServerStatus_TB.Text = "Подключено";
+                    Dialog.ServerStatus_TB.BackColor = Color.FromArgb(233, 245, 255);
+                    Dialog.Status_TB.AppendText($"Ожидание распознования" + Environment.NewLine);
+
+                    if (Dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        ARDecodeReport_F Report = new ARDecodeReport_F();
+                        Report.Report_DGV.RowCount = 0;
+
+                        for (int i = 0; i < Dialog.FileNames.Count; i++)
+                        {
+                            Report.Report_DGV.RowCount++;
+                            Report.Report_DGV[0, Report.Report_DGV.Rows.Count - 1].Value = Dialog.DecodeNames[i];
+                            Report.Report_DGV[1, Report.Report_DGV.Rows.Count - 1].Value = CopyFileToArhive(Dialog.DecodeNames[i], Dialog.FileNames[i]);
+                        }
+                        if (Dialog.DecodeNames.Count > 0)
+                        {
+                            Report.ShowDialog();
+                        }
+                        else
+                        {
+                            Report.Dispose();
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("Ошибка при подключении к серверу распознавнаия");
+                }
+            }
+            catch (Exception E)
+            {
+                SystemArgs.PrintLog(E.ToString());
+                MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

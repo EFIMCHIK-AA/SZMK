@@ -91,6 +91,7 @@
             this.Weight_TB = new System.Windows.Forms.TextBox();
             this.Canceled_TB = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.SelectionReport_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -145,7 +146,8 @@
             // отчетToolStripMenuItem
             // 
             this.отчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ReportDate_TSM});
+            this.ReportDate_TSM,
+            this.SelectionReport_TSM});
             this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
             this.отчетToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.отчетToolStripMenuItem.Text = "Отчет";
@@ -153,7 +155,7 @@
             // ReportDate_TSM
             // 
             this.ReportDate_TSM.Name = "ReportDate_TSM";
-            this.ReportDate_TSM.Size = new System.Drawing.Size(169, 22);
+            this.ReportDate_TSM.Size = new System.Drawing.Size(218, 22);
             this.ReportDate_TSM.Text = "По дате создания";
             this.ReportDate_TSM.Click += new System.EventHandler(this.ReportDate_TSM_Click);
             // 
@@ -349,7 +351,6 @@
             this.Order_DGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Order_DGV.Location = new System.Drawing.Point(5, 55);
             this.Order_DGV.Margin = new System.Windows.Forms.Padding(5, 0, 3, 5);
-            this.Order_DGV.MultiSelect = false;
             this.Order_DGV.Name = "Order_DGV";
             this.Order_DGV.ReadOnly = true;
             this.Order_DGV.RowHeadersVisible = false;
@@ -798,6 +799,13 @@
             this.label13.TabIndex = 59;
             this.label13.Text = "Длина";
             // 
+            // SelectionReport_TSM
+            // 
+            this.SelectionReport_TSM.Name = "SelectionReport_TSM";
+            this.SelectionReport_TSM.Size = new System.Drawing.Size(218, 22);
+            this.SelectionReport_TSM.Text = "По выбранным позициям";
+            this.SelectionReport_TSM.Click += new System.EventHandler(this.SelectionReport_TSM_Click);
+            // 
             // PDO_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -885,5 +893,6 @@
         private System.Windows.Forms.TextBox Weight_TB;
         private System.Windows.Forms.TextBox Canceled_TB;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ToolStripMenuItem SelectionReport_TSM;
     }
 }

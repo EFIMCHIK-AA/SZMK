@@ -44,8 +44,10 @@ namespace SZMK
             }
             catch (Exception E)
             {
-                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
+                {
+                    Environment.Exit(0);
+                }
             }
         }
 
@@ -252,7 +254,7 @@ namespace SZMK
         {
             try
             {
-                if (Order_DGV.CurrentCell.RowIndex >= 0)
+                if (Order_DGV.CurrentCell.RowIndex >= 0 && Order_DGV.SelectedRows.Count == 1)
                 {
                     Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
 
@@ -306,7 +308,7 @@ namespace SZMK
                 }
                 else
                 {
-                    throw new Exception("Необходимо выбрать объект");
+                    throw new Exception("Необходимо выбрать один объект");
                 }
             }
             catch (Exception E)
@@ -319,11 +321,11 @@ namespace SZMK
         {
             try
             {
-                if (Order_DGV.CurrentCell.RowIndex >= 0)
+                if (Order_DGV.CurrentCell.RowIndex >= 0 && Order_DGV.SelectedRows.Count == 1)
                 {
                     Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
 
-                    if (MessageBox.Show("Вы действительно хотите удалить пользователя?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    if (MessageBox.Show("Вы действительно хотите удалить чертеж?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
                         if (SystemArgs.Request.DeleteOrder(Temp))
                         {
@@ -342,7 +344,7 @@ namespace SZMK
                 }
                 else
                 {
-                    throw new Exception("Необходимо выбрать объект");
+                    throw new Exception("Необходимо выбрать один объект");
                 }
             }
             catch (Exception E)
@@ -678,12 +680,13 @@ namespace SZMK
                 Display(SystemArgs.Orders);
                 return true;
             }
-            catch
+            catch(Exception E)
             {
                 if (Temp != null)
                 {
                     Display(Temp);
                 }
+                SystemArgs.PrintLog(E.ToString());
                 throw;
             }
         }
@@ -720,7 +723,7 @@ namespace SZMK
 
                 if (SystemArgs.MobileApplication.GetParametersConnect())
                 {
-                    String MyIP = Dns.GetHostAddresses(Dns.GetHostName())[0].ToString();
+                    String MyIP = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
 
                     Dialog.IP_TB.Text = MyIP;
                     Dialog.Port_TB.Text = SystemArgs.MobileApplication.Port;
@@ -732,6 +735,37 @@ namespace SZMK
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
 
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SelectionReport_TSM_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Order> Report = new List<Order>();
+                if (Order_DGV.CurrentCell.RowIndex >= 0)
+                {
+                    for (int i = 0; i < Order_DGV.SelectedRows.Count; i++)
+                    {
+                        Report.Add((Order)(View[Order_DGV.SelectedRows[i].Index]));
+                    }
+                    if (SystemArgs.Excel.ReportOrderOfSelect(Report))
+                    {
+                        MessageBox.Show("Отчет успешно сформирован", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибка формирования отчета", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Необходимо выбрать объекты");
                 }
             }
             catch (Exception E)
