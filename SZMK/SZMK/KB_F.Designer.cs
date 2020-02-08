@@ -94,6 +94,8 @@
             this.Weight_TB = new System.Windows.Forms.TextBox();
             this.Canceled_TB = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.проверкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CheckedUnloading_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -140,6 +142,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.добавлениеToolStripMenuItem,
             this.отчетToolStripMenuItem,
+            this.проверкиToolStripMenuItem,
             this.настройкиМобильногоПриложенияToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -829,6 +832,21 @@
             this.label13.TabIndex = 59;
             this.label13.Text = "Длина";
             // 
+            // проверкиToolStripMenuItem
+            // 
+            this.проверкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.CheckedUnloading_TSM});
+            this.проверкиToolStripMenuItem.Name = "проверкиToolStripMenuItem";
+            this.проверкиToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
+            this.проверкиToolStripMenuItem.Text = "Проверки";
+            // 
+            // CheckedUnloading_TSM
+            // 
+            this.CheckedUnloading_TSM.Name = "CheckedUnloading_TSM";
+            this.CheckedUnloading_TSM.Size = new System.Drawing.Size(187, 22);
+            this.CheckedUnloading_TSM.Text = "Проверить выгрузку";
+            this.CheckedUnloading_TSM.Click += new System.EventHandler(this.CheckedUnloading_TSM_Click);
+            // 
             // KB_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -920,5 +938,7 @@
         private System.Windows.Forms.TextBox Canceled_TB;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ToolStripMenuItem SelectionReport_TSM;
+        private System.Windows.Forms.ToolStripMenuItem проверкиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CheckedUnloading_TSM;
     }
 }

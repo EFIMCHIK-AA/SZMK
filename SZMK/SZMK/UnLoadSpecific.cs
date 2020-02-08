@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace SZMK
 {
@@ -77,97 +78,127 @@ namespace SZMK
         {
             ExecutorMails = new List<ExecutorMail>();
         }
-        public void ChekedUnloading(List<OrderScanSession> ScanSession)
+        public bool SearchFileUnloading(List<String> SessionForCheckingUnloading)
         {
             SystemArgs.UnLoadSpecific.ExecutorMails.Clear();
-            for (int i = 0; i < ScanSession.Count; i++)
+            Boolean flag = false;
+            for (int i = 0; i < SessionForCheckingUnloading.Count; i++)
             {
-                String[] SplitDataMatrix = ScanSession[i].DataMatrix.Split('_');
+                String[] SplitDataMatrix = SessionForCheckingUnloading[i].Split('_');
                 String pathSpecific = SystemArgs.ClientProgram.ModelsPath;
                 String[] directories = Directory.GetDirectories(pathSpecific);
-                if (Directory.Exists(pathSpecific + "\\" + SplitDataMatrix[0]))
+
+                foreach (var directory in directories)
                 {
-                    pathSpecific = pathSpecific + "\\" + SplitDataMatrix[0];
-                }
-                else 
-                {
-                    foreach (var directory in directories)
+                    if (SystemArgs.Path.GetFileName(directory).Replace(" ", "").IndexOf(SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('('))) != -1)
                     {
-                        if (directory.IndexOf(SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('('))) != -1)
+                        if (SystemArgs.Path.GetFileName(directory).Replace(" ", "").Remove(SystemArgs.Path.GetFileName(directory).IndexOf(SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('('))), SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('(')).Length).IndexOf(SplitDataMatrix[0].Remove(0, SplitDataMatrix[0].IndexOf("(") + 1).Replace(")", "")) != -1)
                         {
-                            pathSpecific = directory + "\\" + SplitDataMatrix[0];
+                            pathSpecific = directory + @"\Отчеты\#Для выгрузки.xml";
                             break;
                         }
-                    }
-                }
-                if(SystemArgs.ClientProgram.ModelsPath.Equals(pathSpecific))
-                {
-                    throw new Exception("Папки с номером заказа " + SplitDataMatrix[0] + " не существует");
-                }
-                if (File.Exists(pathSpecific + @"\Отчеты\#Для выгрузки.xml"))
-                {
-                    String List = "";
-                    String Detail = "";
-                    List<Unloading> Temp = new List<Unloading>();
-                    XDocument doc = XDocument.Load(pathSpecific + @"\Отчеты\#Для выгрузки.xml");
-                    foreach (XElement el in doc.Element("Export").Elements("Сборка"))
-                    {
-                        foreach (XElement xml in el.Elements("Деталь"))
+                        else
                         {
-                            List = el.Element("Лист").Value.Trim();
-                            Detail = xml.Element("Позиция_детали").Value.Trim();
-                            Temp.Add(new Unloading(List, Detail));
-                        }
-                    }
-                    for (int j = 0; j < Temp.Count; j++)
-                    {
-                        if (Temp[j]._List.Equals(SplitDataMatrix[1]))
-                        {
-                            if (Temp[j]._Detail != null)
+                            foreach(var subdir in Directory.GetDirectories(directory))
                             {
-                                if (File.Exists(pathSpecific + @"\Чертежи\Детали PDF\" + "Дет." + Temp[j]._Detail + ".pdf"))
+                                if(subdir.Replace(" ", "").IndexOf(SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('('))) != -1)
                                 {
-                                    if(ExecutorMails.Where(p=>p.Executor.Equals(SplitDataMatrix[3])).Count()!=0)
+                                    if (SystemArgs.Path.GetFileName(subdir).Replace(" ","").Replace(SplitDataMatrix[0].Remove(SplitDataMatrix[0].IndexOf('('), SplitDataMatrix[0].Length - SplitDataMatrix[0].IndexOf('(')),"").IndexOf(SplitDataMatrix[0].Remove(0,SplitDataMatrix[0].IndexOf("(")+1).Replace(")","")) != -1)
                                     {
-                                        foreach (var item in SystemArgs.UnLoadSpecific.ExecutorMails)
-                                        {
-                                            if (SplitDataMatrix[3].Equals(item.Executor))
-                                            {
-                                                item.GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), true));
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
-                                        ExecutorMails[ExecutorMails.Count() - 1].GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List,Convert.ToInt64(Temp[j]._Detail),true));
-                                    }
-                                }
-                                else
-                                {
-                                    if (ExecutorMails.Where(p => p.Executor.Equals(SplitDataMatrix[3])).Count() != 0)
-                                    {
-                                        foreach (var item in ExecutorMails)
-                                        {
-                                            if (SplitDataMatrix[3].Equals(item.Executor))
-                                            {
-                                                item.GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
-                                        ExecutorMails[ExecutorMails.Count() - 1].GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
+                                        pathSpecific = subdir + @"\Отчеты\#Для выгрузки.xml";
+                                        break;
                                     }
                                 }
                             }
+                            if (!SystemArgs.ClientProgram.ModelsPath.Equals(pathSpecific))
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (!File.Exists(pathSpecific))
+                {
+                    if (MessageBox.Show("Папки с номером заказа " + SplitDataMatrix[0] + " не существует" + Environment.NewLine + "Указать файл выгрузки вручную?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    {
+                        OpenFileDialog ofd = new OpenFileDialog();
+                        ofd.Filter = "Xlm Files .xml |*.xml";
+                        if (ofd.ShowDialog() == DialogResult.OK)
+                        {
+                            pathSpecific = ofd.FileName;
+                            ChekedUnloading(SplitDataMatrix, pathSpecific);
+                            flag = true;
                         }
                     }
                 }
                 else
                 {
-                    throw new Exception("Файла #Для выгрузки.xls не найдено по пути " + pathSpecific);
+                    ChekedUnloading(SplitDataMatrix, pathSpecific);
+                    flag = true;
+                }
+            }
+            return flag;
+        }
+        private void ChekedUnloading(String[] SplitDataMatrix, String pathSpecific)
+        {
+            String List = "";
+            String Detail = "";
+            List<Unloading> Temp = new List<Unloading>();
+            XDocument doc = XDocument.Load(pathSpecific);
+            foreach (XElement el in doc.Element("Export").Elements("Сборка"))
+            {
+                foreach (XElement xml in el.Elements("Деталь"))
+                {
+                    List = el.Element("Лист").Value.Trim();
+                    Detail = xml.Element("Позиция_детали").Value.Trim();
+                    Temp.Add(new Unloading(List, Detail));
+                }
+            }
+            pathSpecific = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(pathSpecific));
+            for (int j = 0; j < Temp.Count; j++)
+            {
+                if (Temp[j]._List.Equals(SplitDataMatrix[1]))
+                {
+                    if (Temp[j]._Detail != null)
+                    {
+                        if (File.Exists(pathSpecific + @"\Чертежи\Детали PDF\" + "Дет." + Temp[j]._Detail + ".pdf"))
+                        {
+                            if (ExecutorMails.Where(p => p.Executor.Equals(SplitDataMatrix[3])).Count() != 0)
+                            {
+                                foreach (var item in SystemArgs.UnLoadSpecific.ExecutorMails)
+                                {
+                                    if (SplitDataMatrix[3].Equals(item.Executor))
+                                    {
+                                        item.GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), true));
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
+                                ExecutorMails[ExecutorMails.Count() - 1].GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), true));
+                            }
+                        }
+                        else
+                        {
+                            if (ExecutorMails.Where(p => p.Executor.Equals(SplitDataMatrix[3])).Count() != 0)
+                            {
+                                foreach (var item in ExecutorMails)
+                                {
+                                    if (SplitDataMatrix[3].Equals(item.Executor))
+                                    {
+                                        item.GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
+                                ExecutorMails[ExecutorMails.Count() - 1].GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
+                            }
+                        }
+                    }
                 }
             }
         }

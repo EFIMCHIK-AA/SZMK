@@ -24,7 +24,6 @@ namespace SZMK
         {
             Scan_DGV.AutoGenerateColumns = false;
             Scan_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            SystemArgs.UnLoadSpecific = new UnLoadSpecific();
             SystemArgs.ServerMail = new ServerMail();
             SystemArgs.ServerMobileAppOrder.Load += LoadToDGV;
             EnableButton(false);
@@ -32,18 +31,30 @@ namespace SZMK
 
         private void CheckedUnloading_TSM_Click(object sender, EventArgs e)
         {
-            if(SystemArgs.ServerMobileAppOrder.GetScanSessions().Count!=0)
+            if (SystemArgs.ServerMobileAppOrder.GetScanSessions().Count != 0)
+            {
                 try
                 {
-                    SystemArgs.UnLoadSpecific.ChekedUnloading(SystemArgs.ServerMobileAppOrder.GetScanSessions());
-                    KBScanUnloadSpecific Dialog = new KBScanUnloadSpecific();
-                    Dialog.ShowDialog();
+                    if (SystemArgs.UnLoadSpecific.SearchFileUnloading(SystemArgs.ServerMobileAppOrder.GetScanSessions().Select(p => p.DataMatrix).ToList()))
+                    {
+                        if (SystemArgs.UnLoadSpecific.ExecutorMails.Count != 0)
+                        {
+                            KBScanUnloadSpecific Dialog = new KBScanUnloadSpecific();
+                            Dialog.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBox.Show("При проверки выгрузки не было найдено ни одного совпадения номера заказа с листом", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
                 }
-                catch(Exception E)
+                catch (Exception E)
                 {
-                    MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Файл был указан не верно или не хватило прав доступа к файлу", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    SystemArgs.PrintLog(E.ToString());
                     return;
                 }
+            }
             else
             {
                 MessageBox.Show("Невозможно проверить выгрузку, нет данных", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);

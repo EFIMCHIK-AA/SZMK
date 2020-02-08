@@ -27,6 +27,7 @@ namespace SZMK
                 Load_F Dialog = new Load_F();
                 Dialog.Show();
                 SystemArgs.MobileApplication = new MobileApplication();
+                SystemArgs.UnLoadSpecific = new UnLoadSpecific();
                 SystemArgs.ClientProgram = new ClientProgram();
                 SystemArgs.Orders = new List<Order>();
                 SystemArgs.BlankOrders = new List<BlankOrder>();
@@ -762,6 +763,42 @@ namespace SZMK
             catch (Exception E)
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CheckedUnloading_TSM_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Order> Selection = new List<Order>();
+                if (Order_DGV.CurrentCell.RowIndex >= 0)
+                {
+                    for (int i = 0; i < Order_DGV.SelectedRows.Count; i++)
+                    {
+                        Selection.Add((Order)(View[Order_DGV.SelectedRows[i].Index]));
+                    }
+                    if (SystemArgs.UnLoadSpecific.SearchFileUnloading(Selection.Select(p=>p.DataMatrix).ToList()))
+                    {
+                        if (SystemArgs.UnLoadSpecific.ExecutorMails.Count != 0)
+                        {
+                            KBScanUnloadSpecific Dialog = new KBScanUnloadSpecific();
+                            Dialog.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBox.Show("При проверки выгрузки не было найдено ни одного совпадения номера заказа с листом", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("Необходимо выбрать объекты");
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show("Файл был указан не верно или не хватило прав доступа к файлу", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SystemArgs.PrintLog(E.ToString());
             }
         }
     }
