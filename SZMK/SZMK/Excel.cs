@@ -198,7 +198,7 @@ namespace SZMK
                         WS.Cells[last + 3, 15].Value = "______________";
                         WS.Cells[last + 2, 16].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
                         WS.Cells[last + 3, 16].Value = "/______________/";
-                        WS.Cells["A2:P"+ WS.Dimension.End.Row.ToString()].AutoFitColumns();
+                        WS.Cells["A2:P" + WS.Dimension.End.Row.ToString()].AutoFitColumns();
                         WS.Cells["A2:P" + WS.Dimension.End.Row.ToString()].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         WB.Save();
                     }

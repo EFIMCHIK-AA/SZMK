@@ -39,7 +39,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.Cancel_B = new System.Windows.Forms.Button();
             this.OK_B = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -49,13 +48,14 @@
             this.Mark_TB = new System.Windows.Forms.TextBox();
             this.Lenght_TB = new System.Windows.Forms.TextBox();
             this.Weight_TB = new System.Windows.Forms.TextBox();
-            this.BlankOrder_CB = new System.Windows.Forms.ComboBox();
             this.Status_CB = new System.Windows.Forms.ComboBox();
             this.User_CB = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.Second_DP = new System.Windows.Forms.DateTimePicker();
             this.First_DP = new System.Windows.Forms.DateTimePicker();
             this.DateEnable_CB = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.NumberBlankOrder_TB = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,7 +75,6 @@
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 11);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 13);
             this.tableLayoutPanel1.Controls.Add(this.Cancel_B, 0, 18);
             this.tableLayoutPanel1.Controls.Add(this.OK_B, 0, 17);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 15);
@@ -85,13 +84,14 @@
             this.tableLayoutPanel1.Controls.Add(this.Mark_TB, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.Lenght_TB, 1, 9);
             this.tableLayoutPanel1.Controls.Add(this.Weight_TB, 1, 10);
-            this.tableLayoutPanel1.Controls.Add(this.BlankOrder_CB, 0, 12);
             this.tableLayoutPanel1.Controls.Add(this.Status_CB, 0, 14);
             this.tableLayoutPanel1.Controls.Add(this.User_CB, 0, 16);
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.Second_DP, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.First_DP, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.DateEnable_CB, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 13);
+            this.tableLayoutPanel1.Controls.Add(this.NumberBlankOrder_TB, 0, 12);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -117,7 +117,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(497, 714);
-            this.tableLayoutPanel1.TabIndex = 1;
+            this.tableLayoutPanel1.TabIndex = 3;
             // 
             // label13
             // 
@@ -256,25 +256,8 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(487, 35);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Бланк заказа";
+            this.label5.Text = "Номер заказа на производство";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
-            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel1.SetColumnSpan(this.label6, 3);
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label6.Location = new System.Drawing.Point(5, 474);
-            this.label6.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(487, 35);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Статус";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Cancel_B
             // 
@@ -286,7 +269,7 @@
             this.Cancel_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
             this.Cancel_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.Cancel_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Cancel_B.Location = new System.Drawing.Point(5, 675);
+            this.Cancel_B.Location = new System.Drawing.Point(5, 674);
             this.Cancel_B.Margin = new System.Windows.Forms.Padding(5, 0, 5, 7);
             this.Cancel_B.Name = "Cancel_B";
             this.Cancel_B.Size = new System.Drawing.Size(487, 33);
@@ -304,7 +287,7 @@
             this.OK_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
             this.OK_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.OK_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OK_B.Location = new System.Drawing.Point(5, 635);
+            this.OK_B.Location = new System.Drawing.Point(5, 634);
             this.OK_B.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.OK_B.Name = "OK_B";
             this.OK_B.Size = new System.Drawing.Size(487, 33);
@@ -321,7 +304,7 @@
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label7.Location = new System.Drawing.Point(5, 556);
+            this.label7.Location = new System.Drawing.Point(5, 555);
             this.label7.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(487, 35);
@@ -395,19 +378,6 @@
             this.Weight_TB.Size = new System.Drawing.Size(389, 20);
             this.Weight_TB.TabIndex = 14;
             // 
-            // BlankOrder_CB
-            // 
-            this.BlankOrder_CB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.BlankOrder_CB, 3);
-            this.BlankOrder_CB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BlankOrder_CB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.BlankOrder_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BlankOrder_CB.FormattingEnabled = true;
-            this.BlankOrder_CB.Location = new System.Drawing.Point(3, 440);
-            this.BlankOrder_CB.Name = "BlankOrder_CB";
-            this.BlankOrder_CB.Size = new System.Drawing.Size(491, 21);
-            this.BlankOrder_CB.TabIndex = 15;
-            // 
             // Status_CB
             // 
             this.Status_CB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
@@ -416,7 +386,7 @@
             this.Status_CB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Status_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Status_CB.FormattingEnabled = true;
-            this.Status_CB.Location = new System.Drawing.Point(3, 522);
+            this.Status_CB.Location = new System.Drawing.Point(3, 521);
             this.Status_CB.Name = "Status_CB";
             this.Status_CB.Size = new System.Drawing.Size(491, 21);
             this.Status_CB.TabIndex = 16;
@@ -430,7 +400,7 @@
             this.User_CB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.User_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.User_CB.FormattingEnabled = true;
-            this.User_CB.Location = new System.Drawing.Point(3, 604);
+            this.User_CB.Location = new System.Drawing.Point(3, 603);
             this.User_CB.Name = "User_CB";
             this.User_CB.Size = new System.Drawing.Size(491, 21);
             this.User_CB.TabIndex = 17;
@@ -480,6 +450,35 @@
             this.DateEnable_CB.UseVisualStyleBackColor = true;
             this.DateEnable_CB.CheckedChanged += new System.EventHandler(this.DateEnable_CB_CheckedChanged);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tableLayoutPanel1.SetColumnSpan(this.label6, 3);
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.label6.Location = new System.Drawing.Point(5, 473);
+            this.label6.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(487, 35);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Статус";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // NumberBlankOrder_TB
+            // 
+            this.NumberBlankOrder_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.NumberBlankOrder_TB, 3);
+            this.NumberBlankOrder_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.NumberBlankOrder_TB.Location = new System.Drawing.Point(3, 440);
+            this.NumberBlankOrder_TB.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
+            this.NumberBlankOrder_TB.Name = "NumberBlankOrder_TB";
+            this.NumberBlankOrder_TB.Size = new System.Drawing.Size(489, 20);
+            this.NumberBlankOrder_TB.TabIndex = 28;
+            this.NumberBlankOrder_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // ARSearchParam_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -515,7 +514,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button Cancel_B;
         private System.Windows.Forms.Button OK_B;
         private System.Windows.Forms.Label label7;
@@ -525,12 +523,13 @@
         public System.Windows.Forms.TextBox Mark_TB;
         public System.Windows.Forms.TextBox Lenght_TB;
         public System.Windows.Forms.TextBox Weight_TB;
-        public System.Windows.Forms.ComboBox BlankOrder_CB;
         public System.Windows.Forms.ComboBox Status_CB;
         public System.Windows.Forms.ComboBox User_CB;
-        public System.Windows.Forms.DateTimePicker First_DP;
         private System.Windows.Forms.Label label8;
         public System.Windows.Forms.DateTimePicker Second_DP;
+        public System.Windows.Forms.DateTimePicker First_DP;
         public System.Windows.Forms.CheckBox DateEnable_CB;
+        private System.Windows.Forms.Label label6;
+        public System.Windows.Forms.TextBox NumberBlankOrder_TB;
     }
 }

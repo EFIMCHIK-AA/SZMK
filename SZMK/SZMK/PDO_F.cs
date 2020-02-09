@@ -494,12 +494,6 @@ namespace SZMK
             {
                 PDOSearchParam_F Dialog = new PDOSearchParam_F();
 
-                List<BlankOrder> BlankOrders = new List<BlankOrder>();
-
-                BlankOrders.Add(new BlankOrder());
-                BlankOrders.AddRange(SystemArgs.BlankOrders);
-                Dialog.BlankOrder_CB.DataSource = BlankOrders;
-
                 List<Status> Statuses = new List<Status>();
 
                 Statuses.Add(new Status(-1, 0, "Не задан"));
@@ -509,7 +503,6 @@ namespace SZMK
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
                     Result = SystemArgs.Orders;
-
                     if (Dialog.DateEnable_CB.Checked)
                     {
                         Result = Result.Where(p => (p.DateCreate >= Dialog.First_DP.Value.Date) && (p.DateCreate <= Dialog.Second_DP.Value.Date.AddSeconds(86399))).ToList();
@@ -517,36 +510,36 @@ namespace SZMK
 
                     if (Dialog.Executor_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.Executor == Dialog.Executor_TB.Text.Trim()).ToList();
+                        Result = Result.Where(p => p.Executor.IndexOf(Dialog.Executor_TB.Text.Trim()) != -1).ToList();
                     }
 
                     if (Dialog.Number_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.Number == Dialog.Number_TB.Text.Trim()).ToList();
+                        Result = Result.Where(p => p.Number.IndexOf(Dialog.Number_TB.Text.Trim()) != -1).ToList();
                     }
 
                     if (Dialog.List_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.List.ToString() == Dialog.List_TB.Text.Trim()).ToList();
+                        Result = Result.Where(p => p.List.IndexOf(Dialog.List_TB.Text.Trim()) != -1).ToList();
                     }
 
                     if (Dialog.Mark_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.Mark == Dialog.Mark_TB.Text.Trim()).ToList();
+                        Result = Result.Where(p => p.Mark.IndexOf(Dialog.Mark_TB.Text.Trim()) != -1).ToList();
                     }
 
                     if (Dialog.Lenght_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.Lenght.ToString() == Dialog.Lenght_TB.Text.Trim()).ToList();
+                        Result = Result.Where(p => p.Lenght.ToString().IndexOf(Dialog.Lenght_TB.Text.Trim()) != -1).ToList();
                     }
 
                     if (Dialog.Weight_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.Weight.ToString() == Dialog.Weight_TB.Text.Trim()).ToList();
+                        Result = Result.Where(p => p.Weight.ToString().IndexOf(Dialog.Weight_TB.Text.Trim()) != -1).ToList();
                     }
-                    if (Dialog.BlankOrder_CB.SelectedIndex > 0)
+                    if (Dialog.NumberBlankOrder_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.BlankOrder == (BlankOrder)Dialog.BlankOrder_CB.SelectedItem).ToList();
+                        Result = Result.Where(p => p.BlankOrderView.IndexOf(Dialog.NumberBlankOrder_TB.Text.Trim()) != -1).ToList();
                     }
                     if (Dialog.Status_CB.SelectedIndex > 0)
                     {
