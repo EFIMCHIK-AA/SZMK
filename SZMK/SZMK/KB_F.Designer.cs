@@ -41,9 +41,6 @@
             this.ChangeOrder_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteOrder_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ReportDate_TSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.SelectionReport_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.проверкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CheckedUnloading_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиМобильногоПриложенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +56,7 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.FilterCB_TSB = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.CanceledOrder_TSB = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -96,7 +94,15 @@
             this.Weight_TB = new System.Windows.Forms.TextBox();
             this.Canceled_TB = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.CanceledOrder_TSB = new System.Windows.Forms.ToolStripButton();
+            this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.поЧертежамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.поВыбраннымПозициямToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.поДатеСозданияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.поВремениToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Time_Day_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.Time_Week_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.Time_Month_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.Time_SelectionDate_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -150,29 +156,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(1284, 24);
             this.menuStrip1.TabIndex = 11;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // отчетToolStripMenuItem
-            // 
-            this.отчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ReportDate_TSM,
-            this.SelectionReport_TSM});
-            this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
-            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.отчетToolStripMenuItem.Text = "Отчет";
-            // 
-            // ReportDate_TSM
-            // 
-            this.ReportDate_TSM.Name = "ReportDate_TSM";
-            this.ReportDate_TSM.Size = new System.Drawing.Size(218, 22);
-            this.ReportDate_TSM.Text = "По дате создания";
-            this.ReportDate_TSM.Click += new System.EventHandler(this.ReportDate_TSM_Click);
-            // 
-            // SelectionReport_TSM
-            // 
-            this.SelectionReport_TSM.Name = "SelectionReport_TSM";
-            this.SelectionReport_TSM.Size = new System.Drawing.Size(218, 22);
-            this.SelectionReport_TSM.Text = "По выбранным позициям";
-            this.SelectionReport_TSM.Click += new System.EventHandler(this.SelectionReport_TSM_Click);
             // 
             // проверкиToolStripMenuItem
             // 
@@ -330,6 +313,16 @@
             this.toolStripLabel2.Name = "toolStripLabel2";
             this.toolStripLabel2.Size = new System.Drawing.Size(57, 35);
             this.toolStripLabel2.Text = "Показать";
+            // 
+            // CanceledOrder_TSB
+            // 
+            this.CanceledOrder_TSB.Image = global::SZMK.Properties.Resources.Canceled;
+            this.CanceledOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CanceledOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.CanceledOrder_TSB.Name = "CanceledOrder_TSB";
+            this.CanceledOrder_TSB.Size = new System.Drawing.Size(120, 34);
+            this.CanceledOrder_TSB.Text = "Аннулировать";
+            this.CanceledOrder_TSB.Click += new System.EventHandler(this.CanceledOrder_TSB_Click);
             // 
             // panel1
             // 
@@ -849,15 +842,72 @@
             this.label13.TabIndex = 59;
             this.label13.Text = "Длина";
             // 
-            // CanceledOrder_TSB
+            // отчетToolStripMenuItem
             // 
-            this.CanceledOrder_TSB.Image = global::SZMK.Properties.Resources.Canceled;
-            this.CanceledOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.CanceledOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.CanceledOrder_TSB.Name = "CanceledOrder_TSB";
-            this.CanceledOrder_TSB.Size = new System.Drawing.Size(120, 34);
-            this.CanceledOrder_TSB.Text = "Аннулировать";
-            this.CanceledOrder_TSB.Click += new System.EventHandler(this.CanceledOrder_TSB_Click);
+            this.отчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.поЧертежамToolStripMenuItem,
+            this.поВремениToolStripMenuItem});
+            this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
+            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.отчетToolStripMenuItem.Text = "Отчет";
+            // 
+            // поЧертежамToolStripMenuItem
+            // 
+            this.поЧертежамToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.поВыбраннымПозициямToolStripMenuItem,
+            this.поДатеСозданияToolStripMenuItem});
+            this.поЧертежамToolStripMenuItem.Name = "поЧертежамToolStripMenuItem";
+            this.поЧертежамToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.поЧертежамToolStripMenuItem.Text = "По чертежам";
+            // 
+            // поВыбраннымПозициямToolStripMenuItem
+            // 
+            this.поВыбраннымПозициямToolStripMenuItem.Name = "поВыбраннымПозициямToolStripMenuItem";
+            this.поВыбраннымПозициямToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.поВыбраннымПозициямToolStripMenuItem.Text = "По выбранным позициям";
+            this.поВыбраннымПозициямToolStripMenuItem.Click += new System.EventHandler(this.SelectionReport_TSM_Click);
+            // 
+            // поДатеСозданияToolStripMenuItem
+            // 
+            this.поДатеСозданияToolStripMenuItem.Name = "поДатеСозданияToolStripMenuItem";
+            this.поДатеСозданияToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.поДатеСозданияToolStripMenuItem.Text = "По дате создания";
+            this.поДатеСозданияToolStripMenuItem.Click += new System.EventHandler(this.ReportDate_TSM_Click);
+            // 
+            // поВремениToolStripMenuItem
+            // 
+            this.поВремениToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Time_Day_Report_TSM,
+            this.Time_Week_Report_TSM,
+            this.Time_Month_Report_TSM,
+            this.Time_SelectionDate_Report_TSM});
+            this.поВремениToolStripMenuItem.Name = "поВремениToolStripMenuItem";
+            this.поВремениToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.поВремениToolStripMenuItem.Text = "По времени";
+            // 
+            // Time_Day_Report_TSM
+            // 
+            this.Time_Day_Report_TSM.Name = "Time_Day_Report_TSM";
+            this.Time_Day_Report_TSM.Size = new System.Drawing.Size(183, 22);
+            this.Time_Day_Report_TSM.Text = "Сутки";
+            // 
+            // Time_Week_Report_TSM
+            // 
+            this.Time_Week_Report_TSM.Name = "Time_Week_Report_TSM";
+            this.Time_Week_Report_TSM.Size = new System.Drawing.Size(183, 22);
+            this.Time_Week_Report_TSM.Text = "Неделя";
+            // 
+            // Time_Month_Report_TSM
+            // 
+            this.Time_Month_Report_TSM.Name = "Time_Month_Report_TSM";
+            this.Time_Month_Report_TSM.Size = new System.Drawing.Size(183, 22);
+            this.Time_Month_Report_TSM.Text = "Месяц";
+            // 
+            // Time_SelectionDate_Report_TSM
+            // 
+            this.Time_SelectionDate_Report_TSM.Name = "Time_SelectionDate_Report_TSM";
+            this.Time_SelectionDate_Report_TSM.Size = new System.Drawing.Size(183, 22);
+            this.Time_SelectionDate_Report_TSM.Text = "Выбранный период";
             // 
             // KB_F
             // 
@@ -906,8 +956,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripMenuItem ChangeOrder_TSM;
         private System.Windows.Forms.ToolStripMenuItem DeleteOrder_TSM;
-        private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ReportDate_TSM;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -942,7 +990,6 @@
         private System.Windows.Forms.ToolStripMenuItem SettingMobile_TSM;
         private System.Windows.Forms.TextBox Canceled_TB;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ToolStripMenuItem SelectionReport_TSM;
         private System.Windows.Forms.ToolStripMenuItem проверкиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CheckedUnloading_TSM;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusDate;
@@ -953,5 +1000,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Mark;
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
         private System.Windows.Forms.ToolStripButton CanceledOrder_TSB;
+        private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem поЧертежамToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem поВыбраннымПозициямToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem поДатеСозданияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem поВремениToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Time_Day_Report_TSM;
+        private System.Windows.Forms.ToolStripMenuItem Time_Week_Report_TSM;
+        private System.Windows.Forms.ToolStripMenuItem Time_Month_Report_TSM;
+        private System.Windows.Forms.ToolStripMenuItem Time_SelectionDate_Report_TSM;
     }
 }

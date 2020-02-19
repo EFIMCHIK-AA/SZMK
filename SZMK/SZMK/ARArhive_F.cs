@@ -909,5 +909,25 @@ namespace SZMK
                 MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void Time_Day_Report_TSM_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Time_Week_Report_TSM_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Time_Month_Report_TSM_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Time_SelectionDate_Report_TSM_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
