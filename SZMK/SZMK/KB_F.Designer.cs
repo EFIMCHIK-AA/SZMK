@@ -44,6 +44,8 @@
             this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ReportDate_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.SelectionReport_TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.проверкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CheckedUnloading_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиМобильногоПриложенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingMobile_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -94,8 +96,7 @@
             this.Weight_TB = new System.Windows.Forms.TextBox();
             this.Canceled_TB = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.проверкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CheckedUnloading_TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.CanceledOrder_TSB = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -173,6 +174,21 @@
             this.SelectionReport_TSM.Text = "По выбранным позициям";
             this.SelectionReport_TSM.Click += new System.EventHandler(this.SelectionReport_TSM_Click);
             // 
+            // проверкиToolStripMenuItem
+            // 
+            this.проверкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.CheckedUnloading_TSM});
+            this.проверкиToolStripMenuItem.Name = "проверкиToolStripMenuItem";
+            this.проверкиToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
+            this.проверкиToolStripMenuItem.Text = "Проверки";
+            // 
+            // CheckedUnloading_TSM
+            // 
+            this.CheckedUnloading_TSM.Name = "CheckedUnloading_TSM";
+            this.CheckedUnloading_TSM.Size = new System.Drawing.Size(187, 22);
+            this.CheckedUnloading_TSM.Text = "Проверить выгрузку";
+            this.CheckedUnloading_TSM.Click += new System.EventHandler(this.CheckedUnloading_TSM_Click);
+            // 
             // настройкиМобильногоПриложенияToolStripMenuItem
             // 
             this.настройкиМобильногоПриложенияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -205,7 +221,8 @@
             this.Search_TSTB,
             this.toolStripLabel1,
             this.FilterCB_TSB,
-            this.toolStripLabel2});
+            this.toolStripLabel2,
+            this.CanceledOrder_TSB});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 5);
@@ -386,7 +403,7 @@
             // StatusDate
             // 
             this.StatusDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.StatusDate.DataPropertyName = "StatusDate";
+            this.StatusDate.DataPropertyName = "StatusViewDate";
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.StatusDate.DefaultCellStyle = dataGridViewCellStyle1;
             this.StatusDate.FillWeight = 23F;
@@ -832,20 +849,15 @@
             this.label13.TabIndex = 59;
             this.label13.Text = "Длина";
             // 
-            // проверкиToolStripMenuItem
+            // CanceledOrder_TSB
             // 
-            this.проверкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.CheckedUnloading_TSM});
-            this.проверкиToolStripMenuItem.Name = "проверкиToolStripMenuItem";
-            this.проверкиToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
-            this.проверкиToolStripMenuItem.Text = "Проверки";
-            // 
-            // CheckedUnloading_TSM
-            // 
-            this.CheckedUnloading_TSM.Name = "CheckedUnloading_TSM";
-            this.CheckedUnloading_TSM.Size = new System.Drawing.Size(187, 22);
-            this.CheckedUnloading_TSM.Text = "Проверить выгрузку";
-            this.CheckedUnloading_TSM.Click += new System.EventHandler(this.CheckedUnloading_TSM_Click);
+            this.CanceledOrder_TSB.Image = global::SZMK.Properties.Resources.Canceled;
+            this.CanceledOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CanceledOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.CanceledOrder_TSB.Name = "CanceledOrder_TSB";
+            this.CanceledOrder_TSB.Size = new System.Drawing.Size(120, 34);
+            this.CanceledOrder_TSB.Text = "Аннулировать";
+            this.CanceledOrder_TSB.Click += new System.EventHandler(this.CanceledOrder_TSB_Click);
             // 
             // KB_F
             // 
@@ -928,6 +940,11 @@
         public System.Windows.Forms.Button RefreshStatus_B;
         private System.Windows.Forms.ToolStripMenuItem настройкиМобильногоПриложенияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SettingMobile_TSM;
+        private System.Windows.Forms.TextBox Canceled_TB;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ToolStripMenuItem SelectionReport_TSM;
+        private System.Windows.Forms.ToolStripMenuItem проверкиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CheckedUnloading_TSM;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Executor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
@@ -935,10 +952,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn List;
         private System.Windows.Forms.DataGridViewTextBoxColumn Mark;
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
-        private System.Windows.Forms.TextBox Canceled_TB;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ToolStripMenuItem SelectionReport_TSM;
-        private System.Windows.Forms.ToolStripMenuItem проверкиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem CheckedUnloading_TSM;
+        private System.Windows.Forms.ToolStripButton CanceledOrder_TSB;
     }
 }

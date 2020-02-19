@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SZMK
 {
-    /*Класс реализует объек чертежа со всеми полями присущими чертеду*/
+    /*Класс реализует объек чертежа со всеми полями присущими чертежу*/
     public class Order
     {
         private Int64 _ID;
@@ -22,9 +22,10 @@ namespace SZMK
         private User _User;
         private BlankOrder _BlankOrder;
         private Boolean _Canceled;
+        private DateTime _StatusDate;
 
 
-        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor, String List, String Mark, Double Lenght, Double Weight, Status Status,User User, BlankOrder BlankOrder, Boolean Cancelen)
+        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor, String List, String Mark, Double Lenght, Double Weight, Status Status,DateTime StatusDate,User User, BlankOrder BlankOrder, Boolean Canceled)
         {
             if (ID >= 0)
             {
@@ -112,6 +113,15 @@ namespace SZMK
                 throw new Exception("Пустое значение статуса");
             }
 
+            if (StatusDate != null)
+            {
+                _StatusDate = StatusDate;
+            }
+            else
+            {
+                throw new Exception("Пустое значение даты присвоения статуса");
+            }
+
             if (User != null)
             {
                 _User = User;
@@ -130,10 +140,10 @@ namespace SZMK
                 throw new Exception("Пустое значение бланка заказа");
             }
 
-            _Canceled = Cancelen;
+            _Canceled = Canceled;
         }
 
-        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя", "Нет листа", "Нет марки", -1, -1, null, null, null, false) { }
+        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя", "Нет листа", "Нет марки", -1, -1, null, DateTime.Now, null, null, false) { }
 
         public Int64 ID
         {
@@ -285,25 +295,25 @@ namespace SZMK
             }
         }
 
-        public String StatusView
+        public String StatusViewDate
         {
             get
             {
-                return _Status.ToString();
+                return _StatusDate.ToString();
             }
         }
 
-        public String StatusDate
+        public DateTime StatusDate
         {
             get
             {
-                if(SystemArgs.StatusOfOrders.Where(p => p.IDOrder == _ID && p.IDStatus == _Status.ID).Select(p => p.DateCreate).Count() == 1)
+                return _StatusDate;
+            }
+            set
+            {
+                if(value!=null)
                 {
-                    return SystemArgs.StatusOfOrders.Where(p => p.IDOrder == _ID && p.IDStatus == _Status.ID).Select(p => p.DateCreate).Single().ToString();
-                }
-                else
-                {
-                    return "";
+                    _StatusDate = value;
                 }
             }
         }

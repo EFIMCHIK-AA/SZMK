@@ -27,6 +27,7 @@ namespace SZMK
                 Load_F Dialog = new Load_F();
                 Dialog.Show();
                 SystemArgs.MobileApplication = new MobileApplication();
+                SystemArgs.ServerMail = new ServerMail();
                 SystemArgs.UnLoadSpecific = new UnLoadSpecific();
                 SystemArgs.ClientProgram = new ClientProgram();
                 SystemArgs.Orders = new List<Order>();
@@ -193,7 +194,7 @@ namespace SZMK
                                                     where p.IDPosition == PositionID
                                                     select p).Single();
 
-                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, SystemArgs.User, TempBlank, false);
+                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, DateTime.Now, SystemArgs.User, TempBlank, false);
 
                                 if (SystemArgs.Excel.AddToRegistry(TempOrder))
                                 {
@@ -251,8 +252,8 @@ namespace SZMK
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         String NewDataMatrix = Dialog.Number_TB.Text + "_" + Dialog.List_TB.Text + "_" + Dialog.Mark_TB.Text + "_" + Dialog.Executor_TB.Text + "_" + Dialog.Lenght_TB.Text + "_" + Dialog.Weight_TB.Text;
-
-                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), Temp.Status, Temp.User, Temp.BlankOrder, Temp.Canceled);
+                        List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == Temp.ID && p.IDStatus == Temp.Status.ID).Select(p => p.DateCreate).ToList();
+                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), Temp.Status,StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled);
                         
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
                         {
@@ -347,6 +348,11 @@ namespace SZMK
                             CountOrder_TB.Text = View.Count.ToString();
 
                             VisibleButton(false);
+                            if (View.Count > 0)
+                            {
+                                CanceledOrder_TSB.Text = "Восстановить";
+                                CanceledOrder_TSB.Visible = true;
+                            }
 
                             break;
                         default:
@@ -360,10 +366,12 @@ namespace SZMK
                             if (View.Count > 0)
                             {
                                 VisibleButton(true);
+                                CanceledOrder_TSB.Text = "Аннулировать";
                             }
                             else
                             {
                                 VisibleButton(false);
+                                CanceledOrder_TSB.Text = "Аннулировать";
                             }
 
                             ForgetOrder();
@@ -595,6 +603,7 @@ namespace SZMK
                 DeleteOrder_TSB.Visible = true;
                 ChangeOrder_TSM.Visible = true;
                 DeleteOrder_TSM.Visible = true;
+                CanceledOrder_TSB.Visible = true;
             }
             else
             {
@@ -602,6 +611,7 @@ namespace SZMK
                 DeleteOrder_TSB.Visible = false;
                 ChangeOrder_TSM.Visible = false;
                 DeleteOrder_TSM.Visible = false;
+                CanceledOrder_TSB.Visible = false;
             }
         }
         private void Selection(Order Temp, bool flag)
@@ -792,6 +802,39 @@ namespace SZMK
             {
                 MessageBox.Show("Файл был указан не верно или не хватило прав доступа к файлу", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 SystemArgs.PrintLog(E.ToString());
+            }
+        }
+
+        private void CanceledOrder_TSB_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Order_DGV.CurrentCell.RowIndex >= 0 && Order_DGV.SelectedRows.Count == 1)
+                {
+                    if (MessageBox.Show("Изменить статус аннулирования чертежа?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    {
+                        Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
+
+                        Temp.Canceled = !Temp.Canceled;
+
+                        if (SystemArgs.Request.CanceledOrder(Temp))
+                        {
+                            Display(SystemArgs.Orders);
+                        }
+                        else
+                        {
+                            throw new Exception("Произошла ошибка при аннулировании чертежа");
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("Необходимо выбрать один объект");
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

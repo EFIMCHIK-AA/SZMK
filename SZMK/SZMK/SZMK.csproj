@@ -155,6 +155,7 @@
     <Compile Include="AVTChangePassword_F.Designer.cs">
       <DependentUpon>AVTChangePassword_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="DecodeScanSession.cs" />
     <Compile Include="KBChangeOrder_F.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -763,7 +763,7 @@
             // StatusDate
             // 
             this.StatusDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.StatusDate.DataPropertyName = "StatusDate";
+            this.StatusDate.DataPropertyName = "StatusViewDate";
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.StatusDate.DefaultCellStyle = dataGridViewCellStyle1;
             this.StatusDate.FillWeight = 20F;

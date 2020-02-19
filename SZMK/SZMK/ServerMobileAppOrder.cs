@@ -44,8 +44,10 @@ namespace SZMK
         }
         public bool Start()
         {
-            ServerTCP = new SimpleTcpServer();
-            ServerTCP.Delimiter = 0x13;
+            ServerTCP = new SimpleTcpServer
+            {
+                Delimiter = 0x13
+            };
             ServerTCP.DataReceived += Server_DataReceived;
             ServerTCP.StringEncoder = Encoding.UTF8;
             IPAddress ip = IPAddress.Parse(Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString());

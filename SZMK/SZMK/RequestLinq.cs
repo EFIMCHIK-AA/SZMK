@@ -21,7 +21,7 @@ namespace SZMK
         {
             try
             {
-                if (SystemArgs.Orders.Where(p => p.Number == Number && p.List == List).Count() == 1 && CheckedStatusOrderDB(SystemArgs.User.IDStatus,GetDataMatrixIsNumberAndList(Number,List)))
+                if (SystemArgs.Orders.Where(p => p.Number == Number && p.List == List).Count() == 1 && CheckedStatusOrderDB(SystemArgs.User.IDStatus,GetDataMatrixIsNumberAndList(Number,List)) == 1)
                 {
                     return true;
                 }
@@ -35,22 +35,26 @@ namespace SZMK
                 return false;
             }
         }
-        public bool CheckedStatusOrderDB(Int64 IDStatus, String DataMatrix)
+        public Int32 CheckedStatusOrderDB(Int64 IDStatus, String DataMatrix)
         {
             try
             {
                 if(SystemArgs.StatusOfOrders.Where(p => p.IDOrder == GetIDOrder(DataMatrix)).Max(p => p.IDStatus) == IDStatus - 1)
                 {
-                    return true;
+                    return 1;
+                }
+                else if(SystemArgs.StatusOfOrders.Where(p => p.IDOrder == GetIDOrder(DataMatrix)).Max(p => p.IDStatus) >= IDStatus)
+                {
+                    return 0;
                 }
                 else
                 {
-                    return false;
+                    return -1;
                 }
             }
             catch
             {
-                return false;
+                return -1;
             }
         }
         public bool CheckedOrderAndStatusForUpdate(String Number, String List)

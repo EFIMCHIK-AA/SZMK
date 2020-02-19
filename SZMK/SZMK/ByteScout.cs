@@ -17,13 +17,13 @@ namespace SZMK
         private String _Port;
         private String _Server;
         private Boolean _NeedChecked;
-        public delegate void LoadData(List<OrderScanSession> ScanSession);
+        public delegate void LoadData(List<DecodeScanSession> ScanSession);
         public event LoadData Load;
         public delegate void RenameData(String result,String Path);
         public event RenameData Rename;
         public delegate void FailData(String FileName);
         public event FailData Fail;
-        private List<OrderScanSession> _DecodeSession;
+        private List<DecodeScanSession> _DecodeSession;
 
         public ByteScout()
         {
@@ -32,10 +32,10 @@ namespace SZMK
                 throw new Exception("Ошибка при получении конфигурационных путей программы распознавания");
             }
 
-            _DecodeSession = new List<OrderScanSession>();
+            _DecodeSession = new List<DecodeScanSession>();
         }
 
-        public OrderScanSession this[Int32 Index]
+        public DecodeScanSession this[Int32 Index]
         {
             get
             {
@@ -49,7 +49,7 @@ namespace SZMK
                 }
             }
         }
-        public List<OrderScanSession> GetDecodeSession()
+        public List<DecodeScanSession> GetDecodeSession()
         {
             return _DecodeSession;
         }
@@ -316,13 +316,17 @@ namespace SZMK
                 DataMatrix = Temp[0] + "_" + Temp[1] + "_" + Temp[2] + "_" + Temp[3] + "_" + Temp[4].Replace(".",",") + "_" + Temp[5].Replace(".", ",");
                 if (CheckedUniqueList(DataMatrix))
                 {
-                    if (SystemArgs.RequestLinq.CheckedStatusOrderDB(SystemArgs.User.IDStatus,DataMatrix))
+                    if (SystemArgs.RequestLinq.CheckedStatusOrderDB(SystemArgs.User.IDStatus,DataMatrix)==1)
                     {
-                        _DecodeSession.Add(new OrderScanSession(DataMatrix, true));
+                        _DecodeSession.Add(new DecodeScanSession(DataMatrix, 1));
+                    }
+                    else if((SystemArgs.RequestLinq.CheckedStatusOrderDB(SystemArgs.User.IDStatus, DataMatrix) == 0))
+                    {
+                        _DecodeSession.Add(new DecodeScanSession(DataMatrix, 0));
                     }
                     else
                     {
-                        _DecodeSession.Add(new OrderScanSession(DataMatrix, false));
+                        _DecodeSession.Add(new DecodeScanSession(DataMatrix, -1));
                     }
                     return true;
                 }

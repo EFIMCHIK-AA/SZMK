@@ -158,7 +158,7 @@ namespace SZMK
 
                         for (int i = 0; i < SystemArgs.ByteScout.GetDecodeSession().Count; i++)
                         {
-                            if (SystemArgs.ByteScout[i].Unique)
+                            if (SystemArgs.ByteScout[i].Unique==1)
                             {
                                 Int64 PositionID = SystemArgs.User.GetPosition().ID;
 
@@ -194,7 +194,7 @@ namespace SZMK
                                 }
                             }
                         }
-                        if (SystemArgs.ByteScout.GetDecodeSession().Where(p => p.Unique).Count() != 0)
+                        if (SystemArgs.ByteScout.GetDecodeSession().Where(p => p.Unique==1).Count() != 0)
                         {
                             Report.ShowDialog();
                         }
@@ -293,8 +293,10 @@ namespace SZMK
                     Dialog.List_TB.Text = Temp.List.ToString();
                     Dialog.Mark_TB.Text = Temp.Mark;
                     Dialog.Lenght_TB.Text = Temp.Lenght.ToString();
-                    List<Status> TempStatuses = new List<Status>();
-                    TempStatuses.Add(Temp.Status);
+                    List<Status> TempStatuses = new List<Status>
+                    {
+                        Temp.Status
+                    };
                     Dialog.Weight_TB.Text = Temp.Weight.ToString();
                     if (Temp.Status.ID != SystemArgs.Statuses.Min(p => p.ID))
                     {
@@ -305,7 +307,8 @@ namespace SZMK
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         String NewDataMatrix = Dialog.Number_TB.Text + "_" + Dialog.List_TB.Text + "_" + Dialog.Mark_TB.Text + "_" + Dialog.Executor_TB.Text + "_" + Dialog.Lenght_TB.Text + "_" + Dialog.Weight_TB.Text;
-                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), Temp.User, Temp.BlankOrder, Temp.Canceled);
+                        List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == Temp.ID && p.IDStatus == SystemArgs.Statuses.Where(j => j == (Status)Dialog.Status_CB.SelectedItem).Single().ID).Select(p => p.DateCreate).ToList();
+                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(),StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled);
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
                         {
                             if (Dialog.Status_CB.SelectedIndex != 0)
@@ -565,9 +568,10 @@ namespace SZMK
             {
                 ARSearchParam_F Dialog = new ARSearchParam_F();
 
-                List<Status> Statuses = new List<Status>();
-
-                Statuses.Add(new Status(-1, 0, "Не задан"));
+                List<Status> Statuses = new List<Status>
+                {
+                    new Status(-1, 0, "Не задан")
+                };
                 Statuses.AddRange(SystemArgs.Statuses);
                 Dialog.Status_CB.DataSource = Statuses;
 

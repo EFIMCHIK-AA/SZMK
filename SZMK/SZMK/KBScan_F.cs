@@ -24,7 +24,6 @@ namespace SZMK
         {
             Scan_DGV.AutoGenerateColumns = false;
             Scan_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            SystemArgs.ServerMail = new ServerMail();
             SystemArgs.ServerMobileAppOrder.Load += LoadToDGV;
             EnableButton(false);
         }
@@ -66,7 +65,7 @@ namespace SZMK
         {
             if (SystemArgs.ServerMobileAppOrder.GetScanSessions().Count != 0)
             {
-                if (SystemArgs.Excel.CreateAndExportActs(SystemArgs.ServerMobileAppOrder.GetScanSessions(), true))
+                if (SystemArgs.Excel.CreateAndExportActsKB(SystemArgs.ServerMobileAppOrder.GetScanSessions()))
                 {
                     MessageBox.Show("Акты успешно сформированы и сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 };

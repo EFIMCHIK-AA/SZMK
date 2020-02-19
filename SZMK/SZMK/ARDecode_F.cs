@@ -87,7 +87,7 @@ namespace SZMK
                     }
                     Dialog.ShowDialog();
                 }
-                if (SystemArgs.ByteScout.GetDecodeSession().Where(p => p.Unique).Count() == 0)
+                if (SystemArgs.ByteScout.GetDecodeSession().Where(p => p.Unique==1).Count() == 0)
                 {
                     Add_B.Invoke((MethodInvoker)delegate ()
                     {
@@ -155,7 +155,7 @@ namespace SZMK
                 FailCount++;
             });
         }
-        private void LoadToDGVAndTB(List<OrderScanSession> DecodeSession)
+        private void LoadToDGVAndTB(List<DecodeScanSession> DecodeSession)
         {
                 Status_TB.Invoke((MethodInvoker)delegate ()
                 {
@@ -165,10 +165,15 @@ namespace SZMK
                 {
                     Scan_DGV.Rows.Add();
                     Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = DecodeSession[DecodeSession.Count - 1].DataMatrix;
-                    if (DecodeSession[DecodeSession.Count - 1].Unique)
+                    if (DecodeSession[DecodeSession.Count - 1].Unique==1)
                     {
                         Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Найден";
                         Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
+                    }
+                    else if(DecodeSession[DecodeSession.Count - 1].Unique == 0)
+                    {
+                        Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Уже подтвержден";
+                        Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Orange;
                     }
                     else
                     {
@@ -182,7 +187,7 @@ namespace SZMK
         {
             if (SystemArgs.ByteScout.GetDecodeSession().Count != 0)
             {
-                if (SystemArgs.Excel.CreateAndExportActs(SystemArgs.ByteScout.GetDecodeSession(), false))
+                if (SystemArgs.Excel.CreateAndExportActsArhive(SystemArgs.ByteScout.GetDecodeSession()))
                 {
                     MessageBox.Show("Акты успешно сформированы и сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 };

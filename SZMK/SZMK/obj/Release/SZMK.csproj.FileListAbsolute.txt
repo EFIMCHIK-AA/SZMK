@@ -70,3 +70,4 @@ C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Release\SZMK.csproj.GenerateReso
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Release\SZMK.csproj.CopyComplete
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Release\SZMK.exe
 C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Release\SZMK.pdb
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Release\SZMK.ARRenameOrder_F.resources
