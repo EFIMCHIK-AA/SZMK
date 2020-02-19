@@ -135,6 +135,9 @@ namespace SZMK
                         OPP.Show();
                         break;
                     case 6:
+                        Chief_PDO_F Chief_PDO = new Chief_PDO_F();
+                        this.Hide();
+                        Chief_PDO.Show();
                         break;
                     default:
                         throw new Exception("Должности пользователя не существует");

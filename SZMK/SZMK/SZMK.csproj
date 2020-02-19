@@ -155,6 +155,24 @@
     <Compile Include="AVTChangePassword_F.Designer.cs">
       <DependentUpon>AVTChangePassword_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chief_PDO_ChangeOrder_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chief_PDO_ChangeOrder_F.Designer.cs">
+      <DependentUpon>Chief_PDO_ChangeOrder_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chief_PDO_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chief_PDO_F.Designer.cs">
+      <DependentUpon>Chief_PDO_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chief_PDO_SearchParam_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chief_PDO_SearchParam_F.Designer.cs">
+      <DependentUpon>Chief_PDO_SearchParam_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="DecodeScanSession.cs" />
     <Compile Include="KBChangeOrder_F.cs">
       <SubType>Form</SubType>
@@ -382,6 +400,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AVTChangePassword_F.resx">
       <DependentUpon>AVTChangePassword_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chief_PDO_ChangeOrder_F.resx">
+      <DependentUpon>Chief_PDO_ChangeOrder_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chief_PDO_F.resx">
+      <DependentUpon>Chief_PDO_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chief_PDO_SearchParam_F.resx">
+      <DependentUpon>Chief_PDO_SearchParam_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KBChangeOrder_F.resx">
       <DependentUpon>KBChangeOrder_F.cs</DependentUpon>

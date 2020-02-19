@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class ARArhive_F
+    partial class Chief_PDO_F
     {
         /// <summary>
         /// Required designer variable.
@@ -35,21 +35,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ARArhive_F));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Chief_PDO_F));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.добавлениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AddOrder_TSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.ChangeOrder_TSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.DeleteOrder_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ReportDate_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.SelectionReport_TSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.настройкиМобильногоПриложенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SettingMobile_TSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.чертежиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.переименоватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.AddOrder_TSB = new System.Windows.Forms.ToolStripButton();
             this.ChangeOrder_TSB = new System.Windows.Forms.ToolStripButton();
             this.DeleteOrder_TSB = new System.Windows.Forms.ToolStripButton();
             this.AdvancedSearch_TSB = new System.Windows.Forms.ToolStripButton();
@@ -106,46 +97,12 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(201)))), ((int)(((byte)(188)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.добавлениеToolStripMenuItem,
-            this.отчетToolStripMenuItem,
-            this.настройкиМобильногоПриложенияToolStripMenuItem,
-            this.чертежиToolStripMenuItem});
+            this.отчетToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1284, 24);
-            this.menuStrip1.TabIndex = 12;
+            this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // добавлениеToolStripMenuItem
-            // 
-            this.добавлениеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AddOrder_TSM,
-            this.ChangeOrder_TSM,
-            this.DeleteOrder_TSM});
-            this.добавлениеToolStripMenuItem.Name = "добавлениеToolStripMenuItem";
-            this.добавлениеToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
-            this.добавлениеToolStripMenuItem.Text = "Добавление";
-            // 
-            // AddOrder_TSM
-            // 
-            this.AddOrder_TSM.Name = "AddOrder_TSM";
-            this.AddOrder_TSM.Size = new System.Drawing.Size(145, 22);
-            this.AddOrder_TSM.Text = "Сканировать";
-            this.AddOrder_TSM.Click += new System.EventHandler(this.AddOrder_TSM_Click);
-            // 
-            // ChangeOrder_TSM
-            // 
-            this.ChangeOrder_TSM.Name = "ChangeOrder_TSM";
-            this.ChangeOrder_TSM.Size = new System.Drawing.Size(145, 22);
-            this.ChangeOrder_TSM.Text = "Изменить";
-            this.ChangeOrder_TSM.Click += new System.EventHandler(this.ChangeOrder_TSM_Click);
-            // 
-            // DeleteOrder_TSM
-            // 
-            this.DeleteOrder_TSM.Name = "DeleteOrder_TSM";
-            this.DeleteOrder_TSM.Size = new System.Drawing.Size(145, 22);
-            this.DeleteOrder_TSM.Text = "Удалить";
-            this.DeleteOrder_TSM.Click += new System.EventHandler(this.DeleteOrder_TSM_Click);
             // 
             // отчетToolStripMenuItem
             // 
@@ -170,36 +127,6 @@
             this.SelectionReport_TSM.Text = "По выбранным позициям";
             this.SelectionReport_TSM.Click += new System.EventHandler(this.SelectionReport_TSM_Click);
             // 
-            // настройкиМобильногоПриложенияToolStripMenuItem
-            // 
-            this.настройкиМобильногоПриложенияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SettingMobile_TSM});
-            this.настройкиМобильногоПриложенияToolStripMenuItem.Name = "настройкиМобильногоПриложенияToolStripMenuItem";
-            this.настройкиМобильногоПриложенияToolStripMenuItem.Size = new System.Drawing.Size(157, 20);
-            this.настройкиМобильногоПриложенияToolStripMenuItem.Text = "Мобильное приложение";
-            // 
-            // SettingMobile_TSM
-            // 
-            this.SettingMobile_TSM.Name = "SettingMobile_TSM";
-            this.SettingMobile_TSM.Size = new System.Drawing.Size(134, 22);
-            this.SettingMobile_TSM.Text = "Настройки";
-            this.SettingMobile_TSM.Click += new System.EventHandler(this.SettingMobile_TSM_Click);
-            // 
-            // чертежиToolStripMenuItem
-            // 
-            this.чертежиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.переименоватьToolStripMenuItem});
-            this.чертежиToolStripMenuItem.Name = "чертежиToolStripMenuItem";
-            this.чертежиToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.чертежиToolStripMenuItem.Text = "Чертежи";
-            // 
-            // переименоватьToolStripMenuItem
-            // 
-            this.переименоватьToolStripMenuItem.Name = "переименоватьToolStripMenuItem";
-            this.переименоватьToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.переименоватьToolStripMenuItem.Text = "Переименовать";
-            this.переименоватьToolStripMenuItem.Click += new System.EventHandler(this.RenameOrder_TSM_Click);
-            // 
             // toolStrip1
             // 
             this.toolStrip1.AutoSize = false;
@@ -208,7 +135,6 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(30, 30);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AddOrder_TSB,
             this.ChangeOrder_TSB,
             this.DeleteOrder_TSB,
             this.AdvancedSearch_TSB,
@@ -224,19 +150,8 @@
             this.toolStrip1.Margin = new System.Windows.Forms.Padding(5, 5, 0, 5);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1284, 38);
-            this.toolStrip1.TabIndex = 20;
+            this.toolStrip1.TabIndex = 21;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // AddOrder_TSB
-            // 
-            this.AddOrder_TSB.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AddOrder_TSB.Image = global::SZMK.Properties.Resources.icons8_создать_новый_40;
-            this.AddOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AddOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.AddOrder_TSB.Name = "AddOrder_TSB";
-            this.AddOrder_TSB.Size = new System.Drawing.Size(103, 34);
-            this.AddOrder_TSB.Text = "Распознать";
-            this.AddOrder_TSB.Click += new System.EventHandler(this.AddOrder_TSB_Click);
             // 
             // ChangeOrder_TSB
             // 
@@ -351,7 +266,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(890, 649);
-            this.tableLayoutPanel1.TabIndex = 22;
+            this.tableLayoutPanel1.TabIndex = 23;
             // 
             // label1
             // 
@@ -396,7 +311,6 @@
             this.Order_DGV.TabIndex = 1;
             this.Order_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Order_DGV_CellFormatting);
             this.Order_DGV.SelectionChanged += new System.EventHandler(this.Order_DGV_SelectionChanged);
-            this.Order_DGV.Sorted += new System.EventHandler(this.Order_DGV_Sorted);
             // 
             // StatusDate
             // 
@@ -526,7 +440,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(394, 649);
-            this.tableLayoutPanel2.TabIndex = 23;
+            this.tableLayoutPanel2.TabIndex = 24;
             // 
             // RefreshStatus_B
             // 
@@ -838,7 +752,7 @@
             this.label13.TabIndex = 59;
             this.label13.Text = "Длина";
             // 
-            // ARArhive_F
+            // Chief_PDO_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -850,11 +764,11 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1300, 750);
-            this.Name = "ARArhive_F";
+            this.Name = "Chief_PDO_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Архивариус";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ARArhive_F_FormClosing);
-            this.Load += new System.EventHandler(this.ARArhive_F_Load);
+            this.Text = "Начальник ПДО";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Chief_PDO_F_FormClosing);
+            this.Load += new System.EventHandler(this.Chief_PDO_F_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -871,14 +785,10 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem добавлениеToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem AddOrder_TSM;
-        private System.Windows.Forms.ToolStripMenuItem ChangeOrder_TSM;
-        private System.Windows.Forms.ToolStripMenuItem DeleteOrder_TSM;
         private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ReportDate_TSM;
+        private System.Windows.Forms.ToolStripMenuItem SelectionReport_TSM;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton AddOrder_TSB;
         private System.Windows.Forms.ToolStripButton ChangeOrder_TSB;
         private System.Windows.Forms.ToolStripButton DeleteOrder_TSB;
         private System.Windows.Forms.ToolStripButton AdvancedSearch_TSB;
@@ -888,12 +798,17 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox FilterCB_TSB;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripButton CanceledOrder_TSB;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView Order_DGV;
-        private System.Windows.Forms.ToolStripMenuItem настройкиМобильногоПриложенияToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem SettingMobile_TSM;
-        private System.Windows.Forms.ToolStripButton CanceledOrder_TSB;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Executor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumberBlankOrder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn List;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Mark;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         public System.Windows.Forms.Button RefreshStatus_B;
         private System.Windows.Forms.Label label12;
@@ -919,15 +834,5 @@
         private System.Windows.Forms.TextBox Weight_TB;
         private System.Windows.Forms.TextBox Canceled_TB;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ToolStripMenuItem SelectionReport_TSM;
-        private System.Windows.Forms.ToolStripMenuItem чертежиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem переименоватьToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Executor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NumberBlankOrder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn List;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Mark;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
     }
 }
