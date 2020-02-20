@@ -501,6 +501,34 @@ namespace SZMK
                 return false;
             }
         }
+        public bool DownGradeStatus(Order Order)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"DELETE FROM public.\"AddStatus\" WHERE \"ID_Order\"='{Order.ID}' AND \"ID_Status\">='{Order.Status.ID}';", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
+
+                    using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddStatus\" (\"DateCreate\", \"ID_Status\", \"ID_Order\", \"ID_User\") VALUES('{DateTime.Now}', '{Order.Status.ID}', '{Order.ID}', '{Order.User.ID}'); ", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         private bool StatusExist(Order Order)
         {
             Boolean flag = false;

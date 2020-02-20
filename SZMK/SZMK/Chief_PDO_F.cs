@@ -218,9 +218,17 @@ namespace SZMK
                             List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == Temp.ID && p.IDStatus == SystemArgs.Statuses.Where(j => j == (Status)Dialog.Status_CB.SelectedItem).Single().ID).Select(p => p.DateCreate).ToList();
                             NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled);
                         }
+
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
                         {
-                            SystemArgs.Request.InsertStatus(Temp);
+                            if (Temp.Status.ID > SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single().ID)
+                            {
+                                SystemArgs.Request.DownGradeStatus(NewOrder);
+                            }
+                            else
+                            {
+                                SystemArgs.Request.InsertStatus(NewOrder);
+                            }
                             SystemArgs.Orders.Remove(Temp);
                             SystemArgs.Orders.Add(NewOrder);
 
@@ -581,12 +589,14 @@ namespace SZMK
                 ChangeOrder_TSB.Visible = true;
                 DeleteOrder_TSB.Visible = true;
                 CanceledOrder_TSB.Visible = true;
+                Report_TSM.Visible = true;
             }
             else
             {
                 ChangeOrder_TSB.Visible = false;
                 DeleteOrder_TSB.Visible = false;
                 CanceledOrder_TSB.Visible = false;
+                Report_TSM.Visible = false;
             }
         }
 

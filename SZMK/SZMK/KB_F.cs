@@ -427,6 +427,7 @@ namespace SZMK
             ResetSearch();
             RefreshOrder();
         }
+
         private void ItemsFilter()
         {
             FilterCB_TSB.Items.Add("Текущий статус");
@@ -454,8 +455,6 @@ namespace SZMK
 
             return Result;
         }
-
-
 
         private bool Search()
         {
@@ -501,6 +500,7 @@ namespace SZMK
                 Result.Clear();
             }
         }
+
         private bool SearchParam()
         {
             try
@@ -575,6 +575,7 @@ namespace SZMK
                 return false;
             }
         }
+
         private bool ReportOrderOfDate()
         {
             try
@@ -604,6 +605,8 @@ namespace SZMK
                 ChangeOrder_TSM.Visible = true;
                 DeleteOrder_TSM.Visible = true;
                 CanceledOrder_TSB.Visible = true;
+                Report_TSM.Visible = true;
+                Checked_TSM.Visible = true;
             }
             else
             {
@@ -612,6 +615,8 @@ namespace SZMK
                 ChangeOrder_TSM.Visible = false;
                 DeleteOrder_TSM.Visible = false;
                 CanceledOrder_TSB.Visible = false;
+                Report_TSM.Visible = false;
+                Checked_TSM.Visible = false;
             }
         }
         private void Selection(Order Temp, bool flag)

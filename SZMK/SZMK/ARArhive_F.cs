@@ -666,6 +666,7 @@ namespace SZMK
                 ChangeOrder_TSM.Visible = true;
                 DeleteOrder_TSM.Visible = true;
                 CanceledOrder_TSB.Visible = true;
+                Report_TSM.Visible = true;
             }
             else
             {
@@ -674,6 +675,7 @@ namespace SZMK
                 ChangeOrder_TSM.Visible = false;
                 DeleteOrder_TSM.Visible = false;
                 CanceledOrder_TSB.Visible = false;
+                Report_TSM.Visible = false;
             }
         }
         private void Selection(Order Temp, bool flag)

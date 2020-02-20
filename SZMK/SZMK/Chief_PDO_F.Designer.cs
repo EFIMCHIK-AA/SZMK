@@ -37,6 +37,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Chief_PDO_F));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.поЧертежамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.поВыбраннымПозициямToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.поДатеСозданияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.поВремениToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Time_Day_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.Time_Week_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.Time_Month_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.Time_SelectionDate_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.ChangeOrder_TSB = new System.Windows.Forms.ToolStripButton();
             this.DeleteOrder_TSB = new System.Windows.Forms.ToolStripButton();
@@ -83,15 +92,6 @@
             this.Weight_TB = new System.Windows.Forms.TextBox();
             this.Canceled_TB = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.поЧертежамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.поВыбраннымПозициямToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.поДатеСозданияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.поВремениToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Time_Day_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.Time_Week_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.Time_Month_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.Time_SelectionDate_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -103,12 +103,79 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(201)))), ((int)(((byte)(188)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.отчетToolStripMenuItem});
+            this.Report_TSM});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1284, 24);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // Report_TSM
+            // 
+            this.Report_TSM.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.поЧертежамToolStripMenuItem,
+            this.поВремениToolStripMenuItem});
+            this.Report_TSM.Name = "Report_TSM";
+            this.Report_TSM.Size = new System.Drawing.Size(51, 20);
+            this.Report_TSM.Text = "Отчет";
+            // 
+            // поЧертежамToolStripMenuItem
+            // 
+            this.поЧертежамToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.поВыбраннымПозициямToolStripMenuItem,
+            this.поДатеСозданияToolStripMenuItem});
+            this.поЧертежамToolStripMenuItem.Name = "поЧертежамToolStripMenuItem";
+            this.поЧертежамToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.поЧертежамToolStripMenuItem.Text = "По чертежам";
+            // 
+            // поВыбраннымПозициямToolStripMenuItem
+            // 
+            this.поВыбраннымПозициямToolStripMenuItem.Name = "поВыбраннымПозициямToolStripMenuItem";
+            this.поВыбраннымПозициямToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.поВыбраннымПозициямToolStripMenuItem.Text = "По выбранным позициям";
+            this.поВыбраннымПозициямToolStripMenuItem.Click += new System.EventHandler(this.SelectionReport_TSM_Click);
+            // 
+            // поДатеСозданияToolStripMenuItem
+            // 
+            this.поДатеСозданияToolStripMenuItem.Name = "поДатеСозданияToolStripMenuItem";
+            this.поДатеСозданияToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.поДатеСозданияToolStripMenuItem.Text = "По дате создания";
+            this.поДатеСозданияToolStripMenuItem.Click += new System.EventHandler(this.ReportDate_TSM_Click);
+            // 
+            // поВремениToolStripMenuItem
+            // 
+            this.поВремениToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Time_Day_Report_TSM,
+            this.Time_Week_Report_TSM,
+            this.Time_Month_Report_TSM,
+            this.Time_SelectionDate_Report_TSM});
+            this.поВремениToolStripMenuItem.Name = "поВремениToolStripMenuItem";
+            this.поВремениToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.поВремениToolStripMenuItem.Text = "По времени";
+            // 
+            // Time_Day_Report_TSM
+            // 
+            this.Time_Day_Report_TSM.Name = "Time_Day_Report_TSM";
+            this.Time_Day_Report_TSM.Size = new System.Drawing.Size(183, 22);
+            this.Time_Day_Report_TSM.Text = "Сутки";
+            // 
+            // Time_Week_Report_TSM
+            // 
+            this.Time_Week_Report_TSM.Name = "Time_Week_Report_TSM";
+            this.Time_Week_Report_TSM.Size = new System.Drawing.Size(183, 22);
+            this.Time_Week_Report_TSM.Text = "Неделя";
+            // 
+            // Time_Month_Report_TSM
+            // 
+            this.Time_Month_Report_TSM.Name = "Time_Month_Report_TSM";
+            this.Time_Month_Report_TSM.Size = new System.Drawing.Size(183, 22);
+            this.Time_Month_Report_TSM.Text = "Месяц";
+            // 
+            // Time_SelectionDate_Report_TSM
+            // 
+            this.Time_SelectionDate_Report_TSM.Name = "Time_SelectionDate_Report_TSM";
+            this.Time_SelectionDate_Report_TSM.Size = new System.Drawing.Size(183, 22);
+            this.Time_SelectionDate_Report_TSM.Text = "Выбранный период";
             // 
             // toolStrip1
             // 
@@ -735,73 +802,6 @@
             this.label13.TabIndex = 59;
             this.label13.Text = "Длина";
             // 
-            // отчетToolStripMenuItem
-            // 
-            this.отчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.поЧертежамToolStripMenuItem,
-            this.поВремениToolStripMenuItem});
-            this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
-            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.отчетToolStripMenuItem.Text = "Отчет";
-            // 
-            // поЧертежамToolStripMenuItem
-            // 
-            this.поЧертежамToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.поВыбраннымПозициямToolStripMenuItem,
-            this.поДатеСозданияToolStripMenuItem});
-            this.поЧертежамToolStripMenuItem.Name = "поЧертежамToolStripMenuItem";
-            this.поЧертежамToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.поЧертежамToolStripMenuItem.Text = "По чертежам";
-            // 
-            // поВыбраннымПозициямToolStripMenuItem
-            // 
-            this.поВыбраннымПозициямToolStripMenuItem.Name = "поВыбраннымПозициямToolStripMenuItem";
-            this.поВыбраннымПозициямToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.поВыбраннымПозициямToolStripMenuItem.Text = "По выбранным позициям";
-            this.поВыбраннымПозициямToolStripMenuItem.Click += new System.EventHandler(this.SelectionReport_TSM_Click);
-            // 
-            // поДатеСозданияToolStripMenuItem
-            // 
-            this.поДатеСозданияToolStripMenuItem.Name = "поДатеСозданияToolStripMenuItem";
-            this.поДатеСозданияToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.поДатеСозданияToolStripMenuItem.Text = "По дате создания";
-            this.поДатеСозданияToolStripMenuItem.Click += new System.EventHandler(this.ReportDate_TSM_Click);
-            // 
-            // поВремениToolStripMenuItem
-            // 
-            this.поВремениToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Time_Day_Report_TSM,
-            this.Time_Week_Report_TSM,
-            this.Time_Month_Report_TSM,
-            this.Time_SelectionDate_Report_TSM});
-            this.поВремениToolStripMenuItem.Name = "поВремениToolStripMenuItem";
-            this.поВремениToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.поВремениToolStripMenuItem.Text = "По времени";
-            // 
-            // Time_Day_Report_TSM
-            // 
-            this.Time_Day_Report_TSM.Name = "Time_Day_Report_TSM";
-            this.Time_Day_Report_TSM.Size = new System.Drawing.Size(183, 22);
-            this.Time_Day_Report_TSM.Text = "Сутки";
-            // 
-            // Time_Week_Report_TSM
-            // 
-            this.Time_Week_Report_TSM.Name = "Time_Week_Report_TSM";
-            this.Time_Week_Report_TSM.Size = new System.Drawing.Size(183, 22);
-            this.Time_Week_Report_TSM.Text = "Неделя";
-            // 
-            // Time_Month_Report_TSM
-            // 
-            this.Time_Month_Report_TSM.Name = "Time_Month_Report_TSM";
-            this.Time_Month_Report_TSM.Size = new System.Drawing.Size(183, 22);
-            this.Time_Month_Report_TSM.Text = "Месяц";
-            // 
-            // Time_SelectionDate_Report_TSM
-            // 
-            this.Time_SelectionDate_Report_TSM.Name = "Time_SelectionDate_Report_TSM";
-            this.Time_SelectionDate_Report_TSM.Size = new System.Drawing.Size(183, 22);
-            this.Time_SelectionDate_Report_TSM.Text = "Выбранный период";
-            // 
             // Chief_PDO_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -881,7 +881,7 @@
         private System.Windows.Forms.TextBox Weight_TB;
         private System.Windows.Forms.TextBox Canceled_TB;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Report_TSM;
         private System.Windows.Forms.ToolStripMenuItem поЧертежамToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem поВыбраннымПозициямToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem поДатеСозданияToolStripMenuItem;
