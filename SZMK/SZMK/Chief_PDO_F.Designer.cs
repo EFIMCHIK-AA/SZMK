@@ -125,7 +125,7 @@
             this.поВыбраннымПозициямToolStripMenuItem,
             this.поДатеСозданияToolStripMenuItem});
             this.поЧертежамToolStripMenuItem.Name = "поЧертежамToolStripMenuItem";
-            this.поЧертежамToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.поЧертежамToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.поЧертежамToolStripMenuItem.Text = "По чертежам";
             // 
             // поВыбраннымПозициямToolStripMenuItem
@@ -150,7 +150,7 @@
             this.Time_Month_Report_TSM,
             this.Time_SelectionDate_Report_TSM});
             this.поВремениToolStripMenuItem.Name = "поВремениToolStripMenuItem";
-            this.поВремениToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.поВремениToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.поВремениToolStripMenuItem.Text = "По времени";
             // 
             // Time_Day_Report_TSM
@@ -158,24 +158,28 @@
             this.Time_Day_Report_TSM.Name = "Time_Day_Report_TSM";
             this.Time_Day_Report_TSM.Size = new System.Drawing.Size(183, 22);
             this.Time_Day_Report_TSM.Text = "Сутки";
+            this.Time_Day_Report_TSM.Click += new System.EventHandler(this.Time_Day_Report_TSM_Click);
             // 
             // Time_Week_Report_TSM
             // 
             this.Time_Week_Report_TSM.Name = "Time_Week_Report_TSM";
             this.Time_Week_Report_TSM.Size = new System.Drawing.Size(183, 22);
             this.Time_Week_Report_TSM.Text = "Неделя";
+            this.Time_Week_Report_TSM.Click += new System.EventHandler(this.Time_Week_Report_TSM_Click);
             // 
             // Time_Month_Report_TSM
             // 
             this.Time_Month_Report_TSM.Name = "Time_Month_Report_TSM";
             this.Time_Month_Report_TSM.Size = new System.Drawing.Size(183, 22);
             this.Time_Month_Report_TSM.Text = "Месяц";
+            this.Time_Month_Report_TSM.Click += new System.EventHandler(this.Time_Month_Report_TSM_Click);
             // 
             // Time_SelectionDate_Report_TSM
             // 
             this.Time_SelectionDate_Report_TSM.Name = "Time_SelectionDate_Report_TSM";
             this.Time_SelectionDate_Report_TSM.Size = new System.Drawing.Size(183, 22);
             this.Time_SelectionDate_Report_TSM.Text = "Выбранный период";
+            this.Time_SelectionDate_Report_TSM.Click += new System.EventHandler(this.Time_SelectionDate_Report_TSM_Click);
             // 
             // toolStrip1
             // 

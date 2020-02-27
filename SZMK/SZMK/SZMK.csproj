@@ -174,6 +174,12 @@
       <DependentUpon>Chief_PDO_SearchParam_F.cs</DependentUpon>
     </Compile>
     <Compile Include="DecodeScanSession.cs" />
+    <Compile Include="FormingReportForAllPosition_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormingReportForAllPosition_F.Designer.cs">
+      <DependentUpon>FormingReportForAllPosition_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="KBChangeOrder_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -410,6 +416,9 @@
     <EmbeddedResource Include="Chief_PDO_SearchParam_F.resx">
       <DependentUpon>Chief_PDO_SearchParam_F.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormingReportForAllPosition_F.resx">
+      <DependentUpon>FormingReportForAllPosition_F.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="KBChangeOrder_F.resx">
       <DependentUpon>KBChangeOrder_F.cs</DependentUpon>
     </EmbeddedResource>
@@ -553,6 +562,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Canceled.png" />
+    <None Include="Resources\239.gif" />
     <Content Include="Resources\icons8-создать-новый-40.png" />
     <None Include="Resources\icons8-создать-новый-401.png" />
   </ItemGroup>

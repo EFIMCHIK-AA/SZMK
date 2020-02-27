@@ -1,0 +1,8 @@
+24.02.2020 10:57:39 : Дешифрование пароля успешно завершено
+24.02.2020 10:57:43 : Хеш-последовательность успешно получена
+24.02.2020 10:57:49 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+   в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+   в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.CommonDialog.ShowDialog()
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
+   в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 969

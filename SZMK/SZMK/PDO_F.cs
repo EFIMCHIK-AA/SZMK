@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace SZMK
 {
@@ -755,6 +756,121 @@ namespace SZMK
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void Time_Day_Report_TSM_Click(object sender, EventArgs e)
+        {
+            ReportTimeofOrderPeriod(new TimeSpan(1, 0, 0, 1));
+        }
+
+        private void Time_Week_Report_TSM_Click(object sender, EventArgs e)
+        {
+            ReportTimeofOrderPeriod(new TimeSpan(7, 0, 0, 1));
+        }
+
+        private void Time_Month_Report_TSM_Click(object sender, EventArgs e)
+        {
+            ReportTimeofOrderPeriod(new TimeSpan(30, 0, 0, 1));
+        }
+
+        private void Time_SelectionDate_Report_TSM_Click(object sender, EventArgs e)
+        {
+            ReportTimeofOrder();
+        }
+
+        private void ReportTimeofOrderPeriod(object aInterval)
+        {
+            try
+            {
+                SaveFileDialog SaveReport = new SaveFileDialog();
+                String date = DateTime.Now.ToString();
+                date = date.Replace(".", "_");
+                date = date.Replace(":", "_");
+                SaveReport.FileName = "Отчет по времени за выбранный период от " + date;
+                SaveReport.Filter = "Excel Files .xlsx|*.xlsx";
+                if (SaveReport.ShowDialog() == DialogResult.OK)
+                {
+                    FormingReportForAllPosition_F FormingF = new FormingReportForAllPosition_F();
+                    FormingF.Show();
+                    List<StatusOfOrder> Report = SystemArgs.StatusOfOrders.Where(p => p.DateCreate <= DateTime.Now && p.DateCreate >= DateTime.Now.Subtract((TimeSpan)aInterval)).ToList();
+                    Task<Boolean> task = ReportPastTimeAsync(Report, SaveReport.FileName);
+                    task.ContinueWith(t =>
+                    {
+                        if (t.Result)
+                        {
+                            FormingF.Invoke((MethodInvoker)delegate ()
+                            {
+                                FormingF.Close();
+                            });
+                            MessageBox.Show("Отчет сформирован успешно", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            FormingF.Invoke((MethodInvoker)delegate ()
+                            {
+                                FormingF.Close();
+                            });
+                            MessageBox.Show("Ошибка фомирования отчета", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    });
+                }
+            }
+            catch (Exception E)
+            {
+                SystemArgs.PrintLog(E.ToString());
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ReportTimeofOrder()
+        {
+            try
+            {
+                ARReportOrderOfDate_F Dialog = new ARReportOrderOfDate_F();
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+                    SaveFileDialog SaveReport = new SaveFileDialog();
+                    String date = DateTime.Now.ToString();
+                    date = date.Replace(".", "_");
+                    date = date.Replace(":", "_");
+                    SaveReport.FileName = "Отчет по времени за выбранный период от " + date;
+                    SaveReport.Filter = "Excel Files .xlsx|*.xlsx";
+                    if (SaveReport.ShowDialog() == DialogResult.OK)
+                    {
+                        FormingReportForAllPosition_F FormingF = new FormingReportForAllPosition_F();
+                        FormingF.Show();
+                        List<StatusOfOrder> Report = SystemArgs.StatusOfOrders.Where(p => p.DateCreate >= Dialog.First_MC.SelectionStart && p.DateCreate <= Dialog.Second_MC.SelectionStart).ToList();
+                        Task<Boolean> task = ReportPastTimeAsync(Report, SaveReport.FileName);
+                        task.ContinueWith(t =>
+                        {
+                            if (t.Result)
+                            {
+                                FormingF.Invoke((MethodInvoker)delegate ()
+                                {
+                                    FormingF.Close();
+                                });
+                                MessageBox.Show("Отчет сформирован успешно", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                FormingF.Invoke((MethodInvoker)delegate ()
+                                {
+                                    FormingF.Close();
+                                });
+                                MessageBox.Show("Ошибка фомирования отчета", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        });
+                    }
+                }
+            }
+            catch (Exception E)
+            {
+                SystemArgs.PrintLog(E.ToString());
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private async Task<Boolean> ReportPastTimeAsync(List<StatusOfOrder> Report, String filename)
+        {
+            return await Task.Run(() => SystemArgs.Excel.ReportPastTimeofDate(Report, filename));
         }
     }
 }

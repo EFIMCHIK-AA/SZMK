@@ -24,6 +24,7 @@ namespace SZMK
         private readonly String _ConnectProgramPath;
         private readonly String _CheckMarksPath;
         private readonly String _VisualRowPath;
+        private readonly String _TemplateReportPastTimeofDate;
 
 
         public Path() 
@@ -41,6 +42,7 @@ namespace SZMK
             _TemplateActUniquePath = $@"Templates\ActTemplateUnique.xlsx";//Путь до шаблона акта уникальных чертежей
             _TemplateActNoUniquePath = $@"Templates\ActTemplateNoUnique.xlsx";//Путь до шаблона акта не уникальных чертежей
             _TemplateReportOrderOfDatePath = $@"Templates\ReportOrderOfDateTemplate.xlsx";//Путь до шаблона реестра
+            _TemplateReportPastTimeofDate = $@"Templates\ReportPastTimeofDateTemplate.xlsx";//Путь до шаблона реестра
             _TemplateRegistryPath = $@"Templates\RegistryTemplate.xlsx";//Путь до шаблона реестра
             _CheckMarksPath = $@"Path\MarksCheck.df"; // Путь до файла с проверкой строки с маркой на строчные буквы
             _VisualRowPath = $@"Path\VisualRow.df"; // Путь до файла с параметра для визуализации просрочивания чертежей
@@ -180,6 +182,13 @@ namespace SZMK
             get
             {
                 return _TemplateReportOrderOfDatePath;
+            }
+        }
+        public String TemplateReportPastTimeofDate
+        {
+            get
+            {
+                return _TemplateReportPastTimeofDate;
             }
         }
         public String TemplateRegistry

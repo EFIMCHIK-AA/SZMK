@@ -436,92 +436,158 @@ namespace SZMK
                 return false;
             }
         }
-        public Boolean ReportPastTimeofDate(List<Order> Report)
+        struct TimeOrder
         {
-            SaveFileDialog SaveReport = new SaveFileDialog();
-            String date = DateTime.Now.ToString();
-            date = date.Replace(".", "_");
-            date = date.Replace(":", "_");
-            SaveReport.FileName = "Отчет за выбранный период от " + date;
-            SaveReport.Filter = "Excel Files .xlsx|*.xlsx";
+            public Int64 _StatusID;
+            public List<Double> Times;
 
-            System.IO.FileInfo fInfoSrcUnique = new System.IO.FileInfo(SystemArgs.Path.TemplateReportOrderOfDatePath);
-
-            if (SaveReport.ShowDialog() == DialogResult.OK)
+            public TimeOrder(Int64 StatusID)
             {
-                var WBcopy = new ExcelPackage(fInfoSrcUnique).File.CopyTo(SaveReport.FileName);
+                _StatusID = StatusID;
+                Times = new List<Double>();
+            }
+        }
+        public Boolean ReportPastTimeofDate(List<StatusOfOrder> Report, String FileName)
+        {
 
-                try
+            System.IO.FileInfo fInfoSrcUnique = new System.IO.FileInfo(SystemArgs.Path.TemplateReportPastTimeofDate);
+            var WBcopy = new ExcelPackage(fInfoSrcUnique).File.CopyTo(FileName);
+
+            try
+            {
+                ExcelPackage WB = new ExcelPackage(new System.IO.FileInfo(FileName));
+                ExcelWorksheet WS = WB.Workbook.Worksheets[1];
+                var rowCntReport = WS.Dimension.End.Row;
+
+                if (FileName.IndexOf(@":\") != -1)
                 {
-                    ExcelPackage WB = new ExcelPackage(new System.IO.FileInfo(SaveReport.FileName));
-                    ExcelWorksheet WS = WB.Workbook.Worksheets[1];
-                    var rowCntReport = WS.Dimension.End.Row;
-
-                    if (SaveReport.FileName.IndexOf(@":\") != -1)
+                    var GroupByOrder = Report.GroupBy(p => p.IDOrder);
+                    List<TimeOrder> TimeOrdersUnclean = new List<TimeOrder>();
+                    List<TimeOrder> TimeOrdersClean = new List<TimeOrder>();
+                    List<Order> Temp = new List<Order>();
+                    foreach (var key in GroupByOrder)
                     {
-                        for (Int32 i = 0; i < Report.Count; i++)
+                        Temp.Add(SystemArgs.Orders.Where(p => p.ID == key.Key).Single());
+                    }
+
+                    for (int j = 1; j < SystemArgs.Statuses.Count + 1; j++)
+                    {
+
+                        TimeOrdersClean.Add(new TimeOrder(j));
+
+                        TimeOrdersUnclean.Add(new TimeOrder(j));
+
+                        Double[] Data = new Double[4];
+
+                        Data[0] = Temp.Where(p => p.Status.ID > j).Sum(p => p.Weight);
+                        Data[1] = Temp.Where(p => p.Status.ID == j).Sum(p => p.Weight);
+                        Data[2] = Temp.Where(p => p.Status.ID > j).Count();
+                        Data[3] = Temp.Where(p => p.Status.ID == j).Count();
+
+                        foreach (var key in GroupByOrder)
                         {
-                            List<StatusOfOrder> OrderStatuses = (from p in SystemArgs.StatusOfOrders
-                                                                 where p.IDOrder == Report[i].ID
-                                                                 orderby p.IDStatus
-                                                                 select p).ToList();
-                            WS.Cells[i + rowCntReport + 1, 1].Value = Report[i].Number;
-                            if (Report[i].BlankOrder.QR.Split('_').Length > 3)
+                            if (key.Count() > j)
                             {
-                                WS.Cells[i + rowCntReport + 1, 2].Value = Report[i].BlankOrder.QR.Split('_')[1];
+                                List<DateTime> TimesFirst = key.Where(p => p.IDStatus == j).Select(p => p.DateCreate).ToList();
+                                List<DateTime> TimesSecond = key.Where(p => p.IDStatus == j + 1).Select(p => p.DateCreate).ToList();
+
+                                if (TimesFirst.Count() == 1 && TimesSecond.Count() == 1)
+                                {
+                                    Double Start = (TimesFirst[0] - TimesFirst[0].Date.AddHours(8)).TotalHours;
+                                    Double End = (TimesSecond[0] - TimesSecond[0].Date.AddHours(8)).TotalHours;
+
+                                    Int32 WorkDay = 0;
+                                    Int32 Weekend = 0;
+
+                                    if (TimesFirst[0].Date != TimesSecond[0].Date)
+                                    {
+                                        for (int d = 0; d < (TimesSecond[0].Date - TimesFirst[0].Date).TotalDays; d++)
+                                        {
+                                            if (TimesFirst[0].AddDays(d + 1).DayOfWeek != DayOfWeek.Saturday && TimesFirst[0].AddDays(d + 1).DayOfWeek != DayOfWeek.Sunday)
+                                            {
+                                                WorkDay++;
+                                            }
+                                            else
+                                            {
+                                                Weekend++;
+                                            }
+                                        }
+                                    }
+
+                                    TimeOrdersUnclean[j - 1].Times.Add((TimesSecond[0] - TimesFirst[0].AddDays(Weekend)).TotalHours);
+
+                                    if (Start < 0)
+                                    {
+                                        Start = Math.Ceiling(-Start);
+                                    }
+                                    else if (Start > 9)
+                                    {
+                                        Start = Math.Ceiling(Start);
+                                    }
+
+                                    if (End < 0)
+                                    {
+                                        End = Math.Ceiling(-End);
+                                    }
+                                    else if (End > 9)
+                                    {
+                                        End = Math.Ceiling(End);
+                                    }
+
+                                    TimeOrdersClean[j - 1].Times.Add(End - Start + WorkDay * 9);
+
+                                }
                             }
-                            else
+                            WS.Cells[2, j + 1].Value = Data[0];
+                            WS.Cells[3, j + 1].Value = Data[1];
+                            WS.Cells[4, j + 1].Value = Data[2];
+                            WS.Cells[5, j + 1].Value = Data[3];
+                            if (TimeOrdersUnclean.Count != 0 && TimeOrdersClean.Count != 0)
                             {
-                                WS.Cells[i + rowCntReport + 1, 2].Value = Report[i].BlankOrder.QR;
-                            }
-                            WS.Cells[i + rowCntReport + 1, 3].Value = Report[i].List;
-                            WS.Cells[i + rowCntReport + 1, 4].Value = Report[i].Mark;
-                            WS.Cells[i + rowCntReport + 1, 5].Value = Report[i].Executor;
-                            WS.Cells[i + rowCntReport + 1, 6].Value = Report[i].Lenght.ToString();
-                            WS.Cells[i + rowCntReport + 1, 7].Value = Report[i].Weight.ToString();
-                            WS.Cells[i + rowCntReport + 1, 8].Value = Report[i].Status.Name;
-                            Int32 Count = 0;
-                            for (int j = 0; j < OrderStatuses.Count; j++)
-                            {
-                                User Temp = (from p in SystemArgs.Users
-                                             where p.ID == OrderStatuses[j].IDUser
-                                             select p).Single();
-                                WS.Cells[i + rowCntReport + 1, 9 + Count].Value = Temp.Surname + " " + Temp.Name.First() + ". " + Temp.MiddleName.First() + ".";
-                                WS.Cells[i + rowCntReport + 1, 10 + Count].Value = OrderStatuses[j].DateCreate.ToString();
-                                Count += 2;
+                                if (TimeOrdersUnclean[j - 1].Times.Count != 0 && TimeOrdersClean[j - 1].Times.Count != 0)
+                                {
+                                    Int32 UncleanHour = Convert.ToInt32(Math.Truncate(TimeOrdersUnclean[j-1].Times.Sum() / TimeOrdersUnclean[j - 1].Times.Count));
+                                    Int32 UncleanMin = Convert.ToInt32((TimeOrdersUnclean[j - 1].Times.Sum() / TimeOrdersUnclean[j - 1].Times.Count - Math.Truncate(TimeOrdersUnclean[j - 1].Times.Sum() / TimeOrdersUnclean[j - 1].Times.Count)) * 60);
+
+                                    Int32 CleanHour = Convert.ToInt32(Math.Truncate(TimeOrdersClean[j - 1].Times.Sum() / TimeOrdersClean[j - 1].Times.Count));
+                                    Int32 CleanMin = Convert.ToInt32((TimeOrdersClean[j - 1].Times.Sum() / TimeOrdersClean[j - 1].Times.Count - Math.Truncate(TimeOrdersClean[j - 1].Times.Sum() / TimeOrdersClean[j - 1].Times.Count)) * 60);
+
+                                    if (UncleanHour != 0)
+                                    {
+                                        WS.Cells[6, j + 1].Value = $"{UncleanHour} ч {UncleanMin} мин";
+                                    }
+                                    else
+                                    {
+                                        WS.Cells[6, j + 1].Value = $"{UncleanMin} мин";
+                                    }
+                                    if (CleanHour != 0)
+                                    {
+                                        WS.Cells[7, j + 1].Value = $"{CleanHour} ч {CleanMin} мин";
+                                    }
+                                    else
+                                    {
+                                        WS.Cells[7, j + 1].Value = $"{CleanMin} мин";
+                                    }
+                                }
                             }
                         }
-                        int last = WS.Dimension.End.Row;
-                        Double Sum = Report.Sum(p => p.Weight);
-                        WS.Cells[last + 1, 1].Value = "Итого";
-                        WS.Cells[last + 1, 7].Value = Sum;
-                        last = WS.Dimension.End.Row;
-                        WS.Cells["A2:P" + last].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                        WS.Cells["A2:P" + last].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                        WS.Cells["A2:P" + last].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                        WS.Cells["A2:P" + last].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                        WS.Cells[last + 2, 14].Value = "Принял";
-                        WS.Cells[last + 3, 14].Value = "Сдал";
-                        WS.Cells[last + 2, 15].Value = "______________";
-                        WS.Cells[last + 3, 15].Value = "______________";
-                        WS.Cells[last + 2, 16].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
-                        WS.Cells[last + 3, 16].Value = "/______________/";
-                        WS.Cells["A2:P" + WS.Dimension.End.Row.ToString()].AutoFitColumns();
-                        WS.Cells["A2:P" + WS.Dimension.End.Row.ToString()].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                        WB.Save();
                     }
+                    int last = WS.Dimension.End.Row;
+                    WS.Cells[last + 2, 3].Value = "Принял";
+                    WS.Cells[last + 3, 3].Value = "Сдал";
+                    WS.Cells[last + 2, 4].Value = "______________";
+                    WS.Cells[last + 3, 4].Value = "______________";
+                    WS.Cells[last + 2, 5].Value = SystemArgs.User.Surname + " " + SystemArgs.User.Name + " " + SystemArgs.User.MiddleName;
+                    WS.Cells[last + 3, 5].Value = "/______________/";
+                    WB.Save();
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-                return true;
             }
-            else
+            catch (Exception e)
             {
+                SystemArgs.PrintLog(e.ToString());
                 return false;
             }
+            return true;
         }
     }
 }
