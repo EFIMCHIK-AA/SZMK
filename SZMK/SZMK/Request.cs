@@ -545,7 +545,7 @@ namespace SZMK
                         {
                             while (Reader.Read())
                             {
-                                flag = true;
+                                   flag = true;
                             }
                         }
                     }

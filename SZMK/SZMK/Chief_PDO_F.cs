@@ -227,7 +227,12 @@ namespace SZMK
                             }
                             else
                             {
-                                SystemArgs.Request.InsertStatus(NewOrder);
+                                int NewStatus = (int)NewOrder.Status.ID;
+                                for(int i= (int)Temp.Status.ID + 1;i <= NewStatus; i++)
+                                {
+                                    NewOrder.Status = SystemArgs.Statuses.Where(p => p.ID == i).Single();
+                                    SystemArgs.Request.InsertStatus(NewOrder);
+                                }
                             }
                             SystemArgs.Orders.Remove(Temp);
                             SystemArgs.Orders.Add(NewOrder);
