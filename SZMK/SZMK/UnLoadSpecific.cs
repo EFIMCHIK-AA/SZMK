@@ -156,46 +156,49 @@ namespace SZMK
                 }
             }
             pathSpecific = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(pathSpecific));
-            for (int j = 0; j < Temp.Count; j++)
+            if (Temp.Count() > 1)
             {
-                if (Temp[j]._List.Equals(SplitDataMatrix[1]))
+                for (int j = 0; j < Temp.Count; j++)
                 {
-                    if (Temp[j]._Detail != null)
+                    if (Temp[j]._List.Equals(SplitDataMatrix[1]))
                     {
-                        if (File.Exists(pathSpecific + @"\Чертежи\Детали PDF\" + "Дет." + Temp[j]._Detail + ".pdf"))
+                        if (Temp[j]._Detail != null)
                         {
-                            if (ExecutorMails.Where(p => p.Executor.Equals(SplitDataMatrix[3])).Count() != 0)
+                            if (File.Exists(pathSpecific + @"\Чертежи\Детали PDF\" + "Дет." + Temp[j]._Detail + ".pdf"))
                             {
-                                foreach (var item in SystemArgs.UnLoadSpecific.ExecutorMails)
+                                if (ExecutorMails.Where(p => p.Executor.Equals(SplitDataMatrix[3])).Count() != 0)
                                 {
-                                    if (SplitDataMatrix[3].Equals(item.Executor))
+                                    foreach (var item in SystemArgs.UnLoadSpecific.ExecutorMails)
                                     {
-                                        item.GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), true));
+                                        if (SplitDataMatrix[3].Equals(item.Executor))
+                                        {
+                                            item.GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), true));
+                                        }
                                     }
+                                }
+                                else
+                                {
+                                    ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
+                                    ExecutorMails[ExecutorMails.Count() - 1].GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), true));
                                 }
                             }
                             else
                             {
-                                ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
-                                ExecutorMails[ExecutorMails.Count() - 1].GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), true));
-                            }
-                        }
-                        else
-                        {
-                            if (ExecutorMails.Where(p => p.Executor.Equals(SplitDataMatrix[3])).Count() != 0)
-                            {
-                                foreach (var item in ExecutorMails)
+                                if (ExecutorMails.Where(p => p.Executor.Equals(SplitDataMatrix[3])).Count() != 0)
                                 {
-                                    if (SplitDataMatrix[3].Equals(item.Executor))
+                                    foreach (var item in ExecutorMails)
                                     {
-                                        item.GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
+                                        if (SplitDataMatrix[3].Equals(item.Executor))
+                                        {
+                                            item.GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
+                                        }
                                     }
                                 }
-                            }
-                            else
-                            {
-                                ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
-                                ExecutorMails[ExecutorMails.Count() - 1].GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
+                                else
+                                {
+                                    ExecutorMails.Add(new ExecutorMail(SplitDataMatrix[3]));
+                                    ExecutorMails[ExecutorMails.Count() - 1].GetSpecific().Add(new Specific(SplitDataMatrix[0], Temp[j]._List, Convert.ToInt64(Temp[j]._Detail), false));
+                                }
                             }
                         }
                     }

@@ -295,14 +295,6 @@ namespace SZMK
             }
         }
 
-        public String StatusViewDate
-        {
-            get
-            {
-                return _StatusDate.ToString();
-            }
-        }
-
         public DateTime StatusDate
         {
             get

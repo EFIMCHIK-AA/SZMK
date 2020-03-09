@@ -28,6 +28,7 @@ namespace SZMK
                 Order_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 Order_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
+
                 Load_F Dialog = new Load_F();
                 Dialog.Show();
 
@@ -665,7 +666,6 @@ namespace SZMK
                 ChangeOrder_TSM.Visible = true;
                 DeleteOrder_TSM.Visible = true;
                 CanceledOrder_TSB.Visible = true;
-                Report_TSM.Visible = true;
             }
             else
             {
@@ -674,7 +674,6 @@ namespace SZMK
                 ChangeOrder_TSM.Visible = false;
                 DeleteOrder_TSM.Visible = false;
                 CanceledOrder_TSB.Visible = false;
-                Report_TSM.Visible = false;
             }
         }
         private void Selection(Order Temp, bool flag)
@@ -766,11 +765,56 @@ namespace SZMK
         {
             try
             {
+                //if (Order_DGV.SortedColumn==List)
+                //{
+                //    View = new BindingListView<Order>(QuickSort(SystemArgs.Orders,0,SystemArgs.Orders.Count()-1));
+                //}
                 ForgetOrder();
             }
             catch (Exception E)
             {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private List<Order> QuickSort(List<Order> Orders, int i, int j)
+        {
+            if (i < j)
+            {
+                int q = Partition(Orders, i, j);
+                Orders = QuickSort(Orders, i, q);
+                Orders = QuickSort(Orders, q + 1, j);
+            }
+            return Orders;
+        }
+
+        private int Partition(List<Order> Orders, int p, int r)
+        {
+            var x = Orders[p];
+            int i = p - 1;
+            int j = r + 1;
+            while (true)
+            {
+                do
+                {
+                    j--;
+                }
+                while (Convert.ToInt32(Orders[j].List.Split('и')[0]) > Convert.ToInt32(x.List.Split('и')[0]));
+                do
+                {
+                    i++;
+                }
+                while (Convert.ToInt32(Orders[i].List.Split('и')[0]) < Convert.ToInt32(x.List.Split('и')[0]));
+                if (i < j)
+                {
+                    var tmp = Orders[i];
+                    Orders[i] = Orders[j];
+                    Orders[j] = tmp;
+                }
+                else
+                {
+                    return j;
+                }
             }
         }
 
@@ -840,7 +884,7 @@ namespace SZMK
             try
             {
                 List<Order> Report = new List<Order>();
-                if (Order_DGV.CurrentCell.RowIndex >= 0)
+                if (Order_DGV.CurrentCell.RowIndex > 0)
                 {
                     for (int i = 0; i < Order_DGV.SelectedRows.Count; i++)
                     {
@@ -1024,6 +1068,15 @@ namespace SZMK
         private async Task<Boolean> ReportPastTimeAsync(List<StatusOfOrder> Report,String filename)
         {
             return await Task.Run(() => SystemArgs.Excel.ReportPastTimeofDate(Report, filename));
+        }
+
+        private void AboutProgram_TSM_Click(object sender, EventArgs e)
+        {
+            AboutProgram_F Dialog = new AboutProgram_F();
+            if (Dialog.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
     }
 }

@@ -30,6 +30,7 @@ namespace SZMK
         static public UnLoadSpecific UnLoadSpecific;//Проверка выгрузки деталей
         static public List<Status> Statuses;//Общий список возможных статусов
         static public List<BlankOrder> BlankOrders;//Общий список возможных бланков заказа
+        static public AboutProgram AboutProgram;//Информация о программе
 
         public static void PrintLog(String Message)
         {

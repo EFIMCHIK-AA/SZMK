@@ -296,7 +296,7 @@ namespace SZMK
             Bitmap source = new Bitmap(myImage);
             Bitmap CroppedImage = source.Clone(new System.Drawing.Rectangle(source.Width-1500, source.Height-2800, 1500, 2800), source.PixelFormat);
             string path = @"TempFile\" + Index + ".jpg";
-            CroppedImage = new Bitmap(CroppedImage, new Size(1500 / 6, 2800 / 6));
+            CroppedImage = new Bitmap(CroppedImage, new Size(1500 / 5, 2800 / 5));
             CroppedImage.Save(path);
             source.Dispose();
             CroppedImage.Dispose();

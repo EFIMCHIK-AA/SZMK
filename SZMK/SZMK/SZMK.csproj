@@ -92,6 +92,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutProgram.cs" />
+    <Compile Include="AboutProgram_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutProgram_F.Designer.cs">
+      <DependentUpon>AboutProgram_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="ADAdminstrator_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -377,6 +384,9 @@
     <Compile Include="Template.cs" />
     <Compile Include="UnLoadSpecific.cs" />
     <Compile Include="User.cs" />
+    <EmbeddedResource Include="AboutProgram_F.resx">
+      <DependentUpon>AboutProgram_F.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ADAdminstrator_F.resx">
       <DependentUpon>ADAdminstrator_F.cs</DependentUpon>
     </EmbeddedResource>

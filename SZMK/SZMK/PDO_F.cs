@@ -592,7 +592,6 @@ namespace SZMK
                 DeleteOrder_TSB.Visible = true;
                 ChangeOrder_TSM.Visible = true;
                 DeleteOrder_TSM.Visible = true;
-                Report_TSM.Visible = true;
             }
             else
             {
@@ -600,7 +599,6 @@ namespace SZMK
                 DeleteOrder_TSB.Visible = false;
                 ChangeOrder_TSM.Visible = false;
                 DeleteOrder_TSM.Visible = false;
-                Report_TSM.Visible = false;
             }
         }
         private void Selection(Order Temp, bool flag)
@@ -732,7 +730,7 @@ namespace SZMK
             try
             {
                 List<Order> Report = new List<Order>();
-                if (Order_DGV.CurrentCell.RowIndex >= 0)
+                if (Order_DGV.CurrentCell.RowIndex > 0)
                 {
                     for (int i = 0; i < Order_DGV.SelectedRows.Count; i++)
                     {
@@ -871,6 +869,15 @@ namespace SZMK
         private async Task<Boolean> ReportPastTimeAsync(List<StatusOfOrder> Report, String filename)
         {
             return await Task.Run(() => SystemArgs.Excel.ReportPastTimeofDate(Report, filename));
+        }
+
+        private void AboutProgram_TSM_Click(object sender, EventArgs e)
+        {
+            AboutProgram_F Dialog = new AboutProgram_F();
+            if (Dialog.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
     }
 }

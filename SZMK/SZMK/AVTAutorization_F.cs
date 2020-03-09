@@ -178,6 +178,7 @@ namespace SZMK
                 SystemArgs.DataBase = new DataBase(); //Конфигурация базы данных
                 SystemArgs.Request = new Request(); //Слой запросов к базе данных
                 SystemArgs.RequestLinq = new RequestLinq(); //Слой запросов linq к полученным данным из БД
+                SystemArgs.AboutProgram = new AboutProgram();
 
                 if (SystemArgs.DataBase.CheckConnect(SystemArgs.DataBase.ToString()))
                 {

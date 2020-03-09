@@ -19,6 +19,7 @@ namespace SZMK
         private String _Name;
         private String _Login;
         private String _Password;
+        private String _TestUser;
         private bool _SSL;
 
         public ServerMail()
@@ -144,6 +145,20 @@ namespace SZMK
                 }
             }
         }
+        public String TestUser
+        {
+            get
+            {
+                return _TestUser;
+            }
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    _TestUser = value;
+                }
+            }
+        }
 
         public bool GetParametersConnect()
         {
@@ -161,6 +176,7 @@ namespace SZMK
                     _Port = sr.ReadLine();
                     _Name = sr.ReadLine();
                     _Login = sr.ReadLine();
+                    _TestUser = sr.ReadLine();
                     String SSL = sr.ReadLine();
 
                     if(SSL.ToLower() == "true")
@@ -201,6 +217,7 @@ namespace SZMK
                     sw.WriteLine(_Port);
                     sw.WriteLine(_Name);
                     sw.WriteLine(_Login);
+                    sw.WriteLine(_TestUser);
 
                     if(_SSL)
                     {
@@ -232,12 +249,12 @@ namespace SZMK
             return true;
         }
 
-        public bool CheckConnect(String Email,String Name,String Server,Int32 Port,String Login,String Password)
+        public bool CheckConnect(String Email,String Name,String Server,Int32 Port,String Login,String Password,String TestUser)
         {
             try
             {
                 MailAddress from = new MailAddress(Email, Name);
-                MailAddress to = new MailAddress("rakrachok99@mail.ru");
+                MailAddress to = new MailAddress(TestUser);
                 MailMessage m = new MailMessage(from, to);
                 m.Subject = "Тест";
                 m.Body = "<h2>Письмо-тест работы smtp-клиента</h2>";

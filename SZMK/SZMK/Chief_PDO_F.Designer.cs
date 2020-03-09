@@ -46,6 +46,8 @@
             this.Time_Week_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.Time_Month_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.Time_SelectionDate_Report_TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.помощьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AboutProgram_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.ChangeOrder_TSB = new System.Windows.Forms.ToolStripButton();
             this.DeleteOrder_TSB = new System.Windows.Forms.ToolStripButton();
@@ -60,13 +62,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.Order_DGV = new System.Windows.Forms.DataGridView();
-            this.StatusDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumberBlankOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.List = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Mark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.RefreshStatus_B = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -92,6 +87,13 @@
             this.Weight_TB = new System.Windows.Forms.TextBox();
             this.Canceled_TB = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.StatusDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumberBlankOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.List = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Mark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -103,7 +105,8 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(201)))), ((int)(((byte)(188)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Report_TSM});
+            this.Report_TSM,
+            this.помощьToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1284, 24);
@@ -125,7 +128,7 @@
             this.поВыбраннымПозициямToolStripMenuItem,
             this.поДатеСозданияToolStripMenuItem});
             this.поЧертежамToolStripMenuItem.Name = "поЧертежамToolStripMenuItem";
-            this.поЧертежамToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.поЧертежамToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.поЧертежамToolStripMenuItem.Text = "По чертежам";
             // 
             // поВыбраннымПозициямToolStripMenuItem
@@ -150,7 +153,7 @@
             this.Time_Month_Report_TSM,
             this.Time_SelectionDate_Report_TSM});
             this.поВремениToolStripMenuItem.Name = "поВремениToolStripMenuItem";
-            this.поВремениToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.поВремениToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.поВремениToolStripMenuItem.Text = "По времени";
             // 
             // Time_Day_Report_TSM
@@ -180,6 +183,21 @@
             this.Time_SelectionDate_Report_TSM.Size = new System.Drawing.Size(183, 22);
             this.Time_SelectionDate_Report_TSM.Text = "Выбранный период";
             this.Time_SelectionDate_Report_TSM.Click += new System.EventHandler(this.Time_SelectionDate_Report_TSM_Click);
+            // 
+            // помощьToolStripMenuItem
+            // 
+            this.помощьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AboutProgram_TSM});
+            this.помощьToolStripMenuItem.Name = "помощьToolStripMenuItem";
+            this.помощьToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.помощьToolStripMenuItem.Text = "Помощь";
+            // 
+            // AboutProgram_TSM
+            // 
+            this.AboutProgram_TSM.Name = "AboutProgram_TSM";
+            this.AboutProgram_TSM.Size = new System.Drawing.Size(149, 22);
+            this.AboutProgram_TSM.Text = "О программе";
+            this.AboutProgram_TSM.Click += new System.EventHandler(this.AboutProgram_TSM_Click);
             // 
             // toolStrip1
             // 
@@ -365,83 +383,6 @@
             this.Order_DGV.TabIndex = 1;
             this.Order_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Order_DGV_CellFormatting);
             this.Order_DGV.SelectionChanged += new System.EventHandler(this.Order_DGV_SelectionChanged);
-            // 
-            // StatusDate
-            // 
-            this.StatusDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.StatusDate.DataPropertyName = "StatusViewDate";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.StatusDate.DefaultCellStyle = dataGridViewCellStyle1;
-            this.StatusDate.FillWeight = 20F;
-            this.StatusDate.HeaderText = "Дата обновления статуса";
-            this.StatusDate.Name = "StatusDate";
-            this.StatusDate.ReadOnly = true;
-            // 
-            // Executor
-            // 
-            this.Executor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Executor.DataPropertyName = "Executor";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Executor.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Executor.FillWeight = 17F;
-            this.Executor.HeaderText = "Исполнитель";
-            this.Executor.Name = "Executor";
-            this.Executor.ReadOnly = true;
-            // 
-            // Number
-            // 
-            this.Number.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Number.DataPropertyName = "Number";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Number.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Number.FillWeight = 15F;
-            this.Number.HeaderText = "Номер заказа";
-            this.Number.Name = "Number";
-            this.Number.ReadOnly = true;
-            // 
-            // NumberBlankOrder
-            // 
-            this.NumberBlankOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NumberBlankOrder.DataPropertyName = "BlankOrderView";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.NumberBlankOrder.DefaultCellStyle = dataGridViewCellStyle4;
-            this.NumberBlankOrder.FillWeight = 25F;
-            this.NumberBlankOrder.HeaderText = "Номер заказа на производство";
-            this.NumberBlankOrder.Name = "NumberBlankOrder";
-            this.NumberBlankOrder.ReadOnly = true;
-            // 
-            // List
-            // 
-            this.List.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.List.DataPropertyName = "List";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.List.DefaultCellStyle = dataGridViewCellStyle5;
-            this.List.FillWeight = 10F;
-            this.List.HeaderText = "Лист";
-            this.List.Name = "List";
-            this.List.ReadOnly = true;
-            // 
-            // Mark
-            // 
-            this.Mark.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Mark.DataPropertyName = "Mark";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Mark.DefaultCellStyle = dataGridViewCellStyle6;
-            this.Mark.FillWeight = 10F;
-            this.Mark.HeaderText = "Марка";
-            this.Mark.Name = "Mark";
-            this.Mark.ReadOnly = true;
-            // 
-            // Weight
-            // 
-            this.Weight.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Weight.DataPropertyName = "Weight";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Weight.DefaultCellStyle = dataGridViewCellStyle7;
-            this.Weight.FillWeight = 10F;
-            this.Weight.HeaderText = "Вес";
-            this.Weight.Name = "Weight";
-            this.Weight.ReadOnly = true;
             // 
             // tableLayoutPanel2
             // 
@@ -806,6 +747,85 @@
             this.label13.TabIndex = 59;
             this.label13.Text = "Длина";
             // 
+            // StatusDate
+            // 
+            this.StatusDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.StatusDate.DataPropertyName = "StatusDate";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.Format = "G";
+            dataGridViewCellStyle1.NullValue = null;
+            this.StatusDate.DefaultCellStyle = dataGridViewCellStyle1;
+            this.StatusDate.FillWeight = 20F;
+            this.StatusDate.HeaderText = "Дата обновления статуса";
+            this.StatusDate.Name = "StatusDate";
+            this.StatusDate.ReadOnly = true;
+            // 
+            // Executor
+            // 
+            this.Executor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Executor.DataPropertyName = "Executor";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Executor.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Executor.FillWeight = 17F;
+            this.Executor.HeaderText = "Исполнитель";
+            this.Executor.Name = "Executor";
+            this.Executor.ReadOnly = true;
+            // 
+            // Number
+            // 
+            this.Number.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Number.DataPropertyName = "Number";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Number.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Number.FillWeight = 15F;
+            this.Number.HeaderText = "Номер заказа";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            // 
+            // NumberBlankOrder
+            // 
+            this.NumberBlankOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.NumberBlankOrder.DataPropertyName = "BlankOrderView";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.NumberBlankOrder.DefaultCellStyle = dataGridViewCellStyle4;
+            this.NumberBlankOrder.FillWeight = 25F;
+            this.NumberBlankOrder.HeaderText = "Номер заказа на производство";
+            this.NumberBlankOrder.Name = "NumberBlankOrder";
+            this.NumberBlankOrder.ReadOnly = true;
+            // 
+            // List
+            // 
+            this.List.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.List.DataPropertyName = "List";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.List.DefaultCellStyle = dataGridViewCellStyle5;
+            this.List.FillWeight = 10F;
+            this.List.HeaderText = "Лист";
+            this.List.Name = "List";
+            this.List.ReadOnly = true;
+            // 
+            // Mark
+            // 
+            this.Mark.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Mark.DataPropertyName = "Mark";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Mark.DefaultCellStyle = dataGridViewCellStyle6;
+            this.Mark.FillWeight = 10F;
+            this.Mark.HeaderText = "Марка";
+            this.Mark.Name = "Mark";
+            this.Mark.ReadOnly = true;
+            // 
+            // Weight
+            // 
+            this.Weight.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Weight.DataPropertyName = "Weight";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Weight.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Weight.FillWeight = 10F;
+            this.Weight.HeaderText = "Вес";
+            this.Weight.Name = "Weight";
+            this.Weight.ReadOnly = true;
+            // 
             // Chief_PDO_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -853,13 +873,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView Order_DGV;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Executor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NumberBlankOrder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn List;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Mark;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         public System.Windows.Forms.Button RefreshStatus_B;
         private System.Windows.Forms.Label label12;
@@ -894,5 +907,14 @@
         private System.Windows.Forms.ToolStripMenuItem Time_Week_Report_TSM;
         private System.Windows.Forms.ToolStripMenuItem Time_Month_Report_TSM;
         private System.Windows.Forms.ToolStripMenuItem Time_SelectionDate_Report_TSM;
+        private System.Windows.Forms.ToolStripMenuItem помощьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AboutProgram_TSM;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Executor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumberBlankOrder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn List;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Mark;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
     }
 }

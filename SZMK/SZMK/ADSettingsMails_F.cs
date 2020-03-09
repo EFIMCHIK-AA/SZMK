@@ -364,6 +364,7 @@ namespace SZMK
             Dialog.Password_TB.Text = SystemArgs.ServerMail.Password;
             Dialog.Port_TB.Text = SystemArgs.ServerMail.Port;
             Dialog.SMTP_TB.Text = SystemArgs.ServerMail.SMTP;
+            Dialog.TestEmail_TB.Text = SystemArgs.ServerMail.TestUser;
             Dialog.SSL_CB.Checked = SystemArgs.ServerMail.SSL;
 
             if (Dialog.ShowDialog() == DialogResult.OK)

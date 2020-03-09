@@ -59,7 +59,13 @@ namespace SZMK
                     throw new Exception("Необходимо ввести пароль");
                 }
 
-                if (SystemArgs.ServerMail.CheckConnect(NameWho_TB.Text.Trim(),Name_TB.Text.Trim(), SMTP_TB.Text.Trim(), Convert.ToInt32(Port_TB.Text.Trim()),Login_TB.Text.Trim(), Password_TB.Text.Trim()))
+                if (String.IsNullOrEmpty(TestEmail_TB.Text))
+                {
+                    Password_TB.Focus();
+                    throw new Exception("Необходимо ввести тестового получателя");
+                }
+
+                if (SystemArgs.ServerMail.CheckConnect(NameWho_TB.Text.Trim(),Name_TB.Text.Trim(), SMTP_TB.Text.Trim(), Convert.ToInt32(Port_TB.Text.Trim()),Login_TB.Text.Trim(), Password_TB.Text.Trim(),TestEmail_TB.Text.Trim()))
                 {
                     SystemArgs.ServerMail.Name = Name_TB.Text.Trim();
                     SystemArgs.ServerMail.Port = Port_TB.Text.Trim();
@@ -67,6 +73,7 @@ namespace SZMK
                     SystemArgs.ServerMail.Login = Login_TB.Text.Trim();
                     SystemArgs.ServerMail.SMTP = SMTP_TB.Text.Trim();
                     SystemArgs.ServerMail.Password = Password_TB.Text.Trim();
+                    SystemArgs.ServerMail.TestUser = TestEmail_TB.Text.Trim();
                     SystemArgs.ServerMail.SSL = SSL_CB.Checked;
 
                     if (SystemArgs.ServerMail.SetParametersConnect())
@@ -92,6 +99,11 @@ namespace SZMK
             {
                 MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void OK_B_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

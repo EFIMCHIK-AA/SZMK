@@ -43,9 +43,17 @@
             this.распознаваниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.быстрыйЗапускToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.помощьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AboutProgram_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.Users_DGV = new System.Windows.Forms.DataGridView();
             this.Tool_TS = new System.Windows.Forms.ToolStrip();
+            this.Add_TSB = new System.Windows.Forms.ToolStripButton();
+            this.Change_TSB = new System.Windows.Forms.ToolStripButton();
+            this.Delete_TSB = new System.Windows.Forms.ToolStripButton();
+            this.SearchParam_TSB = new System.Windows.Forms.ToolStripButton();
+            this.Reset_TSB = new System.Windows.Forms.ToolStripButton();
+            this.Search_TSB = new System.Windows.Forms.ToolStripButton();
             this.Search_TSTB = new System.Windows.Forms.ToolStripTextBox();
             this.Search_TSL = new System.Windows.Forms.ToolStripLabel();
             this.label2 = new System.Windows.Forms.Label();
@@ -88,12 +96,6 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.Add_TSB = new System.Windows.Forms.ToolStripButton();
-            this.Change_TSB = new System.Windows.Forms.ToolStripButton();
-            this.Delete_TSB = new System.Windows.Forms.ToolStripButton();
-            this.SearchParam_TSB = new System.Windows.Forms.ToolStripButton();
-            this.Reset_TSB = new System.Windows.Forms.ToolStripButton();
-            this.Search_TSB = new System.Windows.Forms.ToolStripButton();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -114,7 +116,8 @@
             this.Menu_MS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.мобильноеПриложениеToolStripMenuItem,
             this.конфигурацияToolStripMenuItem,
-            this.распознаваниеToolStripMenuItem});
+            this.распознаваниеToolStripMenuItem,
+            this.помощьToolStripMenuItem});
             this.Menu_MS.Location = new System.Drawing.Point(0, 0);
             this.Menu_MS.Name = "Menu_MS";
             this.Menu_MS.Size = new System.Drawing.Size(1168, 25);
@@ -133,7 +136,7 @@
             // MobileSettings_TSMB
             // 
             this.MobileSettings_TSMB.Name = "MobileSettings_TSMB";
-            this.MobileSettings_TSMB.Size = new System.Drawing.Size(180, 22);
+            this.MobileSettings_TSMB.Size = new System.Drawing.Size(139, 22);
             this.MobileSettings_TSMB.Text = "Настройки";
             this.MobileSettings_TSMB.Click += new System.EventHandler(this.MobileSettings_TSMB_Click);
             // 
@@ -190,6 +193,21 @@
             this.быстрыйЗапускToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.быстрыйЗапускToolStripMenuItem.Text = "Быстрый запуск";
             this.быстрыйЗапускToolStripMenuItem.Click += new System.EventHandler(this.быстрыйЗапускToolStripMenuItem_Click);
+            // 
+            // помощьToolStripMenuItem
+            // 
+            this.помощьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AboutProgram_TSM});
+            this.помощьToolStripMenuItem.Name = "помощьToolStripMenuItem";
+            this.помощьToolStripMenuItem.Size = new System.Drawing.Size(72, 21);
+            this.помощьToolStripMenuItem.Text = "Помощь";
+            // 
+            // AboutProgram_TSM
+            // 
+            this.AboutProgram_TSM.Name = "AboutProgram_TSM";
+            this.AboutProgram_TSM.Size = new System.Drawing.Size(158, 22);
+            this.AboutProgram_TSM.Text = "О программе";
+            this.AboutProgram_TSM.Click += new System.EventHandler(this.AboutProgram_TSM_Click);
             // 
             // label1
             // 
@@ -260,6 +278,71 @@
             this.Tool_TS.Size = new System.Drawing.Size(1168, 38);
             this.Tool_TS.TabIndex = 19;
             this.Tool_TS.Text = "toolStrip1";
+            // 
+            // Add_TSB
+            // 
+            this.Add_TSB.Image = global::SZMK.Properties.Resources.icons8_редактировать_мужчину_пользователя_40;
+            this.Add_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Add_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.Add_TSB.Name = "Add_TSB";
+            this.Add_TSB.Size = new System.Drawing.Size(93, 34);
+            this.Add_TSB.Text = "Добавить";
+            this.Add_TSB.ToolTipText = "Регистрация";
+            this.Add_TSB.Click += new System.EventHandler(this.Add_TSB_Click);
+            // 
+            // Change_TSB
+            // 
+            this.Change_TSB.Image = global::SZMK.Properties.Resources.icons8_переименовывать_40;
+            this.Change_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Change_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.Change_TSB.Name = "Change_TSB";
+            this.Change_TSB.Size = new System.Drawing.Size(95, 34);
+            this.Change_TSB.Text = "Изменить";
+            this.Change_TSB.Click += new System.EventHandler(this.Change_TSB_Click);
+            // 
+            // Delete_TSB
+            // 
+            this.Delete_TSB.Image = global::SZMK.Properties.Resources.icons8_мусор_40;
+            this.Delete_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Delete_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.Delete_TSB.Name = "Delete_TSB";
+            this.Delete_TSB.Size = new System.Drawing.Size(85, 34);
+            this.Delete_TSB.Text = "Удалить";
+            this.Delete_TSB.Click += new System.EventHandler(this.Delete_TSB_Click);
+            // 
+            // SearchParam_TSB
+            // 
+            this.SearchParam_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.SearchParam_TSB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
+            this.SearchParam_TSB.Image = global::SZMK.Properties.Resources.icons8_фильтр_40;
+            this.SearchParam_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SearchParam_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
+            this.SearchParam_TSB.Name = "SearchParam_TSB";
+            this.SearchParam_TSB.Size = new System.Drawing.Size(157, 34);
+            this.SearchParam_TSB.Text = "Расширенный поиск";
+            this.SearchParam_TSB.Click += new System.EventHandler(this.SearchParam_TSB_Click);
+            // 
+            // Reset_TSB
+            // 
+            this.Reset_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Reset_TSB.Image = global::SZMK.Properties.Resources.icons8_перезапуск_40;
+            this.Reset_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Reset_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
+            this.Reset_TSB.Name = "Reset_TSB";
+            this.Reset_TSB.Size = new System.Drawing.Size(94, 34);
+            this.Reset_TSB.Text = "Сбросить";
+            this.Reset_TSB.Click += new System.EventHandler(this.Reset_TSB_Click);
+            // 
+            // Search_TSB
+            // 
+            this.Search_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Search_TSB.Image = global::SZMK.Properties.Resources.icons8_поиск_40;
+            this.Search_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Search_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
+            this.Search_TSB.Name = "Search_TSB";
+            this.Search_TSB.Size = new System.Drawing.Size(75, 34);
+            this.Search_TSB.Text = "Найти";
+            this.Search_TSB.Click += new System.EventHandler(this.Search_TSB_Click);
             // 
             // Search_TSTB
             // 
@@ -845,75 +928,12 @@
             this.panel2.Size = new System.Drawing.Size(703, 682);
             this.panel2.TabIndex = 45;
             // 
-            // Add_TSB
-            // 
-            this.Add_TSB.Image = global::SZMK.Properties.Resources.icons8_редактировать_мужчину_пользователя_40;
-            this.Add_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Add_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.Add_TSB.Name = "Add_TSB";
-            this.Add_TSB.Size = new System.Drawing.Size(93, 34);
-            this.Add_TSB.Text = "Добавить";
-            this.Add_TSB.ToolTipText = "Регистрация";
-            this.Add_TSB.Click += new System.EventHandler(this.Add_TSB_Click);
-            // 
-            // Change_TSB
-            // 
-            this.Change_TSB.Image = global::SZMK.Properties.Resources.icons8_переименовывать_40;
-            this.Change_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Change_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.Change_TSB.Name = "Change_TSB";
-            this.Change_TSB.Size = new System.Drawing.Size(95, 34);
-            this.Change_TSB.Text = "Изменить";
-            this.Change_TSB.Click += new System.EventHandler(this.Change_TSB_Click);
-            // 
-            // Delete_TSB
-            // 
-            this.Delete_TSB.Image = global::SZMK.Properties.Resources.icons8_мусор_40;
-            this.Delete_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Delete_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.Delete_TSB.Name = "Delete_TSB";
-            this.Delete_TSB.Size = new System.Drawing.Size(85, 34);
-            this.Delete_TSB.Text = "Удалить";
-            this.Delete_TSB.Click += new System.EventHandler(this.Delete_TSB_Click);
-            // 
-            // SearchParam_TSB
-            // 
-            this.SearchParam_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.SearchParam_TSB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(228)))), ((int)(((byte)(213)))));
-            this.SearchParam_TSB.Image = global::SZMK.Properties.Resources.icons8_фильтр_40;
-            this.SearchParam_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SearchParam_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
-            this.SearchParam_TSB.Name = "SearchParam_TSB";
-            this.SearchParam_TSB.Size = new System.Drawing.Size(157, 34);
-            this.SearchParam_TSB.Text = "Расширенный поиск";
-            this.SearchParam_TSB.Click += new System.EventHandler(this.SearchParam_TSB_Click);
-            // 
-            // Reset_TSB
-            // 
-            this.Reset_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.Reset_TSB.Image = global::SZMK.Properties.Resources.icons8_перезапуск_40;
-            this.Reset_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Reset_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
-            this.Reset_TSB.Name = "Reset_TSB";
-            this.Reset_TSB.Size = new System.Drawing.Size(94, 34);
-            this.Reset_TSB.Text = "Сбросить";
-            this.Reset_TSB.Click += new System.EventHandler(this.Reset_TSB_Click);
-            // 
-            // Search_TSB
-            // 
-            this.Search_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.Search_TSB.Image = global::SZMK.Properties.Resources.icons8_поиск_40;
-            this.Search_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Search_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
-            this.Search_TSB.Name = "Search_TSB";
-            this.Search_TSB.Size = new System.Drawing.Size(75, 34);
-            this.Search_TSB.Text = "Найти";
-            this.Search_TSB.Click += new System.EventHandler(this.Search_TSB_Click);
-            // 
             // Column4
             // 
-            this.Column4.DataPropertyName = "DateCreateView";
+            this.Column4.DataPropertyName = "DateCreate";
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.Format = "G";
+            dataGridViewCellStyle1.NullValue = null;
             this.Column4.DefaultCellStyle = dataGridViewCellStyle1;
             this.Column4.HeaderText = "Дата создания";
             this.Column4.Name = "Column4";
@@ -1054,6 +1074,8 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         public System.Windows.Forms.TextBox StatusServer_TB;
+        private System.Windows.Forms.ToolStripMenuItem помощьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AboutProgram_TSM;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
