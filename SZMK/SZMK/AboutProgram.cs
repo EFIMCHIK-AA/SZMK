@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SZMK
 {
@@ -11,13 +12,15 @@ namespace SZMK
     {
         private String _Version;
         private DateTime _DateUpdate;
-        private List<String> _DiscriptionsUpdate;
+        private List<Updates> _Updates;
+        private List<String> _Developers;
 
         public AboutProgram()
         {
             if (CheckFile())
             {
-                _DiscriptionsUpdate = new List<string>();
+                _Updates = new List<Updates>();
+                _Developers = new List<String>();
                 if (!GetInformations())
                 {
                     throw new Exception("Ошибка при получении информации о программе");
@@ -56,77 +59,60 @@ namespace SZMK
                 }
             }
         }
-        public String this[Int32 Index]
+        public Updates this[Int32 Index]
         {
             get
             {
-                return _DiscriptionsUpdate[Index];
+                return _Updates[Index];
             }
             set
             {
-                if (!String.IsNullOrEmpty(value))
-                {
-                    _DiscriptionsUpdate[Index] = value;
-                }
+               _Updates[Index] = value;
             }
         }
-        public List<String> GetDiscriptionsUpdate()
+        public List<Updates> GetUpdates()
         {
-            return _DiscriptionsUpdate;
+            return _Updates;
+        }
+        public List<String> GetDevelopers()
+        {
+            return _Developers;
         }
         public bool GetInformations()
         {
-            try
-            {
+            //try
+            //{
                 if (!File.Exists(SystemArgs.Path.AboutProgram))
                 {
                     throw new Exception();
                 }
 
-                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.AboutProgram, FileMode.Open)))
+                XDocument xdoc = XDocument.Load(SystemArgs.Path.AboutProgram);
+                _Version = xdoc.Element("Program").Element("CurretVersion").Value;
+                _DateUpdate = Convert.ToDateTime(xdoc.Element("Program").Element("DateCurret").Value);
+                foreach (XElement Updates in xdoc.Element("Program").Element("Updates").Elements("Update"))
                 {
-                    _Version = sr.ReadLine();
-                    _DateUpdate = Convert.ToDateTime(sr.ReadLine());
-                    for(int i = 0; !sr.EndOfStream; i++)
+                    _Updates.Add(new Updates(Updates.Element("Version").Value, Convert.ToDateTime(Updates.Element("Date").Value)));
+                    foreach (XElement Added in Updates.Element("Added").Elements("Item"))
                     {
-                        _DiscriptionsUpdate.Add(sr.ReadLine());
+                        _Updates[_Updates.Count() - 1].GetAdded().Add(Added.Value);
                     }
-                }
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-        public bool SetInformations()
-        {
-            try
-            {
-                String Dir = SystemArgs.Path.GetDirectory(SystemArgs.Path.AboutProgram);
-
-                if (!Directory.Exists(Dir))
-                {
-                    Directory.CreateDirectory(Dir);
-                }
-
-                using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.AboutProgram, FileMode.Create)))
-                {
-                    sw.WriteLine(_Version);
-                    sw.WriteLine(_DateUpdate.ToString());
-                    for(int i =0; i<_DiscriptionsUpdate.Count(); i++)
+                    foreach (XElement Deleted in Updates.Element("Deleted").Elements("Item"))
                     {
-                        sw.WriteLine(_DiscriptionsUpdate[i]);
+                        _Updates[_Updates.Count() - 1].GetDeleted().Add(Deleted.Value);
                     }
-                }
 
+                }
+                foreach(XElement Developer in xdoc.Element("Program").Element("Developers").Elements("Developer"))
+                {
+                    _Developers.Add(Developer.Value);
+                }
                 return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    return false;
+            //}
         }
         public bool CheckFile()
         {

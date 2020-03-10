@@ -764,7 +764,7 @@ namespace SZMK
             try
             {
                 List<Order> Selections = new List<Order>();
-                if (Order_DGV.CurrentCell.RowIndex > 0)
+                if (Order_DGV.CurrentCell.RowIndex >= 0)
                 {
                     Chief_PDO_ChangedStatuses_F Dialog = new Chief_PDO_ChangedStatuses_F();
                     Dialog.Statuses_CB.DataSource = SystemArgs.Statuses;

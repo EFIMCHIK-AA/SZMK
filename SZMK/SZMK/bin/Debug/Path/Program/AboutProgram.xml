@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Program>
+  <CurretVersion>0.0.2</CurretVersion>
+  <DateCurret>10.03.2020</DateCurret>
+  <Updates>
+	<Update>
+	<Version>0.0.2</Version>
+	<Date>10.03.2020</Date>
+	<Added>
+		<Item>Добавлен тестовый получатель для проверки отправки почты в настройки почтового сервера</Item>
+		<Item>Добавлена кнопка "О программе" в категории "Помощь", с информацией о текущей версии и обновлениях внесенных в ПО</Item>
+	</Added>
+	<Deleted>
+		<Item>Баг сортировки по дате присвоения статуса</Item>
+		<Item>Проверка деталировки при наличии только одной детали</Item>
+	</Deleted>
+	</Update>
+  </Updates>
+  <Developers>
+	<Developer>Ефимчик Алексей Алексеевич</Developer>
+	<Developer>Губанов Кирилл Николаевич</Developer>
+  </Developers>
+</Program>

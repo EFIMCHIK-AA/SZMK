@@ -21,9 +21,26 @@ namespace SZMK
         {
             Version_TB.Text = SystemArgs.AboutProgram.Version;
             DateUpdate_TB.Text = SystemArgs.AboutProgram.DateUpdate.ToShortDateString();
-            for(int i = 0; i < SystemArgs.AboutProgram.GetDiscriptionsUpdate().Count(); i++)
+            for(int i = 0; i < SystemArgs.AboutProgram.GetUpdates().Count(); i++)
             {
-                DiscriptionsUpdate_RTB.AppendText($"- "+SystemArgs.AboutProgram[i]+Environment.NewLine);
+                DiscriptionsUpdate_RTB.AppendText($"Версия: "+SystemArgs.AboutProgram[i].Version+Environment.NewLine);
+                DiscriptionsUpdate_RTB.AppendText($"Дата выпуска: " + SystemArgs.AboutProgram[i].Date.ToShortDateString() + Environment.NewLine);
+                if (SystemArgs.AboutProgram[i].GetAdded().Count()!=0)
+                {
+                    DiscriptionsUpdate_RTB.AppendText($"Добавлено: " + Environment.NewLine);
+                }
+                for (int j = 0; j < SystemArgs.AboutProgram[i].GetAdded().Count(); j++)
+                {
+                    DiscriptionsUpdate_RTB.AppendText($"- " + SystemArgs.AboutProgram[i].GetAdded()[j] + Environment.NewLine);
+                }
+                if (SystemArgs.AboutProgram[i].GetDeleted().Count() != 0)
+                {
+                    DiscriptionsUpdate_RTB.AppendText($"Убрано: " + Environment.NewLine);
+                }
+                for (int j = 0; j < SystemArgs.AboutProgram[i].GetDeleted().Count(); j++)
+                {
+                    DiscriptionsUpdate_RTB.AppendText($"- " + SystemArgs.AboutProgram[i].GetDeleted()[j] + Environment.NewLine);
+                }
             }
             Developers_RTB.SelectAll();
             Developers_RTB.SelectionAlignment = HorizontalAlignment.Center;

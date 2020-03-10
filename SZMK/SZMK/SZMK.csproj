@@ -389,6 +389,7 @@
     <Compile Include="SystemArgs.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="UnLoadSpecific.cs" />
+    <Compile Include="Updates.cs" />
     <Compile Include="User.cs" />
     <EmbeddedResource Include="AboutProgram_F.resx">
       <DependentUpon>AboutProgram_F.cs</DependentUpon>

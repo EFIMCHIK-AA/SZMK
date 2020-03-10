@@ -47,7 +47,7 @@ namespace SZMK
             _TemplateRegistryPath = $@"Templates\RegistryTemplate.xlsx";//Путь до шаблона реестра
             _CheckMarksPath = $@"Path\MarksCheck.df"; // Путь до файла с проверкой строки с маркой на строчные буквы
             _VisualRowPath = $@"Path\VisualRow.df"; // Путь до файла с параметра для визуализации просрочивания чертежей
-            _AboutProgram = $@"Path\AboutProgram.df";
+            _AboutProgram = $@"Path\Program\AboutProgram.xml";
         }
 
         public String ConnectProgramPath
