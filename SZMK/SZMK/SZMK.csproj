@@ -162,6 +162,12 @@
     <Compile Include="AVTChangePassword_F.Designer.cs">
       <DependentUpon>AVTChangePassword_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chief_PDO_ChangedStatuses_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chief_PDO_ChangedStatuses_F.Designer.cs">
+      <DependentUpon>Chief_PDO_ChangedStatuses_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="Chief_PDO_ChangeOrder_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -416,6 +422,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AVTChangePassword_F.resx">
       <DependentUpon>AVTChangePassword_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chief_PDO_ChangedStatuses_F.resx">
+      <DependentUpon>Chief_PDO_ChangedStatuses_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Chief_PDO_ChangeOrder_F.resx">
       <DependentUpon>Chief_PDO_ChangeOrder_F.cs</DependentUpon>

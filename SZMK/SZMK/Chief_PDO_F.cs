@@ -758,5 +758,69 @@ namespace SZMK
 
             }
         }
+
+        private void ChangeStatuses_TSM_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Order> Selections = new List<Order>();
+                if (Order_DGV.CurrentCell.RowIndex > 0)
+                {
+                    Chief_PDO_ChangedStatuses_F Dialog = new Chief_PDO_ChangedStatuses_F();
+                    Dialog.Statuses_CB.DataSource = SystemArgs.Statuses;
+                    if(Dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        for (int i = 0; i < Order_DGV.SelectedRows.Count; i++)
+                        {
+                            Order ChangedOrder = (Order)(View[Order_DGV.SelectedRows[i].Index]);
+                            Status Temp = ChangedOrder.Status;
+                            if (ChangedOrder.Status != SystemArgs.Statuses.Where(p => p == (Status)Dialog.Statuses_CB.SelectedItem).Single())
+                            {
+                                ChangedOrder.Status = (Status)Dialog.Statuses_CB.SelectedItem;
+                                ChangedOrder.StatusDate = DateTime.Now;
+                            }
+                            else
+                            {
+                                List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == ChangedOrder.ID && p.IDStatus == SystemArgs.Statuses.Where(j => j == (Status)Dialog.Statuses_CB.SelectedItem).Single().ID).Select(p => p.DateCreate).ToList();
+                                ChangedOrder.Status = (Status)Dialog.Statuses_CB.SelectedItem;
+                                ChangedOrder.StatusDate = StatusDate[0];
+                            }
+
+                            if (SystemArgs.Request.UpdateOrder(ChangedOrder))
+                            {
+                                if (Temp.ID > SystemArgs.Statuses.Where(p => p == (Status)Dialog.Statuses_CB.SelectedItem).Single().ID)
+                                {
+                                    SystemArgs.Request.DownGradeStatus(ChangedOrder);
+                                }
+                                else
+                                {
+                                    int NewStatus = (int)ChangedOrder.Status.ID;
+                                    for (int j = (int)Temp.ID + 1; j <= NewStatus; j++)
+                                    {
+                                        ChangedOrder.Status = SystemArgs.Statuses.Where(p => p.ID == j).Single();
+                                        SystemArgs.Request.InsertStatus(ChangedOrder);
+                                    }
+                                }
+                                SystemArgs.Orders.Remove((Order)(View[Order_DGV.SelectedRows[i].Index]));
+                                SystemArgs.Orders.Add(ChangedOrder);
+                            }
+                            else
+                            {
+                                throw new Exception("Ошибка обновления данных черетежа");
+                            }
+                        }
+                        MessageBox.Show("Статусы успешно изменены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Необходимо выбрать объекты");
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
