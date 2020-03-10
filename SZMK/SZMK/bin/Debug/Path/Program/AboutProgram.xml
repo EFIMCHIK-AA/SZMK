@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Program>
-  <CurretVersion>0.0.2</CurretVersion>
+  <CurretVersion>0.0.3</CurretVersion>
   <DateCurret>10.03.2020</DateCurret>
   <Updates>
 	<Update>
-	<Version>0.0.2</Version>
+	<Version>0.0.3</Version>
 	<Date>10.03.2020</Date>
 	<Added>
 		<Item>Добавлен тестовый получатель для проверки отправки почты в настройки почтового сервера</Item>
