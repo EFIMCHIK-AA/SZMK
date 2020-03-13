@@ -138,11 +138,11 @@ namespace SZMK
                 {
                     if (Added)
                     {
-                        if (SystemArgs.RequestLinq.CheckedOrderAndStatus(ValidationDataMatrix[1], ValidationDataMatrix[i]))
+                        if (SystemArgs.Request.CheckedOrderAndStatus(ValidationDataMatrix[1], ValidationDataMatrix[i]))
                         {
                             _ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], 1));
                         }
-                        else if (SystemArgs.RequestLinq.CheckedOrderAndStatusForUpdate(ValidationDataMatrix[1], ValidationDataMatrix[i]))
+                        else if (SystemArgs.Request.CheckedStatusOrderDB(ValidationDataMatrix[1], ValidationDataMatrix[i]) > SystemArgs.User.IDStatus - 1)
                         {
                             _ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], 0));
                         }
@@ -153,13 +153,20 @@ namespace SZMK
                     }
                     else
                     {
-                        if (SystemArgs.RequestLinq.CheckedOrderAndStatus(ValidationDataMatrix[1], ValidationDataMatrix[i]) && SystemArgs.RequestLinq.FindedOrdersInAddBlankOrder(QRBlankOrder, ValidationDataMatrix[1], ValidationDataMatrix[i]))
+                        if(SystemArgs.Request.FindedOrdersInAddBlankOrder(QRBlankOrder, ValidationDataMatrix[1], ValidationDataMatrix[i]))
                         {
-                            _ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], 1));
-                        }
-                        else if (SystemArgs.RequestLinq.CheckedOrderAndStatusForUpdate(ValidationDataMatrix[1], ValidationDataMatrix[i]) && SystemArgs.RequestLinq.FindedOrdersInAddBlankOrder(QRBlankOrder, ValidationDataMatrix[1], ValidationDataMatrix[i]))
-                        {
-                            _ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], 0));
+                            if (SystemArgs.Request.CheckedOrderAndStatus(ValidationDataMatrix[1], ValidationDataMatrix[i]))
+                            {
+                                _ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], 1));
+                            }
+                            else if (SystemArgs.Request.CheckedStatusOrderDB(ValidationDataMatrix[1], ValidationDataMatrix[i])>SystemArgs.User.IDStatus-1)
+                            {
+                                _ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], 0));
+                            }
+                            else
+                            {
+                                _ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[1], ValidationDataMatrix[i], -1));
+                            }
                         }
                         else
                         {

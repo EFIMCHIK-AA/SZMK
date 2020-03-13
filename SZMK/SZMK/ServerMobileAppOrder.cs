@@ -107,7 +107,7 @@ namespace SZMK
                     switch (IndexException)
                     {
                         case 0:
-                            if (SystemArgs.RequestLinq.CheckedNumberAndMark(ValidationDataMatrix[0], ReplaceMark))
+                            if (SystemArgs.Request.CheckedNumberAndMark(ValidationDataMatrix[0], ReplaceMark))
                             {
                                 if (SystemArgs.ClientProgram.CheckMarks)
                                 {

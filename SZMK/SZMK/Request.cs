@@ -613,6 +613,71 @@ namespace SZMK
                 return false;
             }
         }
+        public bool CheckedOrderAndStatus(String Number, String List)
+        {
+            try
+            {
+                bool flag = true;
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT COUNT(\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{List}';", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                if (Reader.GetInt64(0)==1&&CheckedStatusOrderDB(Number,List)== SystemArgs.User.IDStatus-1)
+                                {
+                                    flag= true;
+                                }
+                                else
+                                {
+                                    flag = false;
+                                }
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return flag;
+                
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public Int64 CheckedStatusOrderDB(String Number, String List)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT MAX(\"ID_Status\") FROM public.\"AddStatus\" WHERE \"ID_Order\"='{GetIDOrder(Number,List)}';", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                return Reader.GetInt64(0);
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return -1;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
         public bool InsertBlankOrder(String QR)
         {
             try
@@ -646,7 +711,7 @@ namespace SZMK
                     {
                         if (!SystemArgs.RequestLinq.SelectOrderInBlankOrder(order.ID))
                         {
-                            using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddBlank\"(\"DateCreate\", \"ID_BlankOrder\", \"ID_Order\") VALUES('{DateTime.Now}', '{SystemArgs.RequestLinq.GetIDBlankOrder(QR)}', '{order.ID}')", Connect))
+                            using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddBlank\"(\"DateCreate\", \"ID_BlankOrder\", \"ID_Order\") VALUES('{DateTime.Now}', '{SystemArgs.Request.GetIDBlankOrder(QR)}', '{order.ID}')", Connect))
                             {
                                 Command.ExecuteNonQuery();
                             }
@@ -661,6 +726,65 @@ namespace SZMK
             catch
             {
                 return false;
+            }
+        }
+        public bool FindedOrdersInAddBlankOrder(String QR,String Number,String List)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID_Order\" FROM public.\"AddBlank\" WHERE \"ID_BlankOrder\"='{GetIDBlankOrder(QR)}' AND \"ID_Order\"='{GetIDOrder(Number,List)}';", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                if (Reader.GetInt64(0) == 1)
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public Int64 GetIDBlankOrder(String QR)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID\" FROM public.\"BlankOrder\" WHERE \"QR\"='{QR}';", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                return Reader.GetInt64(0);
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return -1;
+            }
+            catch
+            {
+                return -1;
             }
         }
         public bool UpdateBlankOrder(String QR, List<Order> Orders)
@@ -900,6 +1024,65 @@ namespace SZMK
             catch (Exception E)
             {
                 throw new Exception(E.ToString());
+            }
+        }
+        public Int64 GetIDOrder(String Number,String List)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID\" FROM public.\"Orders\" WHERE \"List\" = '{List}' AND \"Number\"='{Number}';", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                return Reader.GetInt64(0);
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return -1;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+        public bool CheckedNumberAndMark(String Number,String Mark)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT COUNT(\"ID\") FROM public.\"Orders\" WHERE \"Mark\" = '{Mark}' AND \"Number\"='{Number}';", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                if (Reader.GetInt64(0)==0)
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
             }
         }
         private bool GetAllBlankOrderofOrders()

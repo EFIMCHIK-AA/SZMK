@@ -316,11 +316,11 @@ namespace SZMK
                 DataMatrix = Temp[0] + "_" + Temp[1] + "_" + Temp[2] + "_" + Temp[3] + "_" + Temp[4].Replace(".",",") + "_" + Temp[5].Replace(".", ",");
                 if (CheckedUniqueList(DataMatrix))
                 {
-                    if (SystemArgs.RequestLinq.CheckedStatusOrderDB(SystemArgs.User.IDStatus,DataMatrix)==1)
+                    if (SystemArgs.Request.CheckedStatusOrderDB(Temp[0],Temp[1])>SystemArgs.User.IDStatus-1)
                     {
                         _DecodeSession.Add(new DecodeScanSession(DataMatrix, 1));
                     }
-                    else if((SystemArgs.RequestLinq.CheckedStatusOrderDB(SystemArgs.User.IDStatus, DataMatrix) == 0))
+                    else if((SystemArgs.Request.CheckedStatusOrderDB(Temp[0], Temp[1])>= SystemArgs.User.IDStatus))
                     {
                         _DecodeSession.Add(new DecodeScanSession(DataMatrix, 0));
                     }

@@ -80,8 +80,8 @@ namespace SZMK
         }
         public bool GetInformations()
         {
-            //try
-            //{
+            try
+            {
                 if (!File.Exists(SystemArgs.Path.AboutProgram))
                 {
                     throw new Exception();
@@ -108,11 +108,11 @@ namespace SZMK
                     _Developers.Add(Developer.Value);
                 }
                 return true;
-            //}
-            //catch (Exception)
-            //{
-            //    return false;
-            //}
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         public bool CheckFile()
         {
