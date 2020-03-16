@@ -667,7 +667,7 @@ namespace SZMK
                 SaveReport.Filter = "Excel Files .xlsx|*.xlsx";
                 if (SaveReport.ShowDialog() == DialogResult.OK)
                 {
-                    FormingReportForAllPosition_F FormingF = new FormingReportForAllPosition_F();
+                    ALLFormingReportForAllPosition_F FormingF = new ALLFormingReportForAllPosition_F();
                     FormingF.Show();
                     List<StatusOfOrder> Report = SystemArgs.StatusOfOrders.Where(p => p.DateCreate <= DateTime.Now && p.DateCreate >= DateTime.Now.Subtract((TimeSpan)aInterval)).ToList();
                     Task<Boolean> task = ReportPastTimeAsync(Report, SaveReport.FileName);
@@ -713,7 +713,7 @@ namespace SZMK
                     SaveReport.Filter = "Excel Files .xlsx|*.xlsx";
                     if (SaveReport.ShowDialog() == DialogResult.OK)
                     {
-                        FormingReportForAllPosition_F FormingF = new FormingReportForAllPosition_F();
+                        ALLFormingReportForAllPosition_F FormingF = new ALLFormingReportForAllPosition_F();
                         FormingF.Show();
                         List<StatusOfOrder> Report = SystemArgs.StatusOfOrders.Where(p => p.DateCreate >= Dialog.First_MC.SelectionStart && p.DateCreate <= Dialog.Second_MC.SelectionStart).ToList();
                         Task<Boolean> task = ReportPastTimeAsync(Report, SaveReport.FileName);
@@ -752,7 +752,7 @@ namespace SZMK
 
         private void AboutProgram_TSM_Click(object sender, EventArgs e)
         {
-            AboutProgram_F Dialog = new AboutProgram_F();
+            ALLAboutProgram_F Dialog = new ALLAboutProgram_F();
             if (Dialog.ShowDialog() == DialogResult.OK)
             {
 

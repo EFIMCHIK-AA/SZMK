@@ -657,7 +657,6 @@ namespace SZMK
                 using (var Connect = new NpgsqlConnection(_ConnectString))
                 {
                     Connect.Open();
-
                     using (var Command = new NpgsqlCommand($"SELECT MAX(\"ID_Status\") FROM public.\"AddStatus\" WHERE \"ID_Order\"='{GetIDOrder(Number,List)}';", Connect))
                     {
                         using (var Reader = Command.ExecuteReader())
@@ -736,7 +735,7 @@ namespace SZMK
                 {
                     Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"SELECT \"ID_Order\" FROM public.\"AddBlank\" WHERE \"ID_BlankOrder\"='{GetIDBlankOrder(QR)}' AND \"ID_Order\"='{GetIDOrder(Number,List)}';", Connect))
+                    using (var Command = new NpgsqlCommand($"SELECT COUNT(\"ID_Order\") FROM public.\"AddBlank\" WHERE \"ID_BlankOrder\"='{GetIDBlankOrder(QR)}' AND \"ID_Order\"='{GetIDOrder(Number,List)}';", Connect))
                     {
                         using (var Reader = Command.ExecuteReader())
                         {

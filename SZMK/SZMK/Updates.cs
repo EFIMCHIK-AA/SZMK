@@ -70,5 +70,9 @@ namespace SZMK
         {
             return _DeletedUpdate;
         }
+        public override string ToString()
+        {
+            return _Version;
+        }
     }
 }

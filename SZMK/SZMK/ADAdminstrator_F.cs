@@ -781,11 +781,16 @@ namespace SZMK
 
         private void AboutProgram_TSM_Click(object sender, EventArgs e)
         {
-            AboutProgram_F Dialog = new AboutProgram_F();
+            ALLAboutProgram_F Dialog = new ALLAboutProgram_F();
             if(Dialog.ShowDialog() == DialogResult.OK)
             {
 
             }
+        }
+
+        private void SearchOrderScan_TSM_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

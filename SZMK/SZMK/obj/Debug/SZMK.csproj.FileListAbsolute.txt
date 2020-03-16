@@ -292,8 +292,10 @@ C:\Users\kirill.gubanov\Desktop\Project\SZMK\SZMK\SZMK\obj\Debug\SZMK.Chief_PDO_
 C:\Users\kirill.gubanov\Desktop\Project\SZMK\SZMK\SZMK\obj\Debug\SZMK.Chief_PDO_F.resources
 C:\Users\kirill.gubanov\Desktop\Project\SZMK\SZMK\SZMK\obj\Debug\SZMK.Chief_PDO_SearchParam_F.resources
 C:\Users\kirill.gubanov\Desktop\Project\SZMK\SZMK\SZMK\obj\Debug\SZMK.AVTAutorization_F.resources
-C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.FormingReportForAllPosition_F.resources
-C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.AboutProgram_F.resources
 C:\Users\kirill.gubanov\Desktop\Project\SZMK\SZMK\SZMK\obj\Debug\SZMK.AboutProgram_F.resources
 C:\Users\kirill.gubanov\Desktop\Project\SZMK\SZMK\SZMK\obj\Debug\SZMK.FormingReportForAllPosition_F.resources
 C:\Users\kirill.gubanov\Desktop\Project\SZMK\SZMK\SZMK\obj\Debug\SZMK.Chief_PDO_ChangedStatuses_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.Chief_PDO_ChangedStatuses_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.ALLAboutProgram_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.ALLSearchOrderScan_F.resources
+C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\obj\Debug\SZMK.ALLFormingReportForAllPosition_F.resources

@@ -10,17 +10,16 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class FormingReportForAllPosition_F : Form
+    public partial class ALLSearchOrderScan_F : Form
     {
-        public FormingReportForAllPosition_F()
+        public ALLSearchOrderScan_F()
         {
             InitializeComponent();
         }
 
-        private void FormingReportForAllPosition_F_Load(object sender, EventArgs e)
+        private void ALLSearchOrderScan_F_FormClosing(object sender, FormClosingEventArgs e)
         {
-            pictureBox1.Image = Properties.Resources._239;
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            SystemArgs.ServerMobileAppFindedOrder.Stop();
         }
     }
 }

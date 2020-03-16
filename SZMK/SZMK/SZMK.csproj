@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Значек приложения .ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.5.3.2\lib\net40\EPPlus.dll</HintPath>
@@ -93,11 +96,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutProgram.cs" />
-    <Compile Include="AboutProgram_F.cs">
+    <Compile Include="ALLAboutProgram_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutProgram_F.Designer.cs">
-      <DependentUpon>AboutProgram_F.cs</DependentUpon>
+    <Compile Include="ALLAboutProgram_F.Designer.cs">
+      <DependentUpon>ALLAboutProgram_F.cs</DependentUpon>
     </Compile>
     <Compile Include="ADAdminstrator_F.cs">
       <SubType>Form</SubType>
@@ -187,11 +190,11 @@
       <DependentUpon>Chief_PDO_SearchParam_F.cs</DependentUpon>
     </Compile>
     <Compile Include="DecodeScanSession.cs" />
-    <Compile Include="FormingReportForAllPosition_F.cs">
+    <Compile Include="ALLFormingReportForAllPosition_F.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormingReportForAllPosition_F.Designer.cs">
-      <DependentUpon>FormingReportForAllPosition_F.cs</DependentUpon>
+    <Compile Include="ALLFormingReportForAllPosition_F.Designer.cs">
+      <DependentUpon>ALLFormingReportForAllPosition_F.cs</DependentUpon>
     </Compile>
     <Compile Include="KBChangeOrder_F.cs">
       <SubType>Form</SubType>
@@ -301,7 +304,14 @@
       <DependentUpon>KBSearchParam_F.cs</DependentUpon>
     </Compile>
     <Compile Include="RequestLinq.cs" />
+    <Compile Include="ALLSearchOrderScan_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ALLSearchOrderScan_F.Designer.cs">
+      <DependentUpon>ALLSearchOrderScan_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="ServerMobileAppBlankOrder.cs" />
+    <Compile Include="ServerMobileAppFindedOrder.cs" />
     <Compile Include="Specific.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="OrderScanSession.cs" />
@@ -391,11 +401,14 @@
     <Compile Include="UnLoadSpecific.cs" />
     <Compile Include="Updates.cs" />
     <Compile Include="User.cs" />
-    <EmbeddedResource Include="AboutProgram_F.resx">
-      <DependentUpon>AboutProgram_F.cs</DependentUpon>
+    <EmbeddedResource Include="ALLAboutProgram_F.resx">
+      <DependentUpon>ALLAboutProgram_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ADAdminstrator_F.resx">
       <DependentUpon>ADAdminstrator_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ALLSearchOrderScan_F.resx">
+      <DependentUpon>ALLSearchOrderScan_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ARArhive_F.resx">
       <DependentUpon>ARArhive_F.cs</DependentUpon>
@@ -436,8 +449,8 @@
     <EmbeddedResource Include="Chief_PDO_SearchParam_F.resx">
       <DependentUpon>Chief_PDO_SearchParam_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormingReportForAllPosition_F.resx">
-      <DependentUpon>FormingReportForAllPosition_F.cs</DependentUpon>
+    <EmbeddedResource Include="ALLFormingReportForAllPosition_F.resx">
+      <DependentUpon>ALLFormingReportForAllPosition_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KBChangeOrder_F.resx">
       <DependentUpon>KBChangeOrder_F.cs</DependentUpon>
@@ -581,6 +594,8 @@
     <None Include="Resources\LOAD1.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SZMK_3.ico" />
+    <Content Include="Значек приложения .ico" />
     <None Include="Resources\Canceled.png" />
     <None Include="Resources\239.gif" />
     <Content Include="Resources\icons8-создать-новый-40.png" />

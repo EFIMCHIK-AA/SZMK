@@ -1,6 +1,6 @@
 ﻿namespace SZMK
 {
-    partial class FormingReportForAllPosition_F
+    partial class ALLFormingReportForAllPosition_F
     {
         /// <summary>
         /// Required designer variable.

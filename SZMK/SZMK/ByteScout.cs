@@ -294,9 +294,9 @@ namespace SZMK
         {
             Image myImage = Image.FromFile(FileName);
             Bitmap source = new Bitmap(myImage);
-            Bitmap CroppedImage = source.Clone(new System.Drawing.Rectangle(source.Width-1500, source.Height-2800, 1500, 2800), source.PixelFormat);
+            Bitmap CroppedImage = source.Clone(new System.Drawing.Rectangle(source.Width-700, source.Height-1400, 700, 800), source.PixelFormat);
             string path = @"TempFile\" + Index + ".jpg";
-            CroppedImage = new Bitmap(CroppedImage, new Size(1500 / 5, 2800 / 5));
+            CroppedImage = new Bitmap(CroppedImage, new Size(700 / 4, 800 / 4));
             CroppedImage.Save(path);
             source.Dispose();
             CroppedImage.Dispose();
@@ -316,7 +316,7 @@ namespace SZMK
                 DataMatrix = Temp[0] + "_" + Temp[1] + "_" + Temp[2] + "_" + Temp[3] + "_" + Temp[4].Replace(".",",") + "_" + Temp[5].Replace(".", ",");
                 if (CheckedUniqueList(DataMatrix))
                 {
-                    if (SystemArgs.Request.CheckedStatusOrderDB(Temp[0],Temp[1])>SystemArgs.User.IDStatus-1)
+                    if (SystemArgs.Request.CheckedStatusOrderDB(Temp[0],Temp[1])==SystemArgs.User.IDStatus-1)
                     {
                         _DecodeSession.Add(new DecodeScanSession(DataMatrix, 1));
                     }
