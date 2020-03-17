@@ -101,6 +101,10 @@ namespace SZMK
                     });
                 }
             }
+            catch (InvalidOperationException)
+            {
+                return;
+            }
             catch (Exception e)
             {
                 SystemArgs.PrintLog(e.ToString());

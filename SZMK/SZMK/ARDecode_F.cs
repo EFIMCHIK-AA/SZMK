@@ -95,6 +95,10 @@ namespace SZMK
                     });
                 }
             }
+            catch(InvalidOperationException)
+            {
+                return;
+            }
             catch
             {
                 Add_B.Invoke((MethodInvoker)delegate ()

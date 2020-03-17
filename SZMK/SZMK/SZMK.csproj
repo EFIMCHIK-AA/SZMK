@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Значек приложения .ico</ApplicationIcon>
+    <ApplicationIcon>Значек приложения.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
@@ -594,8 +594,7 @@
     <None Include="Resources\LOAD1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SZMK_3.ico" />
-    <Content Include="Значек приложения .ico" />
+    <Content Include="Значек приложения.ico" />
     <None Include="Resources\Canceled.png" />
     <None Include="Resources\239.gif" />
     <Content Include="Resources\icons8-создать-новый-40.png" />
