@@ -167,31 +167,35 @@ namespace SZMK
                                                      where p.IDPosition == PositionID
                                                      select p).Single();
 
-                                Order Temp = SystemArgs.Orders.Where(p => p.DataMatrix == SystemArgs.ByteScout[i].DataMatrix).Single();
-                                Order NewOrder = Temp;
-
-                                NewOrder.Status = TempStatus;
-                                NewOrder.User = SystemArgs.User;
-
-                                if (SystemArgs.Excel.AddToRegistry(NewOrder))
+                                Order Temp = SystemArgs.Request.GetOrder(SystemArgs.ByteScout[i].DataMatrix);
+                                if (Temp != null)
                                 {
-                                    if (SystemArgs.Request.InsertStatus(NewOrder))
-                                    {
-                                        SystemArgs.Orders.Remove(Temp);
-                                        SystemArgs.Orders.Add(NewOrder);
+                                    Order NewOrder = Temp;
 
-                                        Report.Report_DGV.RowCount++;
-                                        Report.Report_DGV[0, Report.Report_DGV.Rows.Count - 1].Value = NewOrder.DataMatrix;
-                                        Report.Report_DGV[1, Report.Report_DGV.Rows.Count - 1].Value = CopyFileToArhive(NewOrder.DataMatrix, Dialog.FileNames[i]);
+                                    NewOrder.Status = TempStatus;
+                                    NewOrder.User = SystemArgs.User;
+
+                                    if (SystemArgs.Excel.AddToRegistry(NewOrder))
+                                    {
+                                        if (SystemArgs.Request.InsertStatus(NewOrder))
+                                        {
+                                            Report.Report_DGV.RowCount++;
+                                            Report.Report_DGV[0, Report.Report_DGV.Rows.Count - 1].Value = NewOrder.DataMatrix;
+                                            Report.Report_DGV[1, Report.Report_DGV.Rows.Count - 1].Value = CopyFileToArhive(NewOrder.DataMatrix, Dialog.FileNames[i]);
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Ошибка при добавлении в базу данных статуса для: " + SystemArgs.ByteScout[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        }
                                     }
                                     else
                                     {
-                                        MessageBox.Show("Ошибка при добавлении в базу данных статуса для: " + SystemArgs.ByteScout[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show("Ошибка добавления данных в реестр, перемещение и обновление статуса " + SystemArgs.ByteScout[i].DataMatrix + " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Ошибка добавления данных в реестр, перемещение и обновление статуса " + SystemArgs.ByteScout[i].DataMatrix + " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show("Объект не найден в базе данных " + SystemArgs.ByteScout[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                             }
                         }
@@ -216,6 +220,8 @@ namespace SZMK
             }
             catch (Exception E)
             {
+                SystemArgs.ByteScout.ClearData();
+                SystemArgs.PrintLog(E.ToString());
                 SystemArgs.PrintLog(E.ToString());
                 MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -391,7 +397,7 @@ namespace SZMK
                         case 1:
                             View = new BindingListView<Order>(List.Where(p => !p.Canceled).ToList());
 
-                            Order_DGV.DataSource = null;
+                            //Order_DGV.DataSource = null;
                             Order_DGV.DataSource = View;
 
                             CountOrder_TB.Text = View.Count.ToString();
@@ -401,7 +407,7 @@ namespace SZMK
                         case 2:
                             View = new BindingListView<Order>(List.Where(p => p.Canceled).ToList());
 
-                            Order_DGV.DataSource = null;
+                            //Order_DGV.DataSource = null;
                             Order_DGV.DataSource = View;
 
                             CountOrder_TB.Text = View.Count.ToString();
@@ -417,7 +423,7 @@ namespace SZMK
                         default:
                             View = new BindingListView<Order>(List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID && !p.Canceled).ToList());
 
-                            Order_DGV.DataSource = null;
+                            //Order_DGV.DataSource = null;
                             Order_DGV.DataSource = View;
 
                             CountOrder_TB.Text = View.Count.ToString();

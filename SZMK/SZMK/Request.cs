@@ -1025,6 +1025,87 @@ namespace SZMK
                 throw new Exception(E.ToString());
             }
         }
+
+        public Order GetOrder(String DataMatrix)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\" FROM public.\"Orders\" WHERE \"DataMatrix\"='{DataMatrix}';", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                Int64 ID = Reader.GetInt64(0);
+
+                                List<StatusOfOrder> StatusID = (from p in SystemArgs.StatusOfOrders
+                                                                where p.IDOrder == ID
+                                                                select p).ToList();
+                                Int64 UserID = -1;
+                                Int64 MaxIDStatus = -1;
+
+                                Status TempStatus = new Status();
+
+                                foreach (Status item in SystemArgs.Statuses)
+                                {
+                                    foreach (StatusOfOrder StatusOfUser in StatusID)
+                                    {
+                                        if (item.ID == StatusOfUser.IDStatus && StatusOfUser.IDStatus > MaxIDStatus)
+                                        {
+                                            TempStatus = item;
+                                            MaxIDStatus = StatusOfUser.IDStatus;
+                                            UserID = StatusOfUser.IDUser;
+                                        }
+                                    }
+                                }
+
+                                User TempUser = (from p in SystemArgs.Users
+                                                 where p.ID == UserID
+                                                 select p).Single();
+
+                                BlankOrder TempBlank = new BlankOrder();
+
+                                if (SystemArgs.BlankOrderOfOrders.Count > 0)
+                                {
+                                    List<BlankOrderOfOrder> BlankOrderID = (from p in SystemArgs.BlankOrderOfOrders
+                                                                            where p.IDOrder == ID
+                                                                            select p).ToList();
+                                    if (BlankOrderID.Count() > 0)
+                                    {
+                                        foreach (BlankOrderOfOrder ID_Blank in BlankOrderID)
+                                        {
+                                            foreach (BlankOrder item in SystemArgs.BlankOrders)
+                                            {
+                                                if (ID_Blank._IDBlankOrder == item.ID)
+                                                {
+                                                    TempBlank = item;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == ID && p.IDStatus == TempStatus.ID).Select(p => p.DateCreate).ToList();
+                                Order NewOrder = new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(4), Reader.GetString(3), Reader.GetString(5), Reader.GetString(6), Convert.ToDouble(Reader.GetString(7)), Convert.ToDouble(Reader.GetString(8)), TempStatus, StatusDate[0], TempUser, TempBlank, Reader.GetBoolean(9));
+
+                                Connect.Close();
+
+                                return NewOrder;
+                            }
+                        }
+                    }
+                }
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public Int64 GetIDOrder(String Number,String List)
         {
             try
