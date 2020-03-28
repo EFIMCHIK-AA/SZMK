@@ -1,0 +1,115 @@
+08.02.2020 11:34:08 : Дешифрование пароля успешно завершено
+08.02.2020 11:34:17 : Хеш-последовательность успешно получена
+08.02.2020 11:34:17 : Дешифрование пароля успешно завершено
+08.02.2020 12:05:11 : Дешифрование пароля успешно завершено
+08.02.2020 12:05:47 : Дешифрование пароля успешно завершено
+08.02.2020 12:06:01 : Хеш-последовательность успешно получена
+08.02.2020 12:06:04 : Дешифрование пароля успешно завершено
+08.02.2020 12:06:52 : Дешифрование пароля успешно завершено
+08.02.2020 12:07:47 : Дешифрование пароля успешно завершено
+08.02.2020 12:10:23 : Дешифрование пароля успешно завершено
+08.02.2020 12:10:28 : Хеш-последовательность успешно получена
+08.02.2020 12:10:32 : Дешифрование пароля успешно завершено
+08.02.2020 12:11:12 : Дешифрование пароля успешно завершено
+08.02.2020 12:11:16 : Хеш-последовательность успешно получена
+08.02.2020 12:11:19 : Дешифрование пароля успешно завершено
+08.02.2020 12:13:23 : Дешифрование пароля успешно завершено
+08.02.2020 12:13:40 : Дешифрование пароля успешно завершено
+08.02.2020 12:13:44 : Хеш-последовательность успешно получена
+08.02.2020 12:13:47 : Дешифрование пароля успешно завершено
+08.02.2020 12:15:48 : Дешифрование пароля успешно завершено
+08.02.2020 12:15:55 : Хеш-последовательность успешно получена
+08.02.2020 12:16:03 : Дешифрование пароля успешно завершено
+08.02.2020 12:19:17 : Дешифрование пароля успешно завершено
+08.02.2020 12:19:21 : Хеш-последовательность успешно получена
+08.02.2020 12:19:30 : Дешифрование пароля успешно завершено
+08.02.2020 12:20:41 : Дешифрование пароля успешно завершено
+08.02.2020 12:20:45 : Хеш-последовательность успешно получена
+08.02.2020 12:20:48 : Дешифрование пароля успешно завершено
+08.02.2020 12:21:21 : Дешифрование пароля успешно завершено
+08.02.2020 12:21:25 : Хеш-последовательность успешно получена
+08.02.2020 12:21:28 : Дешифрование пароля успешно завершено
+08.02.2020 12:23:13 : Дешифрование пароля успешно завершено
+08.02.2020 12:23:17 : Хеш-последовательность успешно получена
+08.02.2020 12:23:26 : Дешифрование пароля успешно завершено
+08.02.2020 12:23:39 : System.Xml.XmlException: Недопустимые данные на корневом уровне., строка 1, позиция 1.
+   в System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   в System.Xml.XmlTextReaderImpl.Throw(String res, String arg)
+   в System.Xml.XmlTextReaderImpl.ParseRootLevelWhitespace()
+   в System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   в System.Xml.XmlTextReaderImpl.Read()
+   в System.Xml.Linq.XDocument.Load(XmlReader reader, LoadOptions options)
+   в System.Xml.Linq.XDocument.Load(String uri, LoadOptions options)
+   в System.Xml.Linq.XDocument.Load(String uri)
+   в SZMK.UnLoadSpecific.ChekedUnloading(String[] SplitDataMatrix, String pathSpecific) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\UnLoadSpecific.cs:строка 128
+   в SZMK.UnLoadSpecific.SearchFileUnloading(List`1 ScanSession) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\UnLoadSpecific.cs:строка 113
+   в SZMK.KBScan_F.CheckedUnloading_TSM_Click(Object sender, EventArgs e) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\KBScan_F.cs:строка 38
+08.02.2020 12:23:49 : System.Xml.XmlException: Недопустимые данные на корневом уровне., строка 1, позиция 1.
+   в System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   в System.Xml.XmlTextReaderImpl.Throw(String res, String arg)
+   в System.Xml.XmlTextReaderImpl.ParseRootLevelWhitespace()
+   в System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   в System.Xml.XmlTextReaderImpl.Read()
+   в System.Xml.Linq.XDocument.Load(XmlReader reader, LoadOptions options)
+   в System.Xml.Linq.XDocument.Load(String uri, LoadOptions options)
+   в System.Xml.Linq.XDocument.Load(String uri)
+   в SZMK.UnLoadSpecific.ChekedUnloading(String[] SplitDataMatrix, String pathSpecific) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\UnLoadSpecific.cs:строка 128
+   в SZMK.UnLoadSpecific.SearchFileUnloading(List`1 ScanSession) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\UnLoadSpecific.cs:строка 113
+   в SZMK.KBScan_F.CheckedUnloading_TSM_Click(Object sender, EventArgs e) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\KBScan_F.cs:строка 38
+08.02.2020 12:26:49 : Дешифрование пароля успешно завершено
+08.02.2020 12:26:54 : Хеш-последовательность успешно получена
+08.02.2020 12:26:57 : Дешифрование пароля успешно завершено
+08.02.2020 12:27:29 : System.ArgumentException: Указана недопустимая строка фильтра. Строка фильтра должна содержать описание фильтра, за которым следуют вертикальная черта (|) и шаблон фильтра. Строки различных вариантов фильтра также должны разделяться вертикальной чертой. Например: "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*"
+   в System.Windows.Forms.FileDialog.set_Filter(String value)
+   в SZMK.UnLoadSpecific.SearchFileUnloading(List`1 ScanSession) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\UnLoadSpecific.cs:строка 110
+   в SZMK.KBScan_F.CheckedUnloading_TSM_Click(Object sender, EventArgs e) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\KBScan_F.cs:строка 38
+08.02.2020 12:27:32 : System.ArgumentException: Указана недопустимая строка фильтра. Строка фильтра должна содержать описание фильтра, за которым следуют вертикальная черта (|) и шаблон фильтра. Строки различных вариантов фильтра также должны разделяться вертикальной чертой. Например: "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*"
+   в System.Windows.Forms.FileDialog.set_Filter(String value)
+   в SZMK.UnLoadSpecific.SearchFileUnloading(List`1 ScanSession) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\UnLoadSpecific.cs:строка 110
+   в SZMK.KBScan_F.CheckedUnloading_TSM_Click(Object sender, EventArgs e) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\KBScan_F.cs:строка 38
+08.02.2020 12:27:42 : System.ArgumentException: Указана недопустимая строка фильтра. Строка фильтра должна содержать описание фильтра, за которым следуют вертикальная черта (|) и шаблон фильтра. Строки различных вариантов фильтра также должны разделяться вертикальной чертой. Например: "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*"
+   в System.Windows.Forms.FileDialog.set_Filter(String value)
+   в SZMK.UnLoadSpecific.SearchFileUnloading(List`1 ScanSession) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\UnLoadSpecific.cs:строка 110
+   в SZMK.KBScan_F.CheckedUnloading_TSM_Click(Object sender, EventArgs e) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\KBScan_F.cs:строка 38
+08.02.2020 12:28:02 : Дешифрование пароля успешно завершено
+08.02.2020 12:28:07 : Хеш-последовательность успешно получена
+08.02.2020 12:28:11 : Дешифрование пароля успешно завершено
+08.02.2020 12:29:26 : Дешифрование пароля успешно завершено
+08.02.2020 12:29:31 : Хеш-последовательность успешно получена
+08.02.2020 12:29:34 : Дешифрование пароля успешно завершено
+08.02.2020 18:07:07 : Дешифрование пароля успешно завершено
+08.02.2020 18:07:13 : Хеш-последовательность успешно получена
+08.02.2020 18:07:24 : Дешифрование пароля успешно завершено
+08.02.2020 18:11:36 : Дешифрование пароля успешно завершено
+08.02.2020 18:11:40 : Хеш-последовательность успешно получена
+08.02.2020 18:12:29 : Дешифрование пароля успешно завершено
+08.02.2020 18:21:39 : Дешифрование пароля успешно завершено
+08.02.2020 18:21:44 : Хеш-последовательность успешно получена
+08.02.2020 18:25:53 : Дешифрование пароля успешно завершено
+08.02.2020 18:25:58 : Хеш-последовательность успешно получена
+08.02.2020 18:26:15 : Дешифрование пароля успешно завершено
+08.02.2020 18:26:20 : Хеш-последовательность успешно получена
+08.02.2020 19:12:26 : Дешифрование пароля успешно завершено
+08.02.2020 19:12:30 : Хеш-последовательность успешно получена
+08.02.2020 19:12:42 : System.NullReferenceException: Ссылка на объект не указывает на экземпляр объекта.
+   в SZMK.UnLoadSpecific.ChekedUnloading(String[] SplitDataMatrix, String pathSpecific) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\UnLoadSpecific.cs:строка 159
+   в SZMK.UnLoadSpecific.SearchFileUnloading(List`1 SessionForCheckingUnloading) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\UnLoadSpecific.cs:строка 140
+   в SZMK.KB_F.CheckedUnloading_TSM_Click(Object sender, EventArgs e) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\KB_F.cs:строка 780
+08.02.2020 19:30:54 : Дешифрование пароля успешно завершено
+08.02.2020 19:31:02 : Хеш-последовательность успешно получена
+08.02.2020 19:37:23 : Дешифрование пароля успешно завершено
+08.02.2020 19:37:27 : Хеш-последовательность успешно получена
+08.02.2020 19:41:55 : Дешифрование пароля успешно завершено
+08.02.2020 19:42:04 : Дешифрование пароля успешно завершено
+08.02.2020 19:42:09 : Хеш-последовательность успешно получена
+08.02.2020 19:42:34 : System.Exception: Ошибка при подключении к серверу распознавнаия
+   в SZMK.ARArhive_F.AddOrder() в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 213
+08.02.2020 19:42:45 : Дешифрование пароля успешно завершено
+08.02.2020 19:42:52 : Хеш-последовательность успешно получена
+08.02.2020 19:42:52 : Дешифрование пароля успешно завершено
+08.02.2020 19:43:39 : Дешифрование пароля успешно завершено
+08.02.2020 19:43:43 : Хеш-последовательность успешно получена
+08.02.2020 19:49:10 : Дешифрование пароля успешно завершено
+08.02.2020 19:49:16 : Хеш-последовательность успешно получена
+08.02.2020 19:50:18 : Дешифрование пароля успешно завершено
+08.02.2020 19:50:25 : Хеш-последовательность успешно получена

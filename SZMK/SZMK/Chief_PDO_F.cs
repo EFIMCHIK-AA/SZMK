@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,20 +29,27 @@ namespace SZMK
                 Order_DGV.AutoGenerateColumns = false;
                 Order_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 Order_DGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                SetDoubleBuffered(Order_DGV);
+
+                View = new BindingListView<Order>(new List<Order>());
+
+                LoadData_PB.Image = Properties.Resources._239;
+                LoadData_PB.SizeMode = PictureBoxSizeMode.CenterImage;
 
                 Load_F Dialog = new Load_F();
                 Dialog.Show();
 
                 SystemArgs.Orders = new List<Order>();
                 SystemArgs.BlankOrders = new List<BlankOrder>();
-                SystemArgs.Statuses = new List<Status>();
                 SystemArgs.BlankOrderOfOrders = new List<BlankOrderOfOrder>();
                 SystemArgs.StatusOfOrders = new List<StatusOfOrder>();
                 SystemArgs.Excel = new Excel();
                 SystemArgs.Template = new Template();
+                SystemArgs.SelectedColumn = new SelectedColumn();
 
                 ItemsFilter();
-                RefreshOrder();
+                SelectedColumnDGV();
+                RefreshOrderAsync();
 
                 Thread.Sleep(2000);
 
@@ -60,7 +68,7 @@ namespace SZMK
         {
             if (ChangeOrder())
             {
-                RefreshOrder();
+                DisplayAsync(SystemArgs.Orders);
             }
         }
 
@@ -68,7 +76,7 @@ namespace SZMK
         {
             if (DeleteOrder())
             {
-                RefreshOrder();
+                DisplayAsync(SystemArgs.Orders);
             }
         }
 
@@ -86,7 +94,7 @@ namespace SZMK
 
                         if (SystemArgs.Request.CanceledOrder(Temp))
                         {
-                            Display(SystemArgs.Orders);
+                            DisplayAsync(SystemArgs.Orders);
                         }
                         else
                         {
@@ -148,7 +156,7 @@ namespace SZMK
         {
             try
             {
-                RefreshOrder();
+                RefreshOrderAsync();
             }
             catch (Exception E)
             {
@@ -162,7 +170,7 @@ namespace SZMK
             {
                 if (Result != null)
                 {
-                    Display(Result);
+                    DisplayAsync(Result);
                 }
             }
         }
@@ -170,14 +178,13 @@ namespace SZMK
         private void Reset_TSB_Click(object sender, EventArgs e)
         {
             ResetSearch();
-            RefreshOrder();
         }
 
         private void AdvancedSearch_TSB_Click(object sender, EventArgs e)
         {
             if (SearchParam())
             {
-                Display(Result);
+                DisplayAsync(Result);
             }
         }
 
@@ -211,12 +218,12 @@ namespace SZMK
                         Order NewOrder;
                         if (Temp.Status!= SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single())
                         {
-                            NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), DateTime.Now, SystemArgs.User, Temp.BlankOrder, Temp.Canceled);
+                            NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text,Temp.ExecutorWork, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), DateTime.Now, SystemArgs.User, Temp.BlankOrder, Temp.Canceled);
                         }
                         else
                         {
                             List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == Temp.ID && p.IDStatus == SystemArgs.Statuses.Where(j => j == (Status)Dialog.Status_CB.SelectedItem).Single().ID).Select(p => p.DateCreate).ToList();
-                            NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled);
+                            NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text,Temp.ExecutorWork, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled);
                         }
 
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
@@ -231,7 +238,10 @@ namespace SZMK
                                 for(int i= (int)Temp.Status.ID + 1;i <= NewStatus; i++)
                                 {
                                     NewOrder.Status = SystemArgs.Statuses.Where(p => p.ID == i).Single();
-                                    SystemArgs.Request.InsertStatus(NewOrder);
+                                    if (!SystemArgs.Request.StatusExist(NewOrder))
+                                    {
+                                        SystemArgs.Request.InsertStatus(NewOrder);
+                                    }
                                 }
                             }
                             SystemArgs.Orders.Remove(Temp);
@@ -303,6 +313,7 @@ namespace SZMK
             {
                 DateCreate_TB.Text = Temp.DateCreate.ToString();
                 Executor_TB.Text = Temp.Executor;
+                ExecutorWork_TB.Text = Temp.ExecutorWork;
                 Number_TB.Text = Temp.Number;
                 List_TB.Text = Temp.List.ToString();
                 Mark_TB.Text = Temp.Mark;
@@ -325,6 +336,7 @@ namespace SZMK
             {
                 DateCreate_TB.Text = String.Empty;
                 Executor_TB.Text = String.Empty;
+                ExecutorWork_TB.Text = String.Empty;
                 Number_TB.Text = String.Empty;
                 List_TB.Text = String.Empty;
                 Mark_TB.Text = String.Empty;
@@ -337,36 +349,70 @@ namespace SZMK
             }
 
         }
-        private bool RefreshOrder()
-        {
-            List<Order> Temp = null;
 
+        private async void RefreshOrderAsync()
+        {
+            LoadData_PB.Visible = true;
+            LockedButtonForLoadData(false);
+
+            await Task.Run(() => RefreshOrder());
+
+            FilterCB_TSB.SelectedIndex = 0;
+
+            LockedButtonForLoadData(true);
+
+            LoadData_PB.Visible = false;
+        }
+
+        private async void DisplayAsync(List<Order> Orders)
+        {
+            LoadData_PB.Visible = true;
+            LockedButtonForLoadData(false);
+
+            await Task.Run(() => Display(Orders));
+
+            LockedButtonForLoadData(true);
+
+            LoadData_PB.Visible = false;
+        }
+        private void LockedButtonForLoadData(bool flag)
+        {
+            ChangeOrder_TSB.Enabled = flag;
+            DeleteOrder_TSB.Enabled = flag;
+            Search_TSB.Enabled = flag;
+            Reset_TSB.Enabled = flag;
+            AdvancedSearch_TSB.Enabled = flag;
+            FilterCB_TSB.Enabled = flag;
+            RefreshStatus_B.Enabled = flag;
+            CanceledOrder_TSB.Enabled = flag;
+            ReportDate_TSM.Enabled = flag;
+            SelectionReport_TSM.Enabled = flag;
+            Time_Day_Report_TSM.Enabled = flag;
+            Time_Week_Report_TSM.Enabled = flag;
+            Time_Month_Report_TSM.Enabled = flag;
+            Time_SelectionDate_Report_TSM.Enabled = flag;
+        }
+
+        private void RefreshOrder()
+        {
             try
             {
-                Temp = new List<Order>(SystemArgs.Orders);
-
                 SystemArgs.Orders.Clear();
-                SystemArgs.Statuses.Clear();
                 SystemArgs.BlankOrders.Clear();
                 SystemArgs.StatusOfOrders.Clear();
                 SystemArgs.BlankOrderOfOrders.Clear();
 
                 SystemArgs.Request.GetAllBlankOrder();
-                SystemArgs.Request.GetAllStatus();
                 SystemArgs.Request.GetAllOrders();
 
-                Display(SystemArgs.Orders);
-
-                return true;
             }
             catch (Exception E)
             {
-                if (Temp != null)
-                {
-                    Display(Temp);
-                }
                 SystemArgs.PrintLog(E.ToString());
-                throw;
+
+                MessageBox.Show("Ошибка получения данных для обновления информации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Environment.Exit(0);
             }
         }
         private bool Search()
@@ -411,6 +457,8 @@ namespace SZMK
                 Search_TSTB.Text = String.Empty;
 
                 Result.Clear();
+
+                DisplayAsync(SystemArgs.Orders);
             }
         }
 
@@ -437,7 +485,12 @@ namespace SZMK
 
                     if (Dialog.Executor_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.Executor.IndexOf(Dialog.Executor_TB.Text.Trim()) != -1).ToList();
+                        Result = Result.Where(p => p.Executor.IndexOf(Dialog.ExecutorWork_TB.Text.Trim()) != -1).ToList();
+                    }
+
+                    if (Dialog.ExecutorWork_TB.Text.Trim() != String.Empty)
+                    {
+                        Result = Result.Where(p => p.ExecutorWork.IndexOf(Dialog.ExecutorWork_TB.Text.Trim()) != -1).ToList();
                     }
 
                     if (Dialog.Number_TB.Text.Trim() != String.Empty)
@@ -493,7 +546,7 @@ namespace SZMK
         {
             try
             {
-                ARReportOrderOfDate_F Dialog = new ARReportOrderOfDate_F();
+                AR_ReportOrderOfDate_F Dialog = new AR_ReportOrderOfDate_F();
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
                     if (SystemArgs.Excel.ReportOrderOfDate(Dialog.First_MC.SelectionStart, Dialog.Second_MC.SelectionStart))
@@ -513,7 +566,6 @@ namespace SZMK
         {
             FilterCB_TSB.Items.Add("Все статусы");
             FilterCB_TSB.Items.Add("Аннулированные");
-            FilterCB_TSB.SelectedIndex = 0;
         }
 
         private List<Order> ResultSearch(String TextSearch)
@@ -539,44 +591,53 @@ namespace SZMK
         {
             try
             {
-                if (FilterCB_TSB.SelectedIndex >= 0)
-                {
-                    Int32 Index = FilterCB_TSB.SelectedIndex;
+                Int32 Index = 0;
 
+                Order_DGV.Invoke((MethodInvoker)delegate ()
+                {
+                    Index = FilterCB_TSB.SelectedIndex;
+                });
+
+                if (Index >= 0)
+                {
                     switch (Index)
                     {
                         case 0:
-                            View = new BindingListView<Order>(List.Where(p => !p.Canceled).ToList());
-
-                            Order_DGV.DataSource = null;
-                            Order_DGV.DataSource = View;
-
-                            CountOrder_TB.Text = View.Count.ToString();
-
-                            if (View.Count > 0)
+                            Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
-                                VisibleButton(true);
-                                CanceledOrder_TSB.Text = "Аннулировать";
-                            }
-                            else
-                            {
-                                VisibleButton(false);
-                                CanceledOrder_TSB.Text = "Аннулировать";
-                            }
+                                View.DataSource = List.Where(p => !p.Canceled).ToList();
+
+                                Order_DGV.DataSource = View;
+
+                                CountOrder_TB.Text = View.Count.ToString();
+
+                                if (View.Count > 0)
+                                {
+                                    VisibleButton(true);
+                                    CanceledOrder_TSB.Text = "Аннулировать";
+                                }
+                                else
+                                {
+                                    VisibleButton(false);
+                                    CanceledOrder_TSB.Text = "Аннулировать";
+                                }
+                            });
                             break;
                         case 1:
-                            View = new BindingListView<Order>(List.Where(p => p.Canceled).ToList());
-
-                            Order_DGV.DataSource = null;
-                            Order_DGV.DataSource = View;
-
-                            CountOrder_TB.Text = View.Count.ToString();
-
-                            if (View.Count > 0)
+                            Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
-                                CanceledOrder_TSB.Text = "Восстановить";
-                                CanceledOrder_TSB.Visible = true;
-                            }
+                                View.DataSource = List.Where(p => p.Canceled).ToList();
+
+                                Order_DGV.DataSource = View;
+
+                                CountOrder_TB.Text = View.Count.ToString();
+
+                                if (View.Count > 0)
+                                {
+                                    CanceledOrder_TSB.Text = "Восстановить";
+                                    CanceledOrder_TSB.Visible = true;
+                                }
+                            });
 
                             break;
                     }
@@ -620,6 +681,13 @@ namespace SZMK
 
         private void Chief_PDO_F_FormClosing(object sender, FormClosingEventArgs e)
         {
+            for (int i = 0; i < Order_DGV.Columns.Count; i++)
+            {
+                SystemArgs.SelectedColumn.GetDisplayIndex()[i] = Order_DGV.Columns[i].DisplayIndex;
+                SystemArgs.SelectedColumn.GetFillWeight()[i] = Order_DGV.Columns[i].FillWeight;
+            }
+            SystemArgs.SelectedColumn.SetParametrColumnDisplayIndex();
+            SystemArgs.SelectedColumn.SetParametrColumnFillWeight();
             Application.Exit();
         }
 
@@ -632,7 +700,7 @@ namespace SZMK
         private void FilterCB_TSB_SelectedIndexChanged(object sender, EventArgs e)
         {
             ResetSearch();
-            RefreshOrder();
+            DisplayAsync(SystemArgs.Orders);
         }
 
         private void Time_Day_Report_TSM_Click(object sender, EventArgs e)
@@ -667,7 +735,7 @@ namespace SZMK
                 SaveReport.Filter = "Excel Files .xlsx|*.xlsx";
                 if (SaveReport.ShowDialog() == DialogResult.OK)
                 {
-                    ALLFormingReportForAllPosition_F FormingF = new ALLFormingReportForAllPosition_F();
+                    ALL_FormingReportForAllPosition_F FormingF = new ALL_FormingReportForAllPosition_F();
                     FormingF.Show();
                     List<StatusOfOrder> Report = SystemArgs.StatusOfOrders.Where(p => p.DateCreate <= DateTime.Now && p.DateCreate >= DateTime.Now.Subtract((TimeSpan)aInterval)).ToList();
                     Task<Boolean> task = ReportPastTimeAsync(Report, SaveReport.FileName);
@@ -702,7 +770,7 @@ namespace SZMK
         {
             try
             {
-                ARReportOrderOfDate_F Dialog = new ARReportOrderOfDate_F();
+                AR_ReportOrderOfDate_F Dialog = new AR_ReportOrderOfDate_F();
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
                     SaveFileDialog SaveReport = new SaveFileDialog();
@@ -713,7 +781,7 @@ namespace SZMK
                     SaveReport.Filter = "Excel Files .xlsx|*.xlsx";
                     if (SaveReport.ShowDialog() == DialogResult.OK)
                     {
-                        ALLFormingReportForAllPosition_F FormingF = new ALLFormingReportForAllPosition_F();
+                        ALL_FormingReportForAllPosition_F FormingF = new ALL_FormingReportForAllPosition_F();
                         FormingF.Show();
                         List<StatusOfOrder> Report = SystemArgs.StatusOfOrders.Where(p => p.DateCreate >= Dialog.First_MC.SelectionStart && p.DateCreate <= Dialog.Second_MC.SelectionStart).ToList();
                         Task<Boolean> task = ReportPastTimeAsync(Report, SaveReport.FileName);
@@ -752,7 +820,7 @@ namespace SZMK
 
         private void AboutProgram_TSM_Click(object sender, EventArgs e)
         {
-            ALLAboutProgram_F Dialog = new ALLAboutProgram_F();
+            ALL_AboutProgram_F Dialog = new ALL_AboutProgram_F();
             if (Dialog.ShowDialog() == DialogResult.OK)
             {
 
@@ -798,7 +866,10 @@ namespace SZMK
                                     for (int j = (int)Temp.ID + 1; j <= NewStatus; j++)
                                     {
                                         ChangedOrder.Status = SystemArgs.Statuses.Where(p => p.ID == j).Single();
-                                        SystemArgs.Request.InsertStatus(ChangedOrder);
+                                        if (!SystemArgs.Request.StatusExist(ChangedOrder))
+                                        {
+                                            SystemArgs.Request.InsertStatus(ChangedOrder);
+                                        }
                                     }
                                 }
                                 SystemArgs.Orders.Remove((Order)(View[Order_DGV.SelectedRows[i].Index]));
@@ -819,6 +890,79 @@ namespace SZMK
             }
             catch (Exception E)
             {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public static void SetDoubleBuffered(Control control)
+        {
+            // set instance non-public property with name "DoubleBuffered" to true
+            typeof(Control).InvokeMember("DoubleBuffered",
+                BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+                null, control, new object[] { true });
+        }
+        private void SelectedColumnDGV()
+        {
+            try
+            {
+                for (int i = 0; i < SystemArgs.SelectedColumn.GetVisibels().Length; i++)
+                {
+                    Order_DGV.Columns[i].DisplayIndex = SystemArgs.SelectedColumn.GetDisplayIndex()[i];
+                    Order_DGV.Columns[i].Visible = SystemArgs.SelectedColumn[i];
+                    Order_DGV.Columns[i].FillWeight = SystemArgs.SelectedColumn.GetFillWeight()[i];
+                }
+            }
+            catch (Exception E)
+            {
+                SystemArgs.PrintLog(E.ToString());
+                throw new Exception(E.Message);
+            }
+        }
+
+        private void SelectedColumn_TSM_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AR_SelectedColumnDGV_F Dialog = new AR_SelectedColumnDGV_F();
+
+                Dialog.DataMatrix_CB.Checked = SystemArgs.SelectedColumn[0];
+                Dialog.DateCreate_CB.Checked = SystemArgs.SelectedColumn[1];
+                Dialog.Number_CB.Checked = SystemArgs.SelectedColumn[2];
+                Dialog.Executor_CB.Checked = SystemArgs.SelectedColumn[3];
+                Dialog.ExecutorWork_CB.Checked = SystemArgs.SelectedColumn[4];
+                Dialog.List_CB.Checked = SystemArgs.SelectedColumn[5];
+                Dialog.Mark_CB.Checked = SystemArgs.SelectedColumn[6];
+                Dialog.Lenght_CB.Checked = SystemArgs.SelectedColumn[7];
+                Dialog.Height_CB.Checked = SystemArgs.SelectedColumn[8];
+                Dialog.Status_CB.Checked = SystemArgs.SelectedColumn[9];
+                Dialog.User_CB.Checked = SystemArgs.SelectedColumn[10];
+                Dialog.BlankOrder_CB.Checked = SystemArgs.SelectedColumn[11];
+                Dialog.Cancelled_CB.Checked = SystemArgs.SelectedColumn[12];
+                Dialog.StatusDate_CB.Checked = SystemArgs.SelectedColumn[13];
+
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+                    SystemArgs.SelectedColumn[0] = Dialog.DataMatrix_CB.Checked;
+                    SystemArgs.SelectedColumn[1] = Dialog.DateCreate_CB.Checked;
+                    SystemArgs.SelectedColumn[2] = Dialog.Number_CB.Checked;
+                    SystemArgs.SelectedColumn[3] = Dialog.Executor_CB.Checked;
+                    SystemArgs.SelectedColumn[4] = Dialog.ExecutorWork_CB.Checked;
+                    SystemArgs.SelectedColumn[5] = Dialog.List_CB.Checked;
+                    SystemArgs.SelectedColumn[6] = Dialog.Mark_CB.Checked;
+                    SystemArgs.SelectedColumn[7] = Dialog.Lenght_CB.Checked;
+                    SystemArgs.SelectedColumn[8] = Dialog.Height_CB.Checked;
+                    SystemArgs.SelectedColumn[9] = Dialog.Status_CB.Checked;
+                    SystemArgs.SelectedColumn[10] = Dialog.User_CB.Checked;
+                    SystemArgs.SelectedColumn[11] = Dialog.BlankOrder_CB.Checked;
+                    SystemArgs.SelectedColumn[12] = Dialog.Cancelled_CB.Checked;
+                    SystemArgs.SelectedColumn[13] = Dialog.StatusDate_CB.Checked;
+                    SystemArgs.SelectedColumn.SetParametrColumnVisible();
+                    MessageBox.Show("Настройки успешно сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    SelectedColumnDGV();
+                }
+            }
+            catch (Exception E)
+            {
+                SystemArgs.PrintLog(E.ToString());
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

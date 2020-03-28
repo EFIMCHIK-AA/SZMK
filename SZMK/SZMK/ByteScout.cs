@@ -13,7 +13,6 @@ namespace SZMK
     /*Класс для создания клиента отправки файла для распознования на сервере, и получение информации в ответ, также реализовано проверка подключения, добавление в лист сессии, и сжатие файла перед отправкой*/
     public class ByteScout
     {
-        private String _ProgramPath;
         private String _Port;
         private String _Server;
         private Boolean _NeedChecked;
@@ -68,19 +67,9 @@ namespace SZMK
         {
             try
             {
-                if (!File.Exists(SystemArgs.Path.ProgramPath))
-                {
-                    throw new Exception();
-                }
-
                 if (!File.Exists(SystemArgs.Path.ConnectProgramPath))
                 {
                     throw new Exception();
-                }
-
-                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ProgramPath, FileMode.Open)))
-                {
-                    _ProgramPath = sr.ReadLine();
                 }
 
                 using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ConnectProgramPath, FileMode.Open)))
@@ -101,23 +90,12 @@ namespace SZMK
         {
             try
             {
-                String DirProg = SystemArgs.Path.GetDirectory(SystemArgs.Path.ProgramPath);
-
-                if (!Directory.Exists(DirProg))
-                {
-                    Directory.CreateDirectory(DirProg);
-                }
 
                 String DirConnProgram = SystemArgs.Path.GetDirectory(SystemArgs.Path.ConnectProgramPath);
 
                 if (!Directory.Exists(DirConnProgram))
                 {
                     Directory.CreateDirectory(DirConnProgram);
-                }
-
-                using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ProgramPath, FileMode.Create)))
-                {
-                    sw.WriteLine(_ProgramPath);
                 }
 
                 using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ConnectProgramPath, FileMode.Create)))
@@ -131,32 +109,6 @@ namespace SZMK
             catch (Exception)
             {
                 return false;
-            }
-        }
-
-        public bool CheckFile()
-        {
-            if (!File.Exists(_ProgramPath))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public String ProgramPath
-        {
-            get
-            {
-                return _ProgramPath;
-            }
-
-            set
-            {
-                if (!String.IsNullOrEmpty(value))
-                {
-                    _ProgramPath = value;
-                }
             }
         }
 
@@ -316,11 +268,11 @@ namespace SZMK
                 DataMatrix = Temp[0] + "_" + Temp[1] + "_" + Temp[2] + "_" + Temp[3] + "_" + Temp[4].Replace(".",",") + "_" + Temp[5].Replace(".", ",");
                 if (CheckedUniqueList(DataMatrix))
                 {
-                    if (SystemArgs.Request.CheckedStatusOrderDB(Temp[0],Temp[1])==SystemArgs.User.IDStatus-1)
+                    if (SystemArgs.Request.CheckedStatusOrderDB(Temp[0],Temp[1])==SystemArgs.User.StatusesUser[0].ID-1)
                     {
                         _DecodeSession.Add(new DecodeScanSession(DataMatrix, 1));
                     }
-                    else if((SystemArgs.Request.CheckedStatusOrderDB(Temp[0], Temp[1])>= SystemArgs.User.IDStatus))
+                    else if((SystemArgs.Request.CheckedStatusOrderDB(Temp[0], Temp[1])>= SystemArgs.User.StatusesUser[0].ID))
                     {
                         _DecodeSession.Add(new DecodeScanSession(DataMatrix, 0));
                     }

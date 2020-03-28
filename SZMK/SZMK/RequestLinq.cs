@@ -13,6 +13,7 @@ namespace SZMK
         {
             try
             {
+                String [] Temp = QR.Split('_');
                 if (SystemArgs.Request.GetIDBlankOrder(QR)!=-1)
                 {
                     if (SystemArgs.Request.InsertBlankOrderOfOrders(Orders, QR))
@@ -20,7 +21,7 @@ namespace SZMK
                         return true;
                     }
                 }
-                else if (GetOldIDBlankOrder(Orders)!=-1)
+                else if (Temp[0] != "ПО" && Temp[1] == "СЗМК" && SystemArgs.BlankOrders.Where(p=>p.ID == GetOldIDBlankOrder(Orders).IDBlankOrder).Select(p=>p.QR).Single().Split('_')[0]!="ПО")
                 {
                     if (SystemArgs.Request.UpdateBlankOrder(QR,Orders))
                     {
@@ -54,42 +55,24 @@ namespace SZMK
                 return false;
             }
         }
-        public bool SelectOrderInBlankOrder(Int64 IDOrder)
-        {
-            try
-            {
-                if (SystemArgs.BlankOrderOfOrders.Where(p => p.IDOrder == IDOrder).Count() == 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch 
-            {
-                return false;
-            }
-        }
-        public Int64 GetOldIDBlankOrder(List<Order> Orders)
+        public BlankOrderOfOrder GetOldIDBlankOrder(List<Order> Orders)
         {
             try
             {
                 foreach (Order order in Orders)
                 {
-                    var Temp = SystemArgs.BlankOrderOfOrders.Where(p => p.IDOrder == order.ID).ToList();
-                    if (Temp.Count() == 1)
+                    var Temp = SystemArgs.BlankOrderOfOrders.Where(p => p.IDOrder == order.ID).OrderBy(p=>p.DateCreate).ToList();
+                    if (Temp.Count() != 0)
                     {
-                        return Temp[0].IDBlankOrder;
+                        return Temp.Last();
                     }
                 }
 
-                return -1;
+                return null;
             }
             catch
             {
-                return -1;
+                return null;
             }
         }
         public Int32 CheckedNumberAndList(String Number, String List)

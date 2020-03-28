@@ -30,8 +30,8 @@ namespace SZMK
         static public UnLoadSpecific UnLoadSpecific;//Проверка выгрузки деталей
         static public List<Status> Statuses;//Общий список возможных статусов
         static public List<BlankOrder> BlankOrders;//Общий список возможных бланков заказа
+        static public SelectedColumn SelectedColumn;//Конфигурация отображения столбцов
         static public AboutProgram AboutProgram;//Информация о программе
-        static public ServerMobileAppFindedOrder ServerMobileAppFindedOrder;//Поиск чертежа при помощи сканирования DataMatrix
 
         public static void PrintLog(String Message)
         {

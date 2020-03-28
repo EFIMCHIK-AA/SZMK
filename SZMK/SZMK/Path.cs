@@ -9,21 +9,20 @@ namespace SZMK
     public class Path
     {
         private readonly String _ConnectDBPath;
-        private readonly String _ConnectApplicationPath;
+        private readonly String _ConnectMobilePath;
         private readonly String _ArchivePath;
         private readonly String _RegistryPath;
         private readonly String _LogPath;
-        private readonly String _ProgramPath;
         private readonly String _DirectoryModelsPath;
         private readonly String _ConnectServerMails;
         private readonly String _TemplateActUniquePath;
         private readonly String _TemplateActNoUniquePath;
         private readonly String _TemplateReportOrderOfDatePath;
         private readonly String _TemplateRegistryPath;
-        private readonly String _TestFileApplicationPath;
-        private readonly String _ConnectProgramPath;
+        private readonly String _ConnectDecodePath;
         private readonly String _CheckMarksPath;
         private readonly String _VisualRowPath;
+        private readonly String _VisualColumnsPath;
         private readonly String _TemplateReportPastTimeofDate;
         private readonly String _AboutProgram;
 
@@ -31,30 +30,29 @@ namespace SZMK
         public Path() 
         {
             _ConnectDBPath = $@"Connect\DataBase\connect.conf"; //Параметры подключения к базе данных
-            _ConnectApplicationPath = $@"Connect\Application\connect.conf"; //Параметры подключения к приложению
-            _ConnectProgramPath = $@"Path\Program\connect.df"; //Параметры подключения к программе распознавания
-            _TestFileApplicationPath = $@"Connect\Application\test.png";//Путь к тестовому файлу для проверки подключения к программе по распознованию
-            _ArchivePath = $@"Path\Archive.df";//Путь к архиву
-            _RegistryPath = $@"Path\Registry.df";//Путь к реестру
-            _ProgramPath = $@"Path\Program\Program.df";//Путь к программе распознавания
+            _ConnectMobilePath = $@"Connect\Mobile\connect.conf"; //Параметры подключения к приложению
+            _ConnectDecodePath = $@"Connect\Decode\connect.conf"; //Параметры подключения к программе распознавания
+            _ArchivePath = $@"Program\Path\Archive.df";//Путь к архиву
+            _RegistryPath = $@"Program\Path\Registry.df";//Путь к реестру
             _LogPath = $@"Log"; //Путь к директории хранения логов
-            _DirectoryModelsPath = $@"Path\Models.df"; //Директория выгрузки
+            _DirectoryModelsPath = $@"Program\Path\Models.df"; //Директория выгрузки
             _ConnectServerMails = $@"Connect\Mails\connect.conf"; //Конфигурация почтового сервера
             _TemplateActUniquePath = $@"Templates\ActTemplateUnique.xlsx";//Путь до шаблона акта уникальных чертежей
             _TemplateActNoUniquePath = $@"Templates\ActTemplateNoUnique.xlsx";//Путь до шаблона акта не уникальных чертежей
             _TemplateReportOrderOfDatePath = $@"Templates\ReportOrderOfDateTemplate.xlsx";//Путь до шаблона реестра
             _TemplateReportPastTimeofDate = $@"Templates\ReportPastTimeofDateTemplate.xlsx";//Путь до шаблона реестра
             _TemplateRegistryPath = $@"Templates\RegistryTemplate.xlsx";//Путь до шаблона реестра
-            _CheckMarksPath = $@"Path\MarksCheck.df"; // Путь до файла с проверкой строки с маркой на строчные буквы
-            _VisualRowPath = $@"Path\VisualRow.df"; // Путь до файла с параметра для визуализации просрочивания чертежей
-            _AboutProgram = $@"Path\Program\AboutProgram.xml";
+            _CheckMarksPath = $@"Program\Settings\MarksCheck.df"; // Путь до файла с проверкой строки с маркой на строчные буквы
+            _VisualColumnsPath = $@"Program\Settings\ColumnSetting.conf"; //Путь до файла с параметрами отображения столбцов
+            _VisualRowPath = $@"Program\Settings\VisualRow.df"; // Путь до файла с параметра для визуализации просрочивания чертежей
+            _AboutProgram = $@"Program\AboutProgram.xml"; //Путь до файла с информацией о программе
         }
 
         public String ConnectProgramPath
         {
             get
             {
-                return _ConnectProgramPath;
+                return _ConnectDecodePath;
             }
         }
 
@@ -71,6 +69,14 @@ namespace SZMK
             get
             {
                 return _VisualRowPath;
+            }
+        }
+
+        public String VisualColumnsPath
+        {
+            get
+            {
+                return _VisualColumnsPath;
             }
         }
 
@@ -111,14 +117,6 @@ namespace SZMK
             return FileName;
         }
 
-        public String ProgramPath
-        {
-            get
-            {
-                return _ProgramPath;
-            }
-        }
-
         public String ConnectDBPath
         {
             get
@@ -135,18 +133,11 @@ namespace SZMK
             }
         }
 
-        public String ConnectApplicationPath
+        public String ConnectMobilePath
         {
             get
             {
-                return _ConnectApplicationPath;
-            }
-        }
-        public String TestFileApplicationPath
-        {
-            get
-            {
-                return _TestFileApplicationPath;
+                return _ConnectMobilePath;
             }
         }
 

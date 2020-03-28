@@ -1,8 +1,153 @@
-24.02.2020 10:57:39 : Дешифрование пароля успешно завершено
-24.02.2020 10:57:43 : Хеш-последовательность успешно получена
-24.02.2020 10:57:49 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+24.02.2020 8:54:48 : Дешифрование пароля успешно завершено
+24.02.2020 8:55:00 : Хеш-последовательность успешно получена
+24.02.2020 9:28:23 : Дешифрование пароля успешно завершено
+24.02.2020 9:28:28 : Хеш-последовательность успешно получена
+24.02.2020 9:38:28 : Дешифрование пароля успешно завершено
+24.02.2020 9:38:32 : Хеш-последовательность успешно получена
+24.02.2020 9:39:21 : Дешифрование пароля успешно завершено
+24.02.2020 9:39:30 : Хеш-последовательность успешно получена
+24.02.2020 9:42:08 : Дешифрование пароля успешно завершено
+24.02.2020 9:42:12 : Хеш-последовательность успешно получена
+24.02.2020 9:46:49 : Дешифрование пароля успешно завершено
+24.02.2020 9:47:02 : Хеш-последовательность успешно получена
+24.02.2020 9:48:05 : Дешифрование пароля успешно завершено
+24.02.2020 9:48:13 : Хеш-последовательность успешно получена
+24.02.2020 10:39:22 : Дешифрование пароля успешно завершено
+24.02.2020 10:39:32 : Хеш-последовательность успешно получена
+24.02.2020 10:40:28 : Дешифрование пароля успешно завершено
+24.02.2020 10:40:31 : Хеш-последовательность успешно получена
+24.02.2020 10:56:32 : Дешифрование пароля успешно завершено
+24.02.2020 10:56:38 : Хеш-последовательность успешно получена
+24.02.2020 10:56:45 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
    в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
    в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
    в System.Windows.Forms.CommonDialog.ShowDialog()
    в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
    в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 969
+24.02.2020 10:57:11 : Дешифрование пароля успешно завершено
+24.02.2020 10:57:17 : Хеш-последовательность успешно получена
+24.02.2020 10:57:21 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+   в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+   в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.CommonDialog.ShowDialog()
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
+   в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 969
+24.02.2020 10:58:05 : Дешифрование пароля успешно завершено
+24.02.2020 10:58:09 : Хеш-последовательность успешно получена
+24.02.2020 11:02:17 : Дешифрование пароля успешно завершено
+24.02.2020 11:02:24 : Хеш-последовательность успешно получена
+24.02.2020 11:02:29 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+   в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+   в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.CommonDialog.ShowDialog()
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
+   в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 969
+24.02.2020 11:03:13 : Дешифрование пароля успешно завершено
+24.02.2020 11:03:18 : Хеш-последовательность успешно получена
+24.02.2020 11:03:22 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+   в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+   в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.CommonDialog.ShowDialog()
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
+   в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 969
+24.02.2020 11:03:26 : Дешифрование пароля успешно завершено
+24.02.2020 11:04:31 : Дешифрование пароля успешно завершено
+24.02.2020 11:04:35 : Хеш-последовательность успешно получена
+24.02.2020 11:04:40 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+   в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+   в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.CommonDialog.ShowDialog()
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
+   в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 969
+24.02.2020 11:05:57 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+   в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+   в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.CommonDialog.ShowDialog()
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
+   в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 969
+24.02.2020 11:08:22 : Дешифрование пароля успешно завершено
+24.02.2020 11:08:26 : Хеш-последовательность успешно получена
+24.02.2020 11:08:35 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+   в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+   в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.CommonDialog.ShowDialog()
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
+   в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 969
+24.02.2020 11:08:49 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+   в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+   в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.CommonDialog.ShowDialog()
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
+   в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 969
+24.02.2020 11:10:41 : Дешифрование пароля успешно завершено
+24.02.2020 11:10:45 : Хеш-последовательность успешно получена
+24.02.2020 11:10:51 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+   в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+   в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.CommonDialog.ShowDialog()
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
+   в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 969
+24.02.2020 11:15:48 : Дешифрование пароля успешно завершено
+24.02.2020 11:15:52 : Хеш-последовательность успешно получена
+24.02.2020 11:15:56 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+   в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+   в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.CommonDialog.ShowDialog()
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
+   в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 968
+24.02.2020 11:23:10 : Дешифрование пароля успешно завершено
+24.02.2020 11:23:28 : Хеш-последовательность успешно получена
+24.02.2020 11:23:34 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+   в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+   в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.CommonDialog.ShowDialog()
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
+   в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 968
+24.02.2020 13:50:43 : Дешифрование пароля успешно завершено
+24.02.2020 13:50:51 : Хеш-последовательность успешно получена
+24.02.2020 13:50:59 : System.Threading.ThreadStateException: Текущий поток должен быть задан как поток однопоточного контейнера (STA), чтобы вызовы OLE стали возможны. Проверьте, что ваша функция Main помечена атрибутом STAThreadAttribute. Данное исключение создается, только если к процессу подключен отладчик.
+   в System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+   в System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.CommonDialog.ShowDialog()
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 461
+   в SZMK.ARArhive_F.ReportTimeofOrderPeriod(Object aInterval) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\ARArhive_F.cs:строка 968
+24.02.2020 13:52:53 : Дешифрование пароля успешно завершено
+24.02.2020 13:52:56 : Хеш-последовательность успешно получена
+24.02.2020 14:12:37 : Дешифрование пароля успешно завершено
+24.02.2020 14:46:06 : Дешифрование пароля успешно завершено
+24.02.2020 14:48:14 : Дешифрование пароля успешно завершено
+24.02.2020 14:48:18 : Хеш-последовательность успешно получена
+24.02.2020 14:51:33 : Дешифрование пароля успешно завершено
+24.02.2020 14:51:37 : Дешифрование пароля успешно завершено
+24.02.2020 14:51:41 : Хеш-последовательность успешно получена
+24.02.2020 15:27:40 : Дешифрование пароля успешно завершено
+24.02.2020 15:27:44 : Хеш-последовательность успешно получена
+24.02.2020 15:43:16 : Дешифрование пароля успешно завершено
+24.02.2020 15:43:20 : Хеш-последовательность успешно получена
+24.02.2020 15:56:07 : Дешифрование пароля успешно завершено
+24.02.2020 15:56:11 : Хеш-последовательность успешно получена
+24.02.2020 15:56:53 : Дешифрование пароля успешно завершено
+24.02.2020 15:56:57 : Хеш-последовательность успешно получена
+24.02.2020 15:58:22 : Дешифрование пароля успешно завершено
+24.02.2020 15:58:26 : Хеш-последовательность успешно получена
+24.02.2020 16:01:50 : Дешифрование пароля успешно завершено
+24.02.2020 16:01:55 : Хеш-последовательность успешно получена
+24.02.2020 16:02:21 : Дешифрование пароля успешно завершено
+24.02.2020 16:02:26 : Хеш-последовательность успешно получена
+24.02.2020 16:03:38 : Дешифрование пароля успешно завершено
+24.02.2020 16:03:44 : Хеш-последовательность успешно получена
+24.02.2020 16:05:40 : Дешифрование пароля успешно завершено
+24.02.2020 16:05:43 : Хеш-последовательность успешно получена
+24.02.2020 16:10:01 : Дешифрование пароля успешно завершено
+24.02.2020 16:10:05 : Хеш-последовательность успешно получена
+24.02.2020 16:10:57 : Дешифрование пароля успешно завершено
+24.02.2020 16:11:02 : Хеш-последовательность успешно получена
+24.02.2020 16:11:07 : System.ArgumentOutOfRangeException: Индекс за пределами диапазона. Индекс должен быть положительным числом, а его размер не должен превышать размер коллекции.
+Имя параметра: index
+   в System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   в System.Collections.Generic.List`1.get_Item(Int32 index)
+   в SZMK.Excel.ReportPastTimeofDate(List`1 Report, String FileName) в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Excel.cs:строка 549
+24.02.2020 16:12:53 : Дешифрование пароля успешно завершено
+24.02.2020 16:18:39 : Дешифрование пароля успешно завершено
+24.02.2020 16:18:45 : Хеш-последовательность успешно получена
+24.02.2020 16:27:57 : Дешифрование пароля успешно завершено

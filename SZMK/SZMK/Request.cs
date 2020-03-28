@@ -479,19 +479,16 @@ namespace SZMK
         {
             try
             {
-                if (!StatusExist(Order))
+                using (var Connect = new NpgsqlConnection(_ConnectString))
                 {
-                    using (var Connect = new NpgsqlConnection(_ConnectString))
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddStatus\" (\"DateCreate\", \"ID_Status\", \"ID_Order\", \"ID_User\") VALUES('{DateTime.Now}', '{Order.Status.ID}', '{Order.ID}', '{Order.User.ID}'); ", Connect))
                     {
-                        Connect.Open();
-
-                        using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddStatus\" (\"DateCreate\", \"ID_Status\", \"ID_Order\", \"ID_User\") VALUES('{DateTime.Now}', '{Order.Status.ID}', '{Order.ID}', '{Order.User.ID}'); ", Connect))
-                        {
-                            Command.ExecuteNonQuery();
-                        }
-
-                        Connect.Close();
+                        Command.ExecuteNonQuery();
                     }
+
+                    Connect.Close();
                 }
 
                 return true;
@@ -529,7 +526,7 @@ namespace SZMK
                 return false;
             }
         }
-        private bool StatusExist(Order Order)
+        public bool StatusExist(Order Order)
         {
             Boolean flag = false;
             try
@@ -613,7 +610,7 @@ namespace SZMK
                 return false;
             }
         }
-        public bool CheckedOrderAndStatus(String Number, String List)
+        public bool CheckedOrder(String Number, String List)
         {
             try
             {
@@ -628,7 +625,7 @@ namespace SZMK
                         {
                             while (Reader.Read())
                             {
-                                if (Reader.GetInt64(0)==1&&CheckedStatusOrderDB(Number,List)== SystemArgs.User.IDStatus-1)
+                                if (Reader.GetInt64(0)==1)
                                 {
                                     flag= true;
                                 }
@@ -657,7 +654,7 @@ namespace SZMK
                 using (var Connect = new NpgsqlConnection(_ConnectString))
                 {
                     Connect.Open();
-                    using (var Command = new NpgsqlCommand($"SELECT MAX(\"ID_Status\") FROM public.\"AddStatus\" WHERE \"ID_Order\"='{GetIDOrder(Number,List)}';", Connect))
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID_Status\" FROM public.\"AddStatus\" WHERE \"ID_Order\"='{GetIDOrder(Number,List)}' ORDER BY \"DateCreate\" DESC LIMIT 1;", Connect))
                     {
                         using (var Reader = Command.ExecuteReader())
                         {
@@ -708,12 +705,9 @@ namespace SZMK
                     Connect.Open();
                     foreach (Order order in Orders)
                     {
-                        if (!SystemArgs.RequestLinq.SelectOrderInBlankOrder(order.ID))
+                        using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddBlank\"(\"DateCreate\", \"ID_BlankOrder\", \"ID_Order\") VALUES('{DateTime.Now}', '{SystemArgs.Request.GetIDBlankOrder(QR)}', '{order.ID}')", Connect))
                         {
-                            using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddBlank\"(\"DateCreate\", \"ID_BlankOrder\", \"ID_Order\") VALUES('{DateTime.Now}', '{SystemArgs.Request.GetIDBlankOrder(QR)}', '{order.ID}')", Connect))
-                            {
-                                Command.ExecuteNonQuery();
-                            }
+                            Command.ExecuteNonQuery();
                         }
                     }
 
@@ -885,8 +879,9 @@ namespace SZMK
 
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                SystemArgs.PrintLog(e.ToString());
                 return false;
             }
         }
@@ -949,7 +944,7 @@ namespace SZMK
                     {
                         Connect.Open();
 
-                        using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\"" +
+                        using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\",\"ExecutorWork\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\"" +
                                                                 $" FROM public.\"Orders\";", Connect))
                         {
                             using (var Reader = Command.ExecuteReader())
@@ -958,26 +953,12 @@ namespace SZMK
                                 {
                                     Int64 ID = Reader.GetInt64(0);
 
-                                    List<StatusOfOrder> StatusID = (from p in SystemArgs.StatusOfOrders
-                                                                    where p.IDOrder == ID
-                                                                   select p).ToList();
+                                    StatusOfOrder StatusID = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == ID).OrderBy(p => p.DateCreate).Last();
+
                                     Int64 UserID = -1;
-                                    Int64 MaxIDStatus = -1;
 
-                                    Status TempStatus = new Status();
-
-                                    foreach (Status item in SystemArgs.Statuses)
-                                    {
-                                        foreach (StatusOfOrder StatusOfUser in StatusID)
-                                        {
-                                            if (item.ID == StatusOfUser.IDStatus && StatusOfUser.IDStatus > MaxIDStatus)
-                                            {
-                                                TempStatus = item;
-                                                MaxIDStatus = StatusOfUser.IDStatus;
-                                                UserID = StatusOfUser.IDUser;
-                                            }
-                                        }
-                                    }
+                                    Status TempStatus = SystemArgs.Statuses.Where(p => p.ID == StatusID.IDStatus).Single();
+                                    UserID = StatusID.IDUser;
 
                                     User TempUser = (from p in SystemArgs.Users
                                                      where p.ID == UserID
@@ -987,25 +968,14 @@ namespace SZMK
 
                                     if (SystemArgs.BlankOrderOfOrders.Count > 0)
                                     {
-                                        List<BlankOrderOfOrder> BlankOrderID = (from p in SystemArgs.BlankOrderOfOrders
-                                                                                where p.IDOrder == ID
-                                                                                 select p).ToList();
-                                        if (BlankOrderID.Count() > 0)
+                                        List<Int64> BlankOrderID = SystemArgs.BlankOrderOfOrders.Where(p => p.IDOrder == ID).OrderBy(p => p.DateCreate).Select(p => p.IDBlankOrder).ToList();
+                                        if (BlankOrderID.Count > 0)
                                         {
-                                            foreach (BlankOrderOfOrder ID_Blank in BlankOrderID)
-                                            {
-                                                foreach (BlankOrder item in SystemArgs.BlankOrders)
-                                                {
-                                                    if (ID_Blank._IDBlankOrder == item.ID)
-                                                    {
-                                                        TempBlank = item;
-                                                    }
-                                                }
-                                            }
+                                            TempBlank = SystemArgs.BlankOrders.Where(p => p.ID == BlankOrderID.Last()).Single();
                                         }
                                     }
                                     List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == ID && p.IDStatus == TempStatus.ID).Select(p => p.DateCreate).ToList();
-                                    SystemArgs.Orders.Add(new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(4), Reader.GetString(3), Reader.GetString(5), Reader.GetString(6), Convert.ToDouble(Reader.GetString(7)), Convert.ToDouble(Reader.GetString(8)), TempStatus,StatusDate[0], TempUser, TempBlank, Reader.GetBoolean(9)));
+                                    SystemArgs.Orders.Add(new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(5),Reader.GetString(3), Reader.GetString(4), Reader.GetString(6), Reader.GetString(7), Convert.ToDouble(Reader.GetString(8)), Convert.ToDouble(Reader.GetString(9)), TempStatus,StatusDate.Last(), TempUser, TempBlank, Reader.GetBoolean(10)));
                                 }
                             }
                         }
@@ -1034,7 +1004,8 @@ namespace SZMK
                 {
                     Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\" FROM public.\"Orders\" WHERE \"DataMatrix\"='{DataMatrix}';", Connect))
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\",\"ExecutorWork\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\"" +
+                                                                $" FROM public.\"Orders\" WHERE \"DataMatrix\"='{DataMatrix}';", Connect))
                     {
                         using (var Reader = Command.ExecuteReader())
                         {
@@ -1042,26 +1013,12 @@ namespace SZMK
                             {
                                 Int64 ID = Reader.GetInt64(0);
 
-                                List<StatusOfOrder> StatusID = (from p in SystemArgs.StatusOfOrders
-                                                                where p.IDOrder == ID
-                                                                select p).ToList();
+                                StatusOfOrder StatusID = SystemArgs.StatusOfOrders.Where(p=>p.IDOrder==ID).OrderBy(p=>p.DateCreate).Last();
+
                                 Int64 UserID = -1;
-                                Int64 MaxIDStatus = -1;
 
-                                Status TempStatus = new Status();
-
-                                foreach (Status item in SystemArgs.Statuses)
-                                {
-                                    foreach (StatusOfOrder StatusOfUser in StatusID)
-                                    {
-                                        if (item.ID == StatusOfUser.IDStatus && StatusOfUser.IDStatus > MaxIDStatus)
-                                        {
-                                            TempStatus = item;
-                                            MaxIDStatus = StatusOfUser.IDStatus;
-                                            UserID = StatusOfUser.IDUser;
-                                        }
-                                    }
-                                }
+                                Status TempStatus = SystemArgs.Statuses.Where(p => p.ID == StatusID.IDStatus).Single();
+                                UserID = StatusID.IDUser;
 
                                 User TempUser = (from p in SystemArgs.Users
                                                  where p.ID == UserID
@@ -1071,25 +1028,14 @@ namespace SZMK
 
                                 if (SystemArgs.BlankOrderOfOrders.Count > 0)
                                 {
-                                    List<BlankOrderOfOrder> BlankOrderID = (from p in SystemArgs.BlankOrderOfOrders
-                                                                            where p.IDOrder == ID
-                                                                            select p).ToList();
-                                    if (BlankOrderID.Count() > 0)
+                                    List<Int64> BlankOrderID = SystemArgs.BlankOrderOfOrders.Where(p => p.IDOrder == ID).OrderBy(p => p.DateCreate).Select(p => p.IDBlankOrder).ToList();
+                                    if (BlankOrderID.Count > 0)
                                     {
-                                        foreach (BlankOrderOfOrder ID_Blank in BlankOrderID)
-                                        {
-                                            foreach (BlankOrder item in SystemArgs.BlankOrders)
-                                            {
-                                                if (ID_Blank._IDBlankOrder == item.ID)
-                                                {
-                                                    TempBlank = item;
-                                                }
-                                            }
-                                        }
+                                        TempBlank = SystemArgs.BlankOrders.Where(p => p.ID == BlankOrderID.Last()).Single();
                                     }
                                 }
                                 List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == ID && p.IDStatus == TempStatus.ID).Select(p => p.DateCreate).ToList();
-                                Order NewOrder = new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(4), Reader.GetString(3), Reader.GetString(5), Reader.GetString(6), Convert.ToDouble(Reader.GetString(7)), Convert.ToDouble(Reader.GetString(8)), TempStatus, StatusDate[0], TempUser, TempBlank, Reader.GetBoolean(9));
+                                Order NewOrder = new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(5), Reader.GetString(3), Reader.GetString(4), Reader.GetString(6), Reader.GetString(7), Convert.ToDouble(Reader.GetString(8)), Convert.ToDouble(Reader.GetString(9)), TempStatus, StatusDate.Last(), TempUser, TempBlank, Reader.GetBoolean(10));
 
                                 Connect.Close();
 
@@ -1132,6 +1078,29 @@ namespace SZMK
             catch
             {
                 return -1;
+            }
+        }
+        public bool UpdateExecutorWorkOrder(Order Order)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"UPDATE public.\"Orders\" SET \"ExecutorWork\"='{Order.ExecutorWork}' WHERE \"ID\"='{Order.ID}'; ", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
         public bool CheckedNumberAndMark(String Number,String Mark)

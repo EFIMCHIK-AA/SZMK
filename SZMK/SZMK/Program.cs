@@ -20,7 +20,7 @@ namespace SZMK
             System.Globalization.CultureInfo cultureInfo = new System.Globalization.CultureInfo("ru-RU");
             Application.CurrentCulture = cultureInfo;
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("ru-RU");
-            Application.Run(new AVTAutorization_F());
+            Application.Run(new AVT_Autorization_F());
         }
     }
 }

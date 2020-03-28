@@ -23,12 +23,12 @@ namespace SZMK
         {
             try
             {
-                if(!File.Exists(SystemArgs.Path.ConnectApplicationPath))
+                if(!File.Exists(SystemArgs.Path.ConnectMobilePath))
                 {
                     throw new Exception();
                 }
 
-                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ConnectApplicationPath, FileMode.Open)))
+                using (StreamReader sr = new StreamReader(File.Open(SystemArgs.Path.ConnectMobilePath, FileMode.Open)))
                 {
                     _Port = sr.ReadLine();
                 }
@@ -45,14 +45,14 @@ namespace SZMK
         {
             try
             {
-                String Dir = SystemArgs.Path.GetDirectory(SystemArgs.Path.ConnectApplicationPath);
+                String Dir = SystemArgs.Path.GetDirectory(SystemArgs.Path.ConnectMobilePath);
 
                 if (!Directory.Exists(Dir))
                 {
                     Directory.CreateDirectory(Dir);
                 }
 
-                using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ConnectApplicationPath, FileMode.Create)))
+                using (StreamWriter sw = new StreamWriter(File.Open(SystemArgs.Path.ConnectMobilePath, FileMode.Create)))
                 {
                     sw.WriteLine(_Port);
                 }
@@ -67,7 +67,7 @@ namespace SZMK
 
         public bool CheckFile()
         {
-            if (!File.Exists(SystemArgs.Path.ConnectApplicationPath))
+            if (!File.Exists(SystemArgs.Path.ConnectMobilePath))
             {
                 return false;
             }

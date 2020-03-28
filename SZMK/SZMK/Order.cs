@@ -14,6 +14,7 @@ namespace SZMK
         private DateTime _DateCreate;
         private String _Number;
         private String _Executor;
+        private String _ExecutorWork;
         private String _List;
         private String _Mark;
         private Double _Lenght;
@@ -25,7 +26,7 @@ namespace SZMK
         private DateTime _StatusDate;
 
 
-        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor, String List, String Mark, Double Lenght, Double Weight, Status Status,DateTime StatusDate,User User, BlankOrder BlankOrder, Boolean Canceled)
+        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor,String ExecutorWork, String List, String Mark, Double Lenght, Double Weight, Status Status,DateTime StatusDate,User User, BlankOrder BlankOrder, Boolean Canceled)
         {
             if (ID >= 0)
             {
@@ -66,6 +67,14 @@ namespace SZMK
             else
             {
                 throw new Exception("Пустое значение Исполнителя");
+            }
+            if (!String.IsNullOrEmpty(ExecutorWork))
+            {
+                _ExecutorWork = ExecutorWork;
+            }
+            else
+            {
+                throw new Exception("Пустое значение Исполнителя работ");
             }
 
             if (!String.IsNullOrEmpty(List))
@@ -143,7 +152,7 @@ namespace SZMK
             _Canceled = Canceled;
         }
 
-        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя", "Нет листа", "Нет марки", -1, -1, null, DateTime.Now, null, null, false) { }
+        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя","Нет исполнителя работ", "Нет листа", "Нет марки", -1, -1, null, DateTime.Now, null, null, false) { }
 
         public Int64 ID
         {
@@ -201,6 +210,21 @@ namespace SZMK
                 if (!String.IsNullOrEmpty(value))
                 {
                     _Executor = value;
+                }
+            }
+        }
+
+        public String ExecutorWork
+        {
+            get
+            {
+                return _ExecutorWork;
+            }
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    _ExecutorWork = value;
                 }
             }
         }
@@ -325,13 +349,21 @@ namespace SZMK
             }
         }
 
+        public String UserView
+        {
+            get
+            {
+                return _User.Surname+" "+_User.Name.First()+". "+_User.MiddleName.First()+".";
+            }
+        }
+
         public String BlankOrderView
         {
             get
             {
-                if (_BlankOrder.QR.Split('_').Length >= 3)
+                if (_BlankOrder.QR.Split('_').Length >= 4)
                 {
-                    return _BlankOrder.QR.Split('_')[1];
+                    return _BlankOrder.QR.Split('_')[2];
                 }
                 else
                 {
@@ -366,6 +398,22 @@ namespace SZMK
                 _Canceled = value;
             }
         }
-        public String SearchString() => $"{_DataMatrix}_{_Status.Name}_{_BlankOrder}_{_DateCreate.ToString()}_{_User.Name}_{_User.MiddleName}_{_User.Surname}_{SystemArgs.StatusOfOrders.Where(p => p.IDOrder == _ID && p.IDStatus == _Status.ID).Select(p => p.DateCreate).ToString()}";
+
+        public String CanceledView
+        {
+            get
+            {
+                if (_Canceled)
+                {
+                    return "Да";
+                }
+                else
+                {
+                    return "Нет";
+                }
+            }
+        }
+
+        public String SearchString() => $"{_DataMatrix}_{ExecutorWork}_{_Status.Name}_{_BlankOrder}_{_DateCreate.ToString()}_{_User.Name}_{_User.MiddleName}_{_User.Surname}_{SystemArgs.StatusOfOrders.Where(p => p.IDOrder == _ID && p.IDStatus == _Status.ID).Select(p => p.DateCreate).ToString()}";
     }
 }

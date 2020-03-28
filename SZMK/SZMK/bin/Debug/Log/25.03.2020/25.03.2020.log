@@ -1,0 +1,14 @@
+25.03.2020 23:03:20 : Дешифрование пароля успешно завершено
+25.03.2020 23:04:44 : Дешифрование пароля успешно завершено
+25.03.2020 23:04:51 : Хеш-последовательность успешно получена
+25.03.2020 23:04:51 : System.Exception: System.InvalidOperationException: Последовательность не содержит элементов
+   в System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   в SZMK.Request.GetAllOrders() в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Request.cs:строка 983
+   в SZMK.Request.GetAllOrders() в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\Request.cs:строка 1026
+   в SZMK.PDO_F.RefreshOrder() в C:\Users\thedr\Desktop\Works\SZMK\SZMK\SZMK\PDO_F.cs:строка 739
+25.03.2020 23:05:16 : Дешифрование пароля успешно завершено
+25.03.2020 23:05:21 : Хеш-последовательность успешно получена
+25.03.2020 23:06:53 : Дешифрование пароля успешно завершено
+25.03.2020 23:06:59 : Хеш-последовательность успешно получена
+25.03.2020 23:08:32 : Дешифрование пароля успешно завершено
+25.03.2020 23:08:36 : Хеш-последовательность успешно получена

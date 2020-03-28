@@ -18,6 +18,7 @@ namespace SZMK
         private String _Login;
         private String _HashPassword;
         private Boolean _UpdPassword;
+        private List<Status> _StatusesUser;
 
 
         public User(Int64 ID, String Name, String MiddleName, String Surname, DateTime DateCreate, Int64 IDPosition,
@@ -86,6 +87,8 @@ namespace SZMK
             }
 
             _UpdPassword = UpdPassword;
+
+            _StatusesUser = SystemArgs.Statuses.Where(p => p.IDPosition == _Position.ID).ToList();
         }
 
         public User() : this(-1,"Нет имени", "Нет отчества", "Нет фамилии", DateTime.Now, -1, null, "Нет лоигна", "Нет хеша", false) { }
@@ -277,11 +280,11 @@ namespace SZMK
                 return _Mails;
             }
         }
-        public Int64 IDStatus
+        public List<Status> StatusesUser
         {
             get
             {
-                return SystemArgs.Statuses.Where(p => p.IDPosition == _Position.ID).Select(p => p.ID).Single();
+                return _StatusesUser;
             }
         }
         public override String ToString()
