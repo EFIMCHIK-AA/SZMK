@@ -11,9 +11,7 @@ namespace SZMK
 {
     public class SelectedColumn
     {
-        Boolean[] _Visible;
-        Int32[] _DisplayIndex;
-        float[] _FillWeight;
+        List<Column> _Columns;
         public SelectedColumn()
         {
             if (CheckFile())
@@ -29,29 +27,21 @@ namespace SZMK
             }
         }
 
-        public Boolean this[int Index]
+        public Column this[int Index]
         {
             get
             {
-                return _Visible[Index];
+                return _Columns[Index];
             }
             set
             {
-                _Visible[Index] = value;
+                _Columns[Index] = value;
             }
         }
 
-        public Boolean[] GetVisibels()
+        public List<Column> GetColumns()
         {
-            return _Visible;
-        }
-        public Int32[] GetDisplayIndex()
-        {
-            return _DisplayIndex;
-        }
-        public float[] GetFillWeight()
-        {
-            return _FillWeight;
+            return _Columns;
         }
         public bool SetParametrColumnFillWeight()
         {
@@ -68,7 +58,13 @@ namespace SZMK
 
                 foreach (XElement ColumnVisible in xdoc.Element("Columns").Elements("Column"))
                 {
-                    ColumnVisible.Element("FillWeight").SetValue(_FillWeight[i]);
+                    for(int j = 0; j < _Columns.Count; j++)
+                    {
+                        if(_Columns[i].Name== ColumnVisible.Element("Name").Value)
+                        {
+                            ColumnVisible.Element("FillWeight").SetValue(_Columns[i].FillWeight);
+                        }
+                    }
                     i++;
                 }
 
@@ -96,7 +92,13 @@ namespace SZMK
 
                 foreach (XElement ColumnVisible in xdoc.Element("Columns").Elements("Column"))
                 {
-                    ColumnVisible.Element("DisplayIndex").SetValue(_DisplayIndex[i]);
+                    for (int j = 0; j < _Columns.Count; j++)
+                    {
+                        if (_Columns[i].Name == ColumnVisible.Element("Name").Value)
+                        {
+                            ColumnVisible.Element("DisplayIndex").SetValue(_Columns[i].DisplayIndex);
+                        }
+                    }
                     i++;
                 }
 
@@ -124,13 +126,19 @@ namespace SZMK
 
                 foreach (XElement ColumnVisible in xdoc.Element("Columns").Elements("Column"))
                 {
-                    if (_Visible[i])
+                    for (int j = 0; j < _Columns.Count; j++)
                     {
-                        ColumnVisible.Element("Visible").SetValue("true");
-                    }
-                    else
-                    {
-                        ColumnVisible.Element("Visible").SetValue("false");
+                        if (_Columns[i].Name == ColumnVisible.Element("Name").Value)
+                        {
+                            if (_Columns[i].Visible)
+                            {
+                                ColumnVisible.Element("Visible").SetValue("true");
+                            }
+                            else
+                            {
+                                ColumnVisible.Element("Visible").SetValue("false");
+                            }
+                        }
                     }
                     i++;
                 }
@@ -155,23 +163,11 @@ namespace SZMK
 
                 XDocument xdoc = XDocument.Load(SystemArgs.Path.VisualColumnsPath);
 
-                _Visible = new Boolean[xdoc.Element("Columns").Elements("Column").Count()];
-                _DisplayIndex = new Int32[xdoc.Element("Columns").Elements("Column").Count()];
-                _FillWeight = new float[xdoc.Element("Columns").Elements("Column").Count()];
-                int i = 0;
+                _Columns = new List<Column>();
+
                 foreach (XElement ColumnVisible in xdoc.Element("Columns").Elements("Column"))
                 {
-                    if (ColumnVisible.Element("Visible").Value == "true")
-                    {
-                        _Visible[i] = true;
-                    }
-                    else
-                    {
-                        _Visible[i] = false;
-                    }
-                    _DisplayIndex[i] = Convert.ToInt32(ColumnVisible.Element("DisplayIndex").Value);
-                    _FillWeight[i] = float.Parse(ColumnVisible.Element("FillWeight").Value, CultureInfo.InvariantCulture.NumberFormat);
-                    i++;
+                    _Columns.Add(new Column(ColumnVisible.Element("Name").Value, ColumnVisible.Element("Visible").Value=="true"?true:false, Convert.ToInt32(ColumnVisible.Element("DisplayIndex").Value), float.Parse(ColumnVisible.Element("FillWeight").Value, CultureInfo.InvariantCulture.NumberFormat)));
                 }
 
                 return true;

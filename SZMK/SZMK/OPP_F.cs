@@ -474,10 +474,13 @@ namespace SZMK
         }
         private void OPP_F_FormClosing(object sender, FormClosingEventArgs e)
         {
-            for (int i = 0; i < Order_DGV.Columns.Count; i++)
+            for (int i = 0; i < SystemArgs.SelectedColumn.GetColumns().Count; i++)
             {
-                SystemArgs.SelectedColumn.GetDisplayIndex()[i] = Order_DGV.Columns[i].DisplayIndex;
-                SystemArgs.SelectedColumn.GetFillWeight()[i] = Order_DGV.Columns[i].FillWeight;
+                if (Order_DGV.Columns[i].Visible)
+                {
+                    SystemArgs.SelectedColumn[i].DisplayIndex = Order_DGV.Columns[SystemArgs.SelectedColumn[i].Name].DisplayIndex;
+                    SystemArgs.SelectedColumn[i].FillWeight = Order_DGV.Columns[SystemArgs.SelectedColumn[i].Name].FillWeight;
+                }
             }
             SystemArgs.SelectedColumn.SetParametrColumnDisplayIndex();
             SystemArgs.SelectedColumn.SetParametrColumnFillWeight();
@@ -1000,11 +1003,12 @@ namespace SZMK
         {
             try
             {
-                for (int i = 0; i < SystemArgs.SelectedColumn.GetVisibels().Length; i++)
+                List<Column> Temp = SystemArgs.SelectedColumn.GetColumns().OrderBy(p => p.DisplayIndex).ToList();
+                for (int i = 0; i < Temp.Count(); i++)
                 {
-                    Order_DGV.Columns[i].DisplayIndex = SystemArgs.SelectedColumn.GetDisplayIndex()[i];
-                    Order_DGV.Columns[i].Visible = SystemArgs.SelectedColumn[i];
-                    Order_DGV.Columns[i].FillWeight = SystemArgs.SelectedColumn.GetFillWeight()[i];
+                    Order_DGV.Columns[Temp[i].Name].DisplayIndex = Temp[i].DisplayIndex;
+                    Order_DGV.Columns[Temp[i].Name].Visible = Temp[i].Visible;
+                    Order_DGV.Columns[Temp[i].Name].FillWeight = Temp[i].FillWeight;
                 }
             }
             catch (Exception E)
@@ -1020,37 +1024,37 @@ namespace SZMK
             {
                 AR_SelectedColumnDGV_F Dialog = new AR_SelectedColumnDGV_F();
 
-                Dialog.DataMatrix_CB.Checked = SystemArgs.SelectedColumn[0];
-                Dialog.DateCreate_CB.Checked = SystemArgs.SelectedColumn[1];
-                Dialog.Number_CB.Checked = SystemArgs.SelectedColumn[2];
-                Dialog.Executor_CB.Checked = SystemArgs.SelectedColumn[3];
-                Dialog.ExecutorWork_CB.Checked = SystemArgs.SelectedColumn[4];
-                Dialog.List_CB.Checked = SystemArgs.SelectedColumn[5];
-                Dialog.Mark_CB.Checked = SystemArgs.SelectedColumn[6];
-                Dialog.Lenght_CB.Checked = SystemArgs.SelectedColumn[7];
-                Dialog.Height_CB.Checked = SystemArgs.SelectedColumn[8];
-                Dialog.Status_CB.Checked = SystemArgs.SelectedColumn[9];
-                Dialog.User_CB.Checked = SystemArgs.SelectedColumn[10];
-                Dialog.BlankOrder_CB.Checked = SystemArgs.SelectedColumn[11];
-                Dialog.Cancelled_CB.Checked = SystemArgs.SelectedColumn[12];
-                Dialog.StatusDate_CB.Checked = SystemArgs.SelectedColumn[13];
+                Dialog.DataMatrix_CB.Checked = SystemArgs.SelectedColumn[0].Visible;
+                Dialog.DateCreate_CB.Checked = SystemArgs.SelectedColumn[1].Visible;
+                Dialog.Number_CB.Checked = SystemArgs.SelectedColumn[2].Visible;
+                Dialog.Executor_CB.Checked = SystemArgs.SelectedColumn[3].Visible;
+                Dialog.ExecutorWork_CB.Checked = SystemArgs.SelectedColumn[4].Visible;
+                Dialog.List_CB.Checked = SystemArgs.SelectedColumn[5].Visible;
+                Dialog.Mark_CB.Checked = SystemArgs.SelectedColumn[6].Visible;
+                Dialog.Lenght_CB.Checked = SystemArgs.SelectedColumn[7].Visible;
+                Dialog.Height_CB.Checked = SystemArgs.SelectedColumn[8].Visible;
+                Dialog.Status_CB.Checked = SystemArgs.SelectedColumn[9].Visible;
+                Dialog.User_CB.Checked = SystemArgs.SelectedColumn[10].Visible;
+                Dialog.BlankOrder_CB.Checked = SystemArgs.SelectedColumn[11].Visible;
+                Dialog.Cancelled_CB.Checked = SystemArgs.SelectedColumn[12].Visible;
+                Dialog.StatusDate_CB.Checked = SystemArgs.SelectedColumn[13].Visible;
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
-                    SystemArgs.SelectedColumn[0] = Dialog.DataMatrix_CB.Checked;
-                    SystemArgs.SelectedColumn[1] = Dialog.DateCreate_CB.Checked;
-                    SystemArgs.SelectedColumn[2] = Dialog.Number_CB.Checked;
-                    SystemArgs.SelectedColumn[3] = Dialog.Executor_CB.Checked;
-                    SystemArgs.SelectedColumn[4] = Dialog.ExecutorWork_CB.Checked;
-                    SystemArgs.SelectedColumn[5] = Dialog.List_CB.Checked;
-                    SystemArgs.SelectedColumn[6] = Dialog.Mark_CB.Checked;
-                    SystemArgs.SelectedColumn[7] = Dialog.Lenght_CB.Checked;
-                    SystemArgs.SelectedColumn[8] = Dialog.Height_CB.Checked;
-                    SystemArgs.SelectedColumn[9] = Dialog.Status_CB.Checked;
-                    SystemArgs.SelectedColumn[10] = Dialog.User_CB.Checked;
-                    SystemArgs.SelectedColumn[11] = Dialog.BlankOrder_CB.Checked;
-                    SystemArgs.SelectedColumn[12] = Dialog.Cancelled_CB.Checked;
-                    SystemArgs.SelectedColumn[13] = Dialog.StatusDate_CB.Checked;
+                    SystemArgs.SelectedColumn[0].Visible = Dialog.DataMatrix_CB.Checked;
+                    SystemArgs.SelectedColumn[1].Visible = Dialog.DateCreate_CB.Checked;
+                    SystemArgs.SelectedColumn[2].Visible = Dialog.Number_CB.Checked;
+                    SystemArgs.SelectedColumn[3].Visible = Dialog.Executor_CB.Checked;
+                    SystemArgs.SelectedColumn[4].Visible = Dialog.ExecutorWork_CB.Checked;
+                    SystemArgs.SelectedColumn[5].Visible = Dialog.List_CB.Checked;
+                    SystemArgs.SelectedColumn[6].Visible = Dialog.Mark_CB.Checked;
+                    SystemArgs.SelectedColumn[7].Visible = Dialog.Lenght_CB.Checked;
+                    SystemArgs.SelectedColumn[8].Visible = Dialog.Height_CB.Checked;
+                    SystemArgs.SelectedColumn[9].Visible = Dialog.Status_CB.Checked;
+                    SystemArgs.SelectedColumn[10].Visible = Dialog.User_CB.Checked;
+                    SystemArgs.SelectedColumn[11].Visible = Dialog.BlankOrder_CB.Checked;
+                    SystemArgs.SelectedColumn[12].Visible = Dialog.Cancelled_CB.Checked;
+                    SystemArgs.SelectedColumn[13].Visible = Dialog.StatusDate_CB.Checked;
                     SystemArgs.SelectedColumn.SetParametrColumnVisible();
                     MessageBox.Show("Настройки успешно сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SelectedColumnDGV();

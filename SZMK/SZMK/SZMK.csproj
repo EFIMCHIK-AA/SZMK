@@ -201,6 +201,7 @@
     <Compile Include="Chief_PDO_SearchParam_F.Designer.cs">
       <DependentUpon>Chief_PDO_SearchParam_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="Column.cs" />
     <Compile Include="DecodeScanSession.cs" />
     <Compile Include="ALL_FormingReportForAllPosition_F.cs">
       <SubType>Form</SubType>
