@@ -47,12 +47,12 @@ namespace SZMK
                 SystemArgs.SelectedColumn = new SelectedColumn();
 
                 ItemsFilter();
+                SelectedColumnDGV();
                 RefreshOrderAsync();
 
                 Thread.Sleep(2000);
 
                 Dialog.Close();
-                SelectedColumnDGV();
             }
             catch (Exception E)
             {
@@ -288,7 +288,7 @@ namespace SZMK
                     Dialog.Weight_TB.Text = Temp.Weight.ToString();
                     if (Temp.Status.ID != SystemArgs.Statuses.Min(p => p.ID))
                     {
-                        TempStatuses.Add(SystemArgs.Statuses.Where(p => p.ID == Temp.Status.ID - 1).Single());
+                        TempStatuses.Add(SystemArgs.Statuses.Where(p => p.IDPosition == SystemArgs.User.GetPosition().ID-1).Single());
                     }
                     Dialog.Status_CB.DataSource = TempStatuses;
 
@@ -296,7 +296,7 @@ namespace SZMK
                     {
                         String NewDataMatrix = Dialog.Number_TB.Text + "_" + Dialog.List_TB.Text + "_" + Dialog.Mark_TB.Text + "_" + Dialog.Executor_TB.Text + "_" + Dialog.Lenght_TB.Text + "_" + Dialog.Weight_TB.Text;
                         List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == Temp.ID && p.IDStatus == SystemArgs.Statuses.Where(j => j == (Status)Dialog.Status_CB.SelectedItem).Single().ID).Select(p => p.DateCreate).ToList();
-                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text,Temp.ExecutorWork, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled);
+                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text,Temp.ExecutorWork, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled,Temp.Finished);
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
                         {
                             if (Dialog.Status_CB.SelectedIndex != 0)
@@ -490,6 +490,7 @@ namespace SZMK
             FilterCB_TSB.Items.Add("Текущий статус");
             FilterCB_TSB.Items.Add("Все статусы");
             FilterCB_TSB.Items.Add("Аннулированные");
+            FilterCB_TSB.Items.Add("Завершенные");
         }
 
         private List<Order> ResultSearch(String TextSearch)
@@ -693,8 +694,19 @@ namespace SZMK
                     Canceled_TB.BackColor = Color.Lime;
                     Canceled_TB.Text = "Нет";
                 }
+                if (Temp.Finished)
+                {
+                    Finished_TB.BackColor = Color.Orange;
+                    Finished_TB.Text = "Да";
+                }
+                else
+                {
+                    Finished_TB.BackColor = Color.Lime;
+                    Finished_TB.Text = "Нет";
+                }
                 BlankOrder_TB.Text = Temp.BlankOrder.QR;
                 Status_TB.Text = Temp.Status.Name;
+                SelectedOrder_TB.Text = Order_DGV.SelectedRows.Count.ToString();
             }
             else
             {
@@ -708,6 +720,8 @@ namespace SZMK
                 Weight_TB.Text = String.Empty;
                 Canceled_TB.BackColor = Color.FromArgb(233, 245, 255);
                 Canceled_TB.Text = String.Empty;
+                Finished_TB.BackColor = Color.FromArgb(233, 245, 255);
+                Finished_TB.Text = String.Empty;
                 BlankOrder_TB.Text = String.Empty;
                 Status_TB.Text = String.Empty;
             }
@@ -1035,6 +1049,7 @@ namespace SZMK
                 Dialog.BlankOrder_CB.Checked = SystemArgs.SelectedColumn[11].Visible;
                 Dialog.Cancelled_CB.Checked = SystemArgs.SelectedColumn[12].Visible;
                 Dialog.StatusDate_CB.Checked = SystemArgs.SelectedColumn[13].Visible;
+                Dialog.Finished_CB.Checked = SystemArgs.SelectedColumn[14].Visible;
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
@@ -1052,6 +1067,7 @@ namespace SZMK
                     SystemArgs.SelectedColumn[11].Visible = Dialog.BlankOrder_CB.Checked;
                     SystemArgs.SelectedColumn[12].Visible = Dialog.Cancelled_CB.Checked;
                     SystemArgs.SelectedColumn[13].Visible = Dialog.StatusDate_CB.Checked;
+                    SystemArgs.SelectedColumn[14].Visible = Dialog.Finished_CB.Checked;
                     SystemArgs.SelectedColumn.SetParametrColumnVisible();
                     MessageBox.Show("Настройки успешно сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SelectedColumnDGV();

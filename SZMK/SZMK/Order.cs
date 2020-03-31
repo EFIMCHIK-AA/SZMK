@@ -24,9 +24,10 @@ namespace SZMK
         private BlankOrder _BlankOrder;
         private Boolean _Canceled;
         private DateTime _StatusDate;
+        private Boolean _Finished;
 
 
-        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor,String ExecutorWork, String List, String Mark, Double Lenght, Double Weight, Status Status,DateTime StatusDate,User User, BlankOrder BlankOrder, Boolean Canceled)
+        public Order(Int64 ID, String DataMatrix, DateTime DateCreate, String Number, String Executor,String ExecutorWork, String List, String Mark, Double Lenght, Double Weight, Status Status,DateTime StatusDate,User User, BlankOrder BlankOrder, Boolean Canceled,Boolean Finished)
         {
             if (ID >= 0)
             {
@@ -150,9 +151,11 @@ namespace SZMK
             }
 
             _Canceled = Canceled;
+
+            _Finished = Finished;
         }
 
-        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя","Нет исполнителя работ", "Нет листа", "Нет марки", -1, -1, null, DateTime.Now, null, null, false) { }
+        public Order() : this(-1, "Нет DataMatrix", DateTime.Now, "Нет номера заказа", "Нет исполнителя","Нет исполнителя работ", "Нет листа", "Нет марки", -1, -1, null, DateTime.Now, null, null, false,false) { }
 
         public Int64 ID
         {
@@ -404,6 +407,32 @@ namespace SZMK
             get
             {
                 if (_Canceled)
+                {
+                    return "Да";
+                }
+                else
+                {
+                    return "Нет";
+                }
+            }
+        }
+        public Boolean Finished
+        {
+            get
+            {
+                return _Finished;
+            }
+            set
+            {
+                _Finished = value;
+            }
+        }
+
+        public String FinishedView
+        {
+            get
+            {
+                if (_Finished)
                 {
                     return "Да";
                 }

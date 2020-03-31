@@ -90,7 +90,7 @@ namespace SZMK
 
                     _ScanSession.Add(new BlankOrderScanSession(true, Temp));
 
-                    if (Added)
+                   if (Added)
                     {
                         if (ValidationDataMatrix[0] != "ПО")
                         {
@@ -281,7 +281,7 @@ namespace SZMK
         {
             try
             {
-                ValidationDataMatrix[1] = ReplaceNumber(ValidationDataMatrix[1]);
+                ValidationDataMatrix[2] = ReplaceNumber(ValidationDataMatrix[2]);
                 Status?.Invoke(QRBlankOrder);
 
                 for (int i = 5; i < ValidationDataMatrix.Length; i++)

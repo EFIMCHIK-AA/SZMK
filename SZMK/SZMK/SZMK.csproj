@@ -171,6 +171,12 @@
     <Compile Include="AVT_ChangePassword_F.Designer.cs">
       <DependentUpon>AVT_ChangePassword_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chief_PDO_ChangeNumbers_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chief_PDO_ChangeNumbers_F.Designer.cs">
+      <DependentUpon>Chief_PDO_ChangeNumbers_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="Chief_PDO_SelectedColumnDGV_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -461,6 +467,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AVT_ChangePassword_F.resx">
       <DependentUpon>AVT_ChangePassword_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chief_PDO_ChangeNumbers_F.resx">
+      <DependentUpon>Chief_PDO_ChangeNumbers_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Chief_PDO_SelectedColumnDGV_F.resx">
       <DependentUpon>Chief_PDO_SelectedColumnDGV_F.cs</DependentUpon>

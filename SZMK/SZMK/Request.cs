@@ -944,7 +944,7 @@ namespace SZMK
                     {
                         Connect.Open();
 
-                        using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\",\"ExecutorWork\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\"" +
+                        using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\",\"ExecutorWork\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\",\"Finished\"" +
                                                                 $" FROM public.\"Orders\";", Connect))
                         {
                             using (var Reader = Command.ExecuteReader())
@@ -975,7 +975,7 @@ namespace SZMK
                                         }
                                     }
                                     List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == ID && p.IDStatus == TempStatus.ID).Select(p => p.DateCreate).ToList();
-                                    SystemArgs.Orders.Add(new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(5),Reader.GetString(3), Reader.GetString(4), Reader.GetString(6), Reader.GetString(7), Convert.ToDouble(Reader.GetString(8)), Convert.ToDouble(Reader.GetString(9)), TempStatus,StatusDate.Last(), TempUser, TempBlank, Reader.GetBoolean(10)));
+                                    SystemArgs.Orders.Add(new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(5),Reader.GetString(3), Reader.GetString(4), Reader.GetString(6), Reader.GetString(7), Convert.ToDouble(Reader.GetString(8)), Convert.ToDouble(Reader.GetString(9)), TempStatus,StatusDate.Last(), TempUser, TempBlank, Reader.GetBoolean(10), Reader.GetBoolean(11)));
                                 }
                             }
                         }
@@ -1004,7 +1004,7 @@ namespace SZMK
                 {
                     Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\",\"ExecutorWork\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\"" +
+                    using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\",\"ExecutorWork\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\",\"Finished\"" +
                                                                 $" FROM public.\"Orders\" WHERE \"DataMatrix\"='{DataMatrix}';", Connect))
                     {
                         using (var Reader = Command.ExecuteReader())
@@ -1035,7 +1035,7 @@ namespace SZMK
                                     }
                                 }
                                 List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == ID && p.IDStatus == TempStatus.ID).Select(p => p.DateCreate).ToList();
-                                Order NewOrder = new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(5), Reader.GetString(3), Reader.GetString(4), Reader.GetString(6), Reader.GetString(7), Convert.ToDouble(Reader.GetString(8)), Convert.ToDouble(Reader.GetString(9)), TempStatus, StatusDate.Last(), TempUser, TempBlank, Reader.GetBoolean(10));
+                                Order NewOrder = new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(5), Reader.GetString(3), Reader.GetString(4), Reader.GetString(6), Reader.GetString(7), Convert.ToDouble(Reader.GetString(8)), Convert.ToDouble(Reader.GetString(9)), TempStatus, StatusDate.Last(), TempUser, TempBlank, Reader.GetBoolean(10), Reader.GetBoolean(11));
 
                                 Connect.Close();
 
@@ -1080,6 +1080,31 @@ namespace SZMK
                 return -1;
             }
         }
+
+        public bool FinishedOrder(Order Order)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"UPDATE public.\"Orders\" SET \"Finished\"='{Order.Finished}' WHERE \"ID\"='{Order.ID}'; ", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool UpdateExecutorWorkOrder(Order Order)
         {
             try

@@ -235,23 +235,22 @@ namespace SZMK
                                     {
                                         Order Temp = SystemArgs.Orders.Where(p => p.Number == NumberAndList.Number && p.List == NumberAndList.List).Single();
                                         Order NewOrder = Temp;
-
                                         NewOrder.Status = TempStatus;
                                         NewOrder.User = SystemArgs.User;
                                         NewOrder.StatusDate = DateTime.Now;
+                                        NewOrder.Finished = true;
 
                                         if (SystemArgs.Excel.AddToRegistry(NewOrder))
                                         {
                                             TempForBlankOrder.Add(NewOrder);
-
-                                            if (SystemArgs.Request.InsertStatus(NewOrder))
+                                            if (SystemArgs.Request.InsertStatus(NewOrder)&&SystemArgs.Request.FinishedOrder(NewOrder))
                                             {
                                                 SystemArgs.Orders.Remove(Temp);
                                                 SystemArgs.Orders.Add(NewOrder);
                                             }
                                             else
                                             {
-                                                MessageBox.Show("Ошибка при добавлении в базу данных бланка заказа: " + SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                MessageBox.Show("Ошибка добавления в базу данных, обновление статуса " + SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder + " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                             }
                                         }
                                         else
@@ -316,7 +315,7 @@ namespace SZMK
                     {
                         String NewDataMatrix = Dialog.Number_TB.Text + "_" + Dialog.List_TB.Text + "_" + Dialog.Mark_TB.Text + "_" + Dialog.Executor_TB.Text + "_" + Dialog.Lenght_TB.Text + "_" + Dialog.Weight_TB.Text;
                         List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == Temp.ID && p.IDStatus == SystemArgs.Statuses.Where(j => j == (Status)Dialog.Status_CB.SelectedItem).Single().ID).Select(p => p.DateCreate).ToList();
-                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text,Temp.ExecutorWork, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled);
+                        Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text,Temp.ExecutorWork, Dialog.Executor_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled,Temp.Finished);
 
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
                         {
@@ -405,7 +404,7 @@ namespace SZMK
                         case 1:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
-                                View.DataSource = List.Where(p => !p.Canceled).ToList();
+                                View.DataSource = List.Where(p => !p.Canceled&&!p.Finished).ToList();
 
                                 Order_DGV.DataSource = View;
 
@@ -427,10 +426,23 @@ namespace SZMK
                             });
 
                             break;
+                        case 3:
+                            Order_DGV.Invoke((MethodInvoker)delegate ()
+                            {
+                                View.DataSource = List.Where(p => p.Finished).ToList();
+
+                                Order_DGV.DataSource = View;
+
+                                CountOrder_TB.Text = View.Count.ToString();
+
+                                VisibleButton(false);
+                            });
+
+                            break;
                         default:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
-                                View.DataSource = List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID && !p.Canceled).ToList();
+                                View.DataSource = List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID && !p.Canceled && !p.Finished).ToList();
 
                                 Order_DGV.DataSource = View;
 
@@ -491,6 +503,7 @@ namespace SZMK
             FilterCB_TSB.Items.Add("Текущий статус");
             FilterCB_TSB.Items.Add("Все статусы");
             FilterCB_TSB.Items.Add("Аннулированные");
+            FilterCB_TSB.Items.Add("Завершенные");
         }
 
         private List<Order> ResultSearch(String TextSearch)
@@ -694,8 +707,19 @@ namespace SZMK
                     Canceled_TB.BackColor = Color.Lime;
                     Canceled_TB.Text = "Нет";
                 }
+                if (Temp.Finished)
+                {
+                    Finished_TB.BackColor = Color.Orange;
+                    Finished_TB.Text = "Да";
+                }
+                else
+                {
+                    Finished_TB.BackColor = Color.Lime;
+                    Finished_TB.Text = "Нет";
+                }
                 BlankOrder_TB.Text = Temp.BlankOrder.QR;
                 Status_TB.Text = Temp.Status.Name;
+                SelectedOrder_TB.Text = Order_DGV.SelectedRows.Count.ToString();
             }
             else
             {
@@ -709,6 +733,8 @@ namespace SZMK
                 Weight_TB.Text = String.Empty;
                 Canceled_TB.BackColor = Color.FromArgb(233, 245, 255);
                 Canceled_TB.Text = String.Empty;
+                Finished_TB.BackColor = Color.FromArgb(233, 245, 255);
+                Finished_TB.Text = String.Empty;
                 BlankOrder_TB.Text = String.Empty;
                 Status_TB.Text = String.Empty;
             }
@@ -1038,6 +1064,7 @@ namespace SZMK
                 Dialog.BlankOrder_CB.Checked = SystemArgs.SelectedColumn[11].Visible;
                 Dialog.Cancelled_CB.Checked = SystemArgs.SelectedColumn[12].Visible;
                 Dialog.StatusDate_CB.Checked = SystemArgs.SelectedColumn[13].Visible;
+                Dialog.Finished_CB.Checked = SystemArgs.SelectedColumn[14].Visible;
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
@@ -1055,6 +1082,7 @@ namespace SZMK
                     SystemArgs.SelectedColumn[11].Visible = Dialog.BlankOrder_CB.Checked;
                     SystemArgs.SelectedColumn[12].Visible = Dialog.Cancelled_CB.Checked;
                     SystemArgs.SelectedColumn[13].Visible = Dialog.StatusDate_CB.Checked;
+                    SystemArgs.SelectedColumn[14].Visible = Dialog.Finished_CB.Checked;
                     SystemArgs.SelectedColumn.SetParametrColumnVisible();
                     MessageBox.Show("Настройки успешно сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SelectedColumnDGV();

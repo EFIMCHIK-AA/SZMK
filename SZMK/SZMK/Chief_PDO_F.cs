@@ -218,12 +218,12 @@ namespace SZMK
                         Order NewOrder;
                         if (Temp.Status!= SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single())
                         {
-                            NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text,Temp.ExecutorWork, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), DateTime.Now, SystemArgs.User, Temp.BlankOrder, Temp.Canceled);
+                            NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text,Temp.ExecutorWork, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), DateTime.Now, SystemArgs.User, Temp.BlankOrder, Temp.Canceled,Temp.Finished);
                         }
                         else
                         {
                             List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == Temp.ID && p.IDStatus == SystemArgs.Statuses.Where(j => j == (Status)Dialog.Status_CB.SelectedItem).Single().ID).Select(p => p.DateCreate).ToList();
-                            NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text,Temp.ExecutorWork, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled);
+                            NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text,Temp.ExecutorWork, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled,Temp.Finished);
                         }
 
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
@@ -329,8 +329,19 @@ namespace SZMK
                     Canceled_TB.BackColor = Color.Lime;
                     Canceled_TB.Text = "Нет";
                 }
+                if (Temp.Finished)
+                {
+                    Finished_TB.BackColor = Color.Orange;
+                    Finished_TB.Text = "Да";
+                }
+                else
+                {
+                    Finished_TB.BackColor = Color.Lime;
+                    Finished_TB.Text = "Нет";
+                }
                 BlankOrder_TB.Text = Temp.BlankOrder.QR;
                 Status_TB.Text = Temp.Status.Name;
+                SelectedOrder_TB.Text = Order_DGV.SelectedRows.Count.ToString();
             }
             else
             {
@@ -344,6 +355,8 @@ namespace SZMK
                 Weight_TB.Text = String.Empty;
                 Canceled_TB.BackColor = Color.FromArgb(233, 245, 255);
                 Canceled_TB.Text = String.Empty;
+                Finished_TB.BackColor = Color.FromArgb(233, 245, 255);
+                Finished_TB.Text = String.Empty;
                 BlankOrder_TB.Text = String.Empty;
                 Status_TB.Text = String.Empty;
             }
@@ -566,6 +579,7 @@ namespace SZMK
         {
             FilterCB_TSB.Items.Add("Все статусы");
             FilterCB_TSB.Items.Add("Аннулированные");
+            FilterCB_TSB.Items.Add("Завершенные");
         }
 
         private List<Order> ResultSearch(String TextSearch)
@@ -605,7 +619,7 @@ namespace SZMK
                         case 0:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
-                                View.DataSource = List.Where(p => !p.Canceled).ToList();
+                                View.DataSource = List.Where(p => !p.Canceled&&!p.Finished).ToList();
 
                                 Order_DGV.DataSource = View;
 
@@ -635,8 +649,31 @@ namespace SZMK
                                 if (View.Count > 0)
                                 {
                                     CanceledOrder_TSB.Text = "Восстановить";
-                                    CanceledOrder_TSB.Visible = true;
+                                    VisibleButton(true);
                                 }
+                                else
+                                {
+                                    VisibleButton(false);
+                                }
+                            });
+                            break;
+                        case 2:
+                            Order_DGV.Invoke((MethodInvoker)delegate ()
+                            {
+                                View.DataSource = List.Where(p => p.Finished).ToList();
+
+                                Order_DGV.DataSource = View;
+
+                                CountOrder_TB.Text = View.Count.ToString();
+                                if (View.Count() > 0)
+                                {
+                                    VisibleButton(true);
+                                }
+                                else
+                                {
+                                    VisibleButton(false);
+                                }
+
                             });
 
                             break;
@@ -655,14 +692,16 @@ namespace SZMK
                 ChangeOrder_TSB.Visible = true;
                 DeleteOrder_TSB.Visible = true;
                 CanceledOrder_TSB.Visible = true;
-                Report_TSM.Visible = true;
+                ChangeStatuses_TSM.Enabled = true;
+                SelectionReport_TSM.Enabled = true;
             }
             else
             {
                 ChangeOrder_TSB.Visible = false;
                 DeleteOrder_TSB.Visible = false;
                 CanceledOrder_TSB.Visible = false;
-                Report_TSM.Visible = false;
+                ChangeStatuses_TSM.Enabled = false;
+                SelectionReport_TSM.Enabled = false;
             }
         }
 
@@ -883,6 +922,7 @@ namespace SZMK
                                 throw new Exception("Ошибка обновления данных черетежа");
                             }
                         }
+                        DisplayAsync(SystemArgs.Orders);
                         MessageBox.Show("Статусы успешно изменены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
@@ -942,6 +982,7 @@ namespace SZMK
                 Dialog.BlankOrder_CB.Checked = SystemArgs.SelectedColumn[11].Visible;
                 Dialog.Cancelled_CB.Checked = SystemArgs.SelectedColumn[12].Visible;
                 Dialog.StatusDate_CB.Checked = SystemArgs.SelectedColumn[13].Visible;
+                Dialog.Finished_CB.Checked = SystemArgs.SelectedColumn[14].Visible;
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
@@ -959,6 +1000,7 @@ namespace SZMK
                     SystemArgs.SelectedColumn[11].Visible = Dialog.BlankOrder_CB.Checked;
                     SystemArgs.SelectedColumn[12].Visible = Dialog.Cancelled_CB.Checked;
                     SystemArgs.SelectedColumn[13].Visible = Dialog.StatusDate_CB.Checked;
+                    SystemArgs.SelectedColumn[14].Visible = Dialog.Finished_CB.Checked;
                     SystemArgs.SelectedColumn.SetParametrColumnVisible();
                     MessageBox.Show("Настройки успешно сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SelectedColumnDGV();
@@ -967,6 +1009,46 @@ namespace SZMK
             catch (Exception E)
             {
                 SystemArgs.PrintLog(E.ToString());
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ChangeNubmersOrders_TSM_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Order> Selections = new List<Order>();
+                if (Order_DGV.CurrentCell.RowIndex >= 0)
+                {
+                    Chief_PDO_ChangeNumbers_F Dialog = new Chief_PDO_ChangeNumbers_F();
+                    if (Dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        for (int i = 0; i < Order_DGV.SelectedRows.Count; i++)
+                        {
+                            Order ChangedOrder = (Order)(View[Order_DGV.SelectedRows[i].Index]);
+                            ChangedOrder.Number = Dialog.Number_TB.Text;
+
+                            if (SystemArgs.Request.UpdateOrder(ChangedOrder))
+                            {
+                                SystemArgs.Orders.Remove((Order)(View[Order_DGV.SelectedRows[i].Index]));
+                                SystemArgs.Orders.Add(ChangedOrder);
+                            }
+                            else
+                            {
+                                throw new Exception("Ошибка обновления данных черетежа");
+                            }
+                        }
+                        DisplayAsync(SystemArgs.Orders);
+                        MessageBox.Show("Номера заказов успешно изменены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Необходимо выбрать объекты");
+                }
+            }
+            catch (Exception E)
+            {
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

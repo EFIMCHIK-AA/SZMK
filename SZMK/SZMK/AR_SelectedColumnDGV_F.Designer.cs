@@ -30,9 +30,6 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
-            this.Cancel_B = new System.Windows.Forms.Button();
-            this.OK_B = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -57,22 +54,23 @@
             this.User_CB = new System.Windows.Forms.CheckBox();
             this.BlankOrder_CB = new System.Windows.Forms.CheckBox();
             this.Cancelled_CB = new System.Windows.Forms.CheckBox();
-            this.StatusDate_CB = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.Cancel_B = new System.Windows.Forms.Button();
+            this.OK_B = new System.Windows.Forms.Button();
+            this.StatusDate_CB = new System.Windows.Forms.CheckBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Finished_CB = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.White;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.Cancel_B, 0, 17);
-            this.tableLayoutPanel1.Controls.Add(this.OK_B, 0, 16);
-            this.tableLayoutPanel1.Controls.Add(this.label17, 0, 15);
             this.tableLayoutPanel1.Controls.Add(this.label16, 0, 14);
             this.tableLayoutPanel1.Controls.Add(this.label15, 0, 13);
             this.tableLayoutPanel1.Controls.Add(this.label14, 0, 12);
@@ -97,14 +95,20 @@
             this.tableLayoutPanel1.Controls.Add(this.User_CB, 1, 12);
             this.tableLayoutPanel1.Controls.Add(this.BlankOrder_CB, 1, 13);
             this.tableLayoutPanel1.Controls.Add(this.Cancelled_CB, 1, 14);
-            this.tableLayoutPanel1.Controls.Add(this.StatusDate_CB, 1, 15);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.Cancel_B, 0, 18);
+            this.tableLayoutPanel1.Controls.Add(this.OK_B, 0, 17);
+            this.tableLayoutPanel1.Controls.Add(this.StatusDate_CB, 1, 15);
+            this.tableLayoutPanel1.Controls.Add(this.label17, 0, 15);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 16);
+            this.tableLayoutPanel1.Controls.Add(this.Finished_CB, 1, 16);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 19;
+            this.tableLayoutPanel1.RowCount = 20;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -123,8 +127,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(326, 480);
-            this.tableLayoutPanel1.TabIndex = 1;
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(326, 504);
+            this.tableLayoutPanel1.TabIndex = 2;
             // 
             // label4
             // 
@@ -142,53 +146,6 @@
             this.label4.TabIndex = 34;
             this.label4.Text = "Выбор отображаемых стобцов";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Cancel_B
-            // 
-            this.Cancel_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.Cancel_B, 3);
-            this.Cancel_B.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel_B.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Cancel_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
-            this.Cancel_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
-            this.Cancel_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
-            this.Cancel_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Cancel_B.Location = new System.Drawing.Point(5, 443);
-            this.Cancel_B.Margin = new System.Windows.Forms.Padding(5);
-            this.Cancel_B.Name = "Cancel_B";
-            this.Cancel_B.Size = new System.Drawing.Size(316, 31);
-            this.Cancel_B.TabIndex = 33;
-            this.Cancel_B.Text = "Отмена";
-            this.Cancel_B.UseVisualStyleBackColor = false;
-            // 
-            // OK_B
-            // 
-            this.OK_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.OK_B, 3);
-            this.OK_B.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OK_B.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OK_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
-            this.OK_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
-            this.OK_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
-            this.OK_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OK_B.Location = new System.Drawing.Point(5, 397);
-            this.OK_B.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
-            this.OK_B.Name = "OK_B";
-            this.OK_B.Size = new System.Drawing.Size(316, 34);
-            this.OK_B.TabIndex = 32;
-            this.OK_B.Text = "Применить";
-            this.OK_B.UseVisualStyleBackColor = false;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label17.Location = new System.Drawing.Point(50, 371);
-            this.label17.Margin = new System.Windows.Forms.Padding(50, 5, 5, 5);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(169, 14);
-            this.label17.TabIndex = 31;
-            this.label17.Text = "Дата обновления";
             // 
             // label16
             // 
@@ -454,17 +411,6 @@
             this.Cancelled_CB.TabIndex = 13;
             this.Cancelled_CB.UseVisualStyleBackColor = true;
             // 
-            // StatusDate_CB
-            // 
-            this.StatusDate_CB.AutoSize = true;
-            this.StatusDate_CB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StatusDate_CB.Location = new System.Drawing.Point(244, 371);
-            this.StatusDate_CB.Margin = new System.Windows.Forms.Padding(20, 5, 3, 5);
-            this.StatusDate_CB.Name = "StatusDate_CB";
-            this.StatusDate_CB.Size = new System.Drawing.Size(79, 14);
-            this.StatusDate_CB.TabIndex = 14;
-            this.StatusDate_CB.UseVisualStyleBackColor = true;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -487,19 +433,96 @@
             this.label3.TabIndex = 17;
             this.label3.Text = "Дата создания";
             // 
+            // Cancel_B
+            // 
+            this.Cancel_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.Cancel_B, 3);
+            this.Cancel_B.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Cancel_B.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Cancel_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
+            this.Cancel_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
+            this.Cancel_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
+            this.Cancel_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Cancel_B.Location = new System.Drawing.Point(5, 467);
+            this.Cancel_B.Margin = new System.Windows.Forms.Padding(5);
+            this.Cancel_B.Name = "Cancel_B";
+            this.Cancel_B.Size = new System.Drawing.Size(316, 31);
+            this.Cancel_B.TabIndex = 33;
+            this.Cancel_B.Text = "Отмена";
+            this.Cancel_B.UseVisualStyleBackColor = false;
+            // 
+            // OK_B
+            // 
+            this.OK_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.tableLayoutPanel1.SetColumnSpan(this.OK_B, 3);
+            this.OK_B.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.OK_B.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.OK_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
+            this.OK_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
+            this.OK_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
+            this.OK_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OK_B.Location = new System.Drawing.Point(5, 421);
+            this.OK_B.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
+            this.OK_B.Name = "OK_B";
+            this.OK_B.Size = new System.Drawing.Size(316, 34);
+            this.OK_B.TabIndex = 32;
+            this.OK_B.Text = "Применить";
+            this.OK_B.UseVisualStyleBackColor = false;
+            // 
+            // StatusDate_CB
+            // 
+            this.StatusDate_CB.AutoSize = true;
+            this.StatusDate_CB.Location = new System.Drawing.Point(244, 371);
+            this.StatusDate_CB.Margin = new System.Windows.Forms.Padding(20, 5, 3, 5);
+            this.StatusDate_CB.Name = "StatusDate_CB";
+            this.StatusDate_CB.Size = new System.Drawing.Size(15, 14);
+            this.StatusDate_CB.TabIndex = 14;
+            this.StatusDate_CB.UseVisualStyleBackColor = true;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(50, 371);
+            this.label17.Margin = new System.Windows.Forms.Padding(50, 5, 5, 5);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(96, 13);
+            this.label17.TabIndex = 31;
+            this.label17.Text = "Дата обновления";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Location = new System.Drawing.Point(50, 395);
+            this.label1.Margin = new System.Windows.Forms.Padding(50, 5, 5, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(169, 14);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "Завершен";
+            // 
+            // Finished_CB
+            // 
+            this.Finished_CB.AutoSize = true;
+            this.Finished_CB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Finished_CB.Location = new System.Drawing.Point(244, 395);
+            this.Finished_CB.Margin = new System.Windows.Forms.Padding(20, 5, 3, 5);
+            this.Finished_CB.Name = "Finished_CB";
+            this.Finished_CB.Size = new System.Drawing.Size(79, 14);
+            this.Finished_CB.TabIndex = 36;
+            this.Finished_CB.UseVisualStyleBackColor = true;
+            // 
             // AR_SelectedColumnDGV_F
             // 
-            this.AcceptButton = this.OK_B;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.Cancel_B;
-            this.ClientSize = new System.Drawing.Size(326, 480);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(326, 504);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(342, 519);
+            this.MaximumSize = new System.Drawing.Size(342, 543);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(342, 519);
+            this.MinimumSize = new System.Drawing.Size(342, 543);
             this.Name = "AR_SelectedColumnDGV_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор отображаемых столбцов";
@@ -513,9 +536,6 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button Cancel_B;
-        private System.Windows.Forms.Button OK_B;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
@@ -540,8 +560,13 @@
         public System.Windows.Forms.CheckBox User_CB;
         public System.Windows.Forms.CheckBox BlankOrder_CB;
         public System.Windows.Forms.CheckBox Cancelled_CB;
-        public System.Windows.Forms.CheckBox StatusDate_CB;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button Cancel_B;
+        private System.Windows.Forms.Button OK_B;
+        public System.Windows.Forms.CheckBox StatusDate_CB;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.CheckBox Finished_CB;
     }
 }

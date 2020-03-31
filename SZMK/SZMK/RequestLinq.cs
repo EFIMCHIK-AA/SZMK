@@ -21,7 +21,7 @@ namespace SZMK
                         return true;
                     }
                 }
-                else if (Temp[0] != "ПО" && Temp[1] == "СЗМК" && SystemArgs.BlankOrders.Where(p=>p.ID == GetOldIDBlankOrder(Orders).IDBlankOrder).Select(p=>p.QR).Single().Split('_')[0]!="ПО")
+                else if (Temp[0] != "ПО" && Temp[1] == "СЗМК" && GetOldIDBlankOrder(Orders)!=-1)
                 {
                     if (SystemArgs.Request.UpdateBlankOrder(QR,Orders))
                     {
@@ -55,7 +55,7 @@ namespace SZMK
                 return false;
             }
         }
-        public BlankOrderOfOrder GetOldIDBlankOrder(List<Order> Orders)
+        public Int64 GetOldIDBlankOrder(List<Order> Orders)
         {
             try
             {
@@ -64,15 +64,15 @@ namespace SZMK
                     var Temp = SystemArgs.BlankOrderOfOrders.Where(p => p.IDOrder == order.ID).OrderBy(p=>p.DateCreate).ToList();
                     if (Temp.Count() != 0)
                     {
-                        return Temp.Last();
+                        return Temp.Last().IDBlankOrder;
                     }
                 }
 
-                return null;
+                return -1;
             }
             catch
             {
-                return null;
+                return -1;
             }
         }
         public Int32 CheckedNumberAndList(String Number, String List)
