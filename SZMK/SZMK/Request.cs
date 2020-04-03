@@ -498,6 +498,29 @@ namespace SZMK
                 return false;
             }
         }
+        public bool UpdateDateCreateStatus(Order Order)
+        {
+            try
+            {
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"UPDATE public.\"AddStatus\" SET \"DateCreate\"='{Order.StatusDate}', \"ID_User\"='{Order.User.ID}' WHERE \"ID_Order\"='{Order.ID}' AND \"ID_Status\"='{Order.Status.ID}';", Connect))
+                    {
+                        Command.ExecuteNonQuery();
+                    }
+
+                    Connect.Close();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public bool DownGradeStatus(Order Order)
         {
             try
@@ -735,7 +758,7 @@ namespace SZMK
                         {
                             while (Reader.Read())
                             {
-                                if (Reader.GetInt64(0) == 1)
+                                if (Reader.GetInt64(0) >= 1)
                                 {
                                     return true;
                                 }
@@ -917,7 +940,7 @@ namespace SZMK
                 {
                     Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"UPDATE public.\"Orders\" SET \"DataMatrix\" = '{Order.DataMatrix}', \"Executor\" = '{Order.Executor}', \"Number\" = '{Order.Number}', \"List\" = '{Order.List}', \"Mark\" = '{Order.Mark}', \"Lenght\" = '{Order.Lenght}', \"Weight\" = '{Order.Weight}', \"Canceled\" = '{Order.Canceled}' WHERE \"ID\" = '{Order.ID}'; ", Connect))
+                    using (var Command = new NpgsqlCommand($"UPDATE public.\"Orders\" SET \"DataMatrix\" = '{Order.DataMatrix}', \"Executor\" = '{Order.Executor}',\"ExecutorWork\" = '{Order.ExecutorWork}', \"Number\" = '{Order.Number}', \"List\" = '{Order.List}', \"Mark\" = '{Order.Mark}', \"Lenght\" = '{Order.Lenght}', \"Weight\" = '{Order.Weight}', \"Canceled\" = '{Order.Canceled}',\"Finished\" = '{Order.Finished}' WHERE \"ID\" = '{Order.ID}'; ", Connect))
                     {
                         Command.ExecuteNonQuery();
                     }
@@ -996,61 +1019,61 @@ namespace SZMK
             }
         }
 
-        public Order GetOrder(String DataMatrix)
-        {
-            try
-            {
-                using (var Connect = new NpgsqlConnection(_ConnectString))
-                {
-                    Connect.Open();
+        //public Order GetOrder(String DataMatrix)
+        //{
+        //    try
+        //    {
+        //        using (var Connect = new NpgsqlConnection(_ConnectString))
+        //        {
+        //            Connect.Open();
 
-                    using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\",\"ExecutorWork\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\",\"Finished\"" +
-                                                                $" FROM public.\"Orders\" WHERE \"DataMatrix\"='{DataMatrix}';", Connect))
-                    {
-                        using (var Reader = Command.ExecuteReader())
-                        {
-                            while (Reader.Read())
-                            {
-                                Int64 ID = Reader.GetInt64(0);
+        //            using (var Command = new NpgsqlCommand($"SELECT \"ID\", \"DateCreate\", \"DataMatrix\", \"Executor\",\"ExecutorWork\", \"Number\", \"List\", \"Mark\", \"Lenght\", \"Weight\", \"Canceled\",\"Finished\"" +
+        //                                                        $" FROM public.\"Orders\" WHERE \"DataMatrix\"='{DataMatrix}';", Connect))
+        //            {
+        //                using (var Reader = Command.ExecuteReader())
+        //                {
+        //                    while (Reader.Read())
+        //                    {
+        //                        Int64 ID = Reader.GetInt64(0);
 
-                                StatusOfOrder StatusID = SystemArgs.StatusOfOrders.Where(p=>p.IDOrder==ID).OrderBy(p=>p.DateCreate).Last();
+        //                        StatusOfOrder StatusID = SystemArgs.StatusOfOrders.Where(p=>p.IDOrder==ID).OrderBy(p=>p.DateCreate).Last();
 
-                                Int64 UserID = -1;
+        //                        Int64 UserID = -1;
 
-                                Status TempStatus = SystemArgs.Statuses.Where(p => p.ID == StatusID.IDStatus).Single();
-                                UserID = StatusID.IDUser;
+        //                        Status TempStatus = SystemArgs.Statuses.Where(p => p.ID == StatusID.IDStatus).Single();
+        //                        UserID = StatusID.IDUser;
 
-                                User TempUser = (from p in SystemArgs.Users
-                                                 where p.ID == UserID
-                                                 select p).Single();
+        //                        User TempUser = (from p in SystemArgs.Users
+        //                                         where p.ID == UserID
+        //                                         select p).Single();
 
-                                BlankOrder TempBlank = new BlankOrder();
+        //                        BlankOrder TempBlank = new BlankOrder();
 
-                                if (SystemArgs.BlankOrderOfOrders.Count > 0)
-                                {
-                                    List<Int64> BlankOrderID = SystemArgs.BlankOrderOfOrders.Where(p => p.IDOrder == ID).OrderBy(p => p.DateCreate).Select(p => p.IDBlankOrder).ToList();
-                                    if (BlankOrderID.Count > 0)
-                                    {
-                                        TempBlank = SystemArgs.BlankOrders.Where(p => p.ID == BlankOrderID.Last()).Single();
-                                    }
-                                }
-                                List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == ID && p.IDStatus == TempStatus.ID).Select(p => p.DateCreate).ToList();
-                                Order NewOrder = new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(5), Reader.GetString(3), Reader.GetString(4), Reader.GetString(6), Reader.GetString(7), Convert.ToDouble(Reader.GetString(8)), Convert.ToDouble(Reader.GetString(9)), TempStatus, StatusDate.Last(), TempUser, TempBlank, Reader.GetBoolean(10), Reader.GetBoolean(11));
+        //                        if (SystemArgs.BlankOrderOfOrders.Count > 0)
+        //                        {
+        //                            List<Int64> BlankOrderID = SystemArgs.BlankOrderOfOrders.Where(p => p.IDOrder == ID).OrderBy(p => p.DateCreate).Select(p => p.IDBlankOrder).ToList();
+        //                            if (BlankOrderID.Count > 0)
+        //                            {
+        //                                TempBlank = SystemArgs.BlankOrders.Where(p => p.ID == BlankOrderID.Last()).Single();
+        //                            }
+        //                        }
+        //                        List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == ID && p.IDStatus == TempStatus.ID).Select(p => p.DateCreate).ToList();
+        //                        Order NewOrder = new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(5), Reader.GetString(3), Reader.GetString(4), Reader.GetString(6), Reader.GetString(7), Convert.ToDouble(Reader.GetString(8)), Convert.ToDouble(Reader.GetString(9)), TempStatus, StatusDate.Last(), TempUser, TempBlank, Reader.GetBoolean(10), Reader.GetBoolean(11));
 
-                                Connect.Close();
+        //                        Connect.Close();
 
-                                return NewOrder;
-                            }
-                        }
-                    }
-                }
-                return null;
-            }
-            catch
-            {
-                return null;
-            }
-        }
+        //                        return NewOrder;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        return null;
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
 
         public Int64 GetIDOrder(String Number,String List)
         {

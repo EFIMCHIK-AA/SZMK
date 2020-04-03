@@ -46,6 +46,10 @@
             this.Weight_TB = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.Status_CB = new System.Windows.Forms.ComboBox();
+            this.ExecutorWork_TB = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.Finished_CB = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,8 +58,6 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.Cancel_B, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.OK_B, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
@@ -69,13 +71,21 @@
             this.tableLayoutPanel1.Controls.Add(this.Mark_TB, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.Lenght_TB, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.Weight_TB, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.Status_CB, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.OK_B, 0, 12);
+            this.tableLayoutPanel1.Controls.Add(this.Cancel_B, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.Status_CB, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.ExecutorWork_TB, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.Finished_CB, 1, 8);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 12;
+            this.tableLayoutPanel1.RowCount = 14;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -85,9 +95,9 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(396, 351);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(396, 398);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // Cancel_B
@@ -95,16 +105,15 @@
             this.Cancel_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.tableLayoutPanel1.SetColumnSpan(this.Cancel_B, 2);
             this.Cancel_B.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel_B.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Cancel_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
             this.Cancel_B.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
             this.Cancel_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
             this.Cancel_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.Cancel_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Cancel_B.Location = new System.Drawing.Point(5, 313);
-            this.Cancel_B.Margin = new System.Windows.Forms.Padding(5, 0, 5, 7);
+            this.Cancel_B.Location = new System.Drawing.Point(5, 319);
+            this.Cancel_B.Margin = new System.Windows.Forms.Padding(5, 10, 5, 7);
             this.Cancel_B.Name = "Cancel_B";
-            this.Cancel_B.Size = new System.Drawing.Size(386, 33);
+            this.Cancel_B.Size = new System.Drawing.Size(386, 30);
             this.Cancel_B.TabIndex = 18;
             this.Cancel_B.Text = "Отменить";
             this.Cancel_B.UseVisualStyleBackColor = false;
@@ -114,16 +123,15 @@
             this.OK_B.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.tableLayoutPanel1.SetColumnSpan(this.OK_B, 2);
             this.OK_B.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OK_B.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OK_B.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(223)))), ((int)(((byte)(253)))));
             this.OK_B.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
             this.OK_B.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(217)))), ((int)(((byte)(254)))));
             this.OK_B.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.OK_B.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OK_B.Location = new System.Drawing.Point(5, 273);
+            this.OK_B.Location = new System.Drawing.Point(5, 363);
             this.OK_B.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.OK_B.Name = "OK_B";
-            this.OK_B.Size = new System.Drawing.Size(386, 33);
+            this.OK_B.Size = new System.Drawing.Size(386, 27);
             this.OK_B.TabIndex = 17;
             this.OK_B.Text = "Сохранить изменения";
             this.OK_B.UseVisualStyleBackColor = false;
@@ -151,7 +159,7 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Location = new System.Drawing.Point(3, 55);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 23);
+            this.label2.Size = new System.Drawing.Size(106, 23);
             this.label2.TabIndex = 1;
             this.label2.Text = "Исполнитель";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -162,7 +170,7 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Location = new System.Drawing.Point(3, 78);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 23);
+            this.label3.Size = new System.Drawing.Size(106, 23);
             this.label3.TabIndex = 2;
             this.label3.Text = "Номер заказа";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -173,7 +181,7 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Location = new System.Drawing.Point(3, 101);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 23);
+            this.label4.Size = new System.Drawing.Size(106, 23);
             this.label4.TabIndex = 3;
             this.label4.Text = "Лист";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -184,7 +192,7 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Location = new System.Drawing.Point(3, 124);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 23);
+            this.label5.Size = new System.Drawing.Size(106, 23);
             this.label5.TabIndex = 4;
             this.label5.Text = "Марка";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -195,7 +203,7 @@
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Location = new System.Drawing.Point(3, 147);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(80, 23);
+            this.label6.Size = new System.Drawing.Size(106, 23);
             this.label6.TabIndex = 5;
             this.label6.Text = "Длина";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -206,7 +214,7 @@
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Location = new System.Drawing.Point(3, 170);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 23);
+            this.label7.Size = new System.Drawing.Size(106, 23);
             this.label7.TabIndex = 6;
             this.label7.Text = "Вес";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -215,60 +223,59 @@
             // 
             this.Executor_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Executor_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Executor_TB.Location = new System.Drawing.Point(89, 55);
+            this.Executor_TB.Location = new System.Drawing.Point(115, 55);
             this.Executor_TB.Margin = new System.Windows.Forms.Padding(3, 0, 5, 3);
             this.Executor_TB.Name = "Executor_TB";
-            this.Executor_TB.Size = new System.Drawing.Size(302, 20);
+            this.Executor_TB.Size = new System.Drawing.Size(276, 20);
             this.Executor_TB.TabIndex = 9;
             // 
             // Number_TB
             // 
             this.Number_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Number_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Number_TB.Location = new System.Drawing.Point(89, 78);
+            this.Number_TB.Location = new System.Drawing.Point(115, 78);
             this.Number_TB.Margin = new System.Windows.Forms.Padding(3, 0, 5, 3);
             this.Number_TB.Name = "Number_TB";
-            this.Number_TB.Size = new System.Drawing.Size(302, 20);
+            this.Number_TB.Size = new System.Drawing.Size(276, 20);
             this.Number_TB.TabIndex = 10;
             // 
             // List_TB
             // 
             this.List_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.List_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.List_TB.Location = new System.Drawing.Point(89, 101);
+            this.List_TB.Location = new System.Drawing.Point(115, 101);
             this.List_TB.Margin = new System.Windows.Forms.Padding(3, 0, 5, 3);
             this.List_TB.Name = "List_TB";
-            this.List_TB.Size = new System.Drawing.Size(302, 20);
+            this.List_TB.Size = new System.Drawing.Size(276, 20);
             this.List_TB.TabIndex = 11;
             // 
             // Mark_TB
             // 
             this.Mark_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Mark_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Mark_TB.Location = new System.Drawing.Point(89, 124);
+            this.Mark_TB.Location = new System.Drawing.Point(115, 124);
             this.Mark_TB.Margin = new System.Windows.Forms.Padding(3, 0, 5, 3);
             this.Mark_TB.Name = "Mark_TB";
-            this.Mark_TB.Size = new System.Drawing.Size(302, 20);
+            this.Mark_TB.Size = new System.Drawing.Size(276, 20);
             this.Mark_TB.TabIndex = 12;
             // 
             // Lenght_TB
             // 
             this.Lenght_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Lenght_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Lenght_TB.Location = new System.Drawing.Point(89, 147);
+            this.Lenght_TB.Location = new System.Drawing.Point(115, 147);
             this.Lenght_TB.Margin = new System.Windows.Forms.Padding(3, 0, 5, 3);
             this.Lenght_TB.Name = "Lenght_TB";
-            this.Lenght_TB.Size = new System.Drawing.Size(302, 20);
+            this.Lenght_TB.Size = new System.Drawing.Size(276, 20);
             this.Lenght_TB.TabIndex = 13;
             // 
             // Weight_TB
             // 
             this.Weight_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.Weight_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Weight_TB.Location = new System.Drawing.Point(89, 170);
+            this.Weight_TB.Location = new System.Drawing.Point(115, 170);
             this.Weight_TB.Margin = new System.Windows.Forms.Padding(3, 0, 5, 3);
             this.Weight_TB.Name = "Weight_TB";
-            this.Weight_TB.Size = new System.Drawing.Size(302, 20);
+            this.Weight_TB.Size = new System.Drawing.Size(276, 20);
             this.Weight_TB.TabIndex = 14;
             // 
             // label8
@@ -280,7 +287,7 @@
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label8.Location = new System.Drawing.Point(5, 200);
+            this.label8.Location = new System.Drawing.Point(5, 243);
             this.label8.Margin = new System.Windows.Forms.Padding(5, 7, 5, 10);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(386, 35);
@@ -292,28 +299,69 @@
             // 
             this.Status_CB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.tableLayoutPanel1.SetColumnSpan(this.Status_CB, 2);
-            this.Status_CB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Status_CB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Status_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Status_CB.FormattingEnabled = true;
-            this.Status_CB.Location = new System.Drawing.Point(5, 245);
+            this.Status_CB.Location = new System.Drawing.Point(5, 288);
             this.Status_CB.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Status_CB.Name = "Status_CB";
             this.Status_CB.Size = new System.Drawing.Size(386, 21);
             this.Status_CB.TabIndex = 16;
+            // 
+            // ExecutorWork_TB
+            // 
+            this.ExecutorWork_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.ExecutorWork_TB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ExecutorWork_TB.Location = new System.Drawing.Point(115, 193);
+            this.ExecutorWork_TB.Margin = new System.Windows.Forms.Padding(3, 0, 5, 3);
+            this.ExecutorWork_TB.Name = "ExecutorWork_TB";
+            this.ExecutorWork_TB.Size = new System.Drawing.Size(276, 20);
+            this.ExecutorWork_TB.TabIndex = 19;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label9.Location = new System.Drawing.Point(3, 193);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(106, 23);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "Исполнитель работ";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label10.Location = new System.Drawing.Point(3, 216);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(106, 20);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Завершенный";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Finished_CB
+            // 
+            this.Finished_CB.AutoSize = true;
+            this.Finished_CB.Location = new System.Drawing.Point(162, 219);
+            this.Finished_CB.Margin = new System.Windows.Forms.Padding(50, 3, 3, 3);
+            this.Finished_CB.Name = "Finished_CB";
+            this.Finished_CB.Size = new System.Drawing.Size(15, 14);
+            this.Finished_CB.TabIndex = 23;
+            this.Finished_CB.UseVisualStyleBackColor = true;
             // 
             // Chief_PDO_ChangeOrder_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(396, 351);
+            this.ClientSize = new System.Drawing.Size(396, 398);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(412, 390);
+            this.MaximumSize = new System.Drawing.Size(412, 437);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(412, 390);
+            this.MinimumSize = new System.Drawing.Size(412, 437);
             this.Name = "Chief_PDO_ChangeOrder_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Изменение данных чертежа";
@@ -345,5 +393,9 @@
         public System.Windows.Forms.TextBox Weight_TB;
         private System.Windows.Forms.Label label8;
         public System.Windows.Forms.ComboBox Status_CB;
+        public System.Windows.Forms.TextBox ExecutorWork_TB;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        public System.Windows.Forms.CheckBox Finished_CB;
     }
 }

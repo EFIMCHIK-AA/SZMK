@@ -107,10 +107,15 @@ namespace SZMK
                 LoadStatusOperation(ScanSessions[ScanSessions.Count - 1].DataMatrix);
                 Scan_DGV.Rows.Add();
                 Scan_DGV[0, Scan_DGV.Rows.Count - 1].Value = ScanSessions[ScanSessions.Count - 1].DataMatrix;
-                if (ScanSessions[ScanSessions.Count - 1].Unique)
+                if (ScanSessions[ScanSessions.Count - 1].Unique==2)
                 {
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Уникален";
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
+                }
+                else if (ScanSessions[ScanSessions.Count - 1].Unique == 1)
+                {
+                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Обновление";
+                    Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Orange;
                 }
                 else
                 {

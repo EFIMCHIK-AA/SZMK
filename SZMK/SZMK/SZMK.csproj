@@ -235,6 +235,12 @@
     <Compile Include="KB_ScanUnloadSpecific.designer.cs">
       <DependentUpon>KB_ScanUnloadSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="KB_ScanUpdateOrder_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KB_ScanUpdateOrder_F.Designer.cs">
+      <DependentUpon>KB_ScanUpdateOrder_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="KB_Scan_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -497,6 +503,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KB_ScanUnloadSpecific.resx">
       <DependentUpon>KB_ScanUnloadSpecific.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KB_ScanUpdateOrder_F.resx">
+      <DependentUpon>KB_ScanUpdateOrder_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KB_Scan_F.resx">
       <DependentUpon>KB_Scan_F.cs</DependentUpon>

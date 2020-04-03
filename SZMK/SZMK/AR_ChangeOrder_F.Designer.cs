@@ -302,7 +302,7 @@
             this.Status_CB.Size = new System.Drawing.Size(386, 21);
             this.Status_CB.TabIndex = 16;
             // 
-            // ARChangeOrder_F
+            // AR_ChangeOrder_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -314,7 +314,7 @@
             this.MaximumSize = new System.Drawing.Size(412, 390);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(412, 390);
-            this.Name = "ARChangeOrder_F";
+            this.Name = "AR_ChangeOrder_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Изменение данных чертежа";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ARChangeOrder_F_FormClosing);

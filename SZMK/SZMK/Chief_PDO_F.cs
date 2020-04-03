@@ -126,7 +126,7 @@ namespace SZMK
             try
             {
                 List<Order> Report = new List<Order>();
-                if (Order_DGV.CurrentCell.RowIndex > 0)
+                if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex > 0)
                 {
                     for (int i = 0; i < Order_DGV.SelectedRows.Count; i++)
                     {
@@ -143,7 +143,7 @@ namespace SZMK
                 }
                 else
                 {
-                    throw new Exception("Необходимо выбрать объекты");
+                    throw new Exception("Необходимо выбрать чертежи");
                 }
             }
             catch (Exception E)
@@ -192,7 +192,7 @@ namespace SZMK
         {
             try
             {
-                if (Order_DGV.CurrentCell.RowIndex >= 0 && Order_DGV.SelectedRows.Count == 1)
+                if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex >= 0 && Order_DGV.SelectedRows.Count == 1)
                 {
                     Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
                     Chief_PDO_ChangeOrder_F Dialog = new Chief_PDO_ChangeOrder_F(Temp);
@@ -202,6 +202,8 @@ namespace SZMK
                     Dialog.List_TB.Text = Temp.List.ToString();
                     Dialog.Mark_TB.Text = Temp.Mark;
                     Dialog.Lenght_TB.Text = Temp.Lenght.ToString();
+                    Dialog.ExecutorWork_TB.Text = Temp.ExecutorWork;
+                    Dialog.Finished_CB.Checked = Temp.Finished;
                     List<Status> TempStatuses = new List<Status>
                     {
                         Temp.Status
@@ -218,12 +220,12 @@ namespace SZMK
                         Order NewOrder;
                         if (Temp.Status!= SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single())
                         {
-                            NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text,Temp.ExecutorWork, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), DateTime.Now, SystemArgs.User, Temp.BlankOrder, Temp.Canceled,Temp.Finished);
+                            NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text, Dialog.ExecutorWork_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), DateTime.Now, SystemArgs.User, Temp.BlankOrder, Temp.Canceled,Dialog.Finished_CB.Checked);
                         }
                         else
                         {
                             List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == Temp.ID && p.IDStatus == SystemArgs.Statuses.Where(j => j == (Status)Dialog.Status_CB.SelectedItem).Single().ID).Select(p => p.DateCreate).ToList();
-                            NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text,Temp.ExecutorWork, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled,Temp.Finished);
+                            NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text,Dialog.ExecutorWork_TB.Text, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), SystemArgs.Statuses.Where(p => p == (Status)Dialog.Status_CB.SelectedItem).Single(), StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled, Dialog.Finished_CB.Checked);
                         }
 
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
@@ -359,6 +361,7 @@ namespace SZMK
                 Finished_TB.Text = String.Empty;
                 BlankOrder_TB.Text = String.Empty;
                 Status_TB.Text = String.Empty;
+                SelectedOrder_TB.Text = "0";
             }
 
         }
@@ -467,12 +470,11 @@ namespace SZMK
         {
             if (Result != null)
             {
-                Search_TSTB.Text = String.Empty;
-
                 Result.Clear();
-
-                DisplayAsync(SystemArgs.Orders);
             }
+            Search_TSTB.Text = String.Empty;
+
+            DisplayAsync(SystemArgs.Orders);
         }
 
         private bool SearchParam()
@@ -529,6 +531,13 @@ namespace SZMK
                     if (Dialog.Weight_TB.Text.Trim() != String.Empty)
                     {
                         Result = Result.Where(p => p.Weight.ToString().IndexOf(Dialog.Weight_TB.Text.Trim()) != -1).ToList();
+                    }
+                    if (Dialog.Finished_CB.Checked && Dialog.Number_TB.Text.Trim() == String.Empty && Dialog.List_TB.Text.Trim() == String.Empty)
+                    {
+                        if (MessageBox.Show("Вы уверены в выводе всех завершенных чертежей?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                        {
+                            Result = Result.Where(p => p.Finished).ToList();
+                        }
                     }
                     if (Dialog.NumberBlankOrder_TB.Text.Trim() != String.Empty)
                     {
@@ -619,19 +628,21 @@ namespace SZMK
                         case 0:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
+                                View.DataSource = null;
                                 View.DataSource = List.Where(p => !p.Canceled&&!p.Finished).ToList();
 
                                 Order_DGV.DataSource = View;
 
-                                CountOrder_TB.Text = View.Count.ToString();
-
                                 if (View.Count > 0)
                                 {
+                                    CountOrder_TB.Text = View.Count.ToString();
                                     VisibleButton(true);
                                     CanceledOrder_TSB.Text = "Аннулировать";
                                 }
                                 else
                                 {
+                                    CountOrder_TB.Text = "0";
+                                    SelectedOrder_TB.Text = "0";
                                     VisibleButton(false);
                                     CanceledOrder_TSB.Text = "Аннулировать";
                                 }
@@ -640,19 +651,21 @@ namespace SZMK
                         case 1:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
+                                View.DataSource = null;
                                 View.DataSource = List.Where(p => p.Canceled).ToList();
 
                                 Order_DGV.DataSource = View;
 
-                                CountOrder_TB.Text = View.Count.ToString();
-
                                 if (View.Count > 0)
                                 {
+                                    CountOrder_TB.Text = View.Count.ToString();
                                     CanceledOrder_TSB.Text = "Восстановить";
                                     VisibleButton(true);
                                 }
                                 else
                                 {
+                                    CountOrder_TB.Text = "0";
+                                    SelectedOrder_TB.Text = "0";
                                     VisibleButton(false);
                                 }
                             });
@@ -660,17 +673,20 @@ namespace SZMK
                         case 2:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
+                                View.DataSource = null;
                                 View.DataSource = List.Where(p => p.Finished).ToList();
 
                                 Order_DGV.DataSource = View;
 
-                                CountOrder_TB.Text = View.Count.ToString();
-                                if (View.Count() > 0)
+                                if (View.Count > 0)
                                 {
+                                    CountOrder_TB.Text = View.Count.ToString();
                                     VisibleButton(true);
                                 }
                                 else
                                 {
+                                    CountOrder_TB.Text = "0";
+                                    SelectedOrder_TB.Text = "0";
                                     VisibleButton(false);
                                 }
 
@@ -694,6 +710,7 @@ namespace SZMK
                 CanceledOrder_TSB.Visible = true;
                 ChangeStatuses_TSM.Enabled = true;
                 SelectionReport_TSM.Enabled = true;
+                ChangeNubmersOrders_TSM.Enabled = true;
             }
             else
             {
@@ -702,6 +719,7 @@ namespace SZMK
                 CanceledOrder_TSB.Visible = false;
                 ChangeStatuses_TSM.Enabled = false;
                 SelectionReport_TSM.Enabled = false;
+                ChangeNubmersOrders_TSM.Enabled = false;
             }
         }
 
@@ -742,7 +760,6 @@ namespace SZMK
         private void FilterCB_TSB_SelectedIndexChanged(object sender, EventArgs e)
         {
             ResetSearch();
-            DisplayAsync(SystemArgs.Orders);
         }
 
         private void Time_Day_Report_TSM_Click(object sender, EventArgs e)
@@ -1026,7 +1043,9 @@ namespace SZMK
                         for (int i = 0; i < Order_DGV.SelectedRows.Count; i++)
                         {
                             Order ChangedOrder = (Order)(View[Order_DGV.SelectedRows[i].Index]);
-                            ChangedOrder.Number = Dialog.Number_TB.Text;
+                            ChangedOrder.Number = Dialog.Number_TB.Text.Trim();
+                            String[] DataMatrix = ChangedOrder.DataMatrix.Split('_');
+                            ChangedOrder.DataMatrix = Dialog.Number_TB.Text.Trim() + "_" + DataMatrix[1] + "_" + DataMatrix[2] + "_" + DataMatrix[3] + "_" + DataMatrix[4] + "_" + DataMatrix[5];
 
                             if (SystemArgs.Request.UpdateOrder(ChangedOrder))
                             {

@@ -10,8 +10,8 @@ namespace SZMK
     public class OrderScanSession
     {
         private String _DateMatrix;
-        private bool _Unique;
-        public OrderScanSession(String DataMatrix, Boolean Unique)
+        private Int32 _Unique;
+        public OrderScanSession(String DataMatrix, Int32 Unique)
         {
             if(!String.IsNullOrEmpty(DataMatrix))
             {
@@ -21,9 +21,16 @@ namespace SZMK
             {
                 throw new Exception("Пустое значение DataMatrix чертежа");
             }
-            _Unique = Unique;
+            if (Unique >= 0)
+            {
+                _Unique = Unique;
+            }
+            else
+            {
+                throw new Exception("Значение уникальности не может быть меньше 0");
+            }
         }
-        public OrderScanSession() : this("Нет DataMatrix", false) { }
+        public OrderScanSession() : this("Нет DataMatrix", 0) { }
         public String DataMatrix
         {
             get
@@ -38,7 +45,7 @@ namespace SZMK
                 }
             }
         }
-        public Boolean Unique
+        public Int32 Unique
         {
             get
             {
@@ -46,7 +53,10 @@ namespace SZMK
             }
             set
             {
-                _Unique = value;
+                if (value >= 0)
+                {
+                    _Unique = value;
+                }
             }
         }
 

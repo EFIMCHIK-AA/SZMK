@@ -237,12 +237,19 @@ namespace SZMK
                                         Order NewOrder = Temp;
                                         NewOrder.Status = TempStatus;
                                         NewOrder.User = SystemArgs.User;
-                                        NewOrder.StatusDate = DateTime.Now;
+                                        if (NewOrder.StatusDate < DateTime.Now)
+                                        {
+                                            NewOrder.StatusDate = DateTime.Now;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Время обновления статуса чертежа: DataMatrix " + NewOrder.DataMatrix + ", Дата обновления статуса" + NewOrder.StatusDate + ", больше времени системы", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            continue;
+                                        }
                                         NewOrder.Finished = true;
 
                                         if (SystemArgs.Excel.AddToRegistry(NewOrder))
                                         {
-                                            TempForBlankOrder.Add(NewOrder);
                                             if (SystemArgs.Request.InsertStatus(NewOrder)&&SystemArgs.Request.FinishedOrder(NewOrder))
                                             {
                                                 SystemArgs.Orders.Remove(Temp);
@@ -259,10 +266,6 @@ namespace SZMK
                                         }
                                     }
                                 }
-
-                                SystemArgs.RequestLinq.CompareBlankOrder(TempForBlankOrder, NewBlankOrder.QR);
-
-                                TempForBlankOrder.Clear();
                             }
                         }
                         return true;
@@ -279,6 +282,7 @@ namespace SZMK
             }
             catch (Exception E)
             {
+                SystemArgs.PrintLog(E.ToString());
                 MessageBox.Show(E.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
@@ -287,7 +291,7 @@ namespace SZMK
         {
             try
             {
-                if (Order_DGV.CurrentCell.RowIndex >= 0 && Order_DGV.SelectedRows.Count == 1)
+                if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex >= 0 && Order_DGV.SelectedRows.Count == 1)
                 {
                     Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
 
@@ -404,44 +408,69 @@ namespace SZMK
                         case 1:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
+                                View.DataSource = null;
                                 View.DataSource = List.Where(p => !p.Canceled&&!p.Finished).ToList();
 
                                 Order_DGV.DataSource = View;
 
-                                CountOrder_TB.Text = View.Count.ToString();
-
                                 VisibleButton(false);
+                                if (View.Count > 0)
+                                {
+                                    CountOrder_TB.Text = View.Count.ToString();
+                                }
+                                else
+                                {
+                                    CountOrder_TB.Text = "0";
+                                    SelectedOrder_TB.Text = "0";
+                                }
                             });
                             break;
                         case 2:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
+                                View.DataSource = null;
                                 View.DataSource = List.Where(p => p.Canceled).ToList();
 
                                 Order_DGV.DataSource = View;
 
-                                CountOrder_TB.Text = View.Count.ToString();
-
                                 VisibleButton(false);
+                                if (View.Count > 0)
+                                {
+                                    CountOrder_TB.Text = View.Count.ToString();
+                                }
+                                else
+                                {
+                                    CountOrder_TB.Text = "0";
+                                    SelectedOrder_TB.Text = "0";
+                                }
                             });
 
                             break;
                         case 3:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
+                                View.DataSource = null;
                                 View.DataSource = List.Where(p => p.Finished).ToList();
 
                                 Order_DGV.DataSource = View;
 
-                                CountOrder_TB.Text = View.Count.ToString();
-
                                 VisibleButton(false);
+                                if (View.Count > 0)
+                                {
+                                    CountOrder_TB.Text = View.Count.ToString();
+                                }
+                                else
+                                {
+                                    CountOrder_TB.Text = "0";
+                                    SelectedOrder_TB.Text = "0";
+                                }
                             });
 
                             break;
                         default:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
+                                View.DataSource = null;
                                 View.DataSource = List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID && !p.Canceled && !p.Finished).ToList();
 
                                 Order_DGV.DataSource = View;
@@ -450,10 +479,13 @@ namespace SZMK
 
                                 if (View.Count > 0)
                                 {
+                                    CountOrder_TB.Text = View.Count.ToString();
                                     VisibleButton(true);
                                 }
                                 else
                                 {
+                                    CountOrder_TB.Text = "0";
+                                    SelectedOrder_TB.Text = "0";
                                     VisibleButton(false);
                                 }
 
@@ -623,6 +655,13 @@ namespace SZMK
                     {
                         Result = Result.Where(p => p.Weight.ToString().IndexOf(Dialog.Weight_TB.Text.Trim()) != -1).ToList();
                     }
+                    if (Dialog.Finished_CB.Checked && Dialog.Number_TB.Text.Trim() == String.Empty && Dialog.List_TB.Text.Trim() == String.Empty)
+                    {
+                        if (MessageBox.Show("Вы уверены в выводе всех завершенных чертежей?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                        {
+                            Result = Result.Where(p => p.Finished).ToList();
+                        }
+                    }
                     if (Dialog.NumberBlankOrder_TB.Text.Trim() != String.Empty)
                     {
                         Result = Result.Where(p => p.BlankOrderView.IndexOf(Dialog.NumberBlankOrder_TB.Text.Trim()) != -1).ToList();
@@ -676,6 +715,7 @@ namespace SZMK
                 DeleteOrder_TSB.Visible = true;
                 ChangeOrder_TSM.Visible = true;
                 DeleteOrder_TSM.Visible = true;
+                SelectionReport_TSM.Enabled = true;
             }
             else
             {
@@ -683,6 +723,7 @@ namespace SZMK
                 DeleteOrder_TSB.Visible = false;
                 ChangeOrder_TSM.Visible = false;
                 DeleteOrder_TSM.Visible = false;
+                SelectionReport_TSM.Enabled = false;
             }
         }
         private void Selection(Order Temp, bool flag)
@@ -720,6 +761,7 @@ namespace SZMK
                 BlankOrder_TB.Text = Temp.BlankOrder.QR;
                 Status_TB.Text = Temp.Status.Name;
                 SelectedOrder_TB.Text = Order_DGV.SelectedRows.Count.ToString();
+
             }
             else
             {
@@ -737,6 +779,7 @@ namespace SZMK
                 Finished_TB.Text = String.Empty;
                 BlankOrder_TB.Text = String.Empty;
                 Status_TB.Text = String.Empty;
+                SelectedOrder_TB.Text = "0";
             }
 
         }
@@ -868,8 +911,7 @@ namespace SZMK
             try
             {
                 List<Order> Report = new List<Order>();
-
-                if (Order_DGV.CurrentCell.RowIndex > 0)
+                if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex > 0)
                 {
                     for (int i = 0; i < Order_DGV.SelectedRows.Count; i++)
                     {
@@ -886,7 +928,7 @@ namespace SZMK
                 }
                 else
                 {
-                    throw new Exception("Необходимо выбрать объекты");
+                    throw new Exception("Необходимо выбрать чертежи");
                 }
             }
             catch (Exception E)

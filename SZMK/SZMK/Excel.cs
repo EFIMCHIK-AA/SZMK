@@ -51,7 +51,7 @@ namespace SZMK
                         for (Int32 i = 0; i < ScanSession.Count; i++)
                         {
                             String[] SplitDataMatrix = ScanSession[i].DataMatrix.Split('_');
-                            if (ScanSession[i].Unique)
+                            if (ScanSession[i].Unique!=0)
                             {
                                 int rowCntActUnique = wsUnique.Dimension.End.Row;
                                 wsUnique.Cells[rowCntActUnique + 1, 1].Value = SplitDataMatrix[0];
@@ -251,7 +251,7 @@ namespace SZMK
                         {
                             List<StatusOfOrder> OrderStatuses = (from p in SystemArgs.StatusOfOrders
                                                                  where p.IDOrder == Report[i].ID
-                                                                 orderby p.IDStatus
+                                                                 orderby p.DateCreate
                                                                  select p).ToList();
                             WS.Cells[i + rowCntReport + 1, 1].Value = Report[i].Number;
                             if (Report[i].BlankOrder.QR.Split('_').Length > 3)
@@ -274,9 +274,12 @@ namespace SZMK
                                 User Temp = (from p in SystemArgs.Users
                                              where p.ID == OrderStatuses[j].IDUser
                                              select p).Single();
-                                WS.Cells[i + rowCntReport + 1, 9 + Count].Value = Temp.Surname + " " + Temp.Name.First() + ". " + Temp.MiddleName.First() + ".";
-                                WS.Cells[i + rowCntReport + 1, 10 + Count].Value = OrderStatuses[j].DateCreate.ToString();
-                                Count += 2;
+                                if(j<3 || OrderStatuses.Count == 4 || j==OrderStatuses.Count-1)
+                                {
+                                    WS.Cells[i + rowCntReport + 1, 9 + Count].Value = Temp.Surname + " " + Temp.Name.First() + ". " + Temp.MiddleName.First() + ".";
+                                    WS.Cells[i + rowCntReport + 1, 10 + Count].Value = OrderStatuses[j].DateCreate.ToString();
+                                    Count += 2;
+                                }
                             }
                         }
                         int last = WS.Dimension.End.Row;
@@ -376,7 +379,7 @@ namespace SZMK
                         {
                             List<StatusOfOrder> OrderStatuses = (from p in SystemArgs.StatusOfOrders
                                                                  where p.IDOrder == Report[i].ID
-                                                                 orderby p.IDStatus
+                                                                 orderby p.DateCreate
                                                                  select p).ToList();
                             WS.Cells[i + rowCntReport + 1, 1].Value = Report[i].Number;
                             if (Report[i].BlankOrder.QR.Split('_').Length > 3)
@@ -399,9 +402,12 @@ namespace SZMK
                                 User Temp = (from p in SystemArgs.Users
                                              where p.ID == OrderStatuses[j].IDUser
                                              select p).Single();
-                                WS.Cells[i + rowCntReport + 1, 9 + Count].Value = Temp.Surname + " " + Temp.Name.First() + ". " + Temp.MiddleName.First() + ".";
-                                WS.Cells[i + rowCntReport + 1, 10 + Count].Value = OrderStatuses[j].DateCreate.ToString();
-                                Count += 2;
+                                if (j < 3 || OrderStatuses.Count == 4 || j == OrderStatuses.Count - 1)
+                                {
+                                    WS.Cells[i + rowCntReport + 1, 9 + Count].Value = Temp.Surname + " " + Temp.Name.First() + ". " + Temp.MiddleName.First() + ".";
+                                    WS.Cells[i + rowCntReport + 1, 10 + Count].Value = OrderStatuses[j].DateCreate.ToString();
+                                    Count += 2;
+                                }
                             }
                         }
                         int last = WS.Dimension.End.Row;
@@ -472,101 +478,144 @@ namespace SZMK
 
                     for (int j = 1; j < SystemArgs.Statuses.Count + 1; j++)
                     {
-
-                        TimeOrdersClean.Add(new TimeOrder(j));
-
-                        TimeOrdersUnclean.Add(new TimeOrder(j));
-
-                        Double[] Data = new Double[4];
-
-                        Data[0] = Temp.Where(p => p.Status.ID > j).Sum(p => p.Weight);
-                        Data[1] = Temp.Where(p => p.Status.ID == j).Sum(p => p.Weight);
-                        Data[2] = Temp.Where(p => p.Status.ID > j).Count();
-                        Data[3] = Temp.Where(p => p.Status.ID == j).Count();
-
-                        foreach (var key in GroupByOrder)
+                        if (j == SystemArgs.Statuses.Count || j < 4)
                         {
-                            if (key.Count() > j)
+                            TimeOrdersClean.Add(new TimeOrder(j));
+
+                            TimeOrdersUnclean.Add(new TimeOrder(j));
+
+                            Double[] Data = new Double[4];
+
+                            Data[0] = Temp.Where(p => p.Status.ID > j).Sum(p => p.Weight);
+                            Data[1] = Temp.Where(p => p.Status.ID == j).Sum(p => p.Weight);
+                            Data[2] = Temp.Where(p => p.Status.ID > j).Count();
+                            Data[3] = Temp.Where(p => p.Status.ID == j).Count();
+
+                            foreach (var key in GroupByOrder)
                             {
-                                List<DateTime> TimesFirst = key.Where(p => p.IDStatus == j).Select(p => p.DateCreate).ToList();
-                                List<DateTime> TimesSecond = key.Where(p => p.IDStatus == j + 1).Select(p => p.DateCreate).ToList();
-
-                                if (TimesFirst.Count() == 1 && TimesSecond.Count() == 1)
+                                if (key.Count() > j)
                                 {
-                                    Double Start = (TimesFirst[0] - TimesFirst[0].Date.AddHours(8)).TotalHours;
-                                    Double End = (TimesSecond[0] - TimesSecond[0].Date.AddHours(8)).TotalHours;
-
-                                    Int32 WorkDay = 0;
-                                    Int32 Weekend = 0;
-
-                                    if (TimesFirst[0].Date != TimesSecond[0].Date)
+                                    List<DateTime> TimesFirst = key.Where(p => p.IDStatus == j).Select(p => p.DateCreate).ToList();
+                                    List<DateTime> TimesSecond = new List<DateTime>();
+                                    if (j == 3)
                                     {
-                                        for (int d = 0; d < (TimesSecond[0].Date - TimesFirst[0].Date).TotalDays; d++)
+                                        TimesSecond = key.Where(p => p.IDStatus == j + 3).Select(p => p.DateCreate).ToList();
+                                    }
+                                    else
+                                    {
+                                        TimesSecond = key.Where(p => p.IDStatus == j + 1).Select(p => p.DateCreate).ToList();
+                                    }
+
+                                    if (TimesFirst.Count() == 1 && TimesSecond.Count() == 1)
+                                    {
+                                        Double Start = (TimesFirst[0] - TimesFirst[0].Date.AddHours(8)).TotalHours;
+                                        Double End = (TimesSecond[0] - TimesSecond[0].Date.AddHours(8)).TotalHours;
+
+                                        Int32 WorkDay = 0;
+                                        Int32 Weekend = 0;
+
+                                        if (TimesFirst[0].Date != TimesSecond[0].Date)
                                         {
-                                            if (TimesFirst[0].AddDays(d + 1).DayOfWeek != DayOfWeek.Saturday && TimesFirst[0].AddDays(d + 1).DayOfWeek != DayOfWeek.Sunday)
+                                            for (int d = 0; d < (TimesSecond[0].Date - TimesFirst[0].Date).TotalDays; d++)
                                             {
-                                                WorkDay++;
+                                                if (TimesFirst[0].AddDays(d + 1).DayOfWeek != DayOfWeek.Saturday && TimesFirst[0].AddDays(d + 1).DayOfWeek != DayOfWeek.Sunday)
+                                                {
+                                                    WorkDay++;
+                                                }
+                                                else
+                                                {
+                                                    Weekend++;
+                                                }
+                                            }
+                                        }
+
+                                        TimeOrdersUnclean[TimeOrdersUnclean.Count-1].Times.Add((TimesSecond[0] - TimesFirst[0].AddDays(Weekend)).TotalHours);
+
+                                        if (Start < 0)
+                                        {
+                                            Start = Math.Ceiling(-Start);
+                                        }
+                                        else if (Start > 9)
+                                        {
+                                            Start = Math.Ceiling(Start);
+                                        }
+
+                                        if (End < 0)
+                                        {
+                                            End = Math.Ceiling(-End);
+                                        }
+                                        else if (End > 9)
+                                        {
+                                            End = Math.Ceiling(End);
+                                        }
+                                        TimeOrdersClean[TimeOrdersClean.Count-1].Times.Add(End - Start + WorkDay * 9);
+
+                                    }
+                                }
+
+                                if (j == SystemArgs.Statuses.Count)
+                                {
+                                    WS.Cells[2, j - 1].Value = Data[0];
+                                    WS.Cells[3, j - 1].Value = Data[1];
+                                    WS.Cells[4, j - 1].Value = Data[2];
+                                    WS.Cells[5, j - 1].Value = Data[3];
+                                }
+                                else
+                                {
+                                    WS.Cells[2, j + 1].Value = Data[0];
+                                    WS.Cells[3, j + 1].Value = Data[1];
+                                    WS.Cells[4, j + 1].Value = Data[2];
+                                    WS.Cells[5, j + 1].Value = Data[3];
+                                }
+
+                                if (TimeOrdersUnclean.Count != 0 && TimeOrdersClean.Count != 0)
+                                {
+                                    if (TimeOrdersUnclean[TimeOrdersUnclean.Count - 1].Times.Count != 0 && TimeOrdersClean[TimeOrdersClean.Count - 1].Times.Count != 0)
+                                    {
+                                        Int32 UncleanHour = Convert.ToInt32(Math.Truncate(TimeOrdersUnclean[TimeOrdersUnclean.Count - 1].Times.Sum() / TimeOrdersUnclean[TimeOrdersUnclean.Count - 1].Times.Count));
+                                        Int32 UncleanMin = Convert.ToInt32((TimeOrdersUnclean[TimeOrdersUnclean.Count - 1].Times.Sum() / TimeOrdersUnclean[TimeOrdersUnclean.Count - 1].Times.Count - Math.Truncate(TimeOrdersUnclean[TimeOrdersUnclean.Count - 1].Times.Sum() / TimeOrdersUnclean[TimeOrdersUnclean.Count - 1].Times.Count)) * 60);
+
+                                        Int32 CleanHour = Convert.ToInt32(Math.Truncate(TimeOrdersClean[TimeOrdersClean.Count - 1].Times.Sum() / TimeOrdersClean[TimeOrdersClean.Count - 1].Times.Count));
+                                        Int32 CleanMin = Convert.ToInt32((TimeOrdersClean[TimeOrdersClean.Count - 1].Times.Sum() / TimeOrdersClean[TimeOrdersClean.Count - 1].Times.Count - Math.Truncate(TimeOrdersClean[TimeOrdersClean.Count - 1].Times.Sum() / TimeOrdersClean[TimeOrdersClean.Count - 1].Times.Count)) * 60);
+
+                                        if (j == SystemArgs.Statuses.Count)
+                                        {
+                                            if (UncleanHour != 0)
+                                            {
+                                                WS.Cells[6, j - 1].Value = $"{UncleanHour} ч {UncleanMin} мин";
                                             }
                                             else
                                             {
-                                                Weekend++;
+                                                WS.Cells[6, j - 1].Value = $"{UncleanMin} мин";
+                                            }
+                                            if (CleanHour != 0)
+                                            {
+                                                WS.Cells[7, j - 1].Value = $"{CleanHour} ч {CleanMin} мин";
+                                            }
+                                            else
+                                            {
+                                                WS.Cells[7, j - 1].Value = $"{CleanMin} мин";
                                             }
                                         }
-                                    }
-
-                                    TimeOrdersUnclean[j - 1].Times.Add((TimesSecond[0] - TimesFirst[0].AddDays(Weekend)).TotalHours);
-
-                                    if (Start < 0)
-                                    {
-                                        Start = Math.Ceiling(-Start);
-                                    }
-                                    else if (Start > 9)
-                                    {
-                                        Start = Math.Ceiling(Start);
-                                    }
-
-                                    if (End < 0)
-                                    {
-                                        End = Math.Ceiling(-End);
-                                    }
-                                    else if (End > 9)
-                                    {
-                                        End = Math.Ceiling(End);
-                                    }
-
-                                    TimeOrdersClean[j - 1].Times.Add(End - Start + WorkDay * 9);
-
-                                }
-                            }
-                            WS.Cells[2, j + 1].Value = Data[0];
-                            WS.Cells[3, j + 1].Value = Data[1];
-                            WS.Cells[4, j + 1].Value = Data[2];
-                            WS.Cells[5, j + 1].Value = Data[3];
-                            if (TimeOrdersUnclean.Count != 0 && TimeOrdersClean.Count != 0)
-                            {
-                                if (TimeOrdersUnclean[j - 1].Times.Count != 0 && TimeOrdersClean[j - 1].Times.Count != 0)
-                                {
-                                    Int32 UncleanHour = Convert.ToInt32(Math.Truncate(TimeOrdersUnclean[j-1].Times.Sum() / TimeOrdersUnclean[j - 1].Times.Count));
-                                    Int32 UncleanMin = Convert.ToInt32((TimeOrdersUnclean[j - 1].Times.Sum() / TimeOrdersUnclean[j - 1].Times.Count - Math.Truncate(TimeOrdersUnclean[j - 1].Times.Sum() / TimeOrdersUnclean[j - 1].Times.Count)) * 60);
-
-                                    Int32 CleanHour = Convert.ToInt32(Math.Truncate(TimeOrdersClean[j - 1].Times.Sum() / TimeOrdersClean[j - 1].Times.Count));
-                                    Int32 CleanMin = Convert.ToInt32((TimeOrdersClean[j - 1].Times.Sum() / TimeOrdersClean[j - 1].Times.Count - Math.Truncate(TimeOrdersClean[j - 1].Times.Sum() / TimeOrdersClean[j - 1].Times.Count)) * 60);
-
-                                    if (UncleanHour != 0)
-                                    {
-                                        WS.Cells[6, j + 1].Value = $"{UncleanHour} ч {UncleanMin} мин";
-                                    }
-                                    else
-                                    {
-                                        WS.Cells[6, j + 1].Value = $"{UncleanMin} мин";
-                                    }
-                                    if (CleanHour != 0)
-                                    {
-                                        WS.Cells[7, j + 1].Value = $"{CleanHour} ч {CleanMin} мин";
-                                    }
-                                    else
-                                    {
-                                        WS.Cells[7, j + 1].Value = $"{CleanMin} мин";
+                                        else
+                                        {
+                                            if (UncleanHour != 0)
+                                            {
+                                                WS.Cells[6, j + 1].Value = $"{UncleanHour} ч {UncleanMin} мин";
+                                            }
+                                            else
+                                            {
+                                                WS.Cells[6, j + 1].Value = $"{UncleanMin} мин";
+                                            }
+                                            if (CleanHour != 0)
+                                            {
+                                                WS.Cells[7, j + 1].Value = $"{CleanHour} ч {CleanMin} мин";
+                                            }
+                                            else
+                                            {
+                                                WS.Cells[7, j + 1].Value = $"{CleanMin} мин";
+                                            }
+                                        }
                                     }
                                 }
                             }

@@ -260,7 +260,7 @@ namespace SZMK
                         _ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[2], ValidationDataMatrix[i], -1));
                     }
 
-                    if ((_ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Where(p => p.Finded == -1).Count() == 0) && (_ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Where(p => p.Finded == 1).Count() > 0))
+                    if ((_ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Where(p => p.Finded == -1).Count() == 0))
                     {
                         _ScanSession[_ScanSession.Count - 1].Added = true;
                     }

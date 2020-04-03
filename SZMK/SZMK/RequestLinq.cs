@@ -21,18 +21,6 @@ namespace SZMK
                         return true;
                     }
                 }
-                else if (Temp[0] != "ПО" && Temp[1] == "СЗМК" && GetOldIDBlankOrder(Orders)!=-1)
-                {
-                    if (SystemArgs.Request.UpdateBlankOrder(QR,Orders))
-                    {
-                        SystemArgs.BlankOrders.Clear();
-                        SystemArgs.Request.GetAllBlankOrder();
-                        if (SystemArgs.Request.InsertBlankOrderOfOrders(Orders, QR))
-                        {
-                            return true;
-                        }
-                    }
-                }
                 else
                 {
                     if (SystemArgs.Request.InsertBlankOrder(QR))
@@ -75,7 +63,7 @@ namespace SZMK
                 return -1;
             }
         }
-        public Int32 CheckedNumberAndList(String Number, String List)
+        public Int32 CheckedNumberAndList(String Number, String List,String DataMatrix)
         {
             try
             {
@@ -103,6 +91,20 @@ namespace SZMK
                     else
                     {
                         return 0;
+                    }
+                }
+                else if(SystemArgs.Orders.Where(p => p.DataMatrix == DataMatrix).Count() == 0)
+                {
+                    KB_ScanUpdateOrder_F Dialog = new KB_ScanUpdateOrder_F();
+                    Dialog.NewOrder_TB.Text = DataMatrix;
+                    Dialog.OldOrder_TB.Text = SystemArgs.Orders.Where(p => p.Number == Number && p.List == List).Select(p => p.DataMatrix).Single();
+                    if (Dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        return 3;
+                    }
+                    else
+                    {
+                        return 1;
                     }
                 }
                 else

@@ -59,5 +59,10 @@ namespace SZMK
                 User_CB.DataSource = Users;
             }
         }
+
+        private void OK_B_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

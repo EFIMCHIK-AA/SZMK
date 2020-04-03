@@ -190,14 +190,22 @@ namespace SZMK
                                                      where p.IDPosition == PositionID
                                                      select p).Single();
 
-                                Order Temp = SystemArgs.Request.GetOrder(SystemArgs.ByteScout[i].DataMatrix);
+                                Order Temp = SystemArgs.Orders.Where(p => p.DataMatrix == SystemArgs.ByteScout[i].DataMatrix).Single();
                                 if (Temp != null)
                                 {
                                     Order NewOrder = Temp;
 
                                     NewOrder.Status = TempStatus;
                                     NewOrder.User = SystemArgs.User;
-                                    NewOrder.StatusDate = DateTime.Now;
+                                    if (NewOrder.StatusDate < DateTime.Now)
+                                    {
+                                        NewOrder.StatusDate = DateTime.Now;
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Время обновления статуса чертежа: DataMatrix " + NewOrder.DataMatrix + ", Дата обновления статуса" + NewOrder.StatusDate + ", больше времени системы", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        continue;
+                                    }
 
                                     if (SystemArgs.Excel.AddToRegistry(NewOrder))
                                     {
@@ -316,7 +324,7 @@ namespace SZMK
         {
             try
             {
-                if (Order_DGV.CurrentCell.RowIndex >= 0 && Order_DGV.SelectedRows.Count == 1)
+                if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex >= 0 && Order_DGV.SelectedRows.Count == 1)
                 {
                     Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
                     AR_ChangeOrder_F Dialog = new AR_ChangeOrder_F(Temp);
@@ -428,29 +436,63 @@ namespace SZMK
                         case 1:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
+                                View.DataSource = null;
                                 View.DataSource = List.Where(p => !p.Canceled).ToList();
 
                                 Order_DGV.DataSource = View;
 
-                                CountOrder_TB.Text = View.Count.ToString();
-
                                 VisibleButton(false);
+                                if (View.Count > 0)
+                                {
+                                    CountOrder_TB.Text = View.Count.ToString();
+                                }
+                                else
+                                {
+                                    CountOrder_TB.Text = "0";
+                                    SelectedOrder_TB.Text = "0";
+                                }
                             });
                             break;
                         case 2:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
+                                View.DataSource = null;
                                 View.DataSource = List.Where(p => p.Canceled).ToList();
 
                                 Order_DGV.DataSource = View;
 
-                                CountOrder_TB.Text = View.Count.ToString();
+                                VisibleButton(false);
+                                if (View.Count > 0)
+                                {
+                                    CountOrder_TB.Text = View.Count.ToString();
+                                    CanceledOrder_TSB.Text = "Восстановить";
+                                    CanceledOrder_TSB.Visible = true;
+                                }
+                                else
+                                {
+                                    CountOrder_TB.Text = "0";
+                                    SelectedOrder_TB.Text = "0";
+                                }
+                            });
+
+                            break;
+                        case 3:
+                            Order_DGV.Invoke((MethodInvoker)delegate ()
+                            {
+                                View.DataSource = null;
+                                View.DataSource = List.Where(p => p.Finished).ToList();
+
+                                Order_DGV.DataSource = View;
 
                                 VisibleButton(false);
                                 if (View.Count > 0)
                                 {
-                                    CanceledOrder_TSB.Text = "Восстановить";
-                                    CanceledOrder_TSB.Visible = true;
+                                    CountOrder_TB.Text = View.Count.ToString();
+                                }
+                                else
+                                {
+                                    CountOrder_TB.Text = "0";
+                                    SelectedOrder_TB.Text = "0";
                                 }
                             });
 
@@ -458,19 +500,21 @@ namespace SZMK
                         default:
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
+                                View.DataSource = null;
                                 View.DataSource = List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID && !p.Canceled).ToList();
 
                                 Order_DGV.DataSource = View;
 
-                                CountOrder_TB.Text = View.Count.ToString();
-
                                 if (View.Count > 0)
                                 {
+                                    CountOrder_TB.Text = View.Count.ToString();
                                     VisibleButton(true);
                                     CanceledOrder_TSB.Text = "Аннулировать";
                                 }
                                 else
                                 {
+                                    CountOrder_TB.Text = "0";
+                                    SelectedOrder_TB.Text = "0";
                                     VisibleButton(false);
                                     CanceledOrder_TSB.Text = "Аннулировать";
                                 }
@@ -672,6 +716,13 @@ namespace SZMK
                     {
                         Result = Result.Where(p => p.Weight.ToString().IndexOf(Dialog.Weight_TB.Text.Trim())!=-1).ToList();
                     }
+                    if (Dialog.Finished_CB.Checked && Dialog.Number_TB.Text.Trim() == String.Empty && Dialog.List_TB.Text.Trim() == String.Empty)
+                    {
+                        if (MessageBox.Show("Вы уверены в выводе всех завершенных чертежей?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                        {
+                            Result = Result.Where(p => p.Finished).ToList();
+                        }
+                    }
                     if (Dialog.NumberBlankOrder_TB.Text.Trim() != String.Empty)
                     {
                         Result = Result.Where(p => p.BlankOrderView.IndexOf(Dialog.NumberBlankOrder_TB.Text.Trim()) != -1).ToList();
@@ -726,6 +777,8 @@ namespace SZMK
                 ChangeOrder_TSM.Visible = true;
                 DeleteOrder_TSM.Visible = true;
                 CanceledOrder_TSB.Visible = true;
+                SelectionReport_TSM.Enabled = true;
+
             }
             else
             {
@@ -734,6 +787,7 @@ namespace SZMK
                 ChangeOrder_TSM.Visible = false;
                 DeleteOrder_TSM.Visible = false;
                 CanceledOrder_TSB.Visible = false;
+                SelectionReport_TSM.Enabled = false;
             }
         }
         private void Selection(Order Temp, bool flag)
@@ -770,7 +824,9 @@ namespace SZMK
                 }
                 BlankOrder_TB.Text = Temp.BlankOrder.QR;
                 Status_TB.Text = Temp.Status.Name;
+
                 SelectedOrder_TB.Text = Order_DGV.SelectedRows.Count.ToString();
+
             }
             else
             {
@@ -788,6 +844,7 @@ namespace SZMK
                 Finished_TB.Text = String.Empty;
                 BlankOrder_TB.Text = String.Empty;
                 Status_TB.Text = String.Empty;
+                SelectedOrder_TB.Text = "0";
             }
 
         }
@@ -953,7 +1010,7 @@ namespace SZMK
             try
             {
                 List<Order> Report = new List<Order>();
-                if (Order_DGV.CurrentCell.RowIndex > 0)
+                if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex > 0)
                 {
                     for (int i = 0; i < Order_DGV.SelectedRows.Count; i++)
                     {
@@ -970,7 +1027,7 @@ namespace SZMK
                 }
                 else
                 {
-                    throw new Exception("Необходимо выбрать объекты");
+                    throw new Exception("Необходимо выбрать чертежи");
                 }
             }
             catch (Exception E)
