@@ -11,14 +11,12 @@ namespace SZMK
         private readonly String _ConnectDBPath;
         private readonly String _ConnectMobilePath;
         private readonly String _ArchivePath;
-        private readonly String _RegistryPath;
         private readonly String _LogPath;
         private readonly String _DirectoryModelsPath;
         private readonly String _ConnectServerMails;
         private readonly String _TemplateActUniquePath;
         private readonly String _TemplateActNoUniquePath;
         private readonly String _TemplateReportOrderOfDatePath;
-        private readonly String _TemplateRegistryPath;
         private readonly String _ConnectDecodePath;
         private readonly String _CheckMarksPath;
         private readonly String _VisualRowPath;
@@ -33,15 +31,13 @@ namespace SZMK
             _ConnectMobilePath = $@"Connect\Mobile\connect.conf"; //Параметры подключения к приложению
             _ConnectDecodePath = $@"Connect\Decode\connect.conf"; //Параметры подключения к программе распознавания
             _ArchivePath = $@"Program\Path\Archive.df";//Путь к архиву
-            _RegistryPath = $@"Program\Path\Registry.df";//Путь к реестру
             _LogPath = $@"Log"; //Путь к директории хранения логов
             _DirectoryModelsPath = $@"Program\Path\Models.df"; //Директория выгрузки
             _ConnectServerMails = $@"Connect\Mails\connect.conf"; //Конфигурация почтового сервера
             _TemplateActUniquePath = $@"Templates\ActTemplateUnique.xlsx";//Путь до шаблона акта уникальных чертежей
             _TemplateActNoUniquePath = $@"Templates\ActTemplateNoUnique.xlsx";//Путь до шаблона акта не уникальных чертежей
-            _TemplateReportOrderOfDatePath = $@"Templates\ReportOrderOfDateTemplate.xlsx";//Путь до шаблона реестра
-            _TemplateReportPastTimeofDate = $@"Templates\ReportPastTimeofDateTemplate.xlsx";//Путь до шаблона реестра
-            _TemplateRegistryPath = $@"Templates\RegistryTemplate.xlsx";//Путь до шаблона реестра
+            _TemplateReportOrderOfDatePath = $@"Templates\ReportOrderOfDateTemplate.xlsx";//Путь до шаблона отчета по дате
+            _TemplateReportPastTimeofDate = $@"Templates\ReportPastTimeofDateTemplate.xlsx";//Путь до шаблона отчета по времени
             _CheckMarksPath = $@"Program\Settings\MarksCheck.df"; // Путь до файла с проверкой строки с маркой на строчные буквы
             _VisualColumnsPath = $@"Program\Settings\ColumnSetting.conf"; //Путь до файла с параметрами отображения столбцов
             _VisualRowPath = $@"Program\Settings\VisualRow.df"; // Путь до файла с параметра для визуализации просрочивания чертежей
@@ -148,14 +144,6 @@ namespace SZMK
                 return _ArchivePath;
             }
         }
-
-        public String RegistryPath
-        {
-            get
-            {
-                return _RegistryPath;
-            }
-        }
         public String TemplateActUniquePath
         {
             get
@@ -184,13 +172,7 @@ namespace SZMK
                 return _TemplateReportPastTimeofDate;
             }
         }
-        public String TemplateRegistry
-        {
-            get
-            {
-                return _TemplateRegistryPath;
-            }
-        }
+
         public String AboutProgram
         {
             get

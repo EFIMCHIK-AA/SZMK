@@ -36,10 +36,6 @@ namespace SZMK
             {
                 throw new Exception("Не найден шаблон отчета за выбранный период чертежей");
             }
-            if (!File.Exists(SystemArgs.Path.TemplateRegistry))
-            {
-                throw new Exception("Не найден шаблон реестра чертежей");
-            }
         }
     }
 }

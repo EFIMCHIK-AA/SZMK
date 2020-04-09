@@ -159,7 +159,7 @@ namespace SZMK
         {
             if (SearchParam())
             {
-                DisplayAsync(Result);
+                ViewSearchAsync(Result);
             }
         }
 
@@ -207,8 +207,6 @@ namespace SZMK
                                         continue;
                                     }
 
-                                    if (SystemArgs.Excel.AddToRegistry(NewOrder))
-                                    {
                                         if (SystemArgs.Request.InsertStatus(NewOrder))
                                         {
                                             SystemArgs.Orders.Remove(Temp);
@@ -221,11 +219,6 @@ namespace SZMK
                                         {
                                             MessageBox.Show("Ошибка при добавлении в базу данных статуса для: " + SystemArgs.ByteScout[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Ошибка добавления данных в реестр, перемещение и обновление статуса " + SystemArgs.ByteScout[i].DataMatrix + " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    }
                                 }
                                 else
                                 {
@@ -437,7 +430,7 @@ namespace SZMK
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
                                 View.DataSource = null;
-                                View.DataSource = List.Where(p => !p.Canceled).ToList();
+                                View.DataSource = List.Where(p => !p.Canceled&&!p.Finished).ToList();
 
                                 Order_DGV.DataSource = View;
 
@@ -501,7 +494,7 @@ namespace SZMK
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
                                 View.DataSource = null;
-                                View.DataSource = List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID && !p.Canceled).ToList();
+                                View.DataSource = List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID && !p.Canceled && !p.Finished).ToList();
 
                                 Order_DGV.DataSource = View;
 
@@ -665,7 +658,7 @@ namespace SZMK
         {
             try
             {
-                AR_SearchParam_F Dialog = new AR_SearchParam_F();
+                Chief_PDO_SearchParam_F Dialog = new Chief_PDO_SearchParam_F();
 
                 List<Status> Statuses = new List<Status>
                 {
@@ -676,7 +669,18 @@ namespace SZMK
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Result = SystemArgs.Orders;
+                    Result = SystemArgs.Orders.ToList();
+                    if (Dialog.Finished_CB.Checked && Dialog.Number_TB.Text.Trim() == String.Empty && Dialog.List_TB.Text.Trim() == String.Empty)
+                    {
+                        if (MessageBox.Show("Вы уверены в выводе всех завершенных чертежей?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                        {
+                            Result = Result.Where(p => !p.Finished).ToList();
+                        }
+                    }
+                    else if (!Dialog.Finished_CB.Checked)
+                    {
+                        Result = Result.Where(p => !p.Finished).ToList();
+                    }
                     if (Dialog.DateEnable_CB.Checked)
                     {
                         Result = Result.Where(p => (p.DateCreate >= Dialog.First_DP.Value.Date) && (p.DateCreate <= Dialog.Second_DP.Value.Date.AddSeconds(86399))).ToList();
@@ -694,35 +698,29 @@ namespace SZMK
 
                     if (Dialog.Number_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.Number.IndexOf(Dialog.Number_TB.Text.Trim())!=-1).ToList();
+                        Result = Result.Where(p => p.Number.IndexOf(Dialog.Number_TB.Text.Trim()) != -1).ToList();
                     }
 
                     if (Dialog.List_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.List.IndexOf(Dialog.List_TB.Text.Trim())!=-1).ToList();
+                        Result = Result.Where(p => p.List.IndexOf(Dialog.List_TB.Text.Trim()) != -1).ToList();
                     }
 
                     if (Dialog.Mark_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.Mark.IndexOf(Dialog.Mark_TB.Text.Trim())!=-1).ToList();
+                        Result = Result.Where(p => p.Mark.IndexOf(Dialog.Mark_TB.Text.Trim()) != -1).ToList();
                     }
 
                     if (Dialog.Lenght_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.Lenght.ToString().IndexOf(Dialog.Lenght_TB.Text.Trim())!=-1).ToList();
+                        Result = Result.Where(p => p.Lenght.ToString().IndexOf(Dialog.Lenght_TB.Text.Trim()) != -1).ToList();
                     }
 
                     if (Dialog.Weight_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.Weight.ToString().IndexOf(Dialog.Weight_TB.Text.Trim())!=-1).ToList();
+                        Result = Result.Where(p => p.Weight.ToString().IndexOf(Dialog.Weight_TB.Text.Trim()) != -1).ToList();
                     }
-                    if (Dialog.Finished_CB.Checked && Dialog.Number_TB.Text.Trim() == String.Empty && Dialog.List_TB.Text.Trim() == String.Empty)
-                    {
-                        if (MessageBox.Show("Вы уверены в выводе всех завершенных чертежей?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-                        {
-                            Result = Result.Where(p => p.Finished).ToList();
-                        }
-                    }
+
                     if (Dialog.NumberBlankOrder_TB.Text.Trim() != String.Empty)
                     {
                         Result = Result.Where(p => p.BlankOrderView.IndexOf(Dialog.NumberBlankOrder_TB.Text.Trim()) != -1).ToList();
@@ -871,6 +869,37 @@ namespace SZMK
             LockedButtonForLoadData(true);
 
             LoadData_PB.Visible = false;
+        }
+        private async void ViewSearchAsync(List<Order> Orders)
+        {
+            LoadData_PB.Visible = true;
+            LockedButtonForLoadData(false);
+
+            await Task.Run(() => ViewSearch(Orders));
+
+            LockedButtonForLoadData(true);
+
+            LoadData_PB.Visible = false;
+        }
+        private void ViewSearch(List<Order> Orders)
+        {
+            try
+            {
+                Order_DGV.Invoke((MethodInvoker)delegate ()
+                {
+                    View.DataSource = null;
+                    View.DataSource = Orders;
+
+                    Order_DGV.DataSource = View;
+
+                    VisibleButton(true);
+                    CanceledOrder_TSB.Text = "Аннулировать";
+                });
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void LockedButtonForLoadData(bool flag)
         {

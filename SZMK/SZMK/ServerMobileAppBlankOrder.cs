@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace SZMK
 {
@@ -83,9 +84,22 @@ namespace SZMK
                 String[] ValidationDataMatrix = Temp.Split('_');
                 if (CheckedUniqueList(Temp))
                 {
-                    if (ValidationDataMatrix.Length <= 4)
+                    if (ValidationDataMatrix.Length < 4)
                     {
                         throw new Exception("В QR менее 4 полей");
+                    }
+
+                    Regex regex = new Regex(@"\d*-\d*-\d*");
+                    MatchCollection matches = regex.Matches(ValidationDataMatrix[1]);
+
+                    if (matches.Count > 0)
+                    {
+                        Temp = ValidationDataMatrix[0] + "_СЗМК";
+                        for(int i = 1; i < ValidationDataMatrix.Length; i++)
+                        {
+                            Temp += "_"+ValidationDataMatrix[i];
+                        }
+                        ValidationDataMatrix = Temp.Split('_');
                     }
 
                     _ScanSession.Add(new BlankOrderScanSession(true, Temp));
@@ -168,11 +182,11 @@ namespace SZMK
                 Status?.Invoke(QRBlankOrder);
                 for (int i = 5; i < ValidationDataMatrix.Length; i++)
                 {
-                    if (SystemArgs.Request.CheckedOrder(ValidationDataMatrix[2], ValidationDataMatrix[i]) && SystemArgs.Request.CheckedStatusOrderDB(ValidationDataMatrix[2], ValidationDataMatrix[i]) == SystemArgs.User.StatusesUser[0].ID)
+                    if (SystemArgs.Request.CheckedOrder(ValidationDataMatrix[2], ValidationDataMatrix[i]) && SystemArgs.Request.CheckedStatusOrderDB(ValidationDataMatrix[2], ValidationDataMatrix[i]) == SystemArgs.User.StatusesUser[0].ID && SystemArgs.Request.CheckedExecutorWork(ValidationDataMatrix[2],ValidationDataMatrix[i],QRBlankOrder))
                     {
                         _ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[2], ValidationDataMatrix[i], 1));
                     }
-                    else if (SystemArgs.Request.CheckedStatusOrderDB(ValidationDataMatrix[2], ValidationDataMatrix[i]) >= SystemArgs.User.StatusesUser[1].ID)
+                    else if (SystemArgs.Request.CheckedStatusOrderDB(ValidationDataMatrix[2], ValidationDataMatrix[i]) >= SystemArgs.User.StatusesUser[1].ID && SystemArgs.Request.CheckedExecutorWork(ValidationDataMatrix[2], ValidationDataMatrix[i], QRBlankOrder))
                     {
                         _ScanSession[_ScanSession.Count - 1].GetNumberAndLists().Add(new BlankOrderScanSession.NumberAndList(ValidationDataMatrix[2], ValidationDataMatrix[i], 0));
                     }

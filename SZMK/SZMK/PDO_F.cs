@@ -157,7 +157,7 @@ namespace SZMK
         {
             if (SearchParam())
             {
-                DisplayAsync(Result);
+                ViewSearchAsync(Result);
             }
         }
         private Boolean AddOrder()
@@ -233,38 +233,31 @@ namespace SZMK
 
                                         NewOrder.BlankOrder = NewBlankOrder;
                                         NewOrder.ExecutorWork = SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder.Split('_')[1];
-                                        if (SystemArgs.Excel.AddToRegistry(NewOrder))
+                                        TempForBlankOrder.Add(NewOrder);
+                                        if (Temp.Status.Name == "Передан в ПДО")
                                         {
-                                            TempForBlankOrder.Add(NewOrder);
-                                            if(Temp.Status.Name=="Передан в ПДО")
+                                            if (SystemArgs.Request.UpdateDateCreateStatus(NewOrder) && SystemArgs.Request.UpdateExecutorWorkOrder(NewOrder))
                                             {
-                                                if (SystemArgs.Request.UpdateDateCreateStatus(NewOrder) && SystemArgs.Request.UpdateExecutorWorkOrder(NewOrder))
-                                                {
-                                                    SystemArgs.Orders.Remove(Temp);
-                                                    SystemArgs.Orders.Add(NewOrder);
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Ошибка при добавлении в базу данных бланка заказа: " + SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                }
+                                                SystemArgs.Orders.Remove(Temp);
+                                                SystemArgs.Orders.Add(NewOrder);
                                             }
                                             else
                                             {
-                                                NewOrder.Status = TempStatus;
-                                                if (SystemArgs.Request.InsertStatus(NewOrder) && SystemArgs.Request.UpdateExecutorWorkOrder(NewOrder))
-                                                {
-                                                    SystemArgs.Orders.Remove(Temp);
-                                                    SystemArgs.Orders.Add(NewOrder);
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Ошибка при добавлении в базу данных бланка заказа: " + SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                }
+                                                MessageBox.Show("Ошибка при добавлении в базу данных бланка заказа: " + SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                             }
                                         }
                                         else
                                         {
-                                            MessageBox.Show("Ошибка добавления данных в реестр, добавление бланка заказа и обновление статуса " + SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder + " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            NewOrder.Status = TempStatus;
+                                            if (SystemArgs.Request.InsertStatus(NewOrder) && SystemArgs.Request.UpdateExecutorWorkOrder(NewOrder))
+                                            {
+                                                SystemArgs.Orders.Remove(Temp);
+                                                SystemArgs.Orders.Add(NewOrder);
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Ошибка при добавлении в базу данных бланка заказа: " + SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            }
                                         }
                                     }
                                     else if (NumberAndList.Finded == 0)
@@ -285,9 +278,6 @@ namespace SZMK
                                             MessageBox.Show("Время обновления статуса чертежа: DataMatrix "+NewOrder.DataMatrix+", Дата обновления статуса"+NewOrder.StatusDate+", больше времени системы", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                             continue;
                                         }
-
-                                        if (SystemArgs.Excel.AddToRegistry(NewOrder))
-                                        {
                                             TempForBlankOrder.Add(NewOrder);
                                             if (SystemArgs.Request.UpdateExecutorWorkOrder(NewOrder)&&SystemArgs.Request.UpdateDateCreateStatus(NewOrder))
                                             {
@@ -298,11 +288,6 @@ namespace SZMK
                                             {
                                                 MessageBox.Show("Ошибка при добавлении в базу данных бланка заказа: " + SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                             }
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Ошибка добавления данных в реестр, добавление бланка заказа и обновление статуса " + SystemArgs.ServerMobileAppBlankOrder[i].QRBlankOrder + " не будет произведено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                        }
                                     }
                                 }
 
@@ -444,7 +429,7 @@ namespace SZMK
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
                                 View.DataSource = null;
-                                View.DataSource = List.Where(p => !p.Canceled).ToList();
+                                View.DataSource = List.Where(p => !p.Canceled&&!p.Finished).ToList();
 
                                 Order_DGV.DataSource = View;
 
@@ -508,7 +493,7 @@ namespace SZMK
                             Order_DGV.Invoke((MethodInvoker)delegate ()
                             {
                                 View.DataSource = null;
-                                View.DataSource = List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID && !p.Canceled).ToList();
+                                View.DataSource = List.Where(p => p.Status.IDPosition == SystemArgs.User.GetPosition().ID && !p.Canceled&&!p.Finished).ToList();
 
                                 Order_DGV.DataSource = View;
 
@@ -660,17 +645,29 @@ namespace SZMK
         {
             try
             {
-                PDO_SearchParam_F Dialog = new PDO_SearchParam_F();
+                Chief_PDO_SearchParam_F Dialog = new Chief_PDO_SearchParam_F();
 
-                List<Status> Statuses = new List<Status>();
-
-                Statuses.Add(new Status(-1, 0, "Не задан"));
+                List<Status> Statuses = new List<Status>
+                {
+                    new Status(-1, 0, "Не задан")
+                };
                 Statuses.AddRange(SystemArgs.Statuses);
                 Dialog.Status_CB.DataSource = Statuses;
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Result = SystemArgs.Orders;
+                    Result = SystemArgs.Orders.ToList();
+                    if (Dialog.Finished_CB.Checked && Dialog.Number_TB.Text.Trim() == String.Empty && Dialog.List_TB.Text.Trim() == String.Empty)
+                    {
+                        if (MessageBox.Show("Вы уверены в выводе всех завершенных чертежей?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                        {
+                            Result = Result.Where(p => !p.Finished).ToList();
+                        }
+                    }
+                    else if (!Dialog.Finished_CB.Checked)
+                    {
+                        Result = Result.Where(p => !p.Finished).ToList();
+                    }
                     if (Dialog.DateEnable_CB.Checked)
                     {
                         Result = Result.Where(p => (p.DateCreate >= Dialog.First_DP.Value.Date) && (p.DateCreate <= Dialog.Second_DP.Value.Date.AddSeconds(86399))).ToList();
@@ -710,13 +707,7 @@ namespace SZMK
                     {
                         Result = Result.Where(p => p.Weight.ToString().IndexOf(Dialog.Weight_TB.Text.Trim()) != -1).ToList();
                     }
-                    if (Dialog.Finished_CB.Checked && Dialog.Number_TB.Text.Trim() == String.Empty && Dialog.List_TB.Text.Trim() == String.Empty)
-                    {
-                        if (MessageBox.Show("Вы уверены в выводе всех завершенных чертежей?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-                        {
-                            Result = Result.Where(p => p.Finished).ToList();
-                        }
-                    }
+
                     if (Dialog.NumberBlankOrder_TB.Text.Trim() != String.Empty)
                     {
                         Result = Result.Where(p => p.BlankOrderView.IndexOf(Dialog.NumberBlankOrder_TB.Text.Trim()) != -1).ToList();
@@ -860,6 +851,37 @@ namespace SZMK
             LockedButtonForLoadData(true);
 
             LoadData_PB.Visible = false;
+        }
+
+        private async void ViewSearchAsync(List<Order> Orders)
+        {
+            LoadData_PB.Visible = true;
+            LockedButtonForLoadData(false);
+
+            await Task.Run(() => ViewSearch(Orders));
+
+            LockedButtonForLoadData(true);
+
+            LoadData_PB.Visible = false;
+        }
+        private void ViewSearch(List<Order> Orders)
+        {
+            try
+            {
+                Order_DGV.Invoke((MethodInvoker)delegate ()
+                {
+                    View.DataSource = null;
+                    View.DataSource = Orders;
+
+                    Order_DGV.DataSource = View;
+
+                    VisibleButton(true);
+                });
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void LockedButtonForLoadData(bool flag)
         {

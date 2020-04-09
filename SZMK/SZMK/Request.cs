@@ -670,6 +670,43 @@ namespace SZMK
                 return false;
             }
         }
+        public bool CheckedExecutorWork(String Number, String List,String QR)
+        {
+            try
+            {
+                bool flag = true;
+                using (var Connect = new NpgsqlConnection(_ConnectString))
+                {
+                    Connect.Open();
+
+                    using (var Command = new NpgsqlCommand($"SELECT COUNT(\"ID\") FROM public.\"Orders\" WHERE \"Number\"='{Number}' AND \"List\"='{List}';", Connect))
+                    {
+                        using (var Reader = Command.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                if (Reader.GetString(0).Split('_')[1]==QR.Split('_')[1])
+                                {
+                                    flag = true;
+                                }
+                                else
+                                {
+                                    flag = false;
+                                }
+                            }
+                        }
+                    }
+
+                    Connect.Close();
+                }
+                return flag;
+
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public Int64 CheckedStatusOrderDB(String Number, String List)
         {
             try

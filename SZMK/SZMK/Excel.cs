@@ -314,44 +314,6 @@ namespace SZMK
                 return false;
             }
         }
-        public bool AddToRegistry(Order Order)
-        {
-            try
-            {
-                System.IO.FileInfo fInfoSrcTemplateRegistry = new System.IO.FileInfo(SystemArgs.Path.TemplateRegistry);
-                System.IO.FileInfo fInfoSrcRegistry = new System.IO.FileInfo(SystemArgs.ClientProgram.RegistryPath + @"\Реестр.xlsx");
-                if (!File.Exists(fInfoSrcRegistry.ToString()))
-                {
-                    var WBcopy = new ExcelPackage(fInfoSrcTemplateRegistry).File.CopyTo(fInfoSrcRegistry.ToString());
-                }
-                ExcelPackage WB = new ExcelPackage(new System.IO.FileInfo(fInfoSrcRegistry.ToString()));
-                ExcelWorksheet WS = WB.Workbook.Worksheets[1];
-                var rowCntReport = WS.Dimension.End.Row;
-                WS.Cells[rowCntReport + 1, 1].Value = Order.Number;
-                if (Order.BlankOrder.QR.Split('_').Length > 3)
-                {
-                    WS.Cells[rowCntReport + 1, 2].Value = Order.BlankOrder.QR.Split('_')[1];
-                }
-                else
-                {
-                    WS.Cells[rowCntReport + 1, 2].Value = Order.BlankOrder.QR;
-                }
-                WS.Cells[rowCntReport + 1, 3].Value = Order.List.ToString();
-                WS.Cells[rowCntReport + 1, 4].Value = Order.Mark;
-                WS.Cells[rowCntReport + 1, 5].Value = Order.Executor;
-                WS.Cells[rowCntReport + 1, 6].Value = Order.Lenght.ToString();
-                WS.Cells[rowCntReport + 1, 7].Value = Order.Weight.ToString();
-                WS.Cells[rowCntReport + 1, 8].Value = Order.Status.Name;
-                WS.Cells["A2:H" + WS.Dimension.End.Row.ToString()].AutoFitColumns();
-                WS.Cells["A2:H" + WS.Dimension.End.Row.ToString()].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                WB.Save();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
         public bool ReportOrderOfSelect(List<Order> Report)
         {
             SaveFileDialog SaveReport = new SaveFileDialog();

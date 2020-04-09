@@ -184,7 +184,7 @@ namespace SZMK
         {
             if (SearchParam())
             {
-                DisplayAsync(Result);
+                ViewSearchAsync(Result);
             }
         }
 
@@ -391,6 +391,37 @@ namespace SZMK
 
             LoadData_PB.Visible = false;
         }
+        private async void ViewSearchAsync(List<Order> Orders)
+        {
+            LoadData_PB.Visible = true;
+            LockedButtonForLoadData(false);
+
+            await Task.Run(() => ViewSearch(Orders));
+
+            LockedButtonForLoadData(true);
+
+            LoadData_PB.Visible = false;
+        }
+        private void ViewSearch(List<Order> Orders)
+        {
+            try
+            {
+                Order_DGV.Invoke((MethodInvoker)delegate ()
+                {
+                    View.DataSource = null;
+                    View.DataSource = Orders;
+
+                    Order_DGV.DataSource = View;
+
+                    VisibleButton(true);
+                    CanceledOrder_TSB.Text = "Аннулировать";
+                });
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void LockedButtonForLoadData(bool flag)
         {
             ChangeOrder_TSB.Enabled = flag;
@@ -492,7 +523,18 @@ namespace SZMK
 
                 if (Dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Result = SystemArgs.Orders;
+                    Result = SystemArgs.Orders.ToList();
+                    if (Dialog.Finished_CB.Checked && Dialog.Number_TB.Text.Trim() == String.Empty && Dialog.List_TB.Text.Trim() == String.Empty)
+                    {
+                        if (MessageBox.Show("Вы уверены в выводе всех завершенных чертежей?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                        {
+                            Result = Result.Where(p => !p.Finished).ToList();
+                        }
+                    }
+                    else if (!Dialog.Finished_CB.Checked)
+                    {
+                        Result = Result.Where(p => !p.Finished).ToList();
+                    }
                     if (Dialog.DateEnable_CB.Checked)
                     {
                         Result = Result.Where(p => (p.DateCreate >= Dialog.First_DP.Value.Date) && (p.DateCreate <= Dialog.Second_DP.Value.Date.AddSeconds(86399))).ToList();
@@ -532,13 +574,7 @@ namespace SZMK
                     {
                         Result = Result.Where(p => p.Weight.ToString().IndexOf(Dialog.Weight_TB.Text.Trim()) != -1).ToList();
                     }
-                    if (Dialog.Finished_CB.Checked && Dialog.Number_TB.Text.Trim() == String.Empty && Dialog.List_TB.Text.Trim() == String.Empty)
-                    {
-                        if (MessageBox.Show("Вы уверены в выводе всех завершенных чертежей?", "Внимание", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-                        {
-                            Result = Result.Where(p => p.Finished).ToList();
-                        }
-                    }
+
                     if (Dialog.NumberBlankOrder_TB.Text.Trim() != String.Empty)
                     {
                         Result = Result.Where(p => p.BlankOrderView.IndexOf(Dialog.NumberBlankOrder_TB.Text.Trim()) != -1).ToList();

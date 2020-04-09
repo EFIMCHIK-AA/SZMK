@@ -32,16 +32,6 @@ namespace SZMK
             Count_TB.Text = View.Count.ToString();
         }
 
-        private void Add_B_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void анализToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void SetStatus(TextBox Textbox, Color Color, Boolean Flag)
         {
             if(Flag)
@@ -629,7 +619,6 @@ namespace SZMK
 
                 if (SystemArgs.ClientProgram.GetParametersConnect())
                 {
-                    Dialog.RegistryPath_TB.Text = SystemArgs.ClientProgram.RegistryPath;
                     Dialog.ArchivePath_TB.Text = SystemArgs.ClientProgram.ArchivePath;
                     Dialog.ModelsPath_TB.Text = SystemArgs.ClientProgram.ModelsPath;
                     Dialog.CheckMarks_CB.Checked = SystemArgs.ClientProgram.CheckMarks;

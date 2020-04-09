@@ -18,16 +18,6 @@ namespace SZMK
             InitializeComponent();
         }
 
-        private void ReviewRegistry_B_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog Ofd = new FolderBrowserDialog();
-
-            if (Ofd.ShowDialog() == DialogResult.OK)
-            {
-                RegistryPath_TB.Text = Ofd.SelectedPath;
-            }
-        }
-
         private void ReviewArchive_B_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog Ofd = new FolderBrowserDialog();
@@ -42,11 +32,6 @@ namespace SZMK
         {
             try
             {
-                if (String.IsNullOrEmpty(RegistryPath_TB.Text))
-                {
-                    RegistryPath_TB.Focus();
-                    throw new Exception("Необходимо указать директорию реестра");
-                }
 
                 if (String.IsNullOrEmpty(ArchivePath_TB.Text))
                 {
@@ -60,13 +45,7 @@ namespace SZMK
                     throw new Exception("Необходимо указать директорию выгрузки");
                 }
 
-                if (!Directory.Exists(RegistryPath_TB.Text.Trim()))
-                {
-                    RegistryPath_TB.Focus();
-                    throw new Exception("Указанная дирекория реестра не существует");
-                }
-
-                if (!Directory.Exists(RegistryPath_TB.Text.Trim()))
+                if (!Directory.Exists(ArchivePath_TB.Text.Trim()))
                 {
                     ArchivePath_TB.Focus();
                     throw new Exception("Указанная дирекория архива не существует");
@@ -79,7 +58,6 @@ namespace SZMK
                 }
 
                 SystemArgs.ClientProgram.ArchivePath = ArchivePath_TB.Text.Trim();
-                SystemArgs.ClientProgram.RegistryPath = RegistryPath_TB.Text.Trim();
                 SystemArgs.ClientProgram.ModelsPath = ModelsPath_TB.Text.Trim();
 
                 if(CheckMarks_CB.Checked)

@@ -179,7 +179,7 @@
             // настройкиToolStripMenuItem
             // 
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.настройкиToolStripMenuItem.Text = "Настройки";
             this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
             // 
@@ -433,12 +433,12 @@
             // 
             this.ID_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.ID_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ID_TB.Location = new System.Drawing.Point(134, 208);
+            this.ID_TB.Location = new System.Drawing.Point(137, 208);
             this.ID_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.ID_TB.Name = "ID_TB";
             this.ID_TB.ReadOnly = true;
             this.ID_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.ID_TB.Size = new System.Drawing.Size(326, 20);
+            this.ID_TB.Size = new System.Drawing.Size(323, 20);
             this.ID_TB.TabIndex = 22;
             this.ID_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -457,12 +457,12 @@
             // 
             this.Surname_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Surname_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Surname_TB.Location = new System.Drawing.Point(134, 57);
+            this.Surname_TB.Location = new System.Drawing.Point(137, 57);
             this.Surname_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.Surname_TB.Name = "Surname_TB";
             this.Surname_TB.ReadOnly = true;
             this.Surname_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Surname_TB.Size = new System.Drawing.Size(326, 20);
+            this.Surname_TB.Size = new System.Drawing.Size(323, 20);
             this.Surname_TB.TabIndex = 24;
             this.Surname_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -481,12 +481,12 @@
             // 
             this.Name_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Name_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Name_TB.Location = new System.Drawing.Point(134, 81);
+            this.Name_TB.Location = new System.Drawing.Point(137, 81);
             this.Name_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.Name_TB.Name = "Name_TB";
             this.Name_TB.ReadOnly = true;
             this.Name_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Name_TB.Size = new System.Drawing.Size(326, 20);
+            this.Name_TB.Size = new System.Drawing.Size(323, 20);
             this.Name_TB.TabIndex = 26;
             this.Name_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -505,12 +505,12 @@
             // 
             this.MiddleName_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.MiddleName_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MiddleName_TB.Location = new System.Drawing.Point(134, 105);
+            this.MiddleName_TB.Location = new System.Drawing.Point(137, 105);
             this.MiddleName_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.MiddleName_TB.Name = "MiddleName_TB";
             this.MiddleName_TB.ReadOnly = true;
             this.MiddleName_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.MiddleName_TB.Size = new System.Drawing.Size(326, 20);
+            this.MiddleName_TB.Size = new System.Drawing.Size(323, 20);
             this.MiddleName_TB.TabIndex = 28;
             this.MiddleName_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -529,12 +529,12 @@
             // 
             this.DataReg_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.DataReg_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataReg_TB.Location = new System.Drawing.Point(134, 232);
+            this.DataReg_TB.Location = new System.Drawing.Point(137, 232);
             this.DataReg_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.DataReg_TB.Name = "DataReg_TB";
             this.DataReg_TB.ReadOnly = true;
             this.DataReg_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.DataReg_TB.Size = new System.Drawing.Size(326, 20);
+            this.DataReg_TB.Size = new System.Drawing.Size(323, 20);
             this.DataReg_TB.TabIndex = 32;
             this.DataReg_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -553,12 +553,12 @@
             // 
             this.Position_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Position_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Position_TB.Location = new System.Drawing.Point(134, 129);
+            this.Position_TB.Location = new System.Drawing.Point(137, 129);
             this.Position_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.Position_TB.Name = "Position_TB";
             this.Position_TB.ReadOnly = true;
             this.Position_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Position_TB.Size = new System.Drawing.Size(326, 20);
+            this.Position_TB.Size = new System.Drawing.Size(323, 20);
             this.Position_TB.TabIndex = 34;
             this.Position_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -577,12 +577,12 @@
             // 
             this.Login_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Login_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Login_TB.Location = new System.Drawing.Point(134, 256);
+            this.Login_TB.Location = new System.Drawing.Point(137, 256);
             this.Login_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.Login_TB.Name = "Login_TB";
             this.Login_TB.ReadOnly = true;
             this.Login_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Login_TB.Size = new System.Drawing.Size(326, 20);
+            this.Login_TB.Size = new System.Drawing.Size(323, 20);
             this.Login_TB.TabIndex = 38;
             this.Login_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -601,12 +601,12 @@
             // 
             this.HashPassword_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.HashPassword_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HashPassword_TB.Location = new System.Drawing.Point(134, 280);
+            this.HashPassword_TB.Location = new System.Drawing.Point(137, 280);
             this.HashPassword_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.HashPassword_TB.Name = "HashPassword_TB";
             this.HashPassword_TB.ReadOnly = true;
             this.HashPassword_TB.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.HashPassword_TB.Size = new System.Drawing.Size(326, 20);
+            this.HashPassword_TB.Size = new System.Drawing.Size(323, 20);
             this.HashPassword_TB.TabIndex = 40;
             this.HashPassword_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -765,19 +765,19 @@
             this.label14.Location = new System.Drawing.Point(3, 357);
             this.label14.Margin = new System.Windows.Forms.Padding(3, 0, 2, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(99, 16);
+            this.label14.Size = new System.Drawing.Size(130, 16);
             this.label14.TabIndex = 43;
-            this.label14.Text = "Подключение";
+            this.label14.Text = "Подключение к БД";
             // 
             // Connect_TB
             // 
             this.Connect_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Connect_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Connect_TB.Location = new System.Drawing.Point(134, 359);
+            this.Connect_TB.Location = new System.Drawing.Point(137, 359);
             this.Connect_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.Connect_TB.Name = "Connect_TB";
             this.Connect_TB.ReadOnly = true;
-            this.Connect_TB.Size = new System.Drawing.Size(326, 20);
+            this.Connect_TB.Size = new System.Drawing.Size(323, 20);
             this.Connect_TB.TabIndex = 45;
             this.Connect_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -785,11 +785,11 @@
             // 
             this.Count_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Count_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Count_TB.Location = new System.Drawing.Point(134, 383);
+            this.Count_TB.Location = new System.Drawing.Point(137, 383);
             this.Count_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.Count_TB.Name = "Count_TB";
             this.Count_TB.ReadOnly = true;
-            this.Count_TB.Size = new System.Drawing.Size(326, 20);
+            this.Count_TB.Size = new System.Drawing.Size(323, 20);
             this.Count_TB.TabIndex = 46;
             this.Count_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -819,10 +819,10 @@
             // 
             this.StatusMobile_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.StatusMobile_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StatusMobile_TB.Location = new System.Drawing.Point(134, 462);
+            this.StatusMobile_TB.Location = new System.Drawing.Point(137, 462);
             this.StatusMobile_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.StatusMobile_TB.Name = "StatusMobile_TB";
-            this.StatusMobile_TB.Size = new System.Drawing.Size(326, 20);
+            this.StatusMobile_TB.Size = new System.Drawing.Size(323, 20);
             this.StatusMobile_TB.TabIndex = 51;
             this.StatusMobile_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -830,10 +830,10 @@
             // 
             this.StatusConf_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.StatusConf_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StatusConf_TB.Location = new System.Drawing.Point(134, 486);
+            this.StatusConf_TB.Location = new System.Drawing.Point(137, 486);
             this.StatusConf_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.StatusConf_TB.Name = "StatusConf_TB";
-            this.StatusConf_TB.Size = new System.Drawing.Size(326, 20);
+            this.StatusConf_TB.Size = new System.Drawing.Size(323, 20);
             this.StatusConf_TB.TabIndex = 52;
             this.StatusConf_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -841,10 +841,10 @@
             // 
             this.StatusMail_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.StatusMail_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StatusMail_TB.Location = new System.Drawing.Point(134, 510);
+            this.StatusMail_TB.Location = new System.Drawing.Point(137, 510);
             this.StatusMail_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.StatusMail_TB.Name = "StatusMail_TB";
-            this.StatusMail_TB.Size = new System.Drawing.Size(326, 20);
+            this.StatusMail_TB.Size = new System.Drawing.Size(323, 20);
             this.StatusMail_TB.TabIndex = 55;
             this.StatusMail_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -892,7 +892,7 @@
             this.label22.Location = new System.Drawing.Point(3, 587);
             this.label22.Margin = new System.Windows.Forms.Padding(3, 0, 2, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(127, 24);
+            this.label22.Size = new System.Drawing.Size(130, 24);
             this.label22.TabIndex = 58;
             this.label22.Text = "Сервер";
             // 
@@ -900,11 +900,11 @@
             // 
             this.StatusServer_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.StatusServer_TB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StatusServer_TB.Location = new System.Drawing.Point(134, 589);
+            this.StatusServer_TB.Location = new System.Drawing.Point(137, 589);
             this.StatusServer_TB.Margin = new System.Windows.Forms.Padding(2, 2, 5, 2);
             this.StatusServer_TB.Name = "StatusServer_TB";
             this.StatusServer_TB.ReadOnly = true;
-            this.StatusServer_TB.Size = new System.Drawing.Size(326, 20);
+            this.StatusServer_TB.Size = new System.Drawing.Size(323, 20);
             this.StatusServer_TB.TabIndex = 59;
             this.StatusServer_TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -941,7 +941,7 @@
             this.panel2.Size = new System.Drawing.Size(703, 682);
             this.panel2.TabIndex = 45;
             // 
-            // ADAdminstrator_F
+            // AD_Adminstrator_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -955,7 +955,7 @@
             this.KeyPreview = true;
             this.MainMenuStrip = this.Menu_MS;
             this.MinimumSize = new System.Drawing.Size(1145, 730);
-            this.Name = "ADAdminstrator_F";
+            this.Name = "AD_Adminstrator_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Администратор";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Adminstrator_F_FormClosing);
