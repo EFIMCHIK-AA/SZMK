@@ -16,5 +16,10 @@ namespace SZMK
         {
             InitializeComponent();
         }
+
+        private void KB_ReportOrderOfDate_F_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

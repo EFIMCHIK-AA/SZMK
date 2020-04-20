@@ -533,12 +533,11 @@ namespace SZMK
                     {
                         Command.ExecuteNonQuery();
                     }
-
+                    
                     using (var Command = new NpgsqlCommand($"INSERT INTO public.\"AddStatus\" (\"DateCreate\", \"ID_Status\", \"ID_Order\", \"ID_User\") VALUES('{DateTime.Now}', '{Order.Status.ID}', '{Order.ID}', '{Order.User.ID}'); ", Connect))
                     {
                         Command.ExecuteNonQuery();
                     }
-
                     Connect.Close();
                 }
 
@@ -625,6 +624,7 @@ namespace SZMK
 
                     Connect.Close();
                 }
+                
 
                 return true;
             }
@@ -1034,7 +1034,7 @@ namespace SZMK
                                             TempBlank = SystemArgs.BlankOrders.Where(p => p.ID == BlankOrderID.Last()).Single();
                                         }
                                     }
-                                    List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == ID && p.IDStatus == TempStatus.ID).Select(p => p.DateCreate).ToList();
+                                    List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == ID && p.IDStatus == TempStatus.ID).Select(p=>p.DateCreate).ToList();
                                     SystemArgs.Orders.Add(new Order(ID, Reader.GetString(2), Reader.GetDateTime(1), Reader.GetString(5),Reader.GetString(3), Reader.GetString(4), Reader.GetString(6), Reader.GetString(7), Convert.ToDouble(Reader.GetString(8)), Convert.ToDouble(Reader.GetString(9)), TempStatus,StatusDate.Last(), TempUser, TempBlank, Reader.GetBoolean(10), Reader.GetBoolean(11)));
                                 }
                             }

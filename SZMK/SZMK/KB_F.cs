@@ -180,51 +180,53 @@ namespace SZMK
                     {
                         for(int i = 0; i < SystemArgs.ServerMobileAppOrder.GetScanSessions().Count; i++)
                         {
-                            if (SystemArgs.ServerMobileAppOrder[i].Unique==2)
+                            try
                             {
-                                using (var Connect = new NpgsqlConnection(SystemArgs.DataBase.ToString()))
+                                if (SystemArgs.ServerMobileAppOrder[i].Unique == 2)
                                 {
-                                    Connect.Open();
-
-                                    using (var Command = new NpgsqlCommand($"SELECT last_value FROM \"Orders_ID_seq\"", Connect))
+                                    using (var Connect = new NpgsqlConnection(SystemArgs.DataBase.ToString()))
                                     {
-                                        using (var Reader = Command.ExecuteReader())
+                                        Connect.Open();
+
+                                        using (var Command = new NpgsqlCommand($"SELECT last_value FROM \"Orders_ID_seq\"", Connect))
                                         {
-                                            while (Reader.Read())
+                                            using (var Reader = Command.ExecuteReader())
                                             {
-                                                IndexOrder = Reader.GetInt64(0);
+                                                while (Reader.Read())
+                                                {
+                                                    IndexOrder = Reader.GetInt64(0);
+                                                }
                                             }
                                         }
                                     }
-                                }
 
-                                String[] SplitDataMatrix = SystemArgs.ServerMobileAppOrder[i].DataMatrix.Split('_');
+                                    String[] SplitDataMatrix = SystemArgs.ServerMobileAppOrder[i].DataMatrix.Split('_');
 
-                                String[] ListCanceled = SplitDataMatrix[1].Split('и');
+                                    String[] ListCanceled = SplitDataMatrix[1].Split('и');
 
-                                if (ListCanceled.Length != 1)
-                                {
-                                   List<Order> CanceledOrders = SystemArgs.Orders.Where(p => (p.List.IndexOf(ListCanceled[0]+"и")==0||p.List==ListCanceled[0]) && p.Number == SplitDataMatrix[0]).ToList();
-
-                                    if(CanceledOrders.Count() >= 1)
+                                    if (ListCanceled.Length != 1)
                                     {
-                                        for (Int32 j = 0; j < CanceledOrders.Count; j++)
+                                        List<Order> CanceledOrders = SystemArgs.Orders.Where(p => (p.List.IndexOf(ListCanceled[0] + "и") == 0 || p.List == ListCanceled[0]) && p.Number == SplitDataMatrix[0]).ToList();
+
+                                        if (CanceledOrders.Count() >= 1)
                                         {
-                                            CanceledOrders[j].Canceled = true;
-                                            SystemArgs.Request.CanceledOrder(CanceledOrders[j]);
+                                            for (Int32 j = 0; j < CanceledOrders.Count; j++)
+                                            {
+                                                CanceledOrders[j].Canceled = true;
+                                                SystemArgs.Request.CanceledOrder(CanceledOrders[j]);
+                                            }
                                         }
                                     }
-                                }
 
-                                BlankOrder TempBlank = new BlankOrder();
+                                    BlankOrder TempBlank = new BlankOrder();
 
-                                Int64 PositionID = SystemArgs.User.GetPosition().ID;
+                                    Int64 PositionID = SystemArgs.User.GetPosition().ID;
 
-                                Status TempStatus = (from p in SystemArgs.Statuses
-                                                    where p.IDPosition == PositionID
-                                                    select p).Single();
+                                    Status TempStatus = (from p in SystemArgs.Statuses
+                                                         where p.IDPosition == PositionID
+                                                         select p).Single();
 
-                                Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], "Исполнитель не определен", SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, DateTime.Now, SystemArgs.User, TempBlank, false,false);
+                                    Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], "Исполнитель не определен", SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, DateTime.Now, SystemArgs.User, TempBlank, false, false);
 
                                     if (SystemArgs.Request.InsertOrder(TempOrder))
                                     {
@@ -239,17 +241,17 @@ namespace SZMK
                                         MessageBox.Show("Ошибка при добавлении в базу данных DataMatrix: " + SystemArgs.ServerMobileAppOrder[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     }
 
-                            }
-                            else if(SystemArgs.ServerMobileAppOrder[i].Unique == 1)
-                            {
-                                String[] SplitDataMatrix = SystemArgs.ServerMobileAppOrder[i].DataMatrix.Split('_');
-                                Order OldOrder = SystemArgs.Orders.Where(p => p.Number == SplitDataMatrix[0] && p.List == SplitDataMatrix[1]).Single();
-                                Order UpdateOrder = OldOrder;
-                                UpdateOrder.DataMatrix = SystemArgs.ServerMobileAppOrder[i].DataMatrix;
-                                UpdateOrder.Mark = SplitDataMatrix[2];
-                                UpdateOrder.Executor = SplitDataMatrix[3];
-                                UpdateOrder.Lenght = Convert.ToDouble(SplitDataMatrix[4]);
-                                UpdateOrder.Weight = Convert.ToDouble(SplitDataMatrix[5]);
+                                }
+                                else if (SystemArgs.ServerMobileAppOrder[i].Unique == 1)
+                                {
+                                    String[] SplitDataMatrix = SystemArgs.ServerMobileAppOrder[i].DataMatrix.Split('_');
+                                    Order OldOrder = SystemArgs.Orders.Where(p => p.Number == SplitDataMatrix[0] && p.List == SplitDataMatrix[1]).Single();
+                                    Order UpdateOrder = OldOrder;
+                                    UpdateOrder.DataMatrix = SystemArgs.ServerMobileAppOrder[i].DataMatrix;
+                                    UpdateOrder.Mark = SplitDataMatrix[2];
+                                    UpdateOrder.Executor = SplitDataMatrix[3];
+                                    UpdateOrder.Lenght = Convert.ToDouble(SplitDataMatrix[4]);
+                                    UpdateOrder.Weight = Convert.ToDouble(SplitDataMatrix[5]);
                                     if (SystemArgs.Request.UpdateOrder(UpdateOrder))
                                     {
                                         SystemArgs.Orders.Remove(OldOrder);
@@ -259,8 +261,26 @@ namespace SZMK
                                     {
                                         MessageBox.Show("Ошибка при обновлении в базе данных DataMatrix: " + SystemArgs.ServerMobileAppOrder[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     }
+                                }
                             }
+                            catch(Exception E)
+                            {
+                                SystemArgs.ServerMobileAppOrder[i].Discription = E.Message;
+                                SystemArgs.ServerMobileAppOrder[i].Unique = 0;
+                            }
+
                         }
+                        List<OrderScanSession> Temp = SystemArgs.ServerMobileAppOrder.GetScanSessions().Where(p => p.Unique == 0).ToList();
+                        if (Temp.Count() > 0)
+                        {
+                            KB_NotAdded_F Report = new KB_NotAdded_F();
+                            Report.Report_DGV.AutoGenerateColumns = false;
+                            Report.Report_DGV.DataSource = Temp;
+                            Report.CountOrder_TB.Text = SystemArgs.ServerMobileAppOrder.GetScanSessions().Count() - Temp.Count() + "/" + SystemArgs.ServerMobileAppOrder.GetScanSessions().Count();
+                            Report.ShowDialog();
+
+                        }
+
                         return true;
                     }
                     else
@@ -298,7 +318,7 @@ namespace SZMK
                     if (Dialog.ShowDialog() == DialogResult.OK)
                     {
                         String NewDataMatrix = Dialog.Number_TB.Text + "_" + Dialog.List_TB.Text + "_" + Dialog.Mark_TB.Text + "_" + Dialog.Executor_TB.Text + "_" + Dialog.Lenght_TB.Text + "_" + Dialog.Weight_TB.Text;
-                        List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == Temp.ID && p.IDStatus == Temp.Status.ID).Select(p => p.DateCreate).ToList();
+                        List<DateTime> StatusDate = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == Temp.ID && p.IDStatus == Temp.Status.ID).Select(p=>p.DateCreate).ToList();
                         Order NewOrder = new Order(Temp.ID, NewDataMatrix, Temp.DateCreate, Dialog.Number_TB.Text, Dialog.Executor_TB.Text,Temp.ExecutorWork, Dialog.List_TB.Text, Dialog.Mark_TB.Text, Convert.ToDouble(Dialog.Lenght_TB.Text), Convert.ToDouble(Dialog.Weight_TB.Text), Temp.Status,StatusDate[0], Temp.User, Temp.BlankOrder, Temp.Canceled,Temp.Finished);
                         
                         if (SystemArgs.Request.UpdateOrder(NewOrder))
@@ -633,14 +653,33 @@ namespace SZMK
                     {
                         Result = Result.Where(p => !p.Finished).ToList();
                     }
-                    if (Dialog.DateEnable_CB.Checked)
+                    if (Dialog.DateEnable_CB.Checked && Dialog.Status_CB.SelectedIndex != 0)
+                    {
+                        Status Status = (Status)Dialog.Status_CB.SelectedItem;
+                        var Orders = SystemArgs.StatusOfOrders.Where(p => p.DateCreate >= Dialog.First_DP.Value.Date && p.DateCreate <= Dialog.Second_DP.Value.Date.AddSeconds(86399) && p.IDStatus == Status.ID);
+                        List<Order> Temp = new List<Order>();
+                        foreach (var item in Orders)
+                        {
+                            List<Order> Order = Result.Where(p => p.ID == item.IDOrder).ToList();
+                            if (Order.Count > 0)
+                            {
+                                Temp.Add(new Order(Order[0].ID, Order[0].DataMatrix, Order[0].DateCreate, Order[0].Number, Order[0].Executor, Order[0].ExecutorWork, Order[0].List, Order[0].Mark, Order[0].Lenght, Order[0].Weight, Order[0].Status, item.DateCreate, Order[0].User, Order[0].BlankOrder, Order[0].Canceled, Order[0].Finished));
+                            }
+                        }
+                        Result = Temp;
+                    }
+                    else if (Dialog.DateEnable_CB.Checked)
                     {
                         Result = Result.Where(p => (p.DateCreate >= Dialog.First_DP.Value.Date) && (p.DateCreate <= Dialog.Second_DP.Value.Date.AddSeconds(86399))).ToList();
+                    }
+                    else if (Dialog.Status_CB.SelectedIndex > 0)
+                    {
+                        Result = Result.Where(p => p.Status == (Status)Dialog.Status_CB.SelectedItem).ToList();
                     }
 
                     if (Dialog.Executor_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.Executor.IndexOf(Dialog.ExecutorWork_TB.Text.Trim()) != -1).ToList();
+                        Result = Result.Where(p => p.Executor.IndexOf(Dialog.Executor_TB.Text.Trim()) != -1).ToList();
                     }
 
                     if (Dialog.ExecutorWork_TB.Text.Trim() != String.Empty)
@@ -677,10 +716,7 @@ namespace SZMK
                     {
                         Result = Result.Where(p => p.BlankOrderView.IndexOf(Dialog.NumberBlankOrder_TB.Text.Trim()) != -1).ToList();
                     }
-                    if (Dialog.Status_CB.SelectedIndex > 0)
-                    {
-                        Result = Result.Where(p => p.Status == (Status)Dialog.Status_CB.SelectedItem).ToList();
-                    }
+
                     if (Dialog.User_CB.SelectedIndex > 0)
                     {
                         Result = Result.Where(p => p.User == (User)Dialog.User_CB.SelectedItem).ToList();
@@ -849,6 +885,7 @@ namespace SZMK
                     Order_DGV.DataSource = View;
 
                     VisibleButton(true);
+                    CountOrder_TB.Text = View.Count.ToString();
                     CanceledOrder_TSB.Text = "Аннулировать";
                 });
             }

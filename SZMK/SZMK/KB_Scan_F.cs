@@ -111,16 +111,22 @@ namespace SZMK
                 {
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Уникален";
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
+                    Scan_DGV[2, Scan_DGV.Rows.Count - 1].Value = ScanSessions[ScanSessions.Count - 1].Discription;
+                    Scan_DGV[2, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Lime;
                 }
                 else if (ScanSessions[ScanSessions.Count - 1].Unique == 1)
                 {
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Обновление";
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Orange;
+                    Scan_DGV[2, Scan_DGV.Rows.Count - 1].Value = ScanSessions[ScanSessions.Count-1].Discription;
+                    Scan_DGV[2, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Orange;
                 }
                 else
                 {
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Value = "Не уникален";
                     Scan_DGV[1, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Red;
+                    Scan_DGV[2, Scan_DGV.Rows.Count - 1].Value = ScanSessions[ScanSessions.Count - 1].Discription;
+                    Scan_DGV[2, Scan_DGV.Rows.Count - 1].Style.BackColor = Color.Red;
                 }
             });
         }

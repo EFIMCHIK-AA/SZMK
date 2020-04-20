@@ -620,14 +620,33 @@ namespace SZMK
                     {
                         Result = Result.Where(p => !p.Finished).ToList();
                     }
-                    if (Dialog.DateEnable_CB.Checked)
+                    if (Dialog.DateEnable_CB.Checked && Dialog.Status_CB.SelectedIndex != 0)
+                    {
+                        Status Status = (Status)Dialog.Status_CB.SelectedItem;
+                        var Orders = SystemArgs.StatusOfOrders.Where(p => p.DateCreate >= Dialog.First_DP.Value.Date && p.DateCreate <= Dialog.Second_DP.Value.Date.AddSeconds(86399) && p.IDStatus == Status.ID);
+                        List<Order> Temp = new List<Order>();
+                        foreach (var item in Orders)
+                        {
+                            List<Order> Order = Result.Where(p => p.ID == item.IDOrder).ToList();
+                            if (Order.Count > 0)
+                            {
+                                Temp.Add(new Order(Order[0].ID, Order[0].DataMatrix, Order[0].DateCreate, Order[0].Number, Order[0].Executor, Order[0].ExecutorWork, Order[0].List, Order[0].Mark, Order[0].Lenght, Order[0].Weight, Order[0].Status, item.DateCreate, Order[0].User, Order[0].BlankOrder, Order[0].Canceled, Order[0].Finished));
+                            }
+                        }
+                        Result = Temp;
+                    }
+                    else if (Dialog.DateEnable_CB.Checked)
                     {
                         Result = Result.Where(p => (p.DateCreate >= Dialog.First_DP.Value.Date) && (p.DateCreate <= Dialog.Second_DP.Value.Date.AddSeconds(86399))).ToList();
+                    }
+                    else if (Dialog.Status_CB.SelectedIndex > 0)
+                    {
+                        Result = Result.Where(p => p.Status == (Status)Dialog.Status_CB.SelectedItem).ToList();
                     }
 
                     if (Dialog.Executor_TB.Text.Trim() != String.Empty)
                     {
-                        Result = Result.Where(p => p.Executor.IndexOf(Dialog.ExecutorWork_TB.Text.Trim()) != -1).ToList();
+                        Result = Result.Where(p => p.Executor.IndexOf(Dialog.Executor_TB.Text.Trim()) != -1).ToList();
                     }
 
                     if (Dialog.ExecutorWork_TB.Text.Trim() != String.Empty)
@@ -664,10 +683,7 @@ namespace SZMK
                     {
                         Result = Result.Where(p => p.BlankOrderView.IndexOf(Dialog.NumberBlankOrder_TB.Text.Trim()) != -1).ToList();
                     }
-                    if (Dialog.Status_CB.SelectedIndex > 0)
-                    {
-                        Result = Result.Where(p => p.Status == (Status)Dialog.Status_CB.SelectedItem).ToList();
-                    }
+
                     if (Dialog.User_CB.SelectedIndex > 0)
                     {
                         Result = Result.Where(p => p.User == (User)Dialog.User_CB.SelectedItem).ToList();
@@ -830,6 +846,7 @@ namespace SZMK
                     Order_DGV.DataSource = View;
 
                     VisibleButton(true);
+                    CountOrder_TB.Text = View.Count.ToString();
                 });
             }
             catch (Exception e)

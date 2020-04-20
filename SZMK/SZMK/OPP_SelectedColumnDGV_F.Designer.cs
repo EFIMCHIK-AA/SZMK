@@ -526,6 +526,7 @@
             this.Name = "OPP_SelectedColumnDGV_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор отображаемых столбцов";
+            this.Load += new System.EventHandler(this.OPP_SelectedColumnDGV_F_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

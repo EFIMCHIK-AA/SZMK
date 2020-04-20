@@ -82,63 +82,66 @@ namespace SZMK
             {
                 String Temp = e.MessageString.Replace("\u00a0", "").Replace(" ","");
                 String[] ValidationDataMatrix = Temp.Split('_');
-                if (CheckedUniqueList(Temp))
+                if(ValidationDataMatrix.Length >= 4)
                 {
-                    if (ValidationDataMatrix.Length < 4)
-                    {
-                        throw new Exception("В QR менее 4 полей");
-                    }
-
                     Regex regex = new Regex(@"\d*-\d*-\d*");
                     MatchCollection matches = regex.Matches(ValidationDataMatrix[1]);
 
                     if (matches.Count > 0)
                     {
                         Temp = ValidationDataMatrix[0] + "_СЗМК";
-                        for(int i = 1; i < ValidationDataMatrix.Length; i++)
+                        for (int i = 1; i < ValidationDataMatrix.Length; i++)
                         {
-                            Temp += "_"+ValidationDataMatrix[i];
+                            Temp += "_" + ValidationDataMatrix[i];
                         }
                         ValidationDataMatrix = Temp.Split('_');
                     }
 
-                    _ScanSession.Add(new BlankOrderScanSession(true, Temp));
-
-                   if (Added)
+                    if (CheckedUniqueList(Temp))
                     {
-                        if (ValidationDataMatrix[0] != "ПО")
+                        _ScanSession.Add(new BlankOrderScanSession(true, Temp));
+
+                        if (Added)
                         {
-                            if (ValidationDataMatrix[1] != "СЗМК")
+                            if (ValidationDataMatrix[0] != "ПО")
                             {
-                                if (!FindedOrderBlankProvider(ValidationDataMatrix, Temp))
+                                if (ValidationDataMatrix[1] != "СЗМК")
                                 {
-                                    throw new Exception("Ошибка определения чертежей в бланке поставщику");
+                                    if (!FindedOrderBlankProvider(ValidationDataMatrix, Temp))
+                                    {
+                                        throw new Exception("Ошибка определения чертежей в бланке поставщику");
+                                    }
+                                }
+                                else
+                                {
+                                    if (!FindedOrderBlankOrder(ValidationDataMatrix, Temp))
+                                    {
+                                        throw new Exception("Ошибка определения чертежей в бланке заказа");
+                                    }
                                 }
                             }
                             else
                             {
-                                if (!FindedOrderBlankOrder(ValidationDataMatrix, Temp))
+                                if (!FindedOrderCreditOrder(ValidationDataMatrix, Temp))
                                 {
-                                    throw new Exception("Ошибка определения чертежей в бланке заказа");
+                                    throw new Exception("Ошибка определения чертежей в приходном ордере");
                                 }
                             }
                         }
                         else
                         {
-                            if (!FindedOrderCreditOrder(ValidationDataMatrix, Temp))
+                            if (!FindedBlankOrder_OPP(ValidationDataMatrix, Temp))
                             {
-                                throw new Exception("Ошибка определения чертежей в приходном ордере");
+                                throw new Exception("Ошибка определения чертежей в бланке заказа");
                             }
                         }
                     }
-                    else
-                    {
-                        if(!FindedBlankOrder_OPP(ValidationDataMatrix, Temp))
-                        {
-                            throw new Exception("Ошибка определения чертежей в бланке заказа");
-                        }
-                    }
                 }
+                else
+                {
+                    throw new Exception("В QR менее 4 полей");
+                }
+
             }
             catch (Exception E)
             {

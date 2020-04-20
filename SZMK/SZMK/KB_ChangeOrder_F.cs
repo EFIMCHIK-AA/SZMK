@@ -108,5 +108,10 @@ namespace SZMK
                 }
             }
         }
+
+        private void KB_ChangeOrder_F_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

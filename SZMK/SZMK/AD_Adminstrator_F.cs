@@ -571,7 +571,7 @@ namespace SZMK
                     Dialog.Port_TB.Text = SystemArgs.MobileApplication.Port;
 
                     Zen.Barcode.CodeQrBarcodeDraw QrCode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
-                    Dialog.QR_PB.Image = QrCode.Draw($"{MyIP}_{SystemArgs.MobileApplication.Port}", 100);
+                    Dialog.QR_PB.Image = QrCode.Draw($"{MyIP}_{SystemArgs.MobileApplication.Port}_{SystemArgs.DataBase.Name}_{SystemArgs.DataBase.Owner}_{SystemArgs.DataBase.Password}_{SystemArgs.DataBase.IP}_{SystemArgs.DataBase.Port}", 100);
                 }
 
                 if (Dialog.ShowDialog() == DialogResult.OK)

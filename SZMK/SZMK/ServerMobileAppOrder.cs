@@ -113,30 +113,27 @@ namespace SZMK
                                 {
                                     if (CheckedLowerRegistery(ReplaceMark))
                                     {
-                                        _ScanSession.Add(new OrderScanSession(Temp, 2));
+                                        _ScanSession.Add(new OrderScanSession(Temp, 2,"-"));
                                     }
                                     else
                                     {
-                                        _ScanSession.Add(new OrderScanSession(Temp, 0));
-                                        MessageBox.Show($"Наименование марки «{ReplaceMark}» не допускается", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        _ScanSession.Add(new OrderScanSession(Temp, 0, $"Наименование марки «{ReplaceMark}» не допускается"));
                                     }
                                 }
                                 else
                                 {
-                                    _ScanSession.Add(new OrderScanSession(Temp, 2));
+                                    _ScanSession.Add(new OrderScanSession(Temp, 2, "-"));
                                 }
                             }
                             else
                             {
-                                _ScanSession.Add(new OrderScanSession(Temp, 0));
-                                MessageBox.Show($"В заказе {ValidationDataMatrix[0]}, марка {ReplaceMark} уже существует. Чертеж не добавлен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                _ScanSession.Add(new OrderScanSession(Temp, 0, $"В заказе {ValidationDataMatrix[0]}, марка {ReplaceMark} уже существует."));
                             }
 
                             Load?.Invoke(_ScanSession);
                             break;
                         case 1:
-                            _ScanSession.Add(new OrderScanSession(Temp, 0));
-                            MessageBox.Show($"В заказе {ValidationDataMatrix[0]}, номер листа {ValidationDataMatrix[1]} уже существует. Чертеж не добавлен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            _ScanSession.Add(new OrderScanSession(Temp, 0, $"В заказе {ValidationDataMatrix[0]}, номер листа {ValidationDataMatrix[1]} уже существует."));
                             Load?.Invoke(_ScanSession);
                             break;
                         case 2:
@@ -144,17 +141,16 @@ namespace SZMK
                             {
                                 if (CheckedLowerRegistery(ReplaceMark))
                                 {
-                                    _ScanSession.Add(new OrderScanSession(Temp, 2));
+                                    _ScanSession.Add(new OrderScanSession(Temp, 2,"-"));
                                 }
                                 else
                                 {
-                                    _ScanSession.Add(new OrderScanSession(Temp, 0));
-                                    MessageBox.Show($"Наименование марки «{ReplaceMark}» не допускается", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    _ScanSession.Add(new OrderScanSession(Temp, 0, $"Наименование марки «{ReplaceMark}» не допускается"));
                                 }
                             }
                             else
                             {
-                                _ScanSession.Add(new OrderScanSession(Temp, 2));
+                                _ScanSession.Add(new OrderScanSession(Temp, 2, "-"));
                             }
 
                             Load?.Invoke(_ScanSession);
@@ -164,17 +160,16 @@ namespace SZMK
                             {
                                 if (CheckedLowerRegistery(ReplaceMark))
                                 {
-                                    _ScanSession.Add(new OrderScanSession(Temp, 1));
+                                    _ScanSession.Add(new OrderScanSession(Temp, 1,"-"));
                                 }
                                 else
                                 {
-                                    _ScanSession.Add(new OrderScanSession(Temp, 0));
-                                    MessageBox.Show($"Наименование марки «{ReplaceMark}» не допускается", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    _ScanSession.Add(new OrderScanSession(Temp, 0, $"Наименование марки «{ReplaceMark}» не допускается"));
                                 }
                             }
                             else
                             {
-                                _ScanSession.Add(new OrderScanSession(Temp, 1));
+                                _ScanSession.Add(new OrderScanSession(Temp, 1,"-"));
                             }
 
                             Load?.Invoke(_ScanSession);

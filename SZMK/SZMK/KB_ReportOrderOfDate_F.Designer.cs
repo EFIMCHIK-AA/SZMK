@@ -129,7 +129,7 @@
             this.OK_B.Text = "Сформировать";
             this.OK_B.UseVisualStyleBackColor = false;
             // 
-            // KBReportOrderOfDate_F
+            // KB_ReportOrderOfDate_F
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -141,9 +141,10 @@
             this.MaximumSize = new System.Drawing.Size(362, 355);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(362, 355);
-            this.Name = "KBReportOrderOfDate_F";
+            this.Name = "KB_ReportOrderOfDate_F";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Отчет за выбранный период";
+            this.Load += new System.EventHandler(this.KB_ReportOrderOfDate_F_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

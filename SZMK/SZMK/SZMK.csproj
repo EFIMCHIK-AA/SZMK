@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\TeklaOpenAPI.2020.0.2\build\TeklaOpenAPI.props" Condition="Exists('..\packages\TeklaOpenAPI.2020.0.2\build\TeklaOpenAPI.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -90,6 +93,42 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tekla.Application.Library, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\packages\TeklaOpenAPI.2020.0.2\lib\Tekla.Application.Library.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\packages\TeklaOpenAPI.2020.0.2\lib\Tekla.Structures.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures.Analysis, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\packages\TeklaOpenAPI.2020.0.2\lib\Tekla.Structures.Analysis.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures.Catalogs, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\packages\TeklaOpenAPI.2020.0.2\lib\Tekla.Structures.Catalogs.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures.Datatype, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\packages\TeklaOpenAPI.2020.0.2\lib\Tekla.Structures.Datatype.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures.Dialog, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\packages\TeklaOpenAPI.2020.0.2\lib\Tekla.Structures.Dialog.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures.Drawing, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\packages\TeklaOpenAPI.2020.0.2\lib\Tekla.Structures.Drawing.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures.Model, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\packages\TeklaOpenAPI.2020.0.2\lib\Tekla.Structures.Model.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Tekla.Structures.Plugins, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
+      <HintPath>..\packages\TeklaOpenAPI.2020.0.2\lib\Tekla.Structures.Plugins.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Zen.Barcode.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=b5ae55aa76d2d9de, processorArchitecture=MSIL">
       <HintPath>..\packages\Zen.Barcode.Core.2.0.0\lib\net45\Zen.Barcode.Core.dll</HintPath>
     </Reference>
@@ -171,23 +210,11 @@
     <Compile Include="AVT_ChangePassword_F.Designer.cs">
       <DependentUpon>AVT_ChangePassword_F.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chief_PDO_ChangeNumbers_F.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Chief_PDO_ChangeNumbers_F.Designer.cs">
-      <DependentUpon>Chief_PDO_ChangeNumbers_F.cs</DependentUpon>
-    </Compile>
     <Compile Include="Chief_PDO_SelectedColumnDGV_F.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Chief_PDO_SelectedColumnDGV_F.Designer.cs">
       <DependentUpon>Chief_PDO_SelectedColumnDGV_F.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Chief_PDO_ChangedStatuses_F.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Chief_PDO_ChangedStatuses_F.Designer.cs">
-      <DependentUpon>Chief_PDO_ChangedStatuses_F.cs</DependentUpon>
     </Compile>
     <Compile Include="Chief_PDO_ChangeOrder_F.cs">
       <SubType>Form</SubType>
@@ -215,6 +242,36 @@
     <Compile Include="ALL_FormingReportForAllPosition_F.Designer.cs">
       <DependentUpon>ALL_FormingReportForAllPosition_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="Design_Engineer_ChangeOrder_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design_Engineer_ChangeOrder_F.Designer.cs">
+      <DependentUpon>Design_Engineer_ChangeOrder_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design_Engineer_ReportOrderOfDate_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design_Engineer_ReportOrderOfDate_F.Designer.cs">
+      <DependentUpon>Design_Engineer_ReportOrderOfDate_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design_Engineer_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design_Engineer_F.Designer.cs">
+      <DependentUpon>Design_Engineer_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design_Engineer_SelectedColumnDGV_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design_Engineer_SelectedColumnDGV_F.Designer.cs">
+      <DependentUpon>Design_Engineer_SelectedColumnDGV_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design_Engineer_SearchParam_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design_Engineer_SearchParam_F.Designer.cs">
+      <DependentUpon>Design_Engineer_SearchParam_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="KB_ChangeOrder_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +280,12 @@
     </Compile>
     <Compile Include="ClientProgram.cs" />
     <Compile Include="Excel.cs" />
+    <Compile Include="KB_NotAdded_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KB_NotAdded_F.Designer.cs">
+      <DependentUpon>KB_NotAdded_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="KB_ReportOrderOfDate_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -434,6 +497,7 @@
     </Compile>
     <Compile Include="StatusOfOrder.cs" />
     <Compile Include="SystemArgs.cs" />
+    <Compile Include="Tekla.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="UnLoadSpecific.cs" />
     <Compile Include="Updates.cs" />
@@ -474,14 +538,8 @@
     <EmbeddedResource Include="AVT_ChangePassword_F.resx">
       <DependentUpon>AVT_ChangePassword_F.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Chief_PDO_ChangeNumbers_F.resx">
-      <DependentUpon>Chief_PDO_ChangeNumbers_F.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Chief_PDO_SelectedColumnDGV_F.resx">
       <DependentUpon>Chief_PDO_SelectedColumnDGV_F.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Chief_PDO_ChangedStatuses_F.resx">
-      <DependentUpon>Chief_PDO_ChangedStatuses_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Chief_PDO_ChangeOrder_F.resx">
       <DependentUpon>Chief_PDO_ChangeOrder_F.cs</DependentUpon>
@@ -495,8 +553,26 @@
     <EmbeddedResource Include="ALL_FormingReportForAllPosition_F.resx">
       <DependentUpon>ALL_FormingReportForAllPosition_F.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Design_Engineer_ChangeOrder_F.resx">
+      <DependentUpon>Design_Engineer_ChangeOrder_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design_Engineer_F.resx">
+      <DependentUpon>Design_Engineer_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design_Engineer_ReportOrderOfDate_F.resx">
+      <DependentUpon>Design_Engineer_ReportOrderOfDate_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design_Engineer_SearchParam_F.resx">
+      <DependentUpon>Design_Engineer_SearchParam_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design_Engineer_SelectedColumnDGV_F.resx">
+      <DependentUpon>Design_Engineer_SelectedColumnDGV_F.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="KB_ChangeOrder_F.resx">
       <DependentUpon>KB_ChangeOrder_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KB_NotAdded_F.resx">
+      <DependentUpon>KB_NotAdded_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KB_ReportOrderOfDate_F.resx">
       <DependentUpon>KB_ReportOrderOfDate_F.cs</DependentUpon>
@@ -656,4 +732,10 @@
     <None Include="Resources\icons8-создать-новый-401.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\TeklaOpenAPI.2020.0.2\build\TeklaOpenAPI.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\TeklaOpenAPI.2020.0.2\build\TeklaOpenAPI.props'))" />
+  </Target>
 </Project>

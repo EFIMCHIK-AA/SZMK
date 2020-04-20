@@ -7,6 +7,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace SZMK
 {
@@ -254,9 +255,20 @@ namespace SZMK
                                                                  orderby p.DateCreate
                                                                  select p).ToList();
                             WS.Cells[i + rowCntReport + 1, 1].Value = Report[i].Number;
-                            if (Report[i].BlankOrder.QR.Split('_').Length > 3)
+                            String[] NubmerOrder = Report[i].BlankOrder.QR.Split('_');
+
+                            if (NubmerOrder.Length > 1)
                             {
-                                WS.Cells[i + rowCntReport + 1, 2].Value = Report[i].BlankOrder.QR.Split('_')[1];
+                                Regex regex = new Regex(@"\d*-\d*-\d*");
+                                MatchCollection matches = regex.Matches(NubmerOrder[1]);
+                                if (matches.Count > 0)
+                                {
+                                    WS.Cells[i + rowCntReport + 1, 2].Value = NubmerOrder[1];
+                                }
+                                else
+                                {
+                                    WS.Cells[i + rowCntReport + 1, 2].Value = NubmerOrder[2];
+                                }
                             }
                             else
                             {
@@ -344,9 +356,20 @@ namespace SZMK
                                                                  orderby p.DateCreate
                                                                  select p).ToList();
                             WS.Cells[i + rowCntReport + 1, 1].Value = Report[i].Number;
-                            if (Report[i].BlankOrder.QR.Split('_').Length > 3)
+                            String[] NubmerOrder = Report[i].BlankOrder.QR.Split('_');
+
+                            if (NubmerOrder.Length > 1)
                             {
-                                WS.Cells[i + rowCntReport + 1, 2].Value = Report[i].BlankOrder.QR.Split('_')[1];
+                                Regex regex = new Regex(@"\d*-\d*-\d*");
+                                MatchCollection matches = regex.Matches(NubmerOrder[1]);
+                                if (matches.Count > 0)
+                                {
+                                    WS.Cells[i + rowCntReport + 1, 2].Value = NubmerOrder[1];
+                                }
+                                else
+                                {
+                                    WS.Cells[i + rowCntReport + 1, 2].Value = NubmerOrder[2];
+                                }
                             }
                             else
                             {

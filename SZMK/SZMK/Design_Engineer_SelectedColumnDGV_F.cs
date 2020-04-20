@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SZMK
 {
-    public partial class Chief_PDO_ChangeNumbers_F : Form
+    public partial class Design_Engineer_SelectedColumnDGV_F : Form
     {
-        public Chief_PDO_ChangeNumbers_F()
+        public Design_Engineer_SelectedColumnDGV_F()
         {
             InitializeComponent();
         }

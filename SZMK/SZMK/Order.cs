@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SZMK
@@ -22,6 +23,7 @@ namespace SZMK
         private Status _Status;
         private User _User;
         private BlankOrder _BlankOrder;
+        private String _BlankOrderView;
         private Boolean _Canceled;
         private DateTime _StatusDate;
         private Boolean _Finished;
@@ -148,6 +150,24 @@ namespace SZMK
             else
             {
                 throw new Exception("Пустое значение бланка заказа");
+            }
+            String[] Temp = _BlankOrder.QR.Split('_');
+            if (Temp.Length > 1)
+            {
+                Regex regex = new Regex(@"\d*-\d*-\d*");
+                MatchCollection matches = regex.Matches(Temp[1]);
+                if (matches.Count > 0)
+                {
+                    _BlankOrderView = _BlankOrder.QR.Split('_')[1];
+                }
+                else
+                {
+                    _BlankOrderView = _BlankOrder.QR.Split('_')[2];
+                }
+            }
+            else
+            {
+                _BlankOrderView = _BlankOrder.QR;
             }
 
             _Canceled = Canceled;
@@ -364,14 +384,7 @@ namespace SZMK
         {
             get
             {
-                if (_BlankOrder.QR.Split('_').Length >= 4)
-                {
-                    return _BlankOrder.QR.Split('_')[2];
-                }
-                else
-                {
-                    return _BlankOrder.QR;
-                }
+                return _BlankOrderView;
             }
         }
 

@@ -16,5 +16,10 @@ namespace SZMK
         {
             InitializeComponent();
         }
+
+        private void OPP_SelectedColumnDGV_F_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

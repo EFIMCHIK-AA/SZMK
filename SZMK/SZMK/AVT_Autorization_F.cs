@@ -114,6 +114,11 @@ namespace SZMK
                         this.Hide();
                         Administrator.Show();
                         break;
+                    case 10: //Администратор
+                        Design_Engineer_F Design_Engineer = new Design_Engineer_F();
+                        this.Hide();
+                        Design_Engineer.Show();
+                        break;
                     case 2: //КБ
                         KB_F KB = new KB_F();
                         this.Hide();
