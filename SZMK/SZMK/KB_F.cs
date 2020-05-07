@@ -9,6 +9,8 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Reflection;
+using AForge.Video.DirectShow;
+using System.Xml.Linq;
 
 namespace SZMK
 {
@@ -164,129 +166,153 @@ namespace SZMK
         {
             try
             {
-                SystemArgs.ServerMobileAppOrder = new ServerMobileAppOrder();//Сервер мобильного приложения
 
                 Int64 IndexOrder = -1;
 
                 KB_Scan_F Dialog = new KB_Scan_F();
-
-                if (SystemArgs.ServerMobileAppOrder.Start())
+                if (SystemArgs.ClientProgram.UsingWebCam)
                 {
-                    Dialog.ServerStatus_TB.Text = "Запущен";
-                    Dialog.ServerStatus_TB.BackColor = Color.FromArgb(233, 245, 255);
-                    Dialog.Status_TB.AppendText($"Ожидание данных" + Environment.NewLine);
-
-                    if (Dialog.ShowDialog() == DialogResult.OK)
+                    SystemArgs.WebcamScanOrder = new WebcamScanOrder();
+                    if (!SystemArgs.WebcamScanOrder.Start())
                     {
-                        for(int i = 0; i < SystemArgs.ServerMobileAppOrder.GetScanSessions().Count; i++)
-                        {
-                            try
-                            {
-                                if (SystemArgs.ServerMobileAppOrder[i].Unique == 2)
-                                {
-                                    using (var Connect = new NpgsqlConnection(SystemArgs.DataBase.ToString()))
-                                    {
-                                        Connect.Open();
+                        throw new Exception("Ошибка подключения вебкамеры");
+                    }
+                }
+                else
+                {
+                    Dialog.Web_L.Visible = false;
+                    Dialog.ViewWeb_PB.Visible = false;
+                    Dialog.Main_TLP.SetRow(Dialog.Position_L, 2);
+                    Dialog.Main_TLP.SetRow(Dialog.Scan_DGV, 3);
+                    Dialog.Main_TLP.SetRowSpan(Dialog.Scan_DGV, 8);
+                    Dialog.MaximumSize = new Size(Dialog.Width, Dialog.Height - 100);
+                    Dialog.Scan_DGV.Height = Dialog.Scan_DGV.Height - 100;
+                    Dialog.Status_TB.Height = Dialog.Status_TB.Height - 100;
+                    SystemArgs.ServerMobileAppOrder = new ServerMobileAppOrder();//Сервер мобильного приложения
+                    if (!SystemArgs.ServerMobileAppOrder.Start())
+                    {
+                        throw new Exception("Ошибка открытия сервера для получения данных с мобильного приложения");
+                    }
+                }
+                Dialog.ServerStatus_TB.Text = "Запущен";
+                Dialog.ServerStatus_TB.BackColor = Color.FromArgb(233, 245, 255);
+                Dialog.Status_TB.AppendText($"Ожидание данных" + Environment.NewLine);
 
-                                        using (var Command = new NpgsqlCommand($"SELECT last_value FROM \"Orders_ID_seq\"", Connect))
-                                        {
-                                            using (var Reader = Command.ExecuteReader())
-                                            {
-                                                while (Reader.Read())
-                                                {
-                                                    IndexOrder = Reader.GetInt64(0);
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    String[] SplitDataMatrix = SystemArgs.ServerMobileAppOrder[i].DataMatrix.Split('_');
-
-                                    String[] ListCanceled = SplitDataMatrix[1].Split('и');
-
-                                    if (ListCanceled.Length != 1)
-                                    {
-                                        List<Order> CanceledOrders = SystemArgs.Orders.Where(p => (p.List.IndexOf(ListCanceled[0] + "и") == 0 || p.List == ListCanceled[0]) && p.Number == SplitDataMatrix[0]).ToList();
-
-                                        if (CanceledOrders.Count() >= 1)
-                                        {
-                                            for (Int32 j = 0; j < CanceledOrders.Count; j++)
-                                            {
-                                                CanceledOrders[j].Canceled = true;
-                                                SystemArgs.Request.CanceledOrder(CanceledOrders[j]);
-                                            }
-                                        }
-                                    }
-
-                                    BlankOrder TempBlank = new BlankOrder();
-
-                                    Int64 PositionID = SystemArgs.User.GetPosition().ID;
-
-                                    Status TempStatus = (from p in SystemArgs.Statuses
-                                                         where p.IDPosition == PositionID
-                                                         select p).Single();
-
-                                    Order TempOrder = new Order(IndexOrder + 1, SystemArgs.ServerMobileAppOrder[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], "Исполнитель не определен", SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, DateTime.Now, SystemArgs.User, TempBlank, false, false);
-
-                                    if (SystemArgs.Request.InsertOrder(TempOrder))
-                                    {
-                                        SystemArgs.Orders.Add(TempOrder);
-                                        if (!SystemArgs.Request.StatusExist(TempOrder))
-                                        {
-                                            SystemArgs.Request.InsertStatus(TempOrder);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Ошибка при добавлении в базу данных DataMatrix: " + SystemArgs.ServerMobileAppOrder[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    }
-
-                                }
-                                else if (SystemArgs.ServerMobileAppOrder[i].Unique == 1)
-                                {
-                                    String[] SplitDataMatrix = SystemArgs.ServerMobileAppOrder[i].DataMatrix.Split('_');
-                                    Order OldOrder = SystemArgs.Orders.Where(p => p.Number == SplitDataMatrix[0] && p.List == SplitDataMatrix[1]).Single();
-                                    Order UpdateOrder = OldOrder;
-                                    UpdateOrder.DataMatrix = SystemArgs.ServerMobileAppOrder[i].DataMatrix;
-                                    UpdateOrder.Mark = SplitDataMatrix[2];
-                                    UpdateOrder.Executor = SplitDataMatrix[3];
-                                    UpdateOrder.Lenght = Convert.ToDouble(SplitDataMatrix[4]);
-                                    UpdateOrder.Weight = Convert.ToDouble(SplitDataMatrix[5]);
-                                    if (SystemArgs.Request.UpdateOrder(UpdateOrder))
-                                    {
-                                        SystemArgs.Orders.Remove(OldOrder);
-                                        SystemArgs.Orders.Add(UpdateOrder);
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Ошибка при обновлении в базе данных DataMatrix: " + SystemArgs.ServerMobileAppOrder[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    }
-                                }
-                            }
-                            catch(Exception E)
-                            {
-                                SystemArgs.ServerMobileAppOrder[i].Discription = E.Message;
-                                SystemArgs.ServerMobileAppOrder[i].Unique = 0;
-                            }
-
-                        }
-                        List<OrderScanSession> Temp = SystemArgs.ServerMobileAppOrder.GetScanSessions().Where(p => p.Unique == 0).ToList();
-                        if (Temp.Count() > 0)
-                        {
-                            KB_NotAdded_F Report = new KB_NotAdded_F();
-                            Report.Report_DGV.AutoGenerateColumns = false;
-                            Report.Report_DGV.DataSource = Temp;
-                            Report.CountOrder_TB.Text = SystemArgs.ServerMobileAppOrder.GetScanSessions().Count() - Temp.Count() + "/" + SystemArgs.ServerMobileAppOrder.GetScanSessions().Count();
-                            Report.ShowDialog();
-
-                        }
-
-                        return true;
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+                    List<OrderScanSession> ScanSession;
+                    if (SystemArgs.ClientProgram.UsingWebCam)
+                    {
+                        ScanSession = SystemArgs.WebcamScanOrder.GetScanSessions();
                     }
                     else
                     {
-                        return false;
+                        ScanSession = SystemArgs.ServerMobileAppOrder.GetScanSessions();
                     }
+                    for (int i = 0; i < ScanSession.Count; i++)
+                    {
+                        try
+                        {
+                            if (ScanSession[i].Unique == 2)
+                            {
+                                using (var Connect = new NpgsqlConnection(SystemArgs.DataBase.ToString()))
+                                {
+                                    Connect.Open();
+
+                                    using (var Command = new NpgsqlCommand($"SELECT last_value FROM \"Orders_ID_seq\"", Connect))
+                                    {
+                                        using (var Reader = Command.ExecuteReader())
+                                        {
+                                            while (Reader.Read())
+                                            {
+                                                IndexOrder = Reader.GetInt64(0);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                String[] SplitDataMatrix = ScanSession[i].DataMatrix.Split('_');
+
+                                String[] ListCanceled = SplitDataMatrix[1].Split('и');
+
+                                if (ListCanceled.Length != 1)
+                                {
+                                    List<Order> CanceledOrders = SystemArgs.Orders.Where(p => (p.List.IndexOf(ListCanceled[0] + "и") == 0 || p.List == ListCanceled[0]) && p.Number == SplitDataMatrix[0]).ToList();
+
+                                    if (CanceledOrders.Count() >= 1)
+                                    {
+                                        for (Int32 j = 0; j < CanceledOrders.Count; j++)
+                                        {
+                                            CanceledOrders[j].Canceled = true;
+                                            SystemArgs.Request.CanceledOrder(CanceledOrders[j]);
+                                        }
+                                    }
+                                }
+
+                                BlankOrder TempBlank = new BlankOrder();
+
+                                Int64 PositionID = SystemArgs.User.GetPosition().ID;
+
+                                Status TempStatus = (from p in SystemArgs.Statuses
+                                                     where p.IDPosition == PositionID
+                                                     select p).Single();
+
+                                Order TempOrder = new Order(IndexOrder + 1, ScanSession[i].DataMatrix, DateTime.Now, SplitDataMatrix[0], SplitDataMatrix[3], "Исполнитель не определен", SplitDataMatrix[1], SplitDataMatrix[2], Convert.ToDouble(SplitDataMatrix[4]), Convert.ToDouble(SplitDataMatrix[5]), TempStatus, DateTime.Now, SystemArgs.User, TempBlank, false, false);
+
+                                if (SystemArgs.Request.InsertOrder(TempOrder))
+                                {
+                                    SystemArgs.Orders.Add(TempOrder);
+                                    if (!SystemArgs.Request.StatusExist(TempOrder))
+                                    {
+                                        SystemArgs.Request.InsertStatus(TempOrder);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Ошибка при добавлении в базу данных DataMatrix: " + ScanSession[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+
+                            }
+                            else if (ScanSession[i].Unique == 1)
+                            {
+                                String[] SplitDataMatrix = ScanSession[i].DataMatrix.Split('_');
+                                Order OldOrder = SystemArgs.Orders.Where(p => p.Number == SplitDataMatrix[0] && p.List == SplitDataMatrix[1]).Single();
+                                Order UpdateOrder = OldOrder;
+                                UpdateOrder.DataMatrix = ScanSession[i].DataMatrix;
+                                UpdateOrder.Mark = SplitDataMatrix[2];
+                                UpdateOrder.Executor = SplitDataMatrix[3];
+                                UpdateOrder.Lenght = Convert.ToDouble(SplitDataMatrix[4]);
+                                UpdateOrder.Weight = Convert.ToDouble(SplitDataMatrix[5]);
+                                if (SystemArgs.Request.UpdateOrder(UpdateOrder))
+                                {
+                                    SystemArgs.Orders.Remove(OldOrder);
+                                    SystemArgs.Orders.Add(UpdateOrder);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Ошибка при обновлении в базе данных DataMatrix: " + SystemArgs.ServerMobileAppOrder[i].DataMatrix, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                            }
+                        }
+                        catch (Exception E)
+                        {
+                            ScanSession[i].Discription = E.Message;
+                            ScanSession[i].Unique = 0;
+                        }
+
+                    }
+                    List<OrderScanSession> Temp = ScanSession.Where(p => p.Unique == 0).ToList();
+                    if (Temp.Count() > 0)
+                    {
+                        KB_NotAdded_F Report = new KB_NotAdded_F();
+                        Report.Report_DGV.AutoGenerateColumns = false;
+                        Report.Report_DGV.DataSource = Temp;
+                        Report.CountOrder_TB.Text = ScanSession.Count() - Temp.Count() + "/" + ScanSession.Count();
+                        Report.ShowDialog();
+
+                    }
+
+                    return true;
                 }
                 else
                 {
@@ -663,7 +689,7 @@ namespace SZMK
                             List<Order> Order = Result.Where(p => p.ID == item.IDOrder).ToList();
                             if (Order.Count > 0)
                             {
-                                Temp.Add(new Order(Order[0].ID, Order[0].DataMatrix, Order[0].DateCreate, Order[0].Number, Order[0].Executor, Order[0].ExecutorWork, Order[0].List, Order[0].Mark, Order[0].Lenght, Order[0].Weight, Order[0].Status, item.DateCreate, Order[0].User, Order[0].BlankOrder, Order[0].Canceled, Order[0].Finished));
+                                Temp.Add(new Order(Order[0].ID, Order[0].DataMatrix, Order[0].DateCreate, Order[0].Number, Order[0].Executor, Order[0].ExecutorWork, Order[0].List, Order[0].Mark, Order[0].Lenght, Order[0].Weight, Order[0].Status, Order[0].StatusDate, Order[0].User, Order[0].BlankOrder, Order[0].Canceled, Order[0].Finished));
                             }
                         }
                         Result = Temp;
@@ -1284,6 +1310,99 @@ namespace SZMK
             {
                 SystemArgs.PrintLog(E.ToString());
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SettingWebcam_TSM_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                KB_SettingWebcam_F Dialog = new KB_SettingWebcam_F();
+                FilterInfoCollection videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+                if (videoDevices.Count > 0)
+                {
+                    foreach (FilterInfo device in videoDevices)
+                    {
+                        Dialog.WB_LB.Items.Add(device.Name);
+                    }
+                    Dialog.WB_LB.SelectedIndex = 0;
+                }
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+                    XDocument doc = XDocument.Load(SystemArgs.Path.WebCamDevice);
+                    doc.Element("Device").SetValue(videoDevices[Dialog.WB_LB.SelectedIndex].MonikerString);
+                    doc.Save(SystemArgs.Path.WebCamDevice);
+                    MessageBox.Show("Настройки успешно сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch(Exception E)
+            {
+                SystemArgs.PrintLog(E.ToString());
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SettingConfig_TSM_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                KB_SettingConfig_F Dialog = new KB_SettingConfig_F();
+
+                if (SystemArgs.ClientProgram.GetParametersConnect())
+                {
+                    Dialog.ModelsPath_TB.Text = SystemArgs.ClientProgram.ModelsPath;
+                    if (SystemArgs.ClientProgram.UsingWebCam)
+                    {
+                        Dialog.Web_RB.Checked = true;
+                    }
+                    else
+                    {
+                        Dialog.Mobile_RB.Checked = true;
+                    }
+                }
+
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Order_DGV_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            try
+            {
+                if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex < View.Count())
+                {
+                    Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
+                    KB_DetailedInformationOrder_F Dialog = new KB_DetailedInformationOrder_F();
+                    List<StatusOfOrder> Statuses = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == Temp.ID).OrderBy(p => p.DateCreate).ToList();
+                    for (int i = 0; i < Statuses.Count; i++)
+                    {
+                        Dialog.Statuses_DGV.Rows.Add();
+                        Dialog.Statuses_DGV[0, i].Value = SystemArgs.Statuses.Where(p => p.ID == Statuses[i].IDStatus).Select(p => p.Name).Single();
+                        Dialog.Statuses_DGV[1, i].Value = Statuses[i].DateCreate;
+                        User TempUser = SystemArgs.Users.Where(p => p.ID == Statuses[i].IDUser).Single();
+                        Dialog.Statuses_DGV[2, i].Value = TempUser.Surname + " " + TempUser.Name.First() + "." + TempUser.MiddleName.First() + ".";
+                    }
+                    if (Dialog.ShowDialog() == DialogResult.OK)
+                    {
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка получения информации о чертеже", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch(Exception E)
+            {
+                SystemArgs.PrintLog(E.ToString());
+                MessageBox.Show(E.ToString(), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

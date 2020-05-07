@@ -22,18 +22,42 @@ namespace SZMK
             Scan_DGV.AutoGenerateColumns = false;
             Scan_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             SystemArgs.UnLoadSpecific = new UnLoadSpecific();
-            SystemArgs.ServerMobileAppBlankOrder.Load += LoadToDGV;
-            SystemArgs.ServerMobileAppBlankOrder.Status += LoadStatusOperation;
+            if (SystemArgs.ClientProgram.UsingWebCam)
+            {
+                ViewWeb_PB.SizeMode = PictureBoxSizeMode.Zoom;
+                SystemArgs.WebcamScanBlankOrder.LoadResult += LoadToDGV;
+                SystemArgs.WebcamScanBlankOrder.LoadFrame += LoadFrame;
+                SystemArgs.WebcamScanBlankOrder.Status += LoadStatusOperation;
+            }
+            else
+            {
+                SystemArgs.ServerMobileAppBlankOrder.Load += LoadToDGV;
+                SystemArgs.ServerMobileAppBlankOrder.Status += LoadStatusOperation;
+            }
             EnableButton(false);
         }
         private void ClosedServer()
         {
-            if (SystemArgs.ServerMobileAppBlankOrder.Stop())
+            if (SystemArgs.ClientProgram.UsingWebCam)
+            {
+                Status_TB.AppendText($"Выключение камеры" + Environment.NewLine);
+                if (SystemArgs.WebcamScanBlankOrder.Stop())
+                {
+                    SystemArgs.WebcamScanBlankOrder.LoadResult -= LoadToDGV;
+                    SystemArgs.WebcamScanBlankOrder.LoadFrame -= LoadFrame;
+                    SystemArgs.WebcamScanBlankOrder.Status -= LoadStatusOperation;
+                }
+            }
+            else
             {
                 Status_TB.AppendText($"Закрытие сервера" + Environment.NewLine);
-                SystemArgs.ServerMobileAppBlankOrder.Load -= LoadToDGV;
-                SystemArgs.ServerMobileAppBlankOrder.Status -= LoadStatusOperation;
+                if (SystemArgs.ServerMobileAppBlankOrder.Stop())
+                {
+                    SystemArgs.ServerMobileAppBlankOrder.Load -= LoadToDGV;
+                    SystemArgs.ServerMobileAppBlankOrder.Status -= LoadStatusOperation;
+                }
             }
+
         }
         private void LoadToDGV(List<BlankOrderScanSession> ScanSessions)
         {
@@ -84,6 +108,10 @@ namespace SZMK
                     }
                 }
             });
+        }
+        private void LoadFrame(Bitmap Frame)
+        {
+           ViewWeb_PB.Image = Frame;
         }
         private void LoadStatusOperation(String DataMatrix)
         {

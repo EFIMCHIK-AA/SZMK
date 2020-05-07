@@ -24,17 +24,35 @@ namespace SZMK
         {
             Scan_DGV.AutoGenerateColumns = false;
             Scan_DGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            SystemArgs.ServerMobileAppOrder.Load += LoadToDGV;
+            if (SystemArgs.ClientProgram.UsingWebCam)
+            {
+                ViewWeb_PB.SizeMode = PictureBoxSizeMode.Zoom;
+                SystemArgs.WebcamScanOrder.LoadResult += LoadToDGV;
+                SystemArgs.WebcamScanOrder.LoadFrame += LoadFrame;
+            }
+            else
+            {
+                SystemArgs.ServerMobileAppOrder.Load += LoadToDGV;
+            }
             EnableButton(false);
         }
 
         private void CheckedUnloading_TSM_Click(object sender, EventArgs e)
         {
-            if (SystemArgs.ServerMobileAppOrder.GetScanSessions().Count != 0)
+            List<OrderScanSession> Temp;
+            if (SystemArgs.ClientProgram.UsingWebCam)
+            {
+                Temp = SystemArgs.WebcamScanOrder.GetScanSessions();
+            }
+            else
+            {
+                Temp = SystemArgs.ServerMobileAppOrder.GetScanSessions();
+            }
+            if (Temp.Count != 0)
             {
                 try
                 {
-                    if (SystemArgs.UnLoadSpecific.SearchFileUnloading(SystemArgs.ServerMobileAppOrder.GetScanSessions().Select(p => p.DataMatrix).ToList()))
+                    if (SystemArgs.UnLoadSpecific.SearchFileUnloading(Temp.Select(p => p.DataMatrix).ToList()))
                     {
                         if (SystemArgs.UnLoadSpecific.ExecutorMails.Count != 0)
                         {
@@ -63,9 +81,18 @@ namespace SZMK
 
         private void CreateAct_TSM_Click(object sender, EventArgs e)
         {
-            if (SystemArgs.ServerMobileAppOrder.GetScanSessions().Count != 0)
+            List<OrderScanSession> Temp;
+            if (SystemArgs.ClientProgram.UsingWebCam)
             {
-                if (SystemArgs.Excel.CreateAndExportActsKB(SystemArgs.ServerMobileAppOrder.GetScanSessions()))
+                Temp = SystemArgs.WebcamScanOrder.GetScanSessions();
+            }
+            else
+            {
+                Temp = SystemArgs.ServerMobileAppOrder.GetScanSessions();
+            }
+            if (Temp.Count != 0)
+            {
+                if (SystemArgs.Excel.CreateAndExportActsKB(Temp))
                 {
                     MessageBox.Show("Акты успешно сформированы и сохранены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 };
@@ -93,12 +120,29 @@ namespace SZMK
         }
         private void ClosedServer()
         {
-            if (SystemArgs.ServerMobileAppOrder.Stop())
+            if (SystemArgs.ClientProgram.UsingWebCam)
             {
-                Status_TB.AppendText($"Закрытие сервера" + Environment.NewLine);
-                SystemArgs.ServerMobileAppOrder.Load -= LoadToDGV;
+                if (SystemArgs.WebcamScanOrder.Stop())
+                {
+                    Status_TB.AppendText($"Выключение камеры" + Environment.NewLine);
+                    SystemArgs.WebcamScanOrder.LoadResult -= LoadToDGV;
+                    SystemArgs.WebcamScanOrder.LoadFrame -= LoadFrame;
+                }
+            }
+            else
+            {
+                if (SystemArgs.ServerMobileAppOrder.Stop())
+                {
+                    Status_TB.AppendText($"Закрытие сервера" + Environment.NewLine);
+                    SystemArgs.ServerMobileAppOrder.Load -= LoadToDGV;
+                }
             }
         }
+        private void LoadFrame(Bitmap Frame)
+        {
+           ViewWeb_PB.Image = Frame;
+        }
+
         private void LoadToDGV(List<OrderScanSession> ScanSessions)
         {
             Scan_DGV.Invoke((MethodInvoker)delegate ()

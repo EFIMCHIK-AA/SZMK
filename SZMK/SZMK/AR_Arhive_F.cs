@@ -691,7 +691,7 @@ namespace SZMK
                             List<Order> Order = Result.Where(p => p.ID == item.IDOrder).ToList();
                             if (Order.Count > 0)
                             {
-                                Temp.Add(new Order(Order[0].ID, Order[0].DataMatrix, Order[0].DateCreate, Order[0].Number, Order[0].Executor, Order[0].ExecutorWork, Order[0].List, Order[0].Mark, Order[0].Lenght, Order[0].Weight, Order[0].Status, item.DateCreate, Order[0].User, Order[0].BlankOrder, Order[0].Canceled, Order[0].Finished));
+                                Temp.Add(new Order(Order[0].ID, Order[0].DataMatrix, Order[0].DateCreate, Order[0].Number, Order[0].Executor, Order[0].ExecutorWork, Order[0].List, Order[0].Mark, Order[0].Lenght, Order[0].Weight, Order[0].Status, Order[0].StatusDate, Order[0].User, Order[0].BlankOrder, Order[0].Canceled, Order[0].Finished));
                             }
                         }
                         Result = Temp;
@@ -1325,6 +1325,62 @@ namespace SZMK
             {
                 SystemArgs.PrintLog(E.ToString());
                 MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SettingConfig_TSM_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AR_SettingConfig_F Dialog = new AR_SettingConfig_F();
+
+                if (SystemArgs.ClientProgram.GetParametersConnect())
+                {
+                    Dialog.ArchivePath_TB.Text = SystemArgs.ClientProgram.ArchivePath;
+                }
+
+                if (Dialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Order_DGV_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            try
+            {
+                if (Order_DGV.CurrentCell != null && Order_DGV.CurrentCell.RowIndex < View.Count())
+                {
+                    Order Temp = (Order)View[Order_DGV.CurrentCell.RowIndex];
+                    AR_DetailedInformationOrder_F Dialog = new AR_DetailedInformationOrder_F();
+                    List<StatusOfOrder> Statuses = SystemArgs.StatusOfOrders.Where(p => p.IDOrder == Temp.ID).OrderBy(p => p.DateCreate).ToList();
+                    for (int i = 0; i < Statuses.Count; i++)
+                    {
+                        Dialog.Statuses_DGV.Rows.Add();
+                        Dialog.Statuses_DGV[0, i].Value = SystemArgs.Statuses.Where(p => p.ID == Statuses[i].IDStatus).Select(p => p.Name).Single();
+                        Dialog.Statuses_DGV[1, i].Value = Statuses[i].DateCreate;
+                        User TempUser = SystemArgs.Users.Where(p => p.ID == Statuses[i].IDUser).Single();
+                        Dialog.Statuses_DGV[2, i].Value = TempUser.Surname + " " + TempUser.Name.First() + "." + TempUser.MiddleName.First() + ".";
+                    }
+                    if (Dialog.ShowDialog() == DialogResult.OK)
+                    {
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка получения информации о чертеже", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception E)
+            {
+                SystemArgs.PrintLog(E.ToString());
+                MessageBox.Show(E.ToString(), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

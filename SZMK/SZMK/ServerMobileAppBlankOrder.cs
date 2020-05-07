@@ -105,19 +105,24 @@ namespace SZMK
                         {
                             if (ValidationDataMatrix[0] != "ПО")
                             {
-                                if (ValidationDataMatrix[1] != "СЗМК")
+                                if (ValidationDataMatrix[1] != "СЗМК"&& ValidationDataMatrix[0] == "БЗ")
                                 {
                                     if (!FindedOrderBlankProvider(ValidationDataMatrix, Temp))
                                     {
                                         throw new Exception("Ошибка определения чертежей в бланке поставщику");
                                     }
                                 }
-                                else
+                                else if(ValidationDataMatrix[0]=="БЗ")
                                 {
                                     if (!FindedOrderBlankOrder(ValidationDataMatrix, Temp))
                                     {
                                         throw new Exception("Ошибка определения чертежей в бланке заказа");
                                     }
+                                }
+                                else
+                                {
+                                    _ScanSession[_ScanSession.Count - 1].Added = false;
+                                    throw new Exception("Неверный формат бланка заказа");
                                 }
                             }
                             else
@@ -128,12 +133,17 @@ namespace SZMK
                                 }
                             }
                         }
-                        else
+                        else if(ValidationDataMatrix[0] == "БЗ")
                         {
                             if (!FindedBlankOrder_OPP(ValidationDataMatrix, Temp))
                             {
                                 throw new Exception("Ошибка определения чертежей в бланке заказа");
                             }
+                        }
+                        else
+                        {
+                            _ScanSession[_ScanSession.Count - 1].Added = false;
+                            throw new Exception("Неверный формат бланка заказа");
                         }
                     }
                 }

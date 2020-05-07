@@ -26,6 +26,8 @@ namespace SZMK
         static public List<StatusOfOrder> StatusOfOrders; //Общий список всех присвоенных статусов к чертежам
         static public ServerMobileAppOrder ServerMobileAppOrder; //Сервер для получения данных с мобильного ПО чертежей
         static public ServerMobileAppBlankOrder ServerMobileAppBlankOrder; //Сервер для получения данных с мобильного ПО бланков заказов
+        static public WebcamScanOrder WebcamScanOrder; //Класс получения распознования с вебкамеры по чертежам
+        static public WebcamScanBlankOrder WebcamScanBlankOrder; //Класс получения распознования с вебкамеры по чертежам
         static public Excel Excel;//Формирование Актов при добавлении чертежей
         static public UnLoadSpecific UnLoadSpecific;//Проверка выгрузки деталей
         static public List<Status> Statuses;//Общий список возможных статусов

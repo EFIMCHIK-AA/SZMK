@@ -60,16 +60,10 @@
             this.помощьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutProgram_TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.ChangeOrder_TSB = new System.Windows.Forms.ToolStripButton();
-            this.DeleteOrder_TSB = new System.Windows.Forms.ToolStripButton();
-            this.AdvancedSearch_TSB = new System.Windows.Forms.ToolStripButton();
-            this.Reset_TSB = new System.Windows.Forms.ToolStripButton();
-            this.Search_TSB = new System.Windows.Forms.ToolStripButton();
             this.Search_TSTB = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.FilterCB_TSB = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.CanceledOrder_TSB = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Order_DGV = new System.Windows.Forms.DataGridView();
             this.DataMatrix = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -109,7 +103,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.ExecutorWork_TB = new System.Windows.Forms.TextBox();
             this.RefreshStatus_B = new System.Windows.Forms.Button();
-            this.LoadData_PB = new System.Windows.Forms.PictureBox();
             this.SelectedOrder_TB = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.CountOrder_TB = new System.Windows.Forms.TextBox();
@@ -120,6 +113,13 @@
             this.label10 = new System.Windows.Forms.Label();
             this.Finished_TB = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.LoadData_PB = new System.Windows.Forms.PictureBox();
+            this.ChangeOrder_TSB = new System.Windows.Forms.ToolStripButton();
+            this.DeleteOrder_TSB = new System.Windows.Forms.ToolStripButton();
+            this.AdvancedSearch_TSB = new System.Windows.Forms.ToolStripButton();
+            this.Reset_TSB = new System.Windows.Forms.ToolStripButton();
+            this.Search_TSB = new System.Windows.Forms.ToolStripButton();
+            this.CanceledOrder_TSB = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -223,7 +223,7 @@
             // настройкиСтолбцовToolStripMenuItem
             // 
             this.настройкиСтолбцовToolStripMenuItem.Name = "настройкиСтолбцовToolStripMenuItem";
-            this.настройкиСтолбцовToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.настройкиСтолбцовToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.настройкиСтолбцовToolStripMenuItem.Text = "Выбор столбцов";
             this.настройкиСтолбцовToolStripMenuItem.Click += new System.EventHandler(this.SelectedColumn_TSM_Click);
             // 
@@ -268,64 +268,12 @@
             this.toolStrip1.TabIndex = 21;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // ChangeOrder_TSB
-            // 
-            this.ChangeOrder_TSB.Image = global::SZMK.Properties.Resources.icons8_переименовывать_40;
-            this.ChangeOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ChangeOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.ChangeOrder_TSB.Name = "ChangeOrder_TSB";
-            this.ChangeOrder_TSB.Size = new System.Drawing.Size(95, 34);
-            this.ChangeOrder_TSB.Text = "Изменить";
-            this.ChangeOrder_TSB.Click += new System.EventHandler(this.ChangeOrder_TSB_Click);
-            // 
-            // DeleteOrder_TSB
-            // 
-            this.DeleteOrder_TSB.Image = global::SZMK.Properties.Resources.icons8_мусор_40;
-            this.DeleteOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DeleteOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.DeleteOrder_TSB.Name = "DeleteOrder_TSB";
-            this.DeleteOrder_TSB.Size = new System.Drawing.Size(85, 34);
-            this.DeleteOrder_TSB.Text = "Удалить";
-            this.DeleteOrder_TSB.Click += new System.EventHandler(this.DeleteOrder_TSB_Click);
-            // 
-            // AdvancedSearch_TSB
-            // 
-            this.AdvancedSearch_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.AdvancedSearch_TSB.Image = global::SZMK.Properties.Resources.icons8_фильтр_40;
-            this.AdvancedSearch_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AdvancedSearch_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
-            this.AdvancedSearch_TSB.Name = "AdvancedSearch_TSB";
-            this.AdvancedSearch_TSB.Size = new System.Drawing.Size(157, 34);
-            this.AdvancedSearch_TSB.Text = "Расширенный поиск";
-            this.AdvancedSearch_TSB.Click += new System.EventHandler(this.AdvancedSearch_TSB_Click);
-            // 
-            // Reset_TSB
-            // 
-            this.Reset_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.Reset_TSB.Image = global::SZMK.Properties.Resources.icons8_перезапуск_40;
-            this.Reset_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Reset_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
-            this.Reset_TSB.Name = "Reset_TSB";
-            this.Reset_TSB.Size = new System.Drawing.Size(94, 34);
-            this.Reset_TSB.Text = "Сбросить";
-            this.Reset_TSB.Click += new System.EventHandler(this.Reset_TSB_Click);
-            // 
-            // Search_TSB
-            // 
-            this.Search_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.Search_TSB.Image = global::SZMK.Properties.Resources.icons8_поиск_40;
-            this.Search_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Search_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
-            this.Search_TSB.Name = "Search_TSB";
-            this.Search_TSB.Size = new System.Drawing.Size(75, 34);
-            this.Search_TSB.Text = "Найти";
-            this.Search_TSB.Click += new System.EventHandler(this.Search_TSB_Click);
-            // 
             // Search_TSTB
             // 
             this.Search_TSTB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.Search_TSTB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
             this.Search_TSTB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Search_TSTB.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Search_TSTB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
             this.Search_TSTB.Name = "Search_TSTB";
             this.Search_TSTB.Size = new System.Drawing.Size(150, 34);
@@ -355,16 +303,6 @@
             this.toolStripLabel2.Name = "toolStripLabel2";
             this.toolStripLabel2.Size = new System.Drawing.Size(57, 35);
             this.toolStripLabel2.Text = "Показать";
-            // 
-            // CanceledOrder_TSB
-            // 
-            this.CanceledOrder_TSB.Image = global::SZMK.Properties.Resources.Canceled;
-            this.CanceledOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.CanceledOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.CanceledOrder_TSB.Name = "CanceledOrder_TSB";
-            this.CanceledOrder_TSB.Size = new System.Drawing.Size(120, 34);
-            this.CanceledOrder_TSB.Text = "Аннулировать";
-            this.CanceledOrder_TSB.Click += new System.EventHandler(this.CanceledOrder_TSB_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -423,6 +361,7 @@
             this.Order_DGV.Size = new System.Drawing.Size(882, 639);
             this.Order_DGV.TabIndex = 2;
             this.Order_DGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Order_DGV_CellFormatting);
+            this.Order_DGV.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Order_DGV_CellMouseDoubleClick);
             this.Order_DGV.SelectionChanged += new System.EventHandler(this.Order_DGV_SelectionChanged);
             // 
             // DataMatrix
@@ -925,20 +864,6 @@
             this.RefreshStatus_B.UseVisualStyleBackColor = false;
             this.RefreshStatus_B.Click += new System.EventHandler(this.RefreshStatus_B_Click);
             // 
-            // LoadData_PB
-            // 
-            this.LoadData_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.tableLayoutPanel2.SetColumnSpan(this.LoadData_PB, 3);
-            this.LoadData_PB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LoadData_PB.InitialImage = null;
-            this.LoadData_PB.Location = new System.Drawing.Point(3, 535);
-            this.LoadData_PB.Name = "LoadData_PB";
-            this.LoadData_PB.Size = new System.Drawing.Size(388, 70);
-            this.LoadData_PB.TabIndex = 61;
-            this.LoadData_PB.TabStop = false;
-            this.LoadData_PB.Visible = false;
-            this.LoadData_PB.WaitOnLoad = true;
-            // 
             // SelectedOrder_TB
             // 
             this.SelectedOrder_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
@@ -1080,6 +1005,83 @@
             this.label16.Size = new System.Drawing.Size(119, 24);
             this.label16.TabIndex = 67;
             this.label16.Text = "Завершен";
+            // 
+            // LoadData_PB
+            // 
+            this.LoadData_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.tableLayoutPanel2.SetColumnSpan(this.LoadData_PB, 3);
+            this.LoadData_PB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LoadData_PB.InitialImage = null;
+            this.LoadData_PB.Location = new System.Drawing.Point(3, 535);
+            this.LoadData_PB.Name = "LoadData_PB";
+            this.LoadData_PB.Size = new System.Drawing.Size(388, 70);
+            this.LoadData_PB.TabIndex = 61;
+            this.LoadData_PB.TabStop = false;
+            this.LoadData_PB.Visible = false;
+            this.LoadData_PB.WaitOnLoad = true;
+            // 
+            // ChangeOrder_TSB
+            // 
+            this.ChangeOrder_TSB.Image = global::SZMK.Properties.Resources.icons8_переименовывать_40;
+            this.ChangeOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ChangeOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.ChangeOrder_TSB.Name = "ChangeOrder_TSB";
+            this.ChangeOrder_TSB.Size = new System.Drawing.Size(95, 34);
+            this.ChangeOrder_TSB.Text = "Изменить";
+            this.ChangeOrder_TSB.Click += new System.EventHandler(this.ChangeOrder_TSB_Click);
+            // 
+            // DeleteOrder_TSB
+            // 
+            this.DeleteOrder_TSB.Image = global::SZMK.Properties.Resources.icons8_мусор_40;
+            this.DeleteOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DeleteOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.DeleteOrder_TSB.Name = "DeleteOrder_TSB";
+            this.DeleteOrder_TSB.Size = new System.Drawing.Size(85, 34);
+            this.DeleteOrder_TSB.Text = "Удалить";
+            this.DeleteOrder_TSB.Click += new System.EventHandler(this.DeleteOrder_TSB_Click);
+            // 
+            // AdvancedSearch_TSB
+            // 
+            this.AdvancedSearch_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.AdvancedSearch_TSB.Image = global::SZMK.Properties.Resources.icons8_фильтр_40;
+            this.AdvancedSearch_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AdvancedSearch_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
+            this.AdvancedSearch_TSB.Name = "AdvancedSearch_TSB";
+            this.AdvancedSearch_TSB.Size = new System.Drawing.Size(157, 34);
+            this.AdvancedSearch_TSB.Text = "Расширенный поиск";
+            this.AdvancedSearch_TSB.Click += new System.EventHandler(this.AdvancedSearch_TSB_Click);
+            // 
+            // Reset_TSB
+            // 
+            this.Reset_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Reset_TSB.Image = global::SZMK.Properties.Resources.icons8_перезапуск_40;
+            this.Reset_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Reset_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
+            this.Reset_TSB.Name = "Reset_TSB";
+            this.Reset_TSB.Size = new System.Drawing.Size(94, 34);
+            this.Reset_TSB.Text = "Сбросить";
+            this.Reset_TSB.Click += new System.EventHandler(this.Reset_TSB_Click);
+            // 
+            // Search_TSB
+            // 
+            this.Search_TSB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Search_TSB.Image = global::SZMK.Properties.Resources.icons8_поиск_40;
+            this.Search_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Search_TSB.Margin = new System.Windows.Forms.Padding(0, 2, 5, 2);
+            this.Search_TSB.Name = "Search_TSB";
+            this.Search_TSB.Size = new System.Drawing.Size(75, 34);
+            this.Search_TSB.Text = "Найти";
+            this.Search_TSB.Click += new System.EventHandler(this.Search_TSB_Click);
+            // 
+            // CanceledOrder_TSB
+            // 
+            this.CanceledOrder_TSB.Image = global::SZMK.Properties.Resources.Canceled;
+            this.CanceledOrder_TSB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CanceledOrder_TSB.Margin = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.CanceledOrder_TSB.Name = "CanceledOrder_TSB";
+            this.CanceledOrder_TSB.Size = new System.Drawing.Size(120, 34);
+            this.CanceledOrder_TSB.Text = "Аннулировать";
+            this.CanceledOrder_TSB.Click += new System.EventHandler(this.CanceledOrder_TSB_Click);
             // 
             // Chief_PDO_F
             // 

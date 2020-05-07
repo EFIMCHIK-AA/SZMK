@@ -39,6 +39,15 @@
     <ApplicationIcon>Значек приложения.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.2.2.5\lib\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
     <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.5.3.2\lib\net40\EPPlus.dll</HintPath>
     </Reference>
@@ -129,8 +138,15 @@
       <HintPath>..\packages\TeklaOpenAPI.2020.0.2\lib\Tekla.Structures.Plugins.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="WindowsBase" />
     <Reference Include="Zen.Barcode.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=b5ae55aa76d2d9de, processorArchitecture=MSIL">
       <HintPath>..\packages\Zen.Barcode.Core.2.0.0\lib\net45\Zen.Barcode.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing, Version=0.16.5.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.5\lib\net47\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.5.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.5\lib\net47\zxing.presentation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +187,12 @@
     <Compile Include="AR_Decode_F.Designer.cs">
       <DependentUpon>AR_Decode_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="AR_DetailedInformationOrder_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AR_DetailedInformationOrder_F.Designer.cs">
+      <DependentUpon>AR_DetailedInformationOrder_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="AR_NotDecode_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,6 +223,12 @@
     <Compile Include="AR_SelectedColumnDGV_F.Designer.cs">
       <DependentUpon>AR_SelectedColumnDGV_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="AR_SettingConfig_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AR_SettingConfig_F.Designer.cs">
+      <DependentUpon>AR_SettingConfig_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="BlankOrderOfOrder.cs" />
     <Compile Include="BlankOrderScanSession.cs" />
     <Compile Include="ByteScout.cs" />
@@ -209,6 +237,12 @@
     </Compile>
     <Compile Include="AVT_ChangePassword_F.Designer.cs">
       <DependentUpon>AVT_ChangePassword_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chief_PDO_DetailedInformationOrder_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chief_PDO_DetailedInformationOrder_F.Designer.cs">
+      <DependentUpon>Chief_PDO_DetailedInformationOrder_F.cs</DependentUpon>
     </Compile>
     <Compile Include="Chief_PDO_SelectedColumnDGV_F.cs">
       <SubType>Form</SubType>
@@ -280,6 +314,12 @@
     </Compile>
     <Compile Include="ClientProgram.cs" />
     <Compile Include="Excel.cs" />
+    <Compile Include="KB_DetailedInformationOrder_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KB_DetailedInformationOrder_F.Designer.cs">
+      <DependentUpon>KB_DetailedInformationOrder_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="KB_NotAdded_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -322,6 +362,18 @@
     <Compile Include="KB_SelectedColumnDGV_F.Designer.cs">
       <DependentUpon>KB_SelectedColumnDGV_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="KB_SettingConfig_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KB_SettingConfig_F.Designer.cs">
+      <DependentUpon>KB_SettingConfig_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KB_SettingWebcam_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KB_SettingWebcam_F.Designer.cs">
+      <DependentUpon>KB_SettingWebcam_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="Load_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -333,6 +385,12 @@
     </Compile>
     <Compile Include="OPP_ChangeOrder_F.Designer.cs">
       <DependentUpon>OPP_ChangeOrder_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OPP_DetailedInformationOrder_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OPP_DetailedInformationOrder_F.Designer.cs">
+      <DependentUpon>OPP_DetailedInformationOrder_F.cs</DependentUpon>
     </Compile>
     <Compile Include="OPP_ReportOrderOfDate_F.cs">
       <SubType>Form</SubType>
@@ -364,12 +422,30 @@
     <Compile Include="OPP_SelectedColumnDGV_F.Designer.cs">
       <DependentUpon>OPP_SelectedColumnDGV_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="OPP_SettingConfig_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OPP_SettingConfig_F.Designer.cs">
+      <DependentUpon>OPP_SettingConfig_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OPP_SettingWebcam_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OPP_SettingWebcam_F.Designer.cs">
+      <DependentUpon>OPP_SettingWebcam_F.cs</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs" />
     <Compile Include="PDO_ChangeOrder_F.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PDO_ChangeOrder_F.Designer.cs">
       <DependentUpon>PDO_ChangeOrder_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PDO_DetailedInformationOrder_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PDO_DetailedInformationOrder_F.Designer.cs">
+      <DependentUpon>PDO_DetailedInformationOrder_F.cs</DependentUpon>
     </Compile>
     <Compile Include="PDO_ReportOrderOfDate_F.cs">
       <SubType>Form</SubType>
@@ -400,6 +476,18 @@
     </Compile>
     <Compile Include="PDO_SelectedColumnDGV_F.Designer.cs">
       <DependentUpon>PDO_SelectedColumnDGV_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PDO_SettingConfig_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PDO_SettingConfig_F.Designer.cs">
+      <DependentUpon>PDO_SettingConfig_F.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PDO_SettingWebcam_F.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PDO_SettingWebcam_F.Designer.cs">
+      <DependentUpon>PDO_SettingWebcam_F.cs</DependentUpon>
     </Compile>
     <Compile Include="Request.cs" />
     <Compile Include="BlankOrder.cs" />
@@ -502,6 +590,8 @@
     <Compile Include="UnLoadSpecific.cs" />
     <Compile Include="Updates.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="WebcamScanBlankOrder.cs" />
+    <Compile Include="WebcamScanOrder.cs" />
     <EmbeddedResource Include="ALL_AboutProgram_F.resx">
       <DependentUpon>ALL_AboutProgram_F.cs</DependentUpon>
     </EmbeddedResource>
@@ -520,6 +610,9 @@
     <EmbeddedResource Include="AR_Decode_F.resx">
       <DependentUpon>AR_Decode_F.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AR_DetailedInformationOrder_F.resx">
+      <DependentUpon>AR_DetailedInformationOrder_F.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AR_NotDecode_F.resx">
       <DependentUpon>AR_NotDecode_F.cs</DependentUpon>
     </EmbeddedResource>
@@ -535,8 +628,14 @@
     <EmbeddedResource Include="AR_SelectedColumnDGV_F.resx">
       <DependentUpon>AR_SelectedColumnDGV_F.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AR_SettingConfig_F.resx">
+      <DependentUpon>AR_SettingConfig_F.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AVT_ChangePassword_F.resx">
       <DependentUpon>AVT_ChangePassword_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chief_PDO_DetailedInformationOrder_F.resx">
+      <DependentUpon>Chief_PDO_DetailedInformationOrder_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Chief_PDO_SelectedColumnDGV_F.resx">
       <DependentUpon>Chief_PDO_SelectedColumnDGV_F.cs</DependentUpon>
@@ -571,6 +670,9 @@
     <EmbeddedResource Include="KB_ChangeOrder_F.resx">
       <DependentUpon>KB_ChangeOrder_F.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="KB_DetailedInformationOrder_F.resx">
+      <DependentUpon>KB_DetailedInformationOrder_F.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="KB_NotAdded_F.resx">
       <DependentUpon>KB_NotAdded_F.cs</DependentUpon>
     </EmbeddedResource>
@@ -591,6 +693,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KB_SelectedColumnDGV_F.resx">
       <DependentUpon>KB_SelectedColumnDGV_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KB_SettingConfig_F.resx">
+      <DependentUpon>KB_SettingConfig_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KB_SettingWebcam_F.resx">
+      <DependentUpon>KB_SettingWebcam_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Load_F.resx">
       <DependentUpon>Load_F.cs</DependentUpon>
@@ -613,6 +721,9 @@
     <EmbeddedResource Include="OPP_ChangeOrder_F.resx">
       <DependentUpon>OPP_ChangeOrder_F.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OPP_DetailedInformationOrder_F.resx">
+      <DependentUpon>OPP_DetailedInformationOrder_F.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OPP_ReportOrderOfDate_F.resx">
       <DependentUpon>OPP_ReportOrderOfDate_F.cs</DependentUpon>
     </EmbeddedResource>
@@ -628,8 +739,17 @@
     <EmbeddedResource Include="OPP_SelectedColumnDGV_F.resx">
       <DependentUpon>OPP_SelectedColumnDGV_F.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OPP_SettingConfig_F.resx">
+      <DependentUpon>OPP_SettingConfig_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OPP_SettingWebcam_F.resx">
+      <DependentUpon>OPP_SettingWebcam_F.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PDO_ChangeOrder_F.resx">
       <DependentUpon>PDO_ChangeOrder_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PDO_DetailedInformationOrder_F.resx">
+      <DependentUpon>PDO_DetailedInformationOrder_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PDO_ReportOrderOfDate_F.resx">
       <DependentUpon>PDO_ReportOrderOfDate_F.cs</DependentUpon>
@@ -645,6 +765,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PDO_SelectedColumnDGV_F.resx">
       <DependentUpon>PDO_SelectedColumnDGV_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PDO_SettingConfig_F.resx">
+      <DependentUpon>PDO_SettingConfig_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PDO_SettingWebcam_F.resx">
+      <DependentUpon>PDO_SettingWebcam_F.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

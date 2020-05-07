@@ -18,48 +18,10 @@ namespace SZMK
             InitializeComponent();
         }
 
-        private void ReviewArchive_B_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog Ofd = new FolderBrowserDialog();
-
-            if (Ofd.ShowDialog() == DialogResult.OK)
-            {
-                ArchivePath_TB.Text = Ofd.SelectedPath;
-            }
-        }
-
         private void SaveArchive_B_Click(object sender, EventArgs e)
         {
             try
             {
-
-                if (String.IsNullOrEmpty(ArchivePath_TB.Text))
-                {
-                    ArchivePath_TB.Focus();
-                    throw new Exception("Необходимо указать директорию архива");
-                }
-
-                if (String.IsNullOrEmpty(ModelsPath_TB.Text))
-                {
-                    ModelsPath_TB.Focus();
-                    throw new Exception("Необходимо указать директорию выгрузки");
-                }
-
-                if (!Directory.Exists(ArchivePath_TB.Text.Trim()))
-                {
-                    ArchivePath_TB.Focus();
-                    throw new Exception("Указанная дирекория архива не существует");
-                }
-
-                if (!Directory.Exists(ModelsPath_TB.Text.Trim()))
-                {
-                    ModelsPath_TB.Focus();
-                    throw new Exception("Указанная дирекория выгрузки не существует");
-                }
-
-                SystemArgs.ClientProgram.ArchivePath = ArchivePath_TB.Text.Trim();
-                SystemArgs.ClientProgram.ModelsPath = ModelsPath_TB.Text.Trim();
-
                 if(CheckMarks_CB.Checked)
                 {
                     SystemArgs.ClientProgram.CheckMarks = true;
@@ -87,14 +49,14 @@ namespace SZMK
             }
         }
 
-        private void ReviewModels_B_Click(object sender, EventArgs e)
+        private void OK_B_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog Ofd = new FolderBrowserDialog();
 
-            if (Ofd.ShowDialog() == DialogResult.OK)
-            {
-                ModelsPath_TB.Text = Ofd.SelectedPath;
-            }
+        }
+
+        private void AD_SettingsProgram_F_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

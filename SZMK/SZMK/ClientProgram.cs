@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SZMK
 {
@@ -13,6 +14,7 @@ namespace SZMK
         private String _ModelsPath;
         private Boolean _CheckMarks;
         private (Int32, Int32) _VisualRow; // (n1,n2)
+        private Boolean _UsingWebCam;
 
         public ClientProgram()
         {
@@ -37,6 +39,11 @@ namespace SZMK
                 }
 
                 if (!File.Exists(SystemArgs.Path.CheckMarksPath))
+                {
+                    throw new Exception();
+                }
+
+                if (!File.Exists(SystemArgs.Path.ConfigProgram))
                 {
                     throw new Exception();
                 }
@@ -69,6 +76,16 @@ namespace SZMK
                 {
                     _VisualRow.Item1 = Convert.ToInt32(sr.ReadLine()); // n1
                     _VisualRow.Item2 = Convert.ToInt32(sr.ReadLine()); // n2
+                }
+
+                XDocument doc = XDocument.Load(SystemArgs.Path.ConfigProgram);
+                if (doc.Element("Program").Element("UsingWebCam").Value == "True")
+                {
+                    _UsingWebCam = true;
+                }
+                else
+                {
+                    _UsingWebCam = false;
                 }
 
                 return true;
@@ -138,6 +155,10 @@ namespace SZMK
                     sw.WriteLine(_VisualRow.Item1);// n1
                     sw.WriteLine(_VisualRow.Item2);// n2
                 }
+
+                XDocument doc = XDocument.Load(SystemArgs.Path.ConfigProgram);
+                doc.Element("Program").Element("UsingWebCam").SetValue(_UsingWebCam.ToString());
+                doc.Save(SystemArgs.Path.ConfigProgram);
 
                 return true;
             }
@@ -230,6 +251,17 @@ namespace SZMK
             set
             {
                 _VisualRow.Item2 = value;
+            }
+        }
+        public Boolean UsingWebCam
+        {
+            get
+            {
+                return _UsingWebCam;
+            }
+            set
+            {
+                _UsingWebCam = value;
             }
         }
     }

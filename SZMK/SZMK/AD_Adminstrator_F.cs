@@ -619,8 +619,6 @@ namespace SZMK
 
                 if (SystemArgs.ClientProgram.GetParametersConnect())
                 {
-                    Dialog.ArchivePath_TB.Text = SystemArgs.ClientProgram.ArchivePath;
-                    Dialog.ModelsPath_TB.Text = SystemArgs.ClientProgram.ModelsPath;
                     Dialog.CheckMarks_CB.Checked = SystemArgs.ClientProgram.CheckMarks;
                     Dialog.N1_NUD.Value = SystemArgs.ClientProgram.VisualRow_N1;
                     Dialog.N2_NUD.Value = SystemArgs.ClientProgram.VisualRow_N2;

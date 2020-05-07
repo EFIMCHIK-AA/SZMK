@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Program>
-  <CurretVersion>2.6.7</CurretVersion>
-  <DateCurret>21.04.2020</DateCurret>
+  <CurretVersion>2.6.8</CurretVersion>
+  <DateCurret>05.05.2020</DateCurret>
   <Updates>
+	<Update>
+	<Version>2.6.8</Version>
+	<Date>05.05.2020</Date>
+	<Added>
+		<Item>Сканирование чертежей при помощи вебкамеры</Item>
+		<Item>При двойном щелчке по чертежу выводится информация о всех перемещениях данного чертежа</Item>
+		<Item>Настройки конфигурации, выбор вебкамеры перемещеные к конечным пользователям, выбор сканирования производится во вкладке настройки -> конфигурация</Item>
+	</Added>
+	<Deleted>
+		<Item>Отображение даты искомого статуса при расширенном поиске</Item>
+	</Deleted>
+	</Update>
   	<Update>
 	<Version>2.6.7</Version>
 	<Date>21.04.2020</Date>
